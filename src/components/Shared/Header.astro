@@ -1,11 +1,8 @@
 ---
 const MENU_ITEMS = [
-    { id: "1", title: "Home", path: "/" },
-    { id: "2", title: "Video", path: "/video" },
-    { id: "3", title: "2D/3D Animations", path: "/animation" },
-    { id: "4", title: "Pricing", path: "/pricing" },
-    { id: "5", title: "Blogs", path: "/blogs" },
-    { id: "6", title: "Branding", path: "/branding" },
+    { id: "1", title: "Video", path: "/video" },
+    { id: "2", title: "2D/3D Animations", path: "/animation" },
+    { id: "3", title: "Branding", path: "/branding" },
 ];
 ---
 
@@ -15,11 +12,12 @@ const MENU_ITEMS = [
         <!-- background -->
         <div id="header-bg" class="pointer-events-none absolute inset-x-0 top-0 h-full transition-all duration-300"></div>
 
-        <div class="relative mx-auto max-w-[1200px] flex items-center justify-between gap-3">
+        <!-- Full desktop header (your original layout) -->
+        <div id="fullHeader" class="relative mx-auto max-w-[1200px] hidden lg:flex items-center justify-between gap-3">
 
             <!-- Logo -->
             <a href="/" class="relative z-50">
-                <img src="/logo.png" class="h-12 sm:h-14 lg:h-[72px] object-contain" />
+                <img src="/logo.png" class="h-12 sm:h-14 lg:h-[72px] object-contain" alt="EyesOn logo" />
             </a>
 
             <!-- Desktop menu -->
@@ -35,48 +33,74 @@ const MENU_ITEMS = [
             <button class="hidden lg:block px-8 py-3 rounded-full text-white font-semibold bg-[#0B1F2A] border border-cyan-300/70 shadow-[0_0_50px_rgba(45,220,255,0.35)]">
                 Book a Call
             </button>
+        </div>
 
-            <!-- mobile button -->
-            <button id="menuBtn" class="lg:hidden h-10 w-10 rounded-xl border border-white/20 bg-white/10 flex flex-col justify-center items-center gap-1.5">
-                <span class="bar w-5 h-0.5 bg-white"></span>
-                <span class="bar w-4 h-0.5 bg-white"></span>
-                <span class="bar w-5 h-0.5 bg-white"></span>
+        <!-- Compact header (mobile always) -->
+        <div id="compactHeaderMobile" class="relative mx-auto max-w-[1200px] flex lg:hidden items-center justify-between rounded-full border border-[#3AAFC8]/35 bg-[#03111C]/90 px-4 py-3 shadow-[0_0_28px_rgba(18,172,181,0.2)] backdrop-blur-xl sm:px-6">
+            <a href="/" class="relative z-50">
+                <img src="/logo.png" class="h-10 sm:h-11 object-contain" alt="EyesOn logo" />
+            </a>
+
+            <button class="rounded-full px-4 py-2 text-sm font-semibold text-white bg-linear-to-r from-[#00A9BD] to-[#1D553A] shadow-[0_0_22px_rgba(0,169,189,0.45)] sm:px-7 sm:py-2.5">
+                Get free sample
             </button>
 
+            <button class="menuBtn h-10 w-10 rounded-full border border-[#3AAFC8]/40 bg-[#07202B] flex flex-col justify-center items-center gap-1.5">
+                <span class="bar w-4 h-0.5 bg-[#45D4E8]"></span>
+                <span class="bar w-5 h-0.5 bg-[#45D4E8]"></span>
+                <span class="bar w-4 h-0.5 bg-[#45D4E8]"></span>
+            </button>
         </div>
+
     </div>
 
-    <!-- MOBILE MENU -->
-    <div id="mobileMenu" class="lg:hidden fixed inset-0 z-40 opacity-0 pointer-events-none transition">
-        <div id="backdrop" class="absolute inset-0 bg-black/50"></div>
+    <!-- MENU PANEL -->
+    <div id="mobileMenu" class="fixed inset-0 z-[60] opacity-0 pointer-events-none transition">
+        <div id="backdrop" class="absolute inset-0 bg-black/55"></div>
 
-        <div id="panel" class="absolute right-0 top-0 h-screen w-[88%] max-w-[360px] bg-[#041118]/90 backdrop-blur-xl transform translate-x-full transition-transform duration-300">
+        <div id="panel" class="absolute right-0 top-0 h-screen w-[92%] max-w-[380px] border-l border-[#3AAFC8]/25 bg-[#020915] backdrop-blur-xl transform translate-x-full transition-transform duration-300">
+            <div class="flex h-full flex-col px-4 pb-5 pt-6">
+                <div class="mb-10 flex items-center justify-between">
+                    <a href="/" class="relative z-50">
+                        <img src="/logo.png" class="h-10 object-contain" alt="EyesOn logo" />
+                    </a>
+                    <button id="closeMenuBtn" class="h-10 w-10 rounded-full border border-[#3AAFC8]/40 bg-[#071D29] text-[#45D4E8] text-2xl leading-none">
+                        ×
+                    </button>
+                </div>
 
-            <div class="pt-24 px-4 space-y-3">
-                {MENU_ITEMS.map((item) => (
-                        <a href={item.path} class="block px-4 py-3 rounded-xl bg-white/5 text-white">
+                <div class="space-y-4 text-left text-[34px] font-semibold leading-tight text-white">
+                    {MENU_ITEMS.map((item) => (
+                        <a href={item.path} class="block menu-link text-lg">
                             {item.title}
                         </a>
-                ))}
-            </div>
+                    ))}
+                </div>
 
-            <div class="mt-6 px-4">
-                <button class="w-full rounded-xl bg-white text-black py-3 font-bold">
-                    Book a Call
-                </button>
+                <div class="mt-auto grid grid-cols-2 gap-3 pt-6">
+                    <button class="rounded-full border border-[#3AAFC8]/45 bg-[#041827] px-3 py-3 font-semibold text-white">
+                        Book a call
+                    </button>
+                    <button class="rounded-full bg-linear-to-r from-[#00A9BD] to-[#1D553A] px-3 py-3 font-semibold text-white shadow-[0_0_20px_rgba(0,169,189,0.35)]">
+                        Get free sample
+                    </button>
+                </div>
             </div>
-
         </div>
     </div>
 </header>
 
 <!-- SCRIPT -->
 <script is:inline>
-    const menuBtn = document.getElementById("menuBtn");
+    const menuBtns = document.querySelectorAll(".menuBtn");
     const mobileMenu = document.getElementById("mobileMenu");
     const panel = document.getElementById("panel");
     const backdrop = document.getElementById("backdrop");
     const headerBg = document.getElementById("header-bg");
+    const closeMenuBtn = document.getElementById("closeMenuBtn");
+    const fullHeader = document.getElementById("fullHeader");
+    const menuLinks = document.querySelectorAll(".menu-link");
+    const desktopQuery = window.matchMedia("(min-width: 1024px)");
 
     let open = false;
 
@@ -94,12 +118,20 @@ const MENU_ITEMS = [
         }
     }
 
-    menuBtn?.addEventListener("click", () => setOpen(!open));
+    menuBtns.forEach((button) => button.addEventListener("click", () => setOpen(!open)));
+    closeMenuBtn?.addEventListener("click", () => setOpen(false));
     backdrop?.addEventListener("click", () => setOpen(false));
+    menuLinks.forEach((link) => link.addEventListener("click", () => setOpen(false)));
 
-    // scroll effect (replace useEffect)
-    function onScroll() {
-        const scrolled = window.scrollY > 8;
+    function updateHeaderMode() {
+        const scrolled = window.scrollY > 12;
+        const isDesktop = desktopQuery.matches;
+
+        // Desktop always uses the full header; only the background changes on scroll.
+        if (isDesktop) {
+            fullHeader?.classList.remove("hidden");
+            fullHeader?.classList.add("lg:flex");
+        }
 
         if (scrolled) {
             headerBg.className =
@@ -110,6 +142,8 @@ const MENU_ITEMS = [
         }
     }
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+    window.addEventListener("scroll", updateHeaderMode, { passive: true });
+    window.addEventListener("resize", updateHeaderMode);
+    desktopQuery.addEventListener("change", updateHeaderMode);
+    updateHeaderMode();
 </script>
