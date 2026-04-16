@@ -1,0 +1,122 @@
+---
+type Logo = { src: string; alt: string };
+
+type Props = {
+  tagline?: string;
+  logos?: Logo[];
+};
+
+const {
+  tagline = "Trusted by forward-thinking SaaS & AI teams worldwide",
+  logos = [
+    { src: "/obvi.png", alt: "Obvi" },
+    { src: "/trueclassic.png", alt: "True Classic" },
+    { src: "/obvi.png", alt: "Obvi" },
+    { src: "/trueclassic.png", alt: "True Classic" },
+    { src: "/obvi.png", alt: "Obvi" },
+    { src: "/trueclassic.png", alt: "True Classic" },
+    { src: "/obvi.png", alt: "Obvi" },
+  ],
+} = Astro.props as Props;
+
+const loopLogos = [...logos, ...logos];
+---
+
+<section class="relative flex flex-col items-center gap-8 overflow-hidden py-20">
+  <p class="text-center text-sm tracking-wide text-gray-500">{tagline}</p>
+
+  <!-- Mobile: infinite marquee -->
+  <div class="logo-mask w-full px-4 opacity-80 md:hidden" aria-label="Brand logos">
+    <div class="logo-scroll flex w-max items-center">
+      {loopLogos.map((logo, index) => (
+        <div class="logo-slot" key={`${logo.alt}-${index}`}>
+          <div class="logo-item">
+            <img
+              src={logo.src}
+              alt={logo.alt}
+              width="220"
+              height="88"
+              loading="lazy"
+              decoding="async"
+              class="logo-img h-16 w-full object-contain"
+            />
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Desktop: static grid (no animation) -->
+  <div class="hidden w-full flex-wrap items-center justify-center gap-16 px-6 opacity-80 md:flex" aria-label="Brand logos">
+    {logos.map((logo, index) => (
+      <div class="logo-item" key={`${logo.alt}-${index}`}>
+        <img
+          src={logo.src}
+          alt={logo.alt}
+          width="500"
+          height="128"
+          loading="lazy"
+          decoding="async"
+          class="logo-img h-20 w-auto object-contain"
+        />
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  /* Infinite marquee (mobile only) */
+  .logo-mask {
+    --logo-visible-count: 3;
+    --logo-gap: 1.25rem;
+    overflow: hidden;
+  }
+
+  .logo-scroll {
+    animation: logo-scroll 24s linear infinite;
+    will-change: transform;
+  }
+
+  .logo-slot {
+    flex: 0 0 calc(100vw / var(--logo-visible-count));
+    padding-inline: calc(var(--logo-gap) / 2);
+  }
+
+  .logo-img {
+    filter: grayscale(100%);
+    opacity: 0.7;
+    transition:
+      filter 0.3s ease,
+      transform 0.3s ease,
+      opacity 0.3s ease;
+  }
+
+  .logo-item:hover .logo-img {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.08);
+  }
+
+  @keyframes logo-scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logo-scroll {
+      animation: none;
+      transform: translateX(0);
+    }
+  }
+
+  @media (min-width: 640px) {
+    .logo-mask {
+      --logo-gap: 1.5rem;
+    }
+  }
+</style>
+

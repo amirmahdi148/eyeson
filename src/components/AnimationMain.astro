@@ -1,0 +1,46 @@
+---
+import AnimationBackground from "./AnimationBackground.astro";
+import StarBackground from "../islands/StarBackground";
+import AnimationsHero from "../islands/animations/AnimationsHero";
+import AnimationProcessSection from "../islands/animations/AnimationProcessSection";
+import AnimationStyleComparisonSection from "../islands/animations/AnimationStyleComparisonSection";
+import AnimationWorkflowSection from "../islands/animations/AnimationWorkflowSection";
+import CaseStudiesSection from "../islands/CaseStudiesSection";
+import ContactUs from "../islands/ContactUs";
+import CostVideo from "./Shared/CostVideo.astro";
+import QandASection from "../components/Shared/QandASection.astro";
+import IndustriesServeSection from "../islands/animations/IndustriesServeSection";
+import VideoWorkShowcaseSection from "../islands/Shared/VideoWorkShowcaseSection";
+import FeaturesSection from "./Shared/FeaturesSection.astro";
+import LogoCaro from "./Shared/LogoCaro.astro";
+import AnimationNeedsBlock from "../islands/animations/AnimationNeedsBlock";
+---
+
+<div class="animations-page-mobile relative w-full overflow-x-hidden">
+  <StarBackground client:load />
+  <AnimationBackground />
+
+  <AnimationsHero client:load />
+  <LogoCaro />
+  <FeaturesSection
+    title="Excellence in stress-free"
+    highlight="2D/3D Animation Production"
+    description="Years of refining our animation workflow allow us to deliver smooth, predictable, and stress-free projects. We make collaboration easy, timelines clear, and results consistently high-quality."
+  />
+  <AnimationNeedsBlock client:load />
+  <IndustriesServeSection client:load />
+  <AnimationProcessSection client:load />
+  <AnimationWorkflowSection client:load />
+  <VideoWorkShowcaseSection
+    client:load
+    eyebrow="OUR WORK"
+    title="Elevate your brand through"
+    highlight="2D & 3D ANIMATION"
+    description="Captivate your audience and stand out from the competition with high-quality 2D and 3D animations designed to communicate clearly and leave a lasting impression."
+  />
+  <AnimationStyleComparisonSection client:load />
+  <CaseStudiesSection client:load />
+  <CostVideo />
+  <QandASection />
+  <ContactUs client:load />
+</div>

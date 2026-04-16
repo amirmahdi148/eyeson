@@ -1,0 +1,49 @@
+---
+import {Youtube , Phone , Instagram} from "lucide-react";
+
+
+---
+
+<div class="flex flex-col gap-8 md:gap-10 max-w-xs md:max-w-sm">
+
+    <!-- email signup -->
+    <div class="flex flex-col gap-4">
+
+        <h2 class="text-xl font-semibold text-[#46B6A0]">
+            STAY UPDATED
+        </h2>
+
+        <div class="flex bg-white/5 rounded-xl p-3 md:p-4 gap-2 items-center">
+
+            <input
+                    id="emailInput"
+                    type="email"
+                    placeholder="Your Email"
+                    class="flex-1 bg-transparent border-none outline-none text-white placeholder:text-gray-400 text-sm md:text-base"
+            />
+
+            <button id="submitEmail" class="text-white hover:text-[#46B6A0] transition-colors">
+                ➜
+            </button>
+
+        </div>
+
+        <a
+                href="/privacy"
+                class="text-sm md:text-base underline decoration-white underline-offset-2 hover:text-[#46B6A0] transition-colors"
+        >
+            Privacy Policy
+        </a>
+
+    </div>
+w
+    <!-- socials -->
+    <div class="flex gap-5">
+
+        <a href="#" class="text-white text-2xl hover:text-red-500 transition"><Youtube size={35} client:load/></a>
+        <a href="#" class="text-white text-2xl hover:text-[#46B6A0] transition "><Phone size={32} client:load/></a>
+        <a href="#" class="text-white text-2xl hover:text-pink-500 transition"><Instagram size={32} client:load /></a>
+
+    </div>
+
+</div>
