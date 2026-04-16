@@ -1,0 +1,74 @@
+---
+import Section1 from "../FooterElements/Section1.astro";
+import Section2 from "../FooterElements/Section2.astro";
+import Section3 from "../FooterElements/Section3.astro";
+import Section4 from "../FooterElements/Section4.astro";
+
+const year = new Date().getFullYear();
+---
+
+<div class="relative w-full overflow-x-hidden">
+
+    <!-- giant background text (clipped: 250px type is wider than most viewports) -->
+    <div class="absolute inset-0 z-0 hidden items-center justify-center overflow-hidden pointer-events-none md:flex">
+        <h2 class="bg-gradient-to-b from-[#00262B] to-[#00222B] bg-clip-text text-[250px] leading-none font-bold text-transparent opacity-50">
+            Eyeson
+        </h2>
+    </div>
+
+    <footer class="relative w-full text-white overflow-hidden bg-gradient-to-b from-[#000E17] to-[#006B77]">
+
+        <div class="relative mx-auto px-6 py-16 md:py-20 lg:px-12 xl:px-16 z-10">
+
+            <!-- MOBILE -->
+            <div class="flex flex-col gap-6 md:hidden">
+
+                <div class="flex items-center justify-center gap-3">
+                    <img src="#" class="h-10 w-auto object-contain" />
+                </div>
+
+                <div class="flex flex-col gap-3 text-sm text-white/90">
+                    <div>📞 +0123456789</div>
+                    <div>✉️ eyeson.agency@gmail.com</div>
+                    <div>📸 @eyeson</div>
+                    <div>📨 eyeson.agency</div>
+                    <div>▶️ eyeson.agency</div>
+                </div>
+
+                <div class="flex items-center gap-2 text-sm text-white/60 pt-2">
+                    <span>©</span>
+                    <span>{year} Eyeson Agency All rights reserved.</span>
+                </div>
+
+            </div>
+
+            <!-- DESKTOP GRID -->
+            <div class="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+
+                <Section1 />
+                <Section2 />
+                <Section3 />
+                <Section4 />
+
+            </div>
+
+            <!-- divider -->
+            <div class="hidden md:block w-full h-px bg-white/10 my-12"></div>
+
+            <!-- bottom bar -->
+            <div class="hidden md:flex items-center justify-between text-sm text-gray-400">
+
+        <span>
+          © {year} EyesOn Agency. All rights reserved.
+        </span>
+
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition">Terms of Service</a>
+                </div>
+
+            </div>
+
+        </div>
+    </footer>
+</div>

@@ -1,0 +1,93 @@
+---
+import ContactUs from "../../islands/ContactUs";
+import FeaturesSection from "../Shared/FeaturesSection.astro";
+import LogoCaro from "../Shared/LogoCaro.astro";
+import BusinessNeedsSection from "../../islands/Shared/BusinessNeedsSection";
+import { HeroBasic } from "../../islands/Shared/HeroBasic";
+import StarBackground from "../../islands/StarBackground";
+import VideoEditingSection from "../../islands/Video/VideoEditingSection";
+import CostVideo from "../Shared/CostVideo.astro";
+import {VideoNeedsBlock} from "../../islands/Video/VideoNeedsBlock.tsx";
+import VideoServicesSection from "../../islands/Video/VideoServicesSection";
+import VideoWorkShowcaseSection from "../../islands/Shared/VideoWorkShowcaseSection";
+import CaseStudiesSection from "../../islands/CaseStudiesSection";
+import ApproachTimelineSection from "../../islands/Video/ApproachTimelineSection";
+import VideoPackagesSection from "../../islands/Video/VideoPackagesSection";
+import WhatsIncludedSection from "../../islands/Video/WhatsIncludedSection";
+import VideoBackground from "./VideoBackground.astro";
+---
+
+
+<main class="relative w-full min-h-screen overflow-hidden">
+
+
+        <VideoBackground/>
+
+
+
+
+
+
+
+
+    <StarBackground />
+
+
+    <HeroBasic
+
+    BeforeHighlight=""
+    Highlight="Video Editing"
+    AfterHighlight={`That Turns
+    Raw Footage Into Scroll-Stopping Content`}
+    Description="High-performance video editing for creators and brands who want higher retention, stronger engagement, and real growth."
+
+
+    imageUrl="/video-pieces/person.png"
+
+
+    primaryBtnText="Order Editing Pack"
+    secondaryBtnText="View Samples"
+
+
+    enableAnimation={true}
+    enableImageHover={true}
+
+
+    showBackground={true}
+    backgroundClassName="
+    bg-gradient-to-b from-[#010e17] via-[#01343a] to-[#34776c]
+    "
+
+
+    headingClassName="text-3xl sm:text-3xl lg:text-4xl font-extrabold"
+    highlightClassName="text-[#39d0c3]"
+
+    textContainerClassName="space-y-5"
+
+
+    primaryBtnWrapperClassName="bg-gradient-to-r from-[#0fe0d2] to-[#08717e] p-[2px] rounded-full"
+    primaryBtnClassName="bg-gradient-to-r from-[#00A9BD] to-[#1D553A] text-white px-6 py-3"
+
+    secondaryBtnWrapperClassName="bg-gradient-to-r from-[#08717e] to-[#40ae90] p-[2px] rounded-full"
+    secondaryBtnClassName="bg-gradient-to-r from-[#00061D] to-[#0B1F2A] text-white px-6 py-3"
+
+
+    imageWrapperClassName="rounded-3xl overflow-hidden w-80 md:w-140"
+    client:load
+    />
+    <LogoCaro />
+    <VideoEditingSection client:load/>
+    <FeaturesSection title="Excellence in stress-free" highlight="Video Editing" description="We’ve refined our editing workflow to make every project smooth, predictable, and surprisingly easy to collaborate on. No chaotic revisions, no unclear pricing, no disappearing editors. Just clean communication, thoughtful editing, and results that actually amplify your message. When editing is done right, your content becomes sharper, more engaging, and far more effective."/>
+    <VideoNeedsBlock client:load />
+    <div class="mx-auto w-screen  border-2 border-linear-to-r from-[#00121A] via-[#00A9BD] to-[#00121A]" />
+    <VideoServicesSection client:load/>
+    <WhatsIncludedSection client:load/>
+    <ApproachTimelineSection client:load />
+    <VideoWorkShowcaseSection client:load />
+    <VideoPackagesSection client:load/>
+    <CaseStudiesSection client:load />
+    <CostVideo  />
+
+    <ContactUs client:load />
+
+</main>

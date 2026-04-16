@@ -1,0 +1,113 @@
+---
+const questions = [
+    {
+        id: 1,
+        q: "1. What is motion graphics?",
+        a: "Motion graphics is the art of animating graphic elements to tell stories, explain ideas, or bring branding to life. It includes animated logos, kinetic typography, and visuals used in ads, explainers, and social content.",
+    },
+    {
+        id: 2,
+        q: "2. Why is visual content important for my business?",
+        a: "Visual content is crucial because it captures attention, conveys messages quickly, and enhances brand recognition.",
+    },
+    {
+        id: 3,
+        q: "3. What services do you offer?",
+        a: "We offer logo animations, explainer videos, social media graphics, and more.",
+    },
+    {
+        id: 4,
+        q: "4. What is your production process?",
+        a: "We go from concept → design → animation → delivery with full collaboration.",
+    },
+];
+
+const QAImg = "/home/QandA.png";
+---
+
+<div class="relative py-20 px-8 bg-[#000E17] flex flex-col md:flex-row justify-evenly items-start">
+
+    <!-- LEFT -->
+    <div class="flex flex-col gap-10 max-w-xl mb-12 md:mb-0">
+        <div>
+            <h2 class="font-bold text-5xl text-white leading-tight">
+                Your Questions <span class="text-cyan-400">Answered</span>
+            </h2>
+            <p class="text-lg text-gray-400 mt-4">
+                Everything you need to know about working with EyesOn.
+            </p>
+        </div>
+
+        <img
+                src={QAImg}
+                alt="Q and A"
+                class="w-[420px] object-contain opacity-90 hidden md:block"
+        />
+    </div>
+
+    <!-- ACCORDION -->
+    <div class="w-full max-w-2xl space-y-4">
+        {questions.map((item) => (
+                <div
+                        class="accordion-item rounded-2xl border border-gray-700/50 bg-white/5 backdrop-blur-md p-6 cursor-pointer transition-all duration-300 hover:border-cyan-400/40 hover:bg-white/10"
+                >
+                    <!-- QUESTION -->
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-semibold text-white">
+                            {item.q}
+                        </h3>
+
+                        <span class="icon text-cyan-400 transition-transform duration-300 text-xl">
+            ⌄
+          </span>
+                    </div>
+
+                    <!-- ANSWER -->
+                    <div class="content overflow-hidden max-h-0 opacity-0 transition-all duration-300">
+                        <p class="mt-4 text-gray-400 leading-relaxed">
+                            {item.a}
+                        </p>
+                    </div>
+                </div>
+        ))}
+    </div>
+</div>
+
+<!-- SCRIPT -->
+<script is:inline>
+    document.addEventListener("DOMContentLoaded", () => {
+        const items = document.querySelectorAll(".accordion-item");
+
+        items.forEach((item) => {
+            item.addEventListener("click", () => {
+                const content = item.querySelector(".content");
+                const icon = item.querySelector(".icon");
+
+                if (!content || !icon) return;
+
+                const isOpen = item.classList.contains("open");
+
+                // close all
+                items.forEach((el) => {
+                    const c = el.querySelector(".content");
+                    const i = el.querySelector(".icon");
+
+                    if (!c || !i) return;
+
+                    el.classList.remove("open");
+                    c.style.maxHeight = null;
+                    c.style.opacity = "0";
+                    i.style.transform = "rotate(0deg)";
+                });
+
+                // open clicked
+                if (!isOpen) {
+                    item.classList.add("open");
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    content.style.opacity = "1";
+                    icon.style.transform = "rotate(180deg)";
+                }
+            });
+        });
+    });
+</script>

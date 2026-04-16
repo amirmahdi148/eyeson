@@ -1,0 +1,317 @@
+---
+// Mirrors eyes-on-front/app/Components/CostVideo.tsx — one layout everywhere (no separate mobile calc).
+---
+
+<section
+  id="cost-video-section"
+  class="cv-section relative flex justify-center overflow-hidden py-16 md:py-24 w-screen"
+  aria-labelledby="cost-video-heading"
+>
+  <div
+    class="cv-card animate-cv-card-in relative mx-4 w-full max-w-6xl overflow-hidden rounded-[40px] border border-[#006B77]/30 bg-gradient-to-r from-[#000E17] to-[#002830] p-8 shadow-2xl md:p-12 lg:p-16"
+  >
+    <div
+      class="pointer-events-none absolute top-0 left-0 h-px w-full bg-gradient-to-r from-transparent via-[#006B77] to-transparent opacity-70"
+    >
+    </div>
+
+    <div class="relative z-10 grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-12">
+      <div class="cv-copy text-center lg:text-left">
+        <p class="mb-4 text-sm font-semibold tracking-wider text-[#006B77] uppercase">
+          Video Cost Calculator
+        </p>
+        <h2 id="cost-video-heading" class="mb-6 text-3xl leading-tight font-bold text-white lg:text-5xl">
+          Want to know the cost of your next video?
+        </h2>
+        <p class="mb-10 text-lg leading-relaxed text-gray-400">
+          Answer a few quick questions and get an instant estimate tailored to your project. It&#39;s
+          fast, free and completely personalized, giving you a clear idea of what your animation or
+          video will cost before you start.
+        </p>
+        <button
+          type="button"
+          class="cv-cta rounded-full bg-gradient-to-r from-[#006B77] to-[#2dd4bf] px-8 py-4 text-lg font-bold text-white shadow-lg transition-transform duration-300 ease-out hover:scale-105 hover:shadow-[0_0_25px_rgba(0,107,119,0.5)] active:scale-95"
+        >
+          Calculate now
+        </button>
+      </div>
+
+      <div class="relative flex items-center justify-center pt-6 lg:justify-end lg:pt-0 ">
+        <div class="cv-float relative z-10">
+          <div class="relative">
+            <!-- decorative squares -->
+            <div
+              class="pointer-events-none absolute top-[-30px] right-[-30px] z-0 h-24 w-24 rounded-xl border border-white/5 bg-[#0e1217]"
+            >
+            </div>
+            <div
+              class="pointer-events-none absolute bottom-[-30px] left-[-40px] z-0 h-20 w-28 rounded-xl border border-white/5 bg-[#0e1217]"
+            >
+            </div>
+            <div
+              class="pointer-events-none absolute bottom-[-30px] left-[60px] z-0 h-20 w-28 rounded-xl border border-white/5 bg-[#0e1217]"
+            >
+            </div>
+            <div
+              class="pointer-events-none absolute right-[-20px] bottom-[-30px] z-0 h-20 w-24 rounded-xl border border-white/5 bg-[#0e1217]"
+            >
+            </div>
+
+            <!-- stars -->
+            <span
+              class="pointer-events-none absolute -top-12 -left-12 animate-cv-star text-5xl text-[#6ee7b7] [animation-delay:0ms]"
+              >✦</span
+            >
+            <span
+              class="pointer-events-none absolute -top-6 -left-2 animate-cv-star text-3xl text-[#6ee7b7] [animation-delay:700ms]"
+              >✦</span
+            >
+            <span
+              class="pointer-events-none absolute top-1/2 -left-16 animate-cv-star text-3xl text-[#a7f3d0] opacity-60 [animation-delay:500ms]"
+              >✦</span
+            >
+            <span
+              class="pointer-events-none absolute top-1/3 -right-12 animate-cv-star text-3xl text-[#a7f3d0] opacity-60 [animation-delay:300ms]"
+              >✦</span
+            >
+            <span
+              class="pointer-events-none absolute -bottom-10 right-0 animate-cv-star text-4xl text-[#a7f3d0] opacity-80 [animation-delay:1000ms]"
+              >✦</span
+            >
+
+            <div
+              id="cost-video-calc"
+              class="relative z-10 mx-auto w-[250px] rounded-[30px] border-[3px] border-[#006B77] bg-[#020617] p-5 shadow-[0_0_40px_rgba(0,107,119,0.15)]"
+            >
+              <div
+                class="relative mb-5 flex h-[72px] items-center justify-between overflow-hidden rounded-2xl border border-white/10 bg-[#333b4d] px-5 shadow-inner"
+              >
+                <div
+                  data-calc-display
+                  class="font-sans text-3xl font-bold tracking-wide text-white"
+                >
+                  $0
+                </div>
+                <div class="text-white opacity-90">
+                  <svg
+                    class="h-8 w-8"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M12 9v.01"></path>
+                  </svg>
+                </div>
+                <div class="absolute bottom-0 left-0 h-0.5 w-full bg-[#006B77] opacity-50"></div>
+              </div>
+
+              <div class="grid grid-cols-5 gap-3">
+                {
+                  [
+                    "7",
+                    "8",
+                    "9",
+                    "-",
+                    "*",
+                    "4",
+                    "5",
+                    "6",
+                    "-",
+                    "+",
+                    "1",
+                    "2",
+                    "3",
+                    "0",
+                    "=",
+                  ].map((key, index) => (
+                    <div
+                      data-calc-key={key}
+                      class="cv-key flex h-14 cursor-default items-center justify-center rounded-xl border border-[#4b5563] text-2xl font-bold text-[#f3f4f6] shadow-sm transition-[transform,background-color,border-color] duration-200 ease-out"
+                    >
+                      {key}
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+
+            <div
+              class="pointer-events-none absolute -bottom-20 left-1/2 z-10 -translate-x-1/2 rounded-full bg-[#008996] px-4 py-1.5 text-xs font-medium whitespace-nowrap text-white shadow-lg"
+            >
+              6–8 Shots storyboard
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="pointer-events-none absolute top-0 right-0 h-[500px] w-[500px] -translate-y-1/2 translate-x-1/2 rounded-full bg-[#006B77]/10 blur-[100px] animate-cv-orb"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute bottom-0 left-0 h-[400px] w-[400px] translate-y-1/2 -translate-x-1/2 rounded-full bg-[#006B77]/5 blur-[80px] animate-cv-orb"
+      style="animation-delay: -6s;"
+    >
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes cv-card-in {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 36px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes cv-float {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+    50% {
+      transform: translate3d(0, -10px, 0);
+    }
+  }
+
+  @keyframes cv-star {
+    0%,
+    100% {
+      opacity: 0.45;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.12);
+    }
+  }
+
+  @keyframes cv-orb {
+    0%,
+    100% {
+      opacity: 0.85;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.06);
+    }
+  }
+
+  .animate-cv-card-in {
+    animation: cv-card-in 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    opacity: 0;
+  }
+
+  .cv-float {
+    animation: cv-float 5s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  .animate-cv-star {
+    animation: cv-star 2.4s ease-in-out infinite;
+  }
+
+  .animate-cv-orb {
+    animation: cv-orb 14s ease-in-out infinite;
+  }
+
+  .cv-key {
+    background-color: #374151;
+    border-color: #4b5563;
+  }
+
+  .cv-key.is-pressed {
+    transform: scale(0.92);
+    background-color: #005a63 !important;
+    border-color: #006b77 !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-cv-card-in,
+    .cv-float,
+    .animate-cv-star,
+    .animate-cv-orb {
+      animation: none !important;
+    }
+    .animate-cv-card-in {
+      opacity: 1;
+    }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    function getKeyEls(root, ch) {
+      return Array.from(root.querySelectorAll(".cv-key")).filter(function (el) {
+        return el.getAttribute("data-calc-key") === ch;
+      });
+    }
+
+    function setPressed(root, ch) {
+      root.querySelectorAll(".cv-key").forEach(function (el) {
+        el.classList.remove("is-pressed");
+      });
+      if (!ch) return;
+      getKeyEls(root, ch).forEach(function (el) {
+        el.classList.add("is-pressed");
+      });
+    }
+
+    function sleep(ms) {
+      return new Promise(function (r) {
+        setTimeout(r, ms);
+      });
+    }
+
+    function runCalcLoop(root, displayEl) {
+      async function tick() {
+        while (true) {
+          var text = "";
+          displayEl.textContent = text ? text : "$0";
+          await sleep(1000);
+
+          for (var i = 0; i < 5; i++) {
+            var c = "12345"[i];
+            setPressed(root, c);
+            text += c;
+            displayEl.textContent = text;
+            await sleep(150);
+            setPressed(root, null);
+            await sleep(300);
+          }
+
+          await sleep(500);
+          displayEl.textContent = "$12345";
+          setPressed(root, null);
+          await sleep(4000);
+        }
+      }
+      tick();
+    }
+
+    function init() {
+      var root = document.getElementById("cost-video-calc");
+      var displayEl = root && root.querySelector("[data-calc-display]");
+      if (!root || !displayEl) return;
+      runCalcLoop(root, displayEl);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+  })();
+</script>

@@ -1,0 +1,115 @@
+---
+const MENU_ITEMS = [
+    { id: "1", title: "Home", path: "/" },
+    { id: "2", title: "Video", path: "/video" },
+    { id: "3", title: "2D/3D Animations", path: "/animation" },
+    { id: "4", title: "Pricing", path: "/pricing" },
+    { id: "5", title: "Blogs", path: "/blogs" },
+    { id: "6", title: "Branding", path: "/branding" },
+];
+---
+
+<header class="fixed z-50 w-full top-0">
+    <div class="relative px-4 sm:px-6 lg:px-10 py-3 sm:py-4 lg:py-5">
+
+        <!-- background -->
+        <div id="header-bg" class="pointer-events-none absolute inset-x-0 top-0 h-full transition-all duration-300"></div>
+
+        <div class="relative mx-auto max-w-[1200px] flex items-center justify-between gap-3">
+
+            <!-- Logo -->
+            <a href="/" class="relative z-50">
+                <img src="/logo.png" class="h-12 sm:h-14 lg:h-[72px] object-contain" />
+            </a>
+
+            <!-- Desktop menu -->
+            <nav class="hidden lg:flex items-center gap-7">
+                {MENU_ITEMS.map((item) => (
+                        <a href={item.path} class="text-white/90 hover:text-white transition">
+                            {item.title}
+                        </a>
+                ))}
+            </nav>
+
+            <!-- CTA -->
+            <button class="hidden lg:block px-8 py-3 rounded-full text-white font-semibold bg-[#0B1F2A] border border-cyan-300/70 shadow-[0_0_50px_rgba(45,220,255,0.35)]">
+                Book a Call
+            </button>
+
+            <!-- mobile button -->
+            <button id="menuBtn" class="lg:hidden h-10 w-10 rounded-xl border border-white/20 bg-white/10 flex flex-col justify-center items-center gap-1.5">
+                <span class="bar w-5 h-0.5 bg-white"></span>
+                <span class="bar w-4 h-0.5 bg-white"></span>
+                <span class="bar w-5 h-0.5 bg-white"></span>
+            </button>
+
+        </div>
+    </div>
+
+    <!-- MOBILE MENU -->
+    <div id="mobileMenu" class="lg:hidden fixed inset-0 z-40 opacity-0 pointer-events-none transition">
+        <div id="backdrop" class="absolute inset-0 bg-black/50"></div>
+
+        <div id="panel" class="absolute right-0 top-0 h-screen w-[88%] max-w-[360px] bg-[#041118]/90 backdrop-blur-xl transform translate-x-full transition-transform duration-300">
+
+            <div class="pt-24 px-4 space-y-3">
+                {MENU_ITEMS.map((item) => (
+                        <a href={item.path} class="block px-4 py-3 rounded-xl bg-white/5 text-white">
+                            {item.title}
+                        </a>
+                ))}
+            </div>
+
+            <div class="mt-6 px-4">
+                <button class="w-full rounded-xl bg-white text-black py-3 font-bold">
+                    Book a Call
+                </button>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- SCRIPT -->
+<script is:inline>
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const panel = document.getElementById("panel");
+    const backdrop = document.getElementById("backdrop");
+    const headerBg = document.getElementById("header-bg");
+
+    let open = false;
+
+    function setOpen(value) {
+        open = value;
+
+        if (open) {
+            mobileMenu.classList.remove("opacity-0", "pointer-events-none");
+            panel.classList.remove("translate-x-full");
+            document.body.style.overflow = "hidden";
+        } else {
+            mobileMenu.classList.add("opacity-0", "pointer-events-none");
+            panel.classList.add("translate-x-full");
+            document.body.style.overflow = "";
+        }
+    }
+
+    menuBtn?.addEventListener("click", () => setOpen(!open));
+    backdrop?.addEventListener("click", () => setOpen(false));
+
+    // scroll effect (replace useEffect)
+    function onScroll() {
+        const scrolled = window.scrollY > 8;
+
+        if (scrolled) {
+            headerBg.className =
+                "pointer-events-none absolute inset-x-0 top-0 h-full bg-[#061520]/85 backdrop-blur-xl border-b border-cyan-200/20 transition-all duration-300";
+        } else {
+            headerBg.className =
+                "pointer-events-none absolute inset-x-0 top-0 h-full transition-all duration-300";
+        }
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+</script>
