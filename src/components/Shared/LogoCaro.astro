@@ -25,47 +25,76 @@ const loopLogos = [...logos, ...logos];
 <section class="relative flex flex-col items-center gap-8 overflow-hidden py-20">
   <p class="text-center text-sm tracking-wide text-gray-500">{tagline}</p>
 
-  <!-- Mobile: infinite marquee -->
+  <!-- ================= MOBILE ================= -->
   <div class="logo-mask w-full px-4 opacity-80 md:hidden" aria-label="Brand logos">
     <div class="logo-scroll flex w-max items-center">
       {loopLogos.map((logo, index) => (
-        <div class="logo-slot" key={`${logo.alt}-${index}`}>
-          <div class="logo-item">
-            <img
-              src={logo.src}
-              alt={logo.alt}
-              width="220"
-              height="88"
-              loading="lazy"
-              decoding="async"
-              class="logo-img h-16 w-full object-contain"
-            />
+          <div class="logo-slot" key={`${logo.alt}-${index}`}>
+            <div class="logo-item">
+              <img
+                  src={logo.src}
+                  alt={logo.alt}
+                  width="220"
+                  height="88"
+                  loading="lazy"
+                  decoding="async"
+                  class="logo-img h-16 w-full object-contain"
+              />
+            </div>
           </div>
-        </div>
       ))}
     </div>
   </div>
 
-  <!-- Desktop: static grid (no animation) -->
+  <!-- ================= DESKTOP ================= -->
   <div class="hidden w-full flex-wrap items-center justify-center gap-16 px-6 opacity-80 md:flex" aria-label="Brand logos">
     {logos.map((logo, index) => (
-      <div class="logo-item" key={`${logo.alt}-${index}`}>
-        <img
-          src={logo.src}
-          alt={logo.alt}
-          width="500"
-          height="128"
-          loading="lazy"
-          decoding="async"
-          class="logo-img h-20 w-auto object-contain"
-        />
-      </div>
+        <div class="logo-item" key={`${logo.alt}-${index}`}>
+          <img
+              src={logo.src}
+              alt={logo.alt}
+              width="500"
+              height="128"
+              loading="lazy"
+              decoding="async"
+              class="logo-img h-20 w-auto object-contain"
+          />
+        </div>
     ))}
   </div>
 </section>
 
 <style>
-  /* Infinite marquee (mobile only) */
+  /* ================= ONLY FIX: prevent layout shift ================= */
+  .logo-item {
+    aspect-ratio: 220 / 88; /* safe default for both mobile & desktop */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ================= IMAGE FIX ================= */
+  .logo-img {
+    opacity: 0; /* prevent alt flash */
+    transition: opacity 0.35s ease, transform 0.3s ease;
+
+    filter: grayscale(100%);
+    will-change: opacity, transform;
+  }
+
+  /* reveal after load */
+  .logo-img.is-loaded {
+    opacity: 0.7;
+  }
+
+  /* hover effect (unchanged behavior) */
+  .logo-item:hover .logo-img {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.08);
+  }
+
+  /* ================= MARQUEE (UNCHANGED) ================= */
   .logo-mask {
     --logo-visible-count: 3;
     --logo-gap: 1.25rem;
@@ -82,21 +111,6 @@ const loopLogos = [...logos, ...logos];
     padding-inline: calc(var(--logo-gap) / 2);
   }
 
-  .logo-img {
-    filter: grayscale(100%);
-    opacity: 0.7;
-    transition:
-      filter 0.3s ease,
-      transform 0.3s ease,
-      opacity 0.3s ease;
-  }
-
-  .logo-item:hover .logo-img {
-    filter: grayscale(0%);
-    opacity: 1;
-    transform: scale(1.08);
-  }
-
   @keyframes logo-scroll {
     0% {
       transform: translateX(0);
@@ -106,17 +120,33 @@ const loopLogos = [...logos, ...logos];
     }
   }
 
+  /* ================= RESPONSIVE (UNCHANGED) ================= */
+  @media (min-width: 640px) {
+    .logo-mask {
+      --logo-gap: 1.5rem;
+    }
+  }
+
+  /* ================= ACCESSIBILITY ================= */
   @media (prefers-reduced-motion: reduce) {
     .logo-scroll {
       animation: none;
       transform: translateX(0);
     }
   }
-
-  @media (min-width: 640px) {
-    .logo-mask {
-      --logo-gap: 1.5rem;
-    }
-  }
 </style>
 
+<script is:inline>
+  // فقط برای جلوگیری از alt flash
+  const imgs = document.querySelectorAll(".logo-img");
+
+  imgs.forEach((img) => {
+    const reveal = () => img.classList.add("is-loaded");
+
+    if (img.complete) {
+      reveal();
+    } else {
+      img.addEventListener("load", reveal);
+    }
+  });
+</script>

@@ -1,5 +1,6 @@
 <div
-  class="pointer-events-none absolute inset-0 overflow-x-hidden md:overflow-hidden"
+  id="animation-page-bg"
+  class="pointer-events-none absolute inset-0 overflow-x-hidden md:overflow-hidden animation-page-bg"
   aria-hidden="true"
 >
   <svg
@@ -8,7 +9,7 @@
     viewBox="0 0 525 659"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    class="pointer-events-none absolute -left-10 hidden max-w-none md:block"
+    class="fade-on-scroll pointer-events-none absolute -left-10 hidden max-w-none md:block"
     preserveAspectRatio="xMidYMid meet"
   >
     <g filter="url(#filter0_f_2_26252)">
@@ -38,7 +39,7 @@
     viewBox="0 0 1369 1585"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    class="pointer-events-none absolute -left-10 hidden max-w-none md:block"
+    class="fade-on-scroll pointer-events-none absolute -left-10 hidden max-w-none md:block"
     preserveAspectRatio="xMidYMid meet"
   >
     <g filter="url(#filter0_f_2_26250)">
@@ -81,7 +82,7 @@
     viewBox="0 0 1261 1795"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    class="pointer-events-none absolute top-300 right-0 hidden max-w-none md:block"
+    class="fade-on-scroll pointer-events-none absolute top-300 right-0 hidden max-w-none md:block"
     preserveAspectRatio="xMidYMid meet"
   >
     <g filter="url(#filter0_f_2_26251)">
@@ -124,7 +125,7 @@
     viewBox="0 0 1393 1780"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    class="pointer-events-none absolute top-200 hidden max-w-none md:block"
+    class="fade-on-scroll pointer-events-none absolute top-200 hidden max-w-none md:block"
     preserveAspectRatio="xMidYMid meet"
   >
     <g filter="url(#filter0_f_2_26408)">
@@ -162,3 +163,50 @@
     </defs>
   </svg>
 </div>
+
+<style>
+  /*
+    These large SVG Gaussian blurs are expensive to rasterize and can stutter
+    the Hero entry animation. Defer their paint until the page signals ready.
+  */
+  .animation-page-bg {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 500ms ease;
+  }
+
+  .animation-page-bg.is-ready {
+    opacity: 1;
+    visibility: visible;
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const bg = document.getElementById("animation-page-bg");
+    if (!bg) return;
+    window.addEventListener("animationPage:ready", () => bg.classList.add("is-ready"), {
+      once: true,
+    });
+  })();
+</script>
+
+
+<script is:inline>
+  const items = document.querySelectorAll(".fade-on-scroll");
+
+  const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+      }
+  );
+
+  items.forEach((el) => observer.observe(el));
+</script>
