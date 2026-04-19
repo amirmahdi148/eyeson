@@ -1,4 +1,9 @@
-const STARS: Array<{ top: string; left: string; size: string; opacity: number }> = [...Array(40)].map(() => ({
+const STARS: Array<{
+  top: string;
+  left: string;
+  size: string;
+  opacity: number;
+}> = [...Array(40)].map(() => ({
   top: `${Math.random() * 100}%`,
   left: `${Math.random() * 100}%`,
   size: Math.random() < 0.5 ? "1px" : "2px",
