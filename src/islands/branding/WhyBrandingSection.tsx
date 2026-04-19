@@ -30,10 +30,10 @@ export const WhyBrandingSection = () => {
           
           {/* تیتر */}
           <motion.div variants={itemVariants} className="mb-1">
-            <h2 className="text-3xl font-black uppercase leading-tight tracking-tight text-white sm:text-4xl md:text-5xl">
+            <h2 className="text-3xl font-black uppercase leading-tight tracking-tight text-white sm:text-4xl text-center lg:text-left md:text-5xl">
               WHY <span className="text-[#1ECFBC]">BRANDING</span> MATTERS
             </h2>
-            <p className="text-gray-300 text-base font-light mt-2 sm:text-lg md:text-xl">
+            <p className="text-gray-300 text-base font-light mt-2 sm:text-lg md:text-xl text-center lg:text-left">
               The Value Behind a Strong Brand
             </p>
           </motion.div>
