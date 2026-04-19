@@ -4,97 +4,128 @@
 
 <section
   id="cost-video-section"
-  class="cv-section relative flex justify-center overflow-hidden py-16 md:py-24 w-screen"
+  class="cv-section relative flex justify-center w-full overflow-hidden py-12 px-4 sm:px-6 md:py-24"
   aria-labelledby="cost-video-heading"
 >
   <div
-    class="cv-card animate-cv-card-in relative mx-4 w-full max-w-6xl overflow-hidden rounded-[40px] border border-[#006B77]/30 bg-gradient-to-r from-[#000E17] to-[#002830] p-8 shadow-2xl md:p-12 lg:p-16"
+    class="cv-card animate-cv-card-in relative w-full max-w-6xl overflow-hidden rounded-[32px] sm:rounded-[40px] border border-[#006B77]/30 bg-gradient-to-r from-[#000E17] to-[#002830] p-6 sm:p-8 md:p-12 lg:p-16 shadow-2xl"
   >
     <div
       class="pointer-events-none absolute top-0 left-0 h-px w-full bg-gradient-to-r from-transparent via-[#006B77] to-transparent opacity-70"
     >
     </div>
 
-    <div class="relative z-10 grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-12">
-      <div class="cv-copy text-center lg:text-left">
-        <p class="mb-4 text-sm font-semibold tracking-wider text-[#006B77] uppercase">
+    <div
+      class="relative z-10 grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-12"
+    >
+      <!-- === ستون چپ: متن و دکمه‌ها === -->
+      <div
+        class="cv-copy text-center lg:text-left flex flex-col items-center lg:items-start max-w-xl mx-auto lg:mx-0"
+      >
+        <p
+          class="mb-3 sm:mb-4 text-xs sm:text-sm font-semibold tracking-wider text-[#006B77] uppercase"
+        >
           Video Cost Calculator
         </p>
-        <h2 id="cost-video-heading" class="mb-6 text-3xl leading-tight font-bold text-white lg:text-5xl">
+        <h2
+          id="cost-video-heading"
+          class="mb-5 sm:mb-6 text-3xl sm:text-4xl md:text-[44px] leading-tight font-bold text-white"
+        >
           Want to know the cost of your next video?
         </h2>
-        <p class="mb-10 text-lg leading-relaxed text-gray-400">
-          Answer a few quick questions and get an instant estimate tailored to your project. It&#39;s
-          fast, free and completely personalized, giving you a clear idea of what your animation or
-          video will cost before you start.
-        </p>
-        <button
-          type="button"
-          class="cv-cta rounded-full bg-gradient-to-r from-[#006B77] to-[#2dd4bf] px-8 py-4 text-lg font-bold text-white shadow-lg transition-transform duration-300 ease-out hover:scale-105 hover:shadow-[0_0_25px_rgba(0,107,119,0.5)] active:scale-95"
+        <p
+          class="mb-8 sm:mb-10 text-[15px] sm:text-lg leading-relaxed text-gray-400"
         >
-          Calculate now
-        </button>
+          Answer a few quick questions and get an instant estimate tailored to
+          your project. It&#39;s fast, free and completely personalized, giving
+          you a clear idea of what your animation or video will cost before you
+          start.
+        </p>
+
+        <div
+          class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
+        >
+          <button
+            type="button"
+            class="cv-cta w-full sm:w-auto rounded-full bg-gradient-to-r from-[#006B77] to-[#2dd4bf] px-8 py-3.5 sm:py-4 text-base sm:text-lg font-bold text-white shadow-[0_0_20px_rgba(0,107,119,0.3)] transition-transform duration-300 ease-out hover:scale-105 hover:shadow-[0_0_25px_rgba(0,107,119,0.5)] active:scale-95"
+          >
+            Calculate now
+          </button>
+          <button
+            type="button"
+            class="w-full sm:w-auto rounded-full border border-[#006B77]/60 bg-white/5 px-8 py-3.5 sm:py-4 text-base sm:text-lg font-bold text-white transition-all duration-300 ease-out hover:bg-[#006B77]/20 hover:border-[#006B77] active:scale-95"
+          >
+            Contact Us
+          </button>
+        </div>
       </div>
 
-      <div class="relative flex items-center justify-center pt-6 lg:justify-end lg:pt-0 ">
-        <div class="cv-float relative z-10">
-          <div class="relative">
+      <!-- === ستون راست: ماشین حساب پهن‌تر با دکمه‌های مربعی بزرگ === -->
+      <div
+        class="relative flex items-center justify-center pt-12 lg:justify-end lg:pt-0"
+      >
+        <div
+          class="cv-float relative z-10 w-full max-w-[340px] sm:max-w-[380px]"
+        >
+          <div class="relative w-full flex justify-center">
             <!-- decorative squares -->
             <div
-              class="pointer-events-none absolute top-[-30px] right-[-30px] z-0 h-24 w-24 rounded-xl border border-white/5 bg-[#0e1217]"
+              class="pointer-events-none absolute top-[-20px] right-[-10px] sm:top-[-30px] sm:right-[-20px] z-0 h-20 w-20 sm:h-24 sm:w-24 rounded-2xl border border-white/5 bg-[#0e1217]"
             >
             </div>
             <div
-              class="pointer-events-none absolute bottom-[-30px] left-[-40px] z-0 h-20 w-28 rounded-xl border border-white/5 bg-[#0e1217]"
+              class="pointer-events-none absolute bottom-[-20px] left-[-10px] sm:bottom-[-30px] sm:left-[-20px] z-0 h-16 w-24 sm:h-20 sm:w-28 rounded-2xl border border-white/5 bg-[#0e1217]"
             >
             </div>
             <div
-              class="pointer-events-none absolute bottom-[-30px] left-[60px] z-0 h-20 w-28 rounded-xl border border-white/5 bg-[#0e1217]"
+              class="pointer-events-none absolute bottom-[-20px] left-[60px] sm:bottom-[-30px] sm:left-[80px] z-0 h-16 w-24 sm:h-20 sm:w-28 rounded-2xl border border-white/5 bg-[#0e1217]"
             >
             </div>
             <div
-              class="pointer-events-none absolute right-[-20px] bottom-[-30px] z-0 h-20 w-24 rounded-xl border border-white/5 bg-[#0e1217]"
+              class="pointer-events-none absolute right-[-10px] bottom-[-20px] sm:right-[-20px] sm:bottom-[-30px] z-0 h-16 w-20 sm:h-20 sm:w-24 rounded-2xl border border-white/5 bg-[#0e1217]"
             >
             </div>
 
             <!-- stars -->
             <span
-              class="pointer-events-none absolute -top-12 -left-12 animate-cv-star text-5xl text-[#6ee7b7] [animation-delay:0ms]"
+              class="pointer-events-none absolute -top-8 -left-4 sm:-top-12 sm:-left-8 animate-cv-star text-4xl sm:text-5xl text-[#6ee7b7] [animation-delay:0ms]"
               >✦</span
             >
             <span
-              class="pointer-events-none absolute -top-6 -left-2 animate-cv-star text-3xl text-[#6ee7b7] [animation-delay:700ms]"
+              class="pointer-events-none absolute -top-4 left-4 sm:-top-6 sm:left-6 animate-cv-star text-2xl sm:text-3xl text-[#6ee7b7] [animation-delay:700ms]"
               >✦</span
             >
             <span
-              class="pointer-events-none absolute top-1/2 -left-16 animate-cv-star text-3xl text-[#a7f3d0] opacity-60 [animation-delay:500ms]"
+              class="pointer-events-none absolute top-1/2 -left-8 sm:-left-12 animate-cv-star text-2xl sm:text-3xl text-[#a7f3d0] opacity-60 [animation-delay:500ms]"
               >✦</span
             >
             <span
-              class="pointer-events-none absolute top-1/3 -right-12 animate-cv-star text-3xl text-[#a7f3d0] opacity-60 [animation-delay:300ms]"
+              class="pointer-events-none absolute top-1/3 -right-6 sm:-right-10 animate-cv-star text-2xl sm:text-3xl text-[#a7f3d0] opacity-60 [animation-delay:300ms]"
               >✦</span
             >
             <span
-              class="pointer-events-none absolute -bottom-10 right-0 animate-cv-star text-4xl text-[#a7f3d0] opacity-80 [animation-delay:1000ms]"
+              class="pointer-events-none absolute -bottom-8 right-0 sm:-bottom-10 animate-cv-star text-3xl sm:text-4xl text-[#a7f3d0] opacity-80 [animation-delay:1000ms]"
               >✦</span
             >
 
+            <!-- Calculator Box (عرض بیشتر شد) -->
             <div
               id="cost-video-calc"
-              class="relative z-10 mx-auto w-[250px] rounded-[30px] border-[3px] border-[#006B77] bg-[#020617] p-5 shadow-[0_0_40px_rgba(0,107,119,0.15)]"
+              class="relative z-10 w-full rounded-[32px] sm:rounded-[40px] border-[3px] border-[#006B77] bg-[#020617] p-5 sm:p-6 shadow-[0_0_50px_rgba(0,107,119,0.3)]"
             >
+              <!-- صفحه نمایش -->
               <div
-                class="relative mb-5 flex h-[72px] items-center justify-between overflow-hidden rounded-2xl border border-white/10 bg-[#333b4d] px-5 shadow-inner"
+                class="relative mb-5 sm:mb-6 flex h-[70px] sm:h-[84px] items-center justify-between overflow-hidden rounded-2xl sm:rounded-[20px] border border-white/10 bg-[#333b4d] px-5 sm:px-6 shadow-inner"
               >
                 <div
                   data-calc-display
-                  class="font-sans text-3xl font-bold tracking-wide text-white"
+                  class="font-sans text-3xl sm:text-4xl font-bold tracking-wide text-white"
                 >
                   $0
                 </div>
                 <div class="text-white opacity-90">
                   <svg
-                    class="h-8 w-8"
+                    class="h-7 w-7 sm:h-9 sm:w-9"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -103,36 +134,38 @@
                     stroke-linejoin="round"
                     aria-hidden="true"
                   >
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                    ></path>
                     <circle cx="12" cy="12" r="3"></circle>
                     <path d="M12 9v.01"></path>
                   </svg>
                 </div>
-                <div class="absolute bottom-0 left-0 h-0.5 w-full bg-[#006B77] opacity-50"></div>
               </div>
 
-              <div class="grid grid-cols-5 gap-3">
+              <!-- گرید دکمه‌ها (دکمه‌های مربعی با aspect-square) -->
+              <div class="grid grid-cols-4 gap-3 sm:gap-4">
                 {
                   [
                     "7",
                     "8",
                     "9",
                     "-",
-                    "*",
                     "4",
                     "5",
                     "6",
-                    "-",
                     "+",
                     "1",
                     "2",
                     "3",
                     "0",
+                    ".",
                     "=",
-                  ].map((key, index) => (
+                    "C",
+                    "*",
+                  ].map((key) => (
                     <div
                       data-calc-key={key}
-                      class="cv-key flex h-14 cursor-default items-center justify-center rounded-xl border border-[#4b5563] text-2xl font-bold text-[#f3f4f6] shadow-sm transition-[transform,background-color,border-color] duration-200 ease-out"
+                      class="cv-key flex aspect-square w-full cursor-default items-center justify-center rounded-[14px] sm:rounded-[18px] border-b-[4px] border-[#4b5563] bg-[#2a3441] text-xl sm:text-2xl font-bold text-[#f3f4f6] shadow-sm transition-all duration-150 ease-out"
                     >
                       {key}
                     </div>
@@ -140,25 +173,9 @@
                 }
               </div>
             </div>
-
-            <div
-              class="pointer-events-none absolute -bottom-20 left-1/2 z-10 -translate-x-1/2 rounded-full bg-[#008996] px-4 py-1.5 text-xs font-medium whitespace-nowrap text-white shadow-lg"
-            >
-              6–8 Shots storyboard
-            </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <div
-      class="pointer-events-none absolute top-0 right-0 h-[500px] w-[500px] -translate-y-1/2 translate-x-1/2 rounded-full bg-[#006B77]/10 blur-[100px] animate-cv-orb"
-    >
-    </div>
-    <div
-      class="pointer-events-none absolute bottom-0 left-0 h-[400px] w-[400px] translate-y-1/2 -translate-x-1/2 rounded-full bg-[#006B77]/5 blur-[80px] animate-cv-orb"
-      style="animation-delay: -6s;"
-    >
     </div>
   </div>
 </section>
@@ -227,15 +244,13 @@
     animation: cv-orb 14s ease-in-out infinite;
   }
 
-  .cv-key {
-    background-color: #374151;
-    border-color: #4b5563;
-  }
-
+  /* استایل دکمه‌های کی‌پد که فشرده میشن */
   .cv-key.is-pressed {
-    transform: scale(0.92);
+    transform: translateY(2px) scale(0.95);
     background-color: #005a63 !important;
-    border-color: #006b77 !important;
+    border-bottom-width: 0px !important;
+    border-top-width: 4px !important;
+    border-top-color: transparent !important;
   }
 
   @media (prefers-reduced-motion: reduce) {
