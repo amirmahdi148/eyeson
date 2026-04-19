@@ -48,7 +48,7 @@ type Props = {
   rightComponent?: ReactNode;
 };
 
-export const HeroBasic = ({
+export const VideoHeader = ({
   BeforeHighlight = "Premium",
   Highlight = "2D & 3D Animations",
   AfterHighlight = "",
@@ -56,7 +56,7 @@ export const HeroBasic = ({
 
   imageUrl = "/animation-section/Edited.png",
 
-  imageClassName = "",
+  imageClassName = "object-contain w-full h-auto",
   imageDivClassName = "",
   imageWrapperClassName = "",
 
@@ -172,20 +172,26 @@ export const HeroBasic = ({
 
   return (
     <section
-      className={`relative mt-36 w-full overflow-hidden px-4 pb-10 pt-4 text-white md:px-8 lg:px-12 ${sectionClassName}`}
+      className={`relative w-full overflow-hidden px-4 pb-12 pt-24 text-white sm:px-6 md:px-8 lg:px-12 lg:pt-32 lg:pb-24 ${sectionClassName}`}
     >
       {showBackground && (
         <div className={`absolute inset-0 -z-10 ${backgroundClassName}`} />
       )}
 
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-10">
+      <div className="mx-auto w-full max-w-[1200px]">
         <div
-          className={`relative z-10 grid min-h-[60vh] items-center gap-6 sm:min-h-[500px] ${
-            reverse ? "lg:grid-cols-[320px_1fr]" : "lg:grid-cols-[1fr_320px]"
+          /* 
+            در دسکتاپ (lg) به صورت flex-row در میاد، 
+            اما در موبایل flex-col هست تا بتونیم ترتیب (order) رو عوض کنیم. 
+          */
+          className={`relative z-10 flex flex-col items-center gap-10 lg:flex-row lg:justify-between lg:gap-16 ${
+            reverse ? "lg:flex-row-reverse" : ""
           }`}
         >
+          {/* === سمت چپ: متن و دکمه‌ها === */}
           <MotionTag
-            className={`mx-auto flex max-w-lg flex-col items-center text-center md:mx-0 md:items-start md:text-left ${textContainerClassName}`}
+            /* order-2 در موبایل یعنی میاد زیر عکس. lg:order-1 در دسکتاپ برمی‌گرده سر جاش */
+            className={`order-2 mx-auto flex w-full max-w-xl flex-col items-center text-center lg:order-1 lg:mx-0 lg:w-[48%] lg:items-start lg:text-left ${textContainerClassName}`}
             {...(!isNone && {
               variants: textVariants,
               initial: "hidden",
@@ -193,51 +199,56 @@ export const HeroBasic = ({
             })}
           >
             <motion.h1
-              className={`text-[22px] md:text-[35px] font-black leading-tight ${headingClassName}`}
+              className={`text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-extrabold leading-[1.15] tracking-tight ${headingClassName}`}
               {...(!isNone && { variants: itemVariants })}
             >
-              <span className={beforeHighlightClassName}>{BeforeHighlight} </span>
-              <span
-                className={`bg-linear-to-r from-[#45B6A0] to-[#12ACB5] bg-clip-text text-transparent font-black ${highlightClassName}`}
-              >
+              {BeforeHighlight && (
+                <span className={beforeHighlightClassName}>{BeforeHighlight} </span>
+              )}
+              <span className={`text-[#39d0c3] ${highlightClassName}`}>
                 {Highlight}
+              </span>{" "}
+              <span className={`text-white ${afterHighlightClassName}`}>
+                {AfterHighlight}
               </span>
-              <br />
-              <span className={afterHighlightClassName}>{AfterHighlight}</span>
             </motion.h1>
 
             <motion.p
-              className={`mt-4 max-w-md text-xs leading-6 text-white/75 md:text-[18px] md:text-sm ${descriptionClassName}`}
+              className={`mt-5 max-w-[48ch] text-[15px] sm:text-base leading-[1.7] text-white/70 ${descriptionClassName}`}
               {...(!isNone && { variants: itemVariants })}
             >
               {Description}
             </motion.p>
 
             <motion.div
-              className="mt-6 flex flex-row flex-wrap justify-center gap-2 md:justify-start"
+              className="mt-8 flex w-full flex-col sm:w-auto sm:flex-row items-center justify-center gap-4 lg:justify-start"
               {...(!isNone && { variants: itemVariants })}
             >
+              {/* دکمه اصلی */}
               <motion.div
-                className={`relative inline-flex rounded-full p-[2px] ${primaryBtnWrapperClassName}`}
+                className={`relative inline-flex w-full sm:w-auto rounded-full p-[2px] ${primaryBtnWrapperClassName}`}
                 {...(!isNone && { variants: ctaVariants })}
               >
-                <div className="absolute -inset-[2px] rounded-full bg-linear-to-r from-[#45B6A0] to-[#12ACB5] shadow-[0_0_18px_#00A9BD]" />
+                {/* Glow دکمه اصلی */}
+                <div className="absolute -inset-[1px] rounded-full bg-gradient-to-r from-[#29C4A9] to-[#0d7a7f] shadow-[0_0_20px_rgba(41,196,169,0.3)] opacity-80" />
                 <a
                   href={primaryBtnUrl}
-                  className={`relative z-10 rounded-full px-4 py-2.5 cursor-pointer bg-linear-to-r from-[#00A9BD] to-[#1D553A] text-sm md:text-lg ${primaryBtnClassName}`}
+                  className={`relative z-10 flex w-full items-center justify-center rounded-full px-8 py-3.5 cursor-pointer bg-gradient-to-r from-[#179B89] to-[#0A4F53] text-[15px] sm:text-base font-bold ${primaryBtnClassName}`}
                 >
                   {primaryBtnText}
                 </a>
               </motion.div>
 
+              {/* دکمه فرعی */}
               <motion.div
-                className={`relative inline-flex rounded-full p-[2px] ${secondaryBtnWrapperClassName}`}
+                className={`relative inline-flex w-full sm:w-auto rounded-full p-[2px] ${secondaryBtnWrapperClassName}`}
                 {...(!isNone && { variants: ctaVariants })}
               >
-                <div className="absolute -inset-[2px] rounded-full bg-linear-to-r from-[#056E7C] to-[#46B6A0] shadow-[0_0_18px_#00A9BD]" />
+                {/* بردر گردینت دکمه فرعی */}
+                <div className="absolute -inset-[1px] rounded-full bg-gradient-to-r from-cyan-400/40 to-cyan-700/20" />
                 <a
                   href={secondaryBtnUrl}
-                  className={`relative z-10 rounded-full px-4 py-2.5 bg-linear-to-r from-[#00061D] to-[#0B1F2A] cursor-pointer text-sm md:text-lg ${secondaryBtnClassName}`}
+                  className={`relative z-10 flex w-full items-center justify-center rounded-full px-8 py-3.5 cursor-pointer bg-[#08111f] text-[15px] sm:text-base font-bold ${secondaryBtnClassName}`}
                 >
                   {secondaryBtnText}
                 </a>
@@ -245,8 +256,10 @@ export const HeroBasic = ({
             </motion.div>
           </MotionTag>
 
+          {/* === سمت راست: عکس === */}
           <MotionTag
-            className={`mx-auto w-full max-w-[480px] md:mx-0 ${imageDivClassName}`}
+            /* order-1 در موبایل یعنی عکس میره بالا. lg:order-2 در دسکتاپ سمت راست میمونه */
+            className={`order-1 mx-auto flex w-full justify-center lg:order-2 lg:mx-0 lg:w-[52%] lg:justify-end ${imageDivClassName}`}
             {...(!isNone && {
               variants: rightVariants,
               initial: "hidden",
@@ -257,16 +270,16 @@ export const HeroBasic = ({
 
             {!isBranding && imageUrl && (
               <div
-                className={`relative transform-gpu will-change-transform transition-transform duration-300 ease-out ${
+                className={`relative w-full max-w-[450px] sm:max-w-[550px] lg:max-w-[650px] xl:max-w-[700px] transform-gpu will-change-transform transition-transform duration-300 ease-out ${
                   enableImageHover ? "hover:scale-[1.03]" : ""
                 } ${imageWrapperClassName}`}
               >
                 <SmartImage
                   src={imageUrl}
-                  alt="Hero image"
-                  width={800}
-                  height={640}
-                  className={imageClassName}
+                  alt="Video Editing Dashboard"
+                  width={900}
+                  height={700}
+                  className={`w-full h-auto object-contain  ${imageClassName}`}
                 />
               </div>
             )}
