@@ -1,0 +1,204 @@
+
+import { useMemo, useState } from "react";
+import {SmartImage} from "../../utils/SmartImage.tsx";
+import {posts} from "../../lib/posts.ts";
+
+const categories = [
+    { id: 1, name: "All" },
+    { id: 2, name: "Video Marketing" },
+    { id: 3, name: "Design" },
+    { id: 4, name: "Video Production" },
+    { id: 5, name: "Artificial Intelligence" },
+];
+
+export const RealBlogs = () => {
+    const [page, setPage] = useState<number>(1);
+    const [selectedCategory, setSelectedCategory] = useState<string>("All");
+    const pageSize = 12;
+
+    const normalize = (value: string) => value.trim().toLowerCase();
+
+    const filteredPosts = useMemo(() => {
+        if (normalize(selectedCategory) === "all") {
+            return posts;
+        }
+
+        const selected = normalize(selectedCategory);
+        return posts.filter((post) => normalize(post.category) === selected);
+    }, [selectedCategory]);
+
+    const totalPages = Math.max(1, Math.ceil(filteredPosts.length / pageSize));
+    const paginatedPosts = useMemo(() => {
+        const start = (page - 1) * pageSize;
+        return filteredPosts.slice(start, start + pageSize);
+    }, [filteredPosts, page]);
+
+    const placeholderCount = Math.max(0, pageSize - paginatedPosts.length);
+
+    const goToPage = (p: number) => {
+        if (p < 1 || p > totalPages) return;
+        setPage(p);
+    };
+
+    const handleCategorySelect = (categoryName: string) => {
+        setSelectedCategory(categoryName);
+        setPage(1);
+    };
+
+    return (
+        <div
+            className="relative min-h-712.5 overflow-x-hidden lg:min-h-587.5 overflow-y-hidden"
+            data-category-count={categories.length}
+        >
+
+
+            <div className="relative z-10 mx-auto mt-5 flex w-full max-w-7xl flex-wrap items-center justify-center gap-2 px-3 py-4 sm:flex-nowrap sm:gap-3 sm:px-8 sm:py-8 lg:gap-4 lg:px-12 lg:py-12">
+                {categories.map((category ) => (
+                    <div
+                        onClick={() => handleCategorySelect(category.name)}
+                        key={category.id} className={` cursor-pointer shrink-0 rounded-[30px]  transition-all  px-5 py-2 text-xs sm:text-sm text-white ${selectedCategory.trim() === category.name.trim() ? "shadow-[0_0_35px_#056E7C80]  bg-linear-to-r from-[#00A9BD] to-[#1D553A] border-[3px] border-[#00A9BD]" : "shadow-[0_0_35px_#056E7C3D] bg-[#03001357] border-[3px] border-transparent "}`}>
+                        {category.name}
+                    </div>
+
+                ))}
+            </div>
+
+            <div className="relative z-10 mx-auto mt-8 grid w-full max-w-7xl grid-cols-1 justify-items-center gap-4 px-4 pb-14 sm:grid-cols-2 sm:gap-6 sm:px-6 md:grid-cols-3 md:gap-8 md:px-8 xl:gap-10 xl:px-10">
+                {paginatedPosts.map((post) => (
+                    <article
+                        key={post.id}
+                        className="group flex min-h-70 h-full overflow-y-hidden w-full cursor-pointer flex-col overflow-hidden rounded-2xl border-[0.5px] border-[#00A9BD] bg-linear-to-r from-[#0B1F2A]  to-[#003A43] shadow-[0px_6px_22px_0px_#00000060] backdrop-blur-sm transition-transform duration-200 hover:-translate-y-1 hover:border-[#00A9BD]/60 sm:max-w-90"
+                    >
+                        <div className="relative h-40 w-full overflow-hidden">
+                            <img
+                                src={post.image}
+                                alt={post.title}
+                                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                loading="lazy"
+                            />
+                            <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
+                        </div>
+
+                        <div className="flex flex-1 flex-col gap-3 px-4 py-4 text-left text-white">
+              <span className="rounded-full text-[10px] font-semibold text-[#00A9BD] backdrop-blur">
+                {post.category}
+              </span>
+                            <h3 className="text-base font-semibold leading-tight text-white group-hover:text-[#00A9BD]">
+                                {post.title}
+                            </h3>
+                            <p className="line-clamp-3 text-xs leading-relaxed text-white/70">
+                                {post.excerpt}
+                            </p>
+                            <footer className="mt-auto flex items-center justify-between pt-2 text-[11px] text-white/70">
+                                <div className="flex items-center gap-2 text-white/80">
+                                    <SmartImage
+                                        src="/blogs/P1.svg"
+                                        alt="Eyeson Studio"
+                                        width={16}
+                                        height={16}
+                                        className="h-4 w-4"
+                                    />
+                                    <span>Eyeson Studio</span>
+                                </div>
+                                <div className="flex items-center gap-2 text-white/80">
+                                    <SmartImage
+                                        src="/blogs/P2.svg"
+                                        alt="Calendar icon"
+                                        width={16}
+                                        height={16}
+                                        className="h-4 w-4"
+                                    />
+                                    <span>{post.date}</span>
+                                </div>
+                            </footer>
+                        </div>
+                    </article>
+                ))}
+
+
+
+                {Array.from({ length: placeholderCount }).map((_, idx) => (
+                    <div
+                        key={`placeholder-${idx}`}
+                        className="flex min-h-70 h-full w-full max-w-105 flex-col items-center justify-center rounded-2xl border border-dashed border-white/20 bg-[#03001357] px-6 text-center text-white/60"
+                    >
+                        <span className="text-sm font-semibold text-[#00A9BD]">No blog here… yet</span>
+                        <p className="mt-2 text-xs text-white/50">We&apos;re preparing more stories for this category.</p>
+                    </div>
+                ))}
+            </div>
+            <div className="relative z-10 mx-auto flex max-w-7xl items-center justify-center gap-2 px-6 pb-10">
+                <button
+                    onClick={() => goToPage(page - 1)}
+                    disabled={page === 1}
+                    className="cursor-pointer rounded-lg border border-white/20 bg-[#FFFFFF0D] px-4 py-2 text-sm text-white/80 transition hover:border-white/40 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                    Previous
+                </button>
+                {Array.from({ length: totalPages }).map((_, idx) => {
+                    const num = idx + 1;
+                    const active = num === page;
+                    return (
+                        <button
+                            key={num}
+                            onClick={() => goToPage(num)}
+                            className={`cursor-pointer rounded-lg bg-[#FFFFFF0D] px-3 py-2 text-sm transition ${
+                                active
+                                    ? "border border-[#46B6A0] text-white shadow-[0px_0px_12px_0px_#00A9BD55]"
+                                    : "border border-white/20 text-white/80 hover:border-white/40 hover:text-white"
+                            }`}
+                        >
+                            {num}
+                        </button>
+                    );
+                })}
+                <button
+                    onClick={() => goToPage(page + 1)}
+                    disabled={page === totalPages}
+                    className="cursor-pointer rounded-lg border border-white/20 bg-[#FFFFFF0D] px-4 py-2 text-sm text-white/80 transition hover:border-white/40 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                    Next
+                </button>
+            </div>
+
+            <section className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-16 sm:px-6 md:px-8 xl:px-10">
+                <div className="relative overflow-hidden rounded-3xl border border-[#00A9BD]/40 shadow-[0px_0px_30px_0px_#00A9BD40]">
+                    <SmartImage
+                        src="/blogs/Story-Back.png"
+                        alt=""
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 1200px"
+                    />
+                    <div className="absolute inset-0 bg-linear-to-r from-[#031722]/90 via-[#031722]/65 to-[#031722]/25" />
+
+                    <div className="relative flex min-h-57.5 flex-col justify-center gap-6 px-6 py-10 text-center sm:gap-8 sm:px-10 sm:text-left lg:min-h-65 lg:flex-row lg:items-center lg:justify-between lg:px-14">
+                        <div className="max-w-xl text-white mx-auto lg:mx-0">
+                            <h2 className="text-2xl font-semibold leading-tight sm:text-3xl">
+                                Let Your Story Move People.
+                            </h2>
+                            <p className="mt-3 text-sm text-white/85 sm:text-lg">
+                                Tell us what you&apos;re building - we&apos;ll bring it to life with motion.
+                            </p>
+                            <button className="mt-6 w-full max-w-60 mx-auto cursor-pointer rounded-xl bg-linear-to-r from-[#46B6A0] to-[#00A9BD] px-6 py-3 text-sm font-medium text-white shadow-[0_12px_30px_-10px_#00A9BD] transition sm:mx-0 sm:w-auto">
+                                Start a Motion Project
+                            </button>
+                        </div>
+
+                        <div className="relative hidden h-35 w-full max-w-70 self-end sm:block sm:h-45 sm:max-w-85 lg:h-52.5 lg:max-w-105">
+                            <SmartImage
+                                src="/blogs/People-ChatGPT.png"
+                                alt="People discussing creative ideas"
+                                width={700}
+                                height={700}
+                                className="object-contain object-right"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+        </div>
+    );
+};
