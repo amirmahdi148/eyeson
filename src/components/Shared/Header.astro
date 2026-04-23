@@ -4,6 +4,7 @@ const MENU_ITEMS = [
     { id: "2", title: "2D/3D Animations", path: "/animation" },
     { id: "3", title: "Branding", path: "/branding" },
     { id: "4", title: "Blogs", path: "/blogs" },
+    { id: "5", title: "Pricing", path: "/pricing" },
 ];
 ---
 
@@ -14,11 +15,11 @@ const MENU_ITEMS = [
         <div id="header-bg" class="pointer-events-none absolute inset-x-0 top-0 h-full transition-all duration-300"></div>
 
         <!-- Full desktop header (your original layout) -->
-        <div id="fullHeader" class="relative mx-auto max-w-[1200px] hidden lg:flex items-center justify-between gap-3">
+        <div id="fullHeader" class="relative mx-auto max-w-300 hidden lg:flex items-center justify-between gap-3">
 
             <!-- Logo -->
             <a href="/" class="relative z-50 max-md:invisible visible">
-                <img src="/logo.png" class="h-12 sm:h-14 lg:h-[72px] object-contain" alt="EyesOn logo" />
+                <img src="/logo.png" class="h-12 sm:h-14 lg:h-18 object-contain" alt="EyesOn logo" />
             </a>
 
             <!-- Desktop menu -->
@@ -37,7 +38,7 @@ const MENU_ITEMS = [
         </div>
 
         <!-- Compact header (mobile always) -->
-        <div id="compactHeaderMobile" class="relative mx-auto max-w-[1200px] flex lg:hidden items-center justify-between rounded-full border border-[#3AAFC8]/35 bg-[#03111C]/90 px-4 py-3 shadow-[0_0_28px_rgba(18,172,181,0.2)] backdrop-blur-xl sm:px-6">
+        <div id="compactHeaderMobile" class="relative mx-auto max-w-300 flex lg:hidden items-center justify-between rounded-full border border-[#3AAFC8]/35 bg-[#03111C]/90 px-4 py-3 shadow-[0_0_28px_rgba(18,172,181,0.2)] backdrop-blur-xl sm:px-6">
             <a href="/" class="relative z-50">
                 <img src="/logo.png" class="h-10 sm:h-11 object-contain" alt="EyesOn logo" />
             </a>
@@ -56,10 +57,10 @@ const MENU_ITEMS = [
     </div>
 
     <!-- MENU PANEL -->
-    <div id="mobileMenu" class="fixed inset-0 z-[60] opacity-0 pointer-events-none transition">
+    <div id="mobileMenu" class="fixed inset-0 z-60 opacity-0 pointer-events-none transition">
         <div id="backdrop" class="absolute inset-0 bg-black/55"></div>
 
-        <div id="panel" class="absolute right-0 top-0 h-screen w-[92%] max-w-[380px] border-l border-[#3AAFC8]/25 bg-[#020915] backdrop-blur-xl transform translate-x-full transition-transform duration-300">
+        <div id="panel" class="absolute right-0 top-0 h-screen w-[92%] max-w-95 border-l border-[#3AAFC8]/25 bg-[#020915] backdrop-blur-xl transform translate-x-full transition-transform duration-300">
             <div class="flex h-full flex-col px-4 pb-5 pt-6">
                 <div class="mb-10 flex items-center justify-between">
                     <a href="/" class="relative z-50">
