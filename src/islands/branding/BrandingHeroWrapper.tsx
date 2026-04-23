@@ -10,7 +10,7 @@ export const BrandingHeroWrapper = () => {
         BeforeHighlight=""
         Highlight="Branding & Visual Identity"
         AfterHighlight="for Growing Brands"
-        enableAnimation={true}
+
         Description="We build visual identities..."
     />)
 }
