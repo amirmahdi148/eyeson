@@ -11,8 +11,10 @@
   "dependencies": {
     "@astrojs/language-server": "2.15.5",
     "@lucide/astro": "^1.8.0",
+    "@splinetool/runtime": "^1.12.87",
     "astro": "^5.17.1",
     "framer-motion": "^12.23.24",
+    "gsap": "^3.15.0",
     "lucide-astro": "^0.556.0",
     "lucide-react": "^0.542.0",
     "react": "^19.1.1",

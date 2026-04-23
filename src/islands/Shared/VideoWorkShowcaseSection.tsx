@@ -1,6 +1,12 @@
 "use client";
 
-const firstRow = [
+type ShowcaseItem = {
+  id: number;
+  src: string;
+  alt: string;
+};
+
+const defaultFirstRow: ShowcaseItem[] = [
   { id: 1, src: "/slider1.png", alt: "Abstract video edit sample" },
   { id: 2, src: "/animation-section/video.jpg", alt: "Before after edit sample" },
   { id: 3, src: "/videoEditing.png", alt: "Video timeline interface sample" },
@@ -11,7 +17,7 @@ const firstRow = [
   { id: 8, src: "/animation-section/video.jpg", alt: "Brand video sample" },
 ];
 
-const secondRow = [
+const defaultSecondRow: ShowcaseItem[] = [
   { id: 9, src: "/animation-section/video.jpg", alt: "Story edit sample" },
   { id: 10, src: "/animation-section/short-form.png", alt: "Product promo sample" },
   { id: 11, src: "/videoEditing.png", alt: "Editing process sample" },
@@ -49,10 +55,18 @@ function WorkCard({ src, alt }: { src: string; alt: string }) {
 }
 
 type VideoWorkShowcaseSectionProps = {
-  eyebrow?: string;
+  eyebrow?: string | null;
   title?: string;
-  highlight?: string;
+  highlight?: string | null;
   description?: string;
+  firstRow?: ShowcaseItem[];
+  secondRow?: ShowcaseItem[];
+  sectionClassName?: string;
+  eyebrowClassName?: string;
+  titleClassName?: string;
+  highlightClassName?: string;
+  descriptionClassName?: string;
+  fadeColor?: string;
 };
 
 export default function VideoWorkShowcaseSection({
@@ -60,25 +74,35 @@ export default function VideoWorkShowcaseSection({
   title = "Elevate your brand through",
   highlight = "Video editing",
   description = "Captivate your audience and outshine competitors with polished, story-driven editing. From product walkthroughs to social promos, each frame works harder for your message.",
+  firstRow = defaultFirstRow,
+  secondRow = defaultSecondRow,
+  sectionClassName = "",
+  eyebrowClassName = "text-[10px] tracking-[0.18em] text-[#c6d6de] sm:text-xs",
+  titleClassName = "mt-3 text-3xl font-bold leading-tight text-white sm:mt-4 sm:text-4xl md:text-5xl lg:text-6xl",
+  highlightClassName = "text-[#35d2cc]",
+  descriptionClassName = "mx-auto mt-4 max-w-2xl text-xs leading-6 text-[#c5d7e0] sm:mt-5 sm:text-sm sm:leading-7",
+  fadeColor = "#030d18",
 }: VideoWorkShowcaseSectionProps) {
   const doubled1 = [...firstRow, ...firstRow, ...firstRow];
   const doubled2 = [...secondRow, ...secondRow, ...secondRow];
 
   return (
-    <section className="relative overflow-hidden px-4 pb-16 pt-10 sm:px-6 sm:pb-20 sm:pt-12 lg:px-20 lg:pb-24">
+    <section className={`relative overflow-hidden px-4 pb-16 pt-10 sm:px-6 sm:pb-20 sm:pt-12 lg:px-20 lg:pb-24 ${sectionClassName}`}>
 
       {/* ── Header ── */}
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-[10px] tracking-[0.18em] text-[#c6d6de] sm:text-xs">{eyebrow}</p>
-          <h2 className="mt-3 text-3xl font-bold leading-tight text-white sm:mt-4 sm:text-4xl md:text-5xl lg:text-6xl">
+          {eyebrow ? <p className={eyebrowClassName}>{eyebrow}</p> : null}
+          <h2 className={titleClassName}>
             {title}
-            <br />
-            <span className="text-[#35d2cc]">{highlight}</span>
+            {highlight ? (
+              <>
+                <br />
+                <span className={highlightClassName}>{highlight}</span>
+              </>
+            ) : null}
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-xs leading-6 text-[#c5d7e0] sm:mt-5 sm:text-sm sm:leading-7">
-            {description}
-          </p>
+          <p className={descriptionClassName}>{description}</p>
         </div>
       </div>
 
@@ -119,8 +143,8 @@ export default function VideoWorkShowcaseSection({
         {/* ردیف اول: به سمت چپ */}
         <div className="relative w-full overflow-hidden">
           {/* fade mask چپ و راست */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-[#030d18] to-transparent sm:w-20" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-[#030d18] to-transparent sm:w-20" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 sm:w-20" style={{ background: `linear-gradient(to right, ${fadeColor}, transparent)` }} />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 sm:w-20" style={{ background: `linear-gradient(to left, ${fadeColor}, transparent)` }} />
 
           <div className="track-left">
             {doubled1.map((item, idx) => (
@@ -131,8 +155,8 @@ export default function VideoWorkShowcaseSection({
 
         {/* ردیف دوم: به سمت راست */}
         <div className="relative w-full overflow-hidden">
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-[#030d18] to-transparent sm:w-20" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-[#030d18] to-transparent sm:w-20" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 sm:w-20" style={{ background: `linear-gradient(to right, ${fadeColor}, transparent)` }} />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 sm:w-20" style={{ background: `linear-gradient(to left, ${fadeColor}, transparent)` }} />
 
           <div className="track-right">
             {doubled2.map((item, idx) => (
