@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { motion } from "framer-motion";
 import { Tabs } from "./Tabs.tsx";
 import { MediaGrid } from "../Shared/PostComp.tsx";
 
@@ -70,9 +71,15 @@ export const PortfolioShowingSection = () => {
   };
 
   return (
-    <section className="mt-20 flex w-full flex-col items-center justify-center px-4 sm:mt-24 sm:px-6">
+    <motion.section
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      className="mt-20 flex w-full flex-col items-center justify-center px-4 sm:mt-24 sm:px-6"
+    >
       <div className="w-full max-w-5xl text-center">
-        <h4 className="text-xs font-light tracking-[0.2em] sm:text-sm">OUR WORK</h4>
+        <h4 className="text-xs font-thin tracking-[0.2em] sm:text-sm">OUR WORK</h4>
         <h2 className="bg-linear-to-r from-[#46B6A0] to-[#2EBACA] bg-clip-text text-3xl font-black text-transparent sm:text-4xl md:text-5xl">
           {type} portfolio
         </h2>
@@ -97,6 +104,6 @@ export const PortfolioShowingSection = () => {
           onSelectCategory={setSelectedCategory}
         />
       </div>
-    </section>
+    </motion.section>
   );
 };

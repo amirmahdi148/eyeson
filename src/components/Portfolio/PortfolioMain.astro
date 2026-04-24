@@ -2,19 +2,21 @@
 import PortfolioHero from "./PortfolioHero.astro";
 import LogoCaro from "../Shared/LogoCaro.astro";
 import {PortfolioShowingSection} from "../../islands/Portfolio/PortfolioShowingSection.tsx";
-import { AnimationPortfolioShowcase } from "../../islands/Portfolio/AnimationPortfolioShowcase.tsx";
-import { DesignSubscriptionSection } from "../../islands/Portfolio/DesignSubscriptionSection.tsx";
+import AnimationPortfolioShowcase from "./AnimationPortfolioShowcase.astro";
+import DesignSubscriptionSection from "./DesignSubscriptionSection.astro";
 import { DesignPortfolioShowcase } from "../../islands/Portfolio/DesignPortfolioShowcase.tsx";
-import { CustomerStoriesShowcase } from "../../islands/Portfolio/CustomerStoriesShowcase.tsx";
+import CustomerStoriesShowcase from "./CustomerStoriesShowcase.astro";
+import PortfolioBackground from "./PortfolioBackground.astro";
 ---
 
 
 <div class="flex flex-col gap-3 justify-center items-between">
+    <PortfolioBackground />
     <PortfolioHero />
     <LogoCaro />
     <PortfolioShowingSection client:load />
-    <AnimationPortfolioShowcase client:load />
-    <DesignSubscriptionSection client:load />
+    <AnimationPortfolioShowcase />
+    <DesignSubscriptionSection />
     <DesignPortfolioShowcase client:load />
-    <CustomerStoriesShowcase client:load />
+    <CustomerStoriesShowcase />
 </div>

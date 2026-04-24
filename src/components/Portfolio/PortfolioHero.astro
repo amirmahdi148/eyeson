@@ -23,6 +23,21 @@ import { SmartImage } from "../../utils/SmartImage.tsx";
         will-change: transform;
     }
 
+    .portfolio-hero-reveal {
+        animation: portfolioHeroReveal 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    @keyframes portfolioHeroReveal {
+        0% {
+            opacity: 0;
+            transform: translateY(18px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
     /* 🚀 موبایل = بدون انیمیشن + بدون لود تصویر */
     @media (max-width: 768px) {
         .animate-left,
@@ -32,7 +47,7 @@ import { SmartImage } from "../../utils/SmartImage.tsx";
     }
 </style>
 
-<div class="h-200 flex items-center justify-between relative overflow-hidden">
+<div class="portfolio-hero-reveal h-200 flex items-center justify-between relative overflow-hidden">
 
     <!-- Left Image (فقط دسکتاپ) -->
     <div class="absolute left-1 top-40 animate-left hidden md:block">
@@ -41,6 +56,9 @@ import { SmartImage } from "../../utils/SmartImage.tsx";
                     src="/portfolio/left.png"
                     width={400}
                     height={220}
+                    priority={true}
+                    loading="eager"
+                    decoding="async"
             />
         </div>
     </div>
@@ -134,9 +152,11 @@ import { SmartImage } from "../../utils/SmartImage.tsx";
         <div class="w-100 h-55">
             <SmartImage
                     src="/portfolio/right.png"
-
                     width={400}
                     height={220}
+                    priority={true}
+                    loading="eager"
+                    decoding="async"
             />
         </div>
     </div>

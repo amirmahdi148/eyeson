@@ -35,7 +35,7 @@ export default function VideoServicesSection() {
     const frameRef = useRef<number | null>(null);
 
     return (
-        <section className="relative overflow-hidden px-6 pb-24 pt-16 lg:px-20">
+        <section id="services" className="relative overflow-hidden px-6 pb-24 pt-16 lg:px-20">
             <div className="absolute inset-0 -z-10 " />
 
 

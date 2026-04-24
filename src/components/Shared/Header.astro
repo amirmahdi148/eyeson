@@ -1,10 +1,53 @@
 ---
 const MENU_ITEMS = [
+    { id: "services", title: "Services", path: "/video#services" },
     { id: "1", title: "Video", path: "/video" },
     { id: "2", title: "2D/3D Animations", path: "/animation" },
     { id: "3", title: "Branding", path: "/branding" },
     { id: "4", title: "Blogs", path: "/blogs" },
     { id: "5", title: "Pricing", path: "/pricing" },
+];
+
+const SERVICE_GROUPS = [
+    {
+        title: "Content Services",
+        description: "Production systems for brands that need consistent content output.",
+        active: true,
+        items: [
+            {
+                title: "Content Production",
+                description: "Tailored content creation aligned with your brand voice and goals.",
+                image: "/home/service-section.png",
+                accent: "#17d6d4",
+            },
+            {
+                title: "Short-Form Content",
+                description: "Fast-turn edits built for TikTok, Reels, and YouTube Shorts.",
+                image: "/videoEditing.png",
+                accent: "#4bc7ff",
+            },
+            {
+                title: "Video Editing",
+                description: "Clean, modern edits focused on retention and engagement.",
+                image: "/animation-section/video.jpg",
+                accent: "#7ee6ff",
+            },
+            {
+                title: "Ad Creatives",
+                description: "Conversion-focused creatives for paid social campaigns.",
+                image: "/video-pieces/Featured-One.png",
+                accent: "#66f2c5",
+            },
+            {
+                title: "Monthly Retainers",
+                description: "A steady content plan with production and delivery built in.",
+                image: "/home/frame-special.png",
+                accent: "#ffd56a",
+            },
+        ],
+    },
+    { title: "Creative & Motion Services", description: "Motion-first storytelling and animation work." },
+    { title: "Design Services", description: "Brand and digital systems built for clarity." },
 ];
 ---
 
@@ -24,10 +67,62 @@ const MENU_ITEMS = [
 
             <!-- Desktop menu -->
             <nav class="hidden lg:flex items-center gap-7">
-                {MENU_ITEMS.map((item) => (
-                        <a href={item.path} class="text-white/90 hover:text-white transition">
-                            {item.title}
-                        </a>
+                <div class="group relative">
+                    <a href="/video#services" class="text-white/90 hover:text-white transition inline-flex items-center gap-1">
+                        Services
+                        <span class="text-xs transition-transform duration-200 group-hover:translate-y-0.5">▾</span>
+                    </a>
+
+                    <div class="pointer-events-none absolute left-1/2 top-full z-50 w-[min(1060px,calc(100vw-2rem))] -translate-x-1/2 opacity-0 translate-y-0 transition duration-200 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100">
+                        <div class="h-4 w-full" aria-hidden="true"></div>
+                        <div class="rounded-[34px] border border-[#2bb7c2]/35 bg-[#081721]/96 p-3 shadow-[0_0_40px_rgba(25,189,202,0.24)] backdrop-blur-xl">
+                            <div class="grid gap-4 lg:grid-cols-[290px_minmax(0,1fr)]">
+                                <aside class="rounded-[28px] border border-[#2bb7c2]/20 bg-[#071520] p-5">
+                                    <p class="text-sm text-white/45">Our Services</p>
+                                    <div class="mt-6 space-y-2">
+                                        {SERVICE_GROUPS.map((group, index) => (
+                                            <a
+                                                href={group.title === "Content Services" ? "/video" : group.title === "Creative & Motion Services" ? "/animation" : "/branding"}
+                                                class={`block rounded-[20px] px-4 py-4 transition ${
+                                                    group.active || index === 0
+                                                        ? "bg-[#0a2b31] text-[#22d7de] shadow-[inset_0_0_0_1px_rgba(42,215,222,0.45)]"
+                                                        : "text-white hover:bg-white/5 hover:text-white"
+                                                }`}
+                                            >
+                                                <div class="text-[26px] font-semibold leading-tight">{group.title}</div>
+                                            </a>
+                                        ))}
+                                    </div>
+                                </aside>
+
+                                <section class="rounded-[28px] bg-[#06141d] p-3">
+                                    <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                                        {SERVICE_GROUPS[0].items.map((card) => (
+                                            <a href="/video" class="group/card flex items-start gap-3 rounded-2xl border border-white/5 bg-white/3 p-3 transition hover:border-white/10 hover:bg-white/5">
+                                                <div
+                                                    class="relative h-12 w-12 shrink-0 overflow-hidden rounded-xl border border-white/10 bg-[#04131b] ring-1 ring-inset"
+                                                    style={`box-shadow: 0 0 0 1px ${card.accent}22;`}
+                                                >
+                                                    <img src={card.image} alt={card.title} class="h-full w-full object-cover" />
+                                                    <div class="absolute inset-0 bg-linear-to-br from-black/10 via-transparent to-transparent"></div>
+                                                </div>
+                                                <div class="min-w-0">
+                                                    <h3 class="text-base font-semibold text-white transition group-hover/card:text-[#e9ffff]">{card.title}</h3>
+                                                    <p class="mt-1 text-[11px] leading-4 text-white/55">{card.description}</p>
+                                                </div>
+                                            </a>
+                                        ))}
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {MENU_ITEMS.filter((item) => item.id !== "services").map((item) => (
+                    <a href={item.path} class="text-white/90 hover:text-white transition">
+                        {item.title}
+                    </a>
                 ))}
             </nav>
 
@@ -72,7 +167,31 @@ const MENU_ITEMS = [
                 </div>
 
                 <div class="space-y-4 text-left text-[34px] font-semibold leading-tight text-white">
-                    {MENU_ITEMS.map((item) => (
+                    <button id="mobileServicesToggle" class="flex w-full items-center justify-between rounded-2xl border border-white/8 bg-white/4 px-4 py-4 text-left text-lg text-white transition hover:border-[#2bd6de]/30 hover:bg-[#0a2330]">
+                        <span class="flex items-center gap-3">
+                            <span class="h-2 w-2 rounded-full bg-[#2bd6de] shadow-[0_0_10px_rgba(43,214,222,0.7)]"></span>
+                            <span>Services</span>
+                        </span>
+                        <span class="text-xs text-[#86f5ff]">▾</span>
+                    </button>
+                    <div id="mobileServicesPanel" class="hidden rounded-3xl border border-[#2bb7c2]/18 bg-[#06141d]/90 p-3 shadow-[0_0_30px_rgba(25,189,202,0.16)]">
+                        <p class="px-2 pb-3 text-[11px] uppercase tracking-[0.25em] text-white/35">Our Services</p>
+                        <div class="grid gap-2">
+                            <a href="/video" class="menu-link flex items-center justify-between rounded-2xl border border-white/5 bg-white/3 px-4 py-3 text-base font-medium text-white/80 transition hover:border-[#2bd6de]/35 hover:bg-[#0a2630] hover:text-white">
+                                <span>Content Services</span>
+                                <span class="text-xs text-[#86f5ff]">↗</span>
+                            </a>
+                            <a href="/animation" class="menu-link flex items-center justify-between rounded-2xl border border-white/5 bg-white/3 px-4 py-3 text-base font-medium text-white/80 transition hover:border-[#2bd6de]/35 hover:bg-[#0a2630] hover:text-white">
+                                <span>Creative & Motion Services</span>
+                                <span class="text-xs text-[#86f5ff]">↗</span>
+                            </a>
+                            <a href="/branding" class="menu-link flex items-center justify-between rounded-2xl border border-white/5 bg-white/3 px-4 py-3 text-base font-medium text-white/80 transition hover:border-[#2bd6de]/35 hover:bg-[#0a2630] hover:text-white">
+                                <span>Design Services</span>
+                                <span class="text-xs text-[#86f5ff]">↗</span>
+                            </a>
+                        </div>
+                    </div>
+                    {MENU_ITEMS.filter((item) => item.id !== "services").map((item) => (
                         <a href={item.path} class="block menu-link text-lg">
                             {item.title}
                         </a>
@@ -102,6 +221,8 @@ const MENU_ITEMS = [
     const closeMenuBtn = document.getElementById("closeMenuBtn");
     const fullHeader = document.getElementById("fullHeader");
     const menuLinks = document.querySelectorAll(".menu-link");
+    const mobileServicesToggle = document.getElementById("mobileServicesToggle");
+    const mobileServicesPanel = document.getElementById("mobileServicesPanel");
     const desktopQuery = window.matchMedia("(min-width: 1024px)");
 
     let open = false;
@@ -124,6 +245,9 @@ const MENU_ITEMS = [
     closeMenuBtn?.addEventListener("click", () => setOpen(false));
     backdrop?.addEventListener("click", () => setOpen(false));
     menuLinks.forEach((link) => link.addEventListener("click", () => setOpen(false)));
+    mobileServicesToggle?.addEventListener("click", () => {
+        mobileServicesPanel?.classList.toggle("hidden");
+    });
 
     function updateHeaderMode() {
         const scrolled = window.scrollY > 12;

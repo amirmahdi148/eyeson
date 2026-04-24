@@ -11,50 +11,57 @@ const storyItems: StoryItem[] = [
     id: "top-1",
     title: "Branded Motion",
     category: "Branded motion",
-    src: "/portfolio/customer-stories/top-1.jpg",
-    className: "",
+    src: "/portfolio/customer-showcase/top-1.jpg",
+    className: "md:col-span-4 md:row-span-2 md:row-start-1",
   },
   {
     id: "top-2",
     title: "UI Animation",
     category: "UI Animation",
-    src: "/portfolio/customer-stories/top-2.jpg",
-    className: "",
+    src: "/portfolio/customer-showcase/top-2.jpg",
+    className: "md:col-span-4 md:row-span-2 md:row-start-1",
   },
   {
     id: "top-3",
     title: "Lottie Animation",
     category: "Lottie Animation",
-    src: "/portfolio/customer-stories/top-3.jpg",
-    className: "",
+    src: "/portfolio/customer-showcase/top-3.jpg",
+    className: "md:col-span-4 md:row-span-2 md:row-start-1",
   },
   {
     id: "bottom-wide",
     title: "Lottie Animation",
     category: "Lottie Animation",
-    src: "/portfolio/customer-stories/bottom-wide.jpg",
-    className: "md:col-span-2 md:row-span-2",
+    src: "/portfolio/customer-showcase/bottom-left.jpg",
+    className: "md:col-span-6 md:row-span-3 md:row-start-3",
   },
   {
     id: "bottom-mid",
     title: "UI Animation",
     category: "UI Animation",
-    src: "/portfolio/customer-stories/bottom-mid.jpg",
-    className: "md:row-span-2",
+    src: "/portfolio/design-showcase/top-3.jpg",
+    className: "md:col-span-3 md:col-start-7 md:row-start-3",
   },
   {
     id: "bottom-right-top",
     title: "UI Animation",
     category: "UI Animation",
-    src: "/portfolio/customer-stories/bottom-right-top.jpg",
-    className: "",
+    src: "/portfolio/customer-showcase/mid-2.jpg",
+    className: "md:col-span-3 md:col-start-10 md:row-span-2 md:row-start-3",
   },
   {
     id: "bottom-right-bottom",
     title: "UI Animation",
     category: "UI Animation",
-    src: "/portfolio/customer-stories/bottom-right-bottom.jpg",
-    className: "",
+    src: "/portfolio/customer-showcase/bot-1.jpg",
+    className: "md:col-span-3 md:col-start-7 md:row-span-2 md:row-start-4",
+  },
+  {
+    id: "bottom-right-tail",
+    title: "UI Animation",
+    category: "UI Animation",
+    src: "/portfolio/design-showcase/top-3.jpg",
+    className: "md:col-span-3 md:col-start-10 md:row-start-5",
   },
 ];
 
@@ -78,7 +85,7 @@ export const CustomerStoriesShowcase = () => {
         </p>
       </div>
 
-      <div className="mt-8 grid auto-rows-[170px] grid-cols-1 gap-4 sm:auto-rows-[210px] sm:grid-cols-2 md:grid-cols-3">
+      <div className="mt-8 grid auto-rows-[120px] grid-cols-1 gap-4 sm:auto-rows-[145px] sm:grid-cols-2 md:grid-cols-12 md:auto-rows-[160px]">
         {storyItems.map((item) => (
           <article
             key={item.id}

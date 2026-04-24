@@ -1,3 +1,6 @@
+import {SmartImage} from "../../utils/SmartImage.tsx";
+import { motion } from "framer-motion";
+
 type DesignShowcaseItem = {
   id: string;
   title: string;
@@ -12,94 +15,114 @@ const designShowcaseItems: DesignShowcaseItem[] = [
     title: "Branded Motion",
     category: "Branded motion",
     src: "/portfolio/design-showcase/top-1.jpg",
-    className: "",
+    className: "md:col-span-4 md:row-span-2 md:row-start-1  ",
   },
   {
     id: "top-2",
     title: "UI Animation",
     category: "UI Animation",
     src: "/portfolio/design-showcase/top-2.jpg",
-    className: "",
+    className: "md:col-span-4 md:row-span-2 md:row-start-1",
   },
   {
     id: "top-3",
     title: "Lottie Animation",
     category: "Lottie Animation",
     src: "/portfolio/design-showcase/top-3.jpg",
-    className: "",
+    className: "md:col-span-4 md:row-span-2 md:row-start-1",
   },
   {
     id: "bottom-left",
     title: "Lottie Animation",
     category: "Lottie Animation",
     src: "/portfolio/design-showcase/bottom-left.jpg",
-    className: "md:col-span-2 md:row-span-3",
+    className: "md:col-span-6 md:row-span-3 md:row-start-3",
   },
   {
     id: "mid-1",
     title: "UI Animation",
     category: "UI Animation",
-    src: "/portfolio/design-showcase/mid-1.jpg",
-    className: "",
+    src: "/portfolio/design-showcase/top-3.jpg",
+    className: "md:col-span-3 md:col-start-7  md:row-start-3",
   },
   {
     id: "mid-2",
     title: "UI Animation",
     category: "UI Animation",
     src: "/portfolio/design-showcase/mid-2.jpg",
-    className: "md:row-span-2",
+    className: "md:col-span-3 md:col-start-10 md:row-span-2 md:row-start-3 ",
   },
   {
     id: "bot-1",
     title: "UI Animation",
     category: "UI Animation",
     src: "/portfolio/design-showcase/bot-1.jpg",
-    className: "",
+    className: "md:col-span-3 md:col-start-7 md:row-span-2 md:row-start-4 ",
   },
   {
     id: "bot-2",
     title: "UI Animation",
     category: "UI Animation",
-    src: "/portfolio/design-showcase/bot-2.jpg",
-    className: "",
+    src: "/portfolio/design-showcase/top-3.jpg",
+    className: "md:col-span-3 md:col-start-10 md:row-start-5",
   },
 ];
 
 export const DesignPortfolioShowcase = () => {
   return (
-    <section className="mx-auto w-full max-w-6xl px-4 pb-20 sm:px-6">
-      <div className="mx-auto max-w-2xl text-center">
-        <h2 className="bg-linear-to-r from-[#46B6A0] to-[#2EBACA] bg-clip-text text-3xl font-black text-transparent sm:text-4xl md:text-5xl">
-          Design portfolio
-        </h2>
-        <p className="mt-3 text-sm leading-6 text-white/70 sm:text-base">
-          Great design is not just pretty visuals. It is how your brand thinks,
-          speaks and earns trust. From product interfaces to full brand systems,
-          every detail is shaped with purpose and precision.
-        </p>
-      </div>
+    <motion.section
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      className="relative isolate overflow-hidden pb-20"
+    >
+      <div
+        aria-hidden="true"
+        className="portfolio-design-bg pointer-events-none absolute inset-y-0 left-1/2 h-full w-screen -translate-x-1/2 bg-center bg-cover bg-no-repeat"
+        style={{backgroundImage: "url('/portfolio/bg-vectors/Design-Showcase.svg')"}}
+      />
 
-      <div className="mt-8 grid auto-rows-[120px] grid-cols-1 gap-4 sm:auto-rows-[145px] sm:grid-cols-2 md:grid-cols-4">
-        {designShowcaseItems.map((item) => (
-          <article
-            key={item.id}
-            className={`group relative overflow-hidden rounded-2xl border border-white/10 bg-[#071A28] ${item.className}`}
-          >
-            <img
-              src={item.src}
-              alt={item.title}
-              loading="lazy"
-              decoding="async"
-              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-linear-to-t from-black/70 to-transparent p-3">
-              <span className="inline-block rounded-md border border-white/20 bg-black/40 px-2 py-1 text-xs text-white/85">
-                {item.category}
-              </span>
-            </div>
-          </article>
-        ))}
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="text-sm text-white font-thin tracking-[0.2em]">
+            OUR WORK
+          </span>
+          <h2 className="bg-linear-to-r from-[#46B6A0] to-[#2EBACA] bg-clip-text text-3xl font-black text-transparent sm:text-4xl md:text-5xl">
+            Design portfolio
+          </h2>
+          <p className="mt-3 text-sm leading-6 text-white/70 sm:text-base">
+            Great design is not just pretty visuals. It is how your brand thinks,
+            speaks and earns trust. From product interfaces to full brand systems,
+            every detail is shaped with purpose and precision.
+          </p>
+        </div>
+
+        <div className="mt-8 grid auto-rows-[120px] grid-cols-1 gap-4 sm:auto-rows-[145px] sm:grid-cols-2 md:grid-cols-12 md:auto-rows-[160px]">
+          {designShowcaseItems.map((item) => (
+            <article
+              key={item.id}
+              className={`group relative overflow-hidden rounded-2xl border border-white/10 bg-[#071A28] ${item.className}`}
+            >
+              <SmartImage
+                src={item.src}
+                alt={item.title}
+                fill
+                objectFit={'cover'}
+                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-linear-to-t from-black/70 to-transparent p-3">
+                <span className="inline-block rounded-md border border-white/20 bg-black/40 px-2 py-1 text-xs text-white/85">
+                  {item.category}
+                </span>
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
+
+// Delays the decorative background slightly so content can establish first.
+// This keeps the SVG from competing with the initial card/image paint.

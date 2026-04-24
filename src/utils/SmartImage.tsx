@@ -8,6 +8,8 @@ type SmartImageProps = {
     className?: string;
     sizes?: string;
     priority?: boolean;
+    loading?: "eager" | "lazy";
+    decoding?: "async" | "sync" | "auto";
     objectFit?: "cover" | "contain";
     fill?: boolean;
 };
@@ -36,6 +38,8 @@ export function SmartImage({
                                className = "",
                                sizes = "100vw",
                                priority = false,
+                               loading,
+                               decoding,
                                objectFit = "cover",
                                fill = false,
                            }: SmartImageProps) {
@@ -61,8 +65,8 @@ export function SmartImage({
                 srcSet={buildFallbackSrcSet(src)}
                 sizes={sizes}
                 alt={alt}
-                loading={priority ? "eager" : "lazy"}
-                decoding="async"
+                loading={loading ?? (priority ? "eager" : "lazy")}
+                decoding={decoding ?? "async"}
                 width={!fill ? width : undefined}
                 height={!fill ? height : undefined}
                 className={`
