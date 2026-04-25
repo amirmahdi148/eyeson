@@ -41,8 +41,6 @@ export default function CaseStudiesSection() {
 
   return (
     <section className="relative overflow-hidden py-12 md:py-16">
-      <div className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 h-[260px] w-[260px] md:h-[420px] md:w-[420px] rounded-full bg-cyan-500/10 blur-[120px]" />
-      <div className="pointer-events-none absolute bottom-0 right-0 h-[220px] w-[220px] md:h-[380px] md:w-[380px] rounded-full bg-cyan-500/5 blur-[120px]" />
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
         <div className="mb-8 md:mb-10 text-center">

@@ -1,0 +1,89 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  startDate?: string;
+  endDate?: string;
+  imageUrl?: string;
+  imageAlt?: string;
+}
+
+const {
+  title = "SeoGate",
+  description = `SeoGate is a data-driven SEO agency dedicated to helping brands grow through strategic, performance-focused optimization. Our mission was to elevate their digital presence by creating polished, professional short-form content designed specifically for the SEO community and high-intent B2B audiences.\n\nThrough tailored visuals and clear messaging, we helped strengthen their authority and expand their reach across social platforms.`,
+  startDate = "2024/06/14",
+  endDate = "Ongoing",
+  // جایگزین کن با آدرس عکس خودت
+  imageUrl = "/images/seogate-logo.jpg", 
+  imageAlt = "SeoGate Logo and branding",
+} = Astro.props;
+
+// برای جدا کردن پاراگراف‌ها اگر متن شامل \n\n بود
+const paragraphs = description.split('\n\n');
+---
+
+<section class="relative w-full bg-[#050D14] py-16 md:py-24 lg:py-32 overflow-hidden px-4 sm:px-6 lg:px-8">
+  {/* افکت نوری گوشه بالا سمت چپ مشابه تصویر */}
+  <div class="pointer-events-none absolute top-0 left-0 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#185552]/40 blur-[120px]"></div>
+
+  <div class="mx-auto max-w-[1200px] w-full">
+    <div class="flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-16 xl:gap-24">
+      
+      {/* ===== ستون چپ: متن و توضیحات ===== */}
+      <div class="w-full lg:w-[45%] flex flex-col z-10">
+        
+        {/* عنوان */}
+        <h1 class="text-3xl sm:text-4xl md:text-[42px] font-extrabold text-white mb-6 tracking-tight">
+          {title}
+        </h1>
+        
+        {/* توضیحات متنی (رندر شدن چند پاراگراف) */}
+        <div class="flex flex-col gap-4 mb-10 text-[14px] sm:text-[15px] leading-[1.8] text-white/70">
+          {paragraphs.map(p => (
+            <p>{p}</p>
+          ))}
+        </div>
+
+        {/* بخش تاریخ‌ها (استایل تایم‌لاین) */}
+        <div class="relative pl-5 flex flex-col gap-3">
+          {/* خط عمودی تایم‌لاین */}
+          <div class="absolute left-1.5 top-2 bottom-2 w-[2px] bg-gradient-to-b from-[#29C4A9] to-white/10 rounded-full"></div>
+          
+          {/* Start Date */}
+          <div class="relative flex items-center">
+            {/* نقطه سبز */}
+            <div class="absolute -left-[20px] top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-[#29C4A9] shadow-[0_0_10px_#29C4A9]"></div>
+            <p class="text-[14px] font-medium text-white/90">
+              <span class="font-semibold text-white">Start Date </span> {startDate}
+            </p>
+          </div>
+
+          {/* End Date */}
+          <div class="relative flex items-center">
+            <p class="text-[14px] font-medium text-white/40">
+              <span class="font-semibold">End Date </span> {endDate}
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      {/* ===== ستون راست: تصویر ===== */}
+      <div class="w-full lg:w-[55%] relative z-10 flex justify-center lg:justify-end">
+        {/* افکت نوری پشت عکس */}
+        <div class="absolute inset-0 bg-[#29C4A9]/10 blur-[80px] rounded-full scale-90"></div>
+        
+        <div class="relative w-full max-w-[650px] aspect-[4/3] sm:aspect-[16/10] overflow-hidden rounded-[24px] sm:rounded-[32px] border border-[#29C4A9]/20 bg-[#0A1A1F] shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-transform duration-500 hover:scale-[1.02]">
+          <img 
+            src={imageUrl} 
+            alt={imageAlt} 
+            class="w-full h-full object-cover"
+          />
+          {/* لایه گردینت ظریف روی عکس برای ترکیب بهتر با بک‌گراند تیره */}
+          <div class="absolute inset-0 bg-gradient-to-tr from-[#050D14]/40 via-transparent to-[#29C4A9]/10 pointer-events-none mix-blend-overlay"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,55 @@
+---
+import CreativeDirections from "./CreativeDirections.astro";
+import HomeServicesSection from "../../islands/Home/HomeServicesSection";
+import QandASection from "../Shared/QandASection.astro";
+import VideoWorkShowcaseSection from "../../islands/Shared/VideoWorkShowcaseSection";
+import CaseStudiesSection from "../../islands/CaseStudiesSection";
+import ContactUs from "../../islands/ContactUs";
+import ProcessScrollSection from "../../islands/Home/ProcessScrollSection";
+import WhyChooseUs from "./WhyChooseUs.astro";
+import TestimonialsSection from "../../islands/Home/TestimonialsSection";
+import WorkflowSection from "./WorkflowSection.astro";
+import CostVideo from "../Shared/CostVideo.astro";
+import HomeBackground from "../../islands/Home/HomeBackground";
+import HeroHome from "../../islands/Home/HeroHome";
+---
+
+<div class="flex flex-col gap-3 items-stretch">
+  <HomeBackground client:load/>
+  <HeroHome client:load />
+  <CreativeDirections client:load />
+  <WhyChooseUs client:load />
+  <TestimonialsSection client:load />
+  <WorkflowSection
+    cards={[
+      {
+        title: "Free sample",
+        description:
+          "Experience our work before committing. We start every project with a free sample so you can see our style, quality and process firsthand. It helps you confirm we're the right fit before anything moves forward.",
+        buttonText: "Try our service for free",
+        imageUrl: "./home/frame1.png",
+      },
+      {
+        title: "Planning & collaboration",
+        description:
+          "Here we work with you to develop a clear storyboard and a detailed production plan tailored to your video. This stage keeps everyone aligned and ensures the concept is solid before production begins.",
+        buttonText: "Project planning",
+        imageUrl: "./home/frame2.png",
+      },
+      {
+        title: "Final delivery",
+        description:
+          "When the storyboard is approved, we begin full production. Throughout the process, we stay in touch to make sure the final video matches your expectations and delivers exactly what your brand needs.",
+        buttonText: "Swift & easy access",
+        imageUrl: "./home/frame3.png",
+      },
+    ]}
+  />
+  <ProcessScrollSection client:load />
+  <HomeServicesSection client:load />
+  <VideoWorkShowcaseSection client:load />
+  <CaseStudiesSection client:load />
+  <QandASection client:load />
+  <CostVideo client:load />
+  <ContactUs client:load />
+</div>

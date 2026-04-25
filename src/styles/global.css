@@ -12,3 +12,10 @@
     opacity: 1;
     transform: translateY(0);
 }
+astro-island {
+  display: contents !important;
+}
+/* این باعث میشه astro-island برای layout "شفاف" باشه */
+astro-island {
+  display: contents !important;
+}
