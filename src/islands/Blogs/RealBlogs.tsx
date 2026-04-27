@@ -1,7 +1,7 @@
 
 import { useMemo, useState } from "react";
 import {SmartImage} from "../../utils/SmartImage.tsx";
-import {posts} from "../../lib/posts.ts";
+import {getPostSlug, posts} from "../../lib/posts.ts";
 
 const categories = [
     { id: 1, name: "All" },
@@ -65,7 +65,8 @@ export const RealBlogs = () => {
 
             <div className="relative z-10 mx-auto mt-8 grid w-full max-w-7xl grid-cols-1 justify-items-center gap-4 px-4 pb-14 sm:grid-cols-2 sm:gap-6 sm:px-6 md:grid-cols-3 md:gap-8 md:px-8 xl:gap-10 xl:px-10">
                 {paginatedPosts.map((post) => (
-                    <article
+                    <a
+                        href={`/blog/${getPostSlug(post.title)}`}
                         key={post.id}
                         className="group flex min-h-70 h-full overflow-y-hidden w-full cursor-pointer flex-col overflow-hidden rounded-2xl border-[0.5px] border-[#00A9BD] bg-linear-to-r from-[#0B1F2A]  to-[#003A43] shadow-[0px_6px_22px_0px_#00000060] backdrop-blur-sm transition-transform duration-200 hover:-translate-y-1 hover:border-[#00A9BD]/60 sm:max-w-90"
                     >
@@ -112,7 +113,7 @@ export const RealBlogs = () => {
                                 </div>
                             </footer>
                         </div>
-                    </article>
+                    </a>
                 ))}
 
 

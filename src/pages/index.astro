@@ -1,3 +1,8 @@
 ---
-return Astro.redirect("/home", 302);
+import BaseLayout from "../layouts/BaseLayout.astro"
+import HomeMain from "../components/Home/HomeMain.astro"
 ---
+
+<BaseLayout>
+    <HomeMain />
+</BaseLayout>

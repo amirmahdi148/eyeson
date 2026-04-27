@@ -1,3 +1,6 @@
+const defaultAuthor = "Eyeson Studio";
+const defaultReadTime = "8 min read";
+
 export const posts = [
     {
         id: 1,
@@ -240,3 +243,20 @@ export const posts = [
             "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80",
     },
 ];
+
+export const postsWithMeta = posts.map((post) => ({
+    ...post,
+    author: defaultAuthor,
+    readTime: defaultReadTime,
+}));
+
+export const getPostSlug = (title: string) =>
+    title
+        .toLowerCase()
+        .trim()
+        .replace(/['’]/g, "")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+
+export const getPostBySlug = (slug?: string | undefined) =>
+    slug ? postsWithMeta.find((post) => getPostSlug(post.title) === slug) : undefined;
