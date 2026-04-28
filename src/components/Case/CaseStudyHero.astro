@@ -1,0 +1,97 @@
+---
+// CaseStudyHero.astro
+
+interface Props {
+  title?: string;
+  description?: string;
+  tools?: { name: string; iconUrl?: string }[];
+  projectType?: string;
+  projectTimeline?: string;
+}
+
+const {
+  title = "CryptoZen",
+  description = "CryptoZen is a crypto education brand aiming to make blockchain simple, engaging, and actionable. Our mission was to help them scale their content and grow their audience across Instagram, TikTok, and YouTube, with a focus on driving VIP membership conversions through high-retention, short-form video.",
+  tools = [
+    { name: "Blender", iconUrl: "" },
+    { name: "Illustrator", iconUrl: "" },
+    { name: "Photoshop", iconUrl: "" },
+    { name: "After Effects", iconUrl: "" },
+  ],
+  projectType = "Subscription",
+  projectTimeline = "9 Months",
+} = Astro.props;
+---
+
+<section class="relative overflow-hidden py-16 sm:py-20 lg:py-28">
+
+  <div class="relative mx-auto flex w-full max-w-7xl flex-col items-center gap-12 px-4 sm:px-6 lg:flex-row lg:items-center lg:gap-16 lg:px-8">
+    <!-- Left -->
+    <div class="w-full lg:w-[48%]">
+      <h1 class="text-3xl font-black leading-tight tracking-tight text-cyan-300 sm:text-4xl lg:text-[3.35rem]">
+        {title}
+      </h1>
+
+      <p class="mt-4 max-w-2xl text-sm leading-7 text-white/65 sm:text-[15px] lg:text-base">
+        {description}
+      </p>
+
+      <div class="mt-8">
+        <p class="text-sm font-semibold text-white/80">Tools:</p>
+
+        <div class="mt-4 flex flex-wrap items-center gap-3">
+          {tools.map((tool) => (
+            <div class="group flex h-11 min-w-11 items-center justify-center rounded-xl transition-all duration-200 hover:-translate-y-0.5 ">
+              {tool.iconUrl ? (
+                <img
+                  src={tool.iconUrl}
+                  alt={tool.name}
+                  width="28"
+                  height="28"
+                  class="h-7 w-7 object-contain"
+                  loading="lazy"
+                />
+              ) : (
+                <span class="text-[11px] font-semibold tracking-wide text-white/45">
+                  {tool.name}
+                </span>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="mt-10 flex flex-wrap gap-3">
+        <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-[#061b21]/90 px-4 py-2 text-sm text-white/75">
+             <img src="/case/layers.png" alt="Layers">
+          <span>Project Type : {projectType}</span>
+        </div>
+
+        <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-[#061b21]/90 px-4 py-2 text-sm text-white/75">
+          <img src="/case/clock.png" alt="Clock">
+          <span>Project Timeline : {projectTimeline}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right -->
+    <div class="w-full lg:w-[52%]">
+      <div class="relative mx-auto w-full max-w-[620px]">
+        <div class="absolute inset-0 rounded-[28px] bg-cyan-400/10 blur-[38px]"></div>
+
+        <div class="relative overflow-hidden rounded-[28px] ">
+          
+            <img
+              src="/case/hero-case.png"
+              alt={title}
+              width="1200"
+              height="900"
+              loading="lazy"
+              class="block h-full w-full object-cover"
+            />
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
