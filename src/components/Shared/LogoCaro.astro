@@ -29,7 +29,7 @@ const loopLogos = [...logos, ...logos];
   <div class="logo-mask w-full px-4 opacity-80 md:hidden" aria-label="Brand logos">
     <div class="logo-scroll flex w-max items-center">
       {loopLogos.map((logo, index) => (
-          <div class="logo-slot" key={`${logo.alt}-${index}`}>
+          <div class="logo-slot">
             <div class="logo-item">
               <img
                   src={logo.src}
@@ -49,7 +49,7 @@ const loopLogos = [...logos, ...logos];
   <!-- ================= DESKTOP ================= -->
   <div class="hidden w-full flex-wrap items-center justify-center gap-16 px-6 opacity-80 md:flex" aria-label="Brand logos">
     {logos.map((logo, index) => (
-        <div class="logo-item" key={`${logo.alt}-${index}`}>
+        <div class="logo-item">
           <img
               src={logo.src}
               alt={logo.alt}

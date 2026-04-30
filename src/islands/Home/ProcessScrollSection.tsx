@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import gsap from "gsap/dist/gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import "./ProcessScrollSection.css";
 
 const PROCESS_STEPS = [
@@ -67,71 +69,78 @@ const PROCESS_STEPS = [
 ];
 
 export default function ProcessScrollSection() {
-  const stepsRef = useRef<HTMLDivElement>(null);
-  const parallaxRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const gridContainerRef = useRef<HTMLDivElement>(null);
+  const pinRef = useRef<HTMLDivElement>(null);
+
+  const parallaxImgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
-    const stepElements = stepsRef.current
-      ? Array.from(
-          stepsRef.current.querySelectorAll<HTMLDivElement>(".process-step"),
-        )
-      : [];
+    document.documentElement.style.scrollBehavior = "auto";
 
-    if (!stepElements.length) {
-      return;
-    }
+    gsap.registerPlugin(ScrollTrigger);
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("in-view");
-          }
-        });
-      },
-      { threshold: 0.35 },
-    );
+    const ctx = gsap.context(() => {
+      const steps = gsap.utils.toArray<HTMLElement>(".process-step");
+      steps.forEach((step) => {
+        gsap.fromTo(
+          step,
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: step,
+              start: "top 85%",
+              toggleActions: "play none none none",
+            },
+          },
+        );
+      });
 
-    stepElements.forEach((element) => observer.observe(element));
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
-  useEffect(() => {
-    let frame = 0;
-    let last = 0;
-
-    const updateParallax = (time: number) => {
-      if (time - last > 33) {
-        last = time;
-        const element = parallaxRef.current;
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          const height = window.innerHeight || 0;
-          const progress = Math.min(
-            Math.max((height - rect.top) / (height + rect.height), 0),
-            1,
-          );
-          element.style.transform = `translate3d(0, ${Math.round(
-            progress * 20,
-          )}px, 0) scale(${(1 + progress * 0.03).toFixed(3)})`;
-          element.style.opacity = `${(0.8 + progress * 0.2).toFixed(2)}`;
-        }
+      if (parallaxImgRef.current) {
+        gsap.fromTo(
+          parallaxImgRef.current,
+          { y: -15, scale: 1 },
+          {
+            y: 15,
+            scale: 1.05,
+            ease: "none",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1.5,
+            },
+          },
+        );
       }
 
-      frame = requestAnimationFrame(updateParallax);
+      if (gridContainerRef.current && pinRef.current) {
+        ScrollTrigger.create({
+          trigger: gridContainerRef.current,
+          start: "top top+=128",
+          end: "bottom bottom-=32",
+          pin: pinRef.current,
+          pinSpacing: false,
+          anticipatePin: 1,
+        });
+      }
+    }, sectionRef);
+
+    return () => {
+      ctx.revert();
+      document.documentElement.style.scrollBehavior = "";
     };
-
-    frame = requestAnimationFrame(updateParallax);
-
-    return () => cancelAnimationFrame(frame);
   }, []);
 
   return (
-    <section className="relative bg-background py-24">
-
+    <section
+      ref={sectionRef}
+      className="relative bg-background py-24 overflow-hidden"
+    >
       <div className="container mx-auto px-6 max-w-7xl">
         <div className="mb-20 max-w-3xl">
           <p className="text-gray-400 text-sm mb-4">Our Creative Process</p>
@@ -146,16 +155,19 @@ export default function ProcessScrollSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 relative">
-          <div ref={stepsRef} className="space-y-32 pb-32">
+        <div
+          ref={gridContainerRef}
+          className="grid grid-cols-1 lg:grid-cols-2 gap-16 relative items-start"
+        >
+          <div className="space-y-32 pb-32">
             {PROCESS_STEPS.map((step) => (
-              <div key={step.id} className="process-step">
+              <div key={step.id} className="process-step will-change-transform">
                 <div className="relative p-8 rounded-3xl bg-card hover:border-white/30 transition-all duration-300 group">
-                  <div className="absolute step-bg top-8 right-8 text-xs font-semibold text-foreground  px-3 py-1.5 rounded-full ">
+                  <div className="absolute step-bg top-8 right-8 text-xs font-semibold text-foreground px-3 py-1.5 rounded-full">
                     {step.step}
                   </div>
 
-                  <div className="w-14 h-14 rounded-2xl di-bg bg-foreground/10  border-foreground/20 flex items-center justify-center text-foreground mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-14 h-14 rounded-2xl di-bg bg-foreground/10 border-foreground/20 flex items-center justify-center text-foreground mb-6 group-hover:scale-110 transition-transform duration-300">
                     {step.icon}
                   </div>
 
@@ -171,7 +183,8 @@ export default function ProcessScrollSection() {
                     {step.tags.map((tag, idx) => (
                       <span
                         key={idx}
-                        className="px-4 py-2 rounded-full bg-[#122E3E] text-gray-300 text-sm border border-white/5 hover:border-foreground/30 transition-colors duration-300">
+                        className="px-4 py-2 rounded-full bg-[#122E3E] text-gray-300 text-sm border border-white/5 hover:border-foreground/30 transition-colors duration-300"
+                      >
                         {tag}
                       </span>
                     ))}
@@ -183,29 +196,31 @@ export default function ProcessScrollSection() {
             ))}
           </div>
 
-<div className="hidden lg:block relative h-full">
-  <div className="sticky top-32 h-[600px] w-full flex items-center justify-center">
-    <div className="absolute inset-0 bg-white/10 blur-[100px] rounded-full transform scale-75 pointer-events-none" />
+          <div className="hidden lg:block relative h-full">
+            <div
+              ref={pinRef}
+              className="w-full h-[600px] flex items-center justify-center will-change-transform"
+            >
+              <div className="absolute inset-0  rounded-full transform scale-75 pointer-events-none" />
 
-    <div className="process-parallax relative w-full h-full">
-      <div className="process-parallax-inner h-full w-full">
-        <div className="relative w-full h-full rounded-[40px] overflow-hidden">
-          <img
-            src="/home/process.png"
-            alt="Process Visualization"
-            className="w-full h-full object-contain"
-          />
-        </div>
-      </div>
+              <div className="relative w-full h-full rounded-[40px]  ">
+                <img
+                  ref={parallaxImgRef}
+                  src="/home/process.png"
+                  alt="Process Visualization"
+                  className="w-full h-full object-contain scale-75 will-change-transform"
+                />
+              </div>
 
-      <div className="process-focus-badge absolute -right-8 top-1/4 bg-[#0f172a]/90 p-3 rounded-xl border border-white/10 shadow-xl max-w-[150px]">
-        <div className="text-sm text-white font-semibold">Process focus</div>
-      </div>
-    </div>
-  </div>
-</div>
+              <div className="absolute -right-8 top-1/4 bg-[#0f172a]/90 p-3 rounded-xl border border-white/10 shadow-xl max-w-[150px] z-10">
+                <div className="text-sm text-white font-semibold">
+                  Process focus
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
     </section>
   );
 }

@@ -1,0 +1,77 @@
+---
+import { SmartImage } from "../../utils/SmartImage";
+---
+
+<section
+  class="relative z-10 mx-auto w-full max-w-7xl px-4 pb-12 sm:px-6 sm:pb-14 md:px-8 md:pb-16 xl:px-10 xl:pb-20"
+>
+  <div
+    class="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-[#00A9BD]/40 shadow-[0px_0px_30px_0px_#00A9BD40]"
+  >
+    <!-- تصویر پس‌زمینه -->
+    <SmartImage
+      src="/blogs/Story-Back.png"
+      alt=""
+      fill={true}
+      className="object-cover"
+      sizes="(max-width: 768px) 100vw, 1200px"
+    />
+
+    <!-- overlay -->
+    <div
+      class="absolute inset-0 bg-gradient-to-r from-[#0B1F2A]/90 to-[#00A9BD]/25"
+    >
+    </div>
+
+    <!-- محتوا -->
+    <div
+      class="relative flex min-h-[200px] flex-col justify-center gap-5 px-5 py-8 text-center
+                  sm:min-h-[230px] sm:gap-6 sm:px-10 sm:py-10 sm:text-left
+                  lg:min-h-[260px] lg:flex-row lg:items-center lg:justify-between lg:px-14"
+    >
+      <!-- متن + دکمه -->
+      <div class="w-full max-w-xl text-white mx-auto lg:mx-0">
+        <h2
+          class="text-xl font-semibold leading-tight
+                     sm:text-2xl
+                     md:text-3xl"
+        >
+          Let Your Story Move People.
+        </h2>
+        <p
+          class="mt-2 text-xs leading-relaxed text-white/85
+                    sm:mt-3 sm:text-sm
+                    md:text-base
+                    lg:text-lg"
+        >
+          Tell us what you're building — we'll bring it to life with motion.
+        </p>
+        <button
+          class="mt-5 w-full max-w-[240px] mx-auto block cursor-pointer rounded-xl
+                         bg-gradient-to-r from-[#46B6A0] to-[#00A9BD]
+                         px-5 py-2.5 text-xs font-medium text-white
+                         shadow-[0_12px_30px_-10px_#00A9BD] transition
+                         sm:mt-6 sm:mx-0 sm:w-auto sm:px-6 sm:py-3 sm:text-sm
+                         hover:opacity-90 active:scale-95"
+        >
+          Start a Motion Project
+        </button>
+      </div>
+
+      <!-- تصویر سمت راست -->
+      <div
+        class="relative hidden h-32 w-full max-w-[240px] self-end
+                    sm:block sm:h-44 sm:max-w-[300px]
+                    lg:h-[210px] lg:max-w-[380px]"
+      >
+        <SmartImage
+          src="/Branding/group-section.png"
+          alt="People discussing creative ideas"
+          width={700}
+          height={700}
+          className="object-top scale-80 "
+        />
+      </div>
+    </div>
+  </div>
+</section>
