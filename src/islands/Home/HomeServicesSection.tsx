@@ -41,96 +41,96 @@ export default function HomeServicesSection() {
   return (
     <section className="relative pb-34 overflow-hidden">
       <svg
-        width="1440"
-        height="963"
-        viewBox="0 0 1440 963"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="absolute pointer-events-none w-full top-5"
+
+          height="963"
+          viewBox="0 0 1440 963"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="absolute pointer-events-none w-full top-5"
       >
         <g filter="url(#filter0_f_273_2)">
           <path
-            d="M1464 926.579H-58V36C-58 356.946 275.707 448.903 703 448.903C1130.29 448.903 1464 356.945 1464 36V926.579ZM703 513.672C275.707 513.672 -57.9997 605.629 -58 926.574H639.583C1066.88 926.574 1265.29 926.579 1464 926.575C1464 605.63 1130.29 513.672 703 513.672Z"
-            fill="#035F6C"
-            fill-opacity="0.3"
+              d="M1464 926.579H-58V36C-58 356.946 275.707 448.903 703 448.903C1130.29 448.903 1464 356.945 1464 36V926.579ZM703 513.672C275.707 513.672 -57.9997 605.629 -58 926.574H639.583C1066.88 926.574 1265.29 926.579 1464 926.575C1464 605.63 1130.29 513.672 703 513.672Z"
+              fill="#035F6C"
+              fill-opacity="0.3"
           />
         </g>
         <g filter="url(#filter1_f_273_2)">
           <path
-            d="M1464 759.595H-58V202.983C-58 403.574 275.707 461.047 703 461.047C1130.29 461.047 1464 403.574 1464 202.983V759.595ZM703 501.528C275.707 501.528 -58 559.001 -58 759.592H1464C1464 559.002 1130.29 501.528 703 501.528Z"
-            fill="#00A9BD"
-            fill-opacity="0.3"
+              d="M1464 759.595H-58V202.983C-58 403.574 275.707 461.047 703 461.047C1130.29 461.047 1464 403.574 1464 202.983V759.595ZM703 501.528C275.707 501.528 -58 559.001 -58 759.592H1464C1464 559.002 1130.29 501.528 703 501.528Z"
+              fill="#00A9BD"
+              fill-opacity="0.3"
           />
         </g>
         <g filter="url(#filter2_f_273_2)">
           <path
-            d="M1464 635.754H-58V313C-57.9999 438.436 275.707 474.376 703 474.376C1130.29 474.376 1464 438.436 1464 313V635.754ZM703 474.376C275.707 474.376 -58 510.316 -58 635.752H1464C1464 510.316 1130.29 474.376 703 474.376Z"
-            fill="#46B6A0"
-            fill-opacity="0.3"
+              d="M1464 635.754H-58V313C-57.9999 438.436 275.707 474.376 703 474.376C1130.29 474.376 1464 438.436 1464 313V635.754ZM703 474.376C275.707 474.376 -58 510.316 -58 635.752H1464C1464 510.316 1130.29 474.376 703 474.376Z"
+              fill="#46B6A0"
+              fill-opacity="0.3"
           />
         </g>
         <defs>
           <filter
-            id="filter0_f_273_2"
-            x="-94"
-            y="0"
-            width="1594"
-            height="962.579"
-            filterUnits="userSpaceOnUse"
-            color-interpolation-filters="sRGB"
+              id="filter0_f_273_2"
+              x="-94"
+              y="0"
+              width="1594"
+              height="962.579"
+              filterUnits="userSpaceOnUse"
+              color-interpolation-filters="sRGB"
           >
             <feFlood flood-opacity="0" result="BackgroundImageFix" />
             <feBlend
-              mode="normal"
-              in="SourceGraphic"
-              in2="BackgroundImageFix"
-              result="shape"
+                mode="normal"
+                in="SourceGraphic"
+                in2="BackgroundImageFix"
+                result="shape"
             />
             <feGaussianBlur
-              stdDeviation="18"
-              result="effect1_foregroundBlur_273_2"
+                stdDeviation="18"
+                result="effect1_foregroundBlur_273_2"
             />
           </filter>
           <filter
-            id="filter1_f_273_2"
-            x="-103"
-            y="157.983"
-            width="1612"
-            height="646.612"
-            filterUnits="userSpaceOnUse"
-            color-interpolation-filters="sRGB"
+              id="filter1_f_273_2"
+              x="-103"
+              y="157.983"
+              width="1612"
+              height="646.612"
+              filterUnits="userSpaceOnUse"
+              color-interpolation-filters="sRGB"
           >
             <feFlood flood-opacity="0" result="BackgroundImageFix" />
             <feBlend
-              mode="normal"
-              in="SourceGraphic"
-              in2="BackgroundImageFix"
-              result="shape"
+                mode="normal"
+                in="SourceGraphic"
+                in2="BackgroundImageFix"
+                result="shape"
             />
             <feGaussianBlur
-              stdDeviation="22.5"
-              result="effect1_foregroundBlur_273_2"
+                stdDeviation="22.5"
+                result="effect1_foregroundBlur_273_2"
             />
           </filter>
           <filter
-            id="filter2_f_273_2"
-            x="-98"
-            y="273"
-            width="1602"
-            height="402.754"
-            filterUnits="userSpaceOnUse"
-            color-interpolation-filters="sRGB"
+              id="filter2_f_273_2"
+              x="-98"
+              y="273"
+
+              height="402.754"
+              filterUnits="userSpaceOnUse"
+              color-interpolation-filters="sRGB"
           >
             <feFlood flood-opacity="0" result="BackgroundImageFix" />
             <feBlend
-              mode="normal"
-              in="SourceGraphic"
-              in2="BackgroundImageFix"
-              result="shape"
+                mode="normal"
+                in="SourceGraphic"
+                in2="BackgroundImageFix"
+                result="shape"
             />
             <feGaussianBlur
-              stdDeviation="20"
-              result="effect1_foregroundBlur_273_2"
+                stdDeviation="20"
+                result="effect1_foregroundBlur_273_2"
             />
           </filter>
         </defs>

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";;
 import { PlayableMediaFrame } from "../animations/PlayableMediaFrame.tsx";
 
 type PortfolioKey = "Video" | "Animation" | "Industries";
@@ -18,40 +18,56 @@ type MediaGridProps = {
   pageSize?: number;
 };
 
+
+
 export const MediaGrid = ({
-  mediaType,
-  items,
-  categories,
-  selectedCategory,
-  onSelectCategory,
-  pageSize = 9,
-}: MediaGridProps) => {
+                            mediaType,
+                            items,
+                            categories,
+                            selectedCategory,
+                            onSelectCategory,
+                            pageSize = 9,
+                          }: MediaGridProps) => {
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  // detect mobile
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  // 👇 اینجا تغییر اصلی
+  const effectivePageSize = isMobile ? 5 : pageSize;
+
   const [page, setPage] = useState<number>(1);
 
-  const totalPages = Math.max(1, Math.ceil(items.length / pageSize));
+  const totalPages = Math.max(1, Math.ceil(items.length / effectivePageSize));
 
-  const pageStartIndex = (page - 1) * pageSize;
+  const pageStartIndex = (page - 1) * effectivePageSize;
+
   const paginatedItems = useMemo(
-    () => items.slice(pageStartIndex, pageStartIndex + pageSize),
-    [items, pageStartIndex, pageSize],
+      () => items.slice(pageStartIndex, pageStartIndex + effectivePageSize),
+      [items, pageStartIndex, effectivePageSize],
   );
-  const placeholderCount = Math.max(0, pageSize - paginatedItems.length);
-  const placeholderText =
-    selectedCategory === "All"
-      ? `No ${mediaType.toLowerCase()} posts yet`
-      : `No ${selectedCategory.toLowerCase()} posts yet`;
 
-  const goToPage = useCallback(
-    (p: number) => {
-      if (p < 1 || p > totalPages) return;
-      setPage(p);
-    },
-    [totalPages],
-  );
+  const placeholderCount = Math.max(0, effectivePageSize - paginatedItems.length);
+
+  const placeholderText =
+      selectedCategory === "All"
+          ? `No ${mediaType.toLowerCase()} posts yet`
+          : `No ${selectedCategory.toLowerCase()} posts yet`;
+
+  const goToPage = (p: number) => {
+    if (p < 1 || p > totalPages) return;
+    setPage(p);
+  };
 
   useEffect(() => {
     setPage(1);
-  }, [items, mediaType]);
+  }, [items, mediaType, effectivePageSize]);
 
   useEffect(() => {
     if (page > totalPages) setPage(totalPages);

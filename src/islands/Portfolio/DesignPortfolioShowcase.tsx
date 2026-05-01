@@ -70,57 +70,80 @@ const designShowcaseItems: DesignShowcaseItem[] = [
 
 export const DesignPortfolioShowcase = () => {
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-      className="relative isolate overflow-hidden pb-20"
-    >
-      <div
-        aria-hidden="true"
-        className="portfolio-design-bg pointer-events-none absolute inset-y-0 left-1/2 h-full w-screen -translate-x-1/2 bg-center bg-cover bg-no-repeat"
-        style={{backgroundImage: "url('/portfolio/bg-vectors/Design-Showcase.svg')"}}
-      />
+      <motion.section
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          className="relative isolate overflow-hidden pb-20"
+      >
+        <div
+            aria-hidden="true"
+            className="portfolio-design-bg pointer-events-none absolute inset-y-0 left-1/2 h-full w-screen -translate-x-1/2 bg-center bg-cover bg-no-repeat"
+            style={{ backgroundImage: "url('/portfolio/bg-vectors/Design-Showcase.svg')" }}
+        />
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-4 sm:px-6">
-        <div className="mx-auto max-w-2xl text-center">
+        <div className="relative z-10 mx-auto w-full max-w-6xl px-4 sm:px-6">
+
+          {/* HEADER */}
+          <div className="mx-auto max-w-2xl text-center">
           <span className="text-sm text-white font-thin tracking-[0.2em]">
             OUR WORK
           </span>
-          <h2 className="bg-linear-to-r from-[#46B6A0] to-[#2EBACA] bg-clip-text text-3xl font-black text-transparent sm:text-4xl md:text-5xl">
-            Design portfolio
-          </h2>
-          <p className="mt-3 text-sm leading-6 text-white/70 sm:text-base">
-            Great design is not just pretty visuals. It is how your brand thinks,
-            speaks and earns trust. From product interfaces to full brand systems,
-            every detail is shaped with purpose and precision.
-          </p>
-        </div>
+            <h2 className="bg-linear-to-r from-[#46B6A0] to-[#2EBACA] bg-clip-text text-3xl font-black text-transparent sm:text-4xl md:text-5xl">
+              Design portfolio
+            </h2>
+            <p className="mt-3 text-sm leading-6 text-white/70 sm:text-base">
+              Great design is not just pretty visuals.
+            </p>
+          </div>
 
-        <div className="mt-8 grid auto-rows-[120px] grid-cols-1 gap-4 sm:auto-rows-[145px] sm:grid-cols-2 md:grid-cols-12 md:auto-rows-[160px]">
-          {designShowcaseItems.map((item) => (
-            <article
-              key={item.id}
-              className={`group relative overflow-hidden rounded-2xl border border-white/10 bg-[#071A28] ${item.className}`}
-            >
-              <SmartImage
-                src={item.src}
-                alt={item.title}
-                fill
-                objectFit={'cover'}
-                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-linear-to-t from-black/70 to-transparent p-3">
+          {/* 📱 MOBILE (فقط 4 تا) */}
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:hidden">
+            {designShowcaseItems.slice(0, 4).map((item) => (
+                <article
+                    key={item.id}
+                    className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#071A28] h-[160px]"
+                >
+                  <img
+                      src={item.src}
+                      alt={item.title}
+                      className="h-full w-full object-cover"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/70 to-transparent p-3">
+                <span className="text-xs text-white/85">
+                  {item.category}
+                </span>
+                  </div>
+                </article>
+            ))}
+          </div>
+
+          {/* 💻 DESKTOP (همه + layout اصلی) */}
+          <div className="hidden sm:grid mt-8 grid auto-rows-[120px] grid-cols-1 gap-4 sm:auto-rows-[145px] sm:grid-cols-2 md:grid-cols-12 md:auto-rows-[160px]">
+            {designShowcaseItems.map((item) => (
+                <article
+                    key={item.id}
+                    className={`group relative overflow-hidden rounded-2xl border border-white/10 bg-[#071A28] ${item.className}`}
+                >
+                  <SmartImage
+                      src={item.src}
+                      alt={item.title}
+                      fill
+                      objectFit="cover"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-linear-to-t from-black/70 to-transparent p-3">
                 <span className="inline-block rounded-md border border-white/20 bg-black/40 px-2 py-1 text-xs text-white/85">
                   {item.category}
                 </span>
-              </div>
-            </article>
-          ))}
+                  </div>
+                </article>
+            ))}
+          </div>
+
         </div>
-      </div>
-    </motion.section>
+      </motion.section>
   );
 };
 

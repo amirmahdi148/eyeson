@@ -1,4 +1,5 @@
 ---
+import { MailboxIcon, MapPin, PhoneCall } from "lucide-react";
 ---
 
 <div class="flex flex-col gap-8 md:gap-10 max-w-xs md:max-w-sm">
@@ -9,6 +10,7 @@
                 src="/logo.png"
                 alt="Logo"
                 class="h-16 w-auto object-contain transition-transform duration-300 hover:scale-105"
+                loading="lazy"
         />
     </div>
 
@@ -18,19 +20,23 @@
     </div>
 
     <!-- contact info -->
-    <div class="flex flex-col gap-3 text-white">
+    <div class="flex flex-col gap-3">
 
-        <div class="flex items-center gap-3 text-sm md:text-base hover:text-teal-400 transition-colors cursor-pointer">
-            📞 +01234567890
+        <div class="flex items-center gap-3 text-white text-sm md:text-base cursor-pointer hover:text-teal-400 transition-colors duration-300">
+            <PhoneCall client:load color="#46B6A0" className="min-w-[24px]" />
+            <span>+01234567890</span>
         </div>
 
-        <div class="flex items-center gap-3 text-sm md:text-base hover:text-teal-400 transition-colors cursor-pointer">
-            ✉️ eyeson.agency@gmail.com
+        <div class="flex items-center gap-3 text-white text-sm md:text-base cursor-pointer hover:text-teal-400 transition-colors duration-300">
+            <MailboxIcon client:load color="#46B6A0" className="min-w-[24px]" />
+            <span>eyeson.agency@gmail.com</span>
         </div>
 
-        <div class="flex items-center gap-3 text-sm md:text-base hover:text-teal-400 transition-colors cursor-pointer">
-            📍 London, United Kingdom, EC2N 4AH
+        <div class="flex items-center gap-3 text-white text-sm md:text-base cursor-pointer hover:text-teal-400 transition-colors duration-300">
+            <MapPin client:load color="#46B6A0" className="min-w-[24px]" />
+            <span>London, United Kingdom, EC2N 4AH</span>
         </div>
 
     </div>
+
 </div>
