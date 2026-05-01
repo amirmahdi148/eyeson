@@ -1,0 +1,75 @@
+---
+import './AdAssetsGrid.css';
+
+const cards = [
+  {
+    title: "Static Ad Creatives",
+    subtitle: "Clean, clear, and conversion-focused.",
+    description: "Static ads built with strong hierarchy and crisp messaging designed to stop the scroll instantly. Perfect for product promos, feature highlights, and performance campaigns across social platforms.",
+    image: "/adcreatives/ad1.png",
+    alt: "Static Ad Creatives Examples"
+  },
+  {
+    title: "Animated Ad Typography",
+    subtitle: "Dynamic motion built to boost retention.",
+    description: "Animated text transforms simple messages into engaging micro-animations that help your audience absorb information quickly while adding personality and energy to your brand.",
+    image: "/adcreatives/ad2.png",
+    alt: "Animated Ad Typography Example"
+  },
+  {
+    title: "Live-action + Motion Add-ons",
+    subtitle: "Enhance real footage with motion designed to convert.",
+    description: "Whether you provide footage or rely on stock assets, we elevate your visuals with overlays, UI simulations, dynamic callouts, and motion layers that create stronger storytelling and engagement.",
+    image: "/adcreatives/ad3.png",
+    alt: "Live-action Motion Add-ons Example"
+  },
+  {
+    title: "Mixed Media Ad Creatives",
+    subtitle: "A bold blend of illustration, motion, and digital elements.",
+    description: "Mixed-media ads combine visuals from multiple styles to create expressive, high-impact creatives that feel unique and memorable. Perfect for brands wanting a standout ad aesthetic.",
+    image: "/adcreatives/ad4.png",
+    alt: "Mixed Media Ad Creatives Example"
+  }
+];
+---
+
+<section class="ad-assets-section">
+  <div class="ad-assets-container">
+    
+    {/* هدر بخش (Badge + Titles) */}
+    <div class="ad-assets-header">
+      <div class="ad-badge">
+        Our branding packs are crafted for your business
+      </div>
+      <h2 class="ad-assets-title">
+        Some of the assets we often <br/>
+        <span class="title-highlight">create for clients include</span>
+      </h2>
+      <p class="ad-assets-description">
+        We design a wide range of high-performing ad creatives tailored to elevate your brand, strengthen campaign results, and make your message land instantly. From static visuals to animated micro-ads and mixed-media concepts, each asset is crafted to grab attention fast and convert more effectively.
+      </p>
+    </div>
+
+    {/* گرید کارت‌ها */}
+    <div class="ad-cards-grid">
+      {cards.map((card) => (
+        <div class="ad-card">
+          <div class="ad-card-content">
+            <h3 class="ad-card-title">{card.title}</h3>
+            <p class="ad-card-subtitle">{card.subtitle}</p>
+            <p class="ad-card-desc">{card.description}</p>
+          </div>
+          <div class="ad-card-image-wrapper">
+            <img 
+              src={card.image} 
+              alt={card.alt} 
+              class="ad-card-image"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

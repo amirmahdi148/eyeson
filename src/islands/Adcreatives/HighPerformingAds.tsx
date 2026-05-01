@@ -1,0 +1,67 @@
+"use client";
+
+import React from "react";
+import { motion } from "framer-motion";
+import "./HighPerformingAds.css";
+
+export default function HighPerformingAds() {
+  return (
+    <section className="hpa-section">
+      <div className="hpa-container">
+        
+        {/* --- ستون سمت چپ: متن و دکمه --- */}
+        <div className="hpa-content">
+          <h2 className="hpa-title">
+            <span className="title-white">Where ideas turn into</span>
+            <br />
+            <span className="title-teal">high-performing ad creatives</span>
+          </h2>
+          
+          <div className="hpa-description">
+            <p>
+              At eyeson, ad creatives aren't just visuals. They're how brands communicate value instantly, spark curiosity, and drive real performance.
+            </p>
+            <p>
+              We turn your concepts into clean, strategic, and visually bold creatives built for the speed of modern platforms. Every asset is crafted with strong hierarchy, clear messaging, and the kind of impact that makes audiences stop scrolling.
+            </p>
+          </div>
+
+          <div className="hpa-action-wrapper">
+            <div className="hpa-button-glow"></div>
+            <a href="#sample" className="hpa-button">Get a free sample</a>
+          </div>
+        </div>
+
+        {/* --- ستون سمت راست: انیمیشن پوشه تعاملی --- */}
+        <div className="hpa-visual">
+          <motion.div 
+            className="folder-wrapper"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            {/* هاله نور پشت پوشه */}
+            <div className="folder-glow-bg"></div>
+
+            {/* ۱. لایه عقب پوشه (مستطیل ساده) */}
+            <div className="folder-back"></div>
+
+            {/* ۲. کارت‌ها */}
+            <div className="folder-cards">
+              <img src="/adcreatives/fol1.png" alt="Ad 1" className="hpa-card card-1" />
+              <img src="/adcreatives/fol2.png" alt="Ad 2" className="hpa-card card-2" />
+              <img src="/adcreatives/fol3.png" alt="Ad 3" className="hpa-card card-3" />
+              <img src="/adcreatives/fol4.png" alt="Ad 4" className="hpa-card card-4" />
+            </div>
+
+            {/* ۳. لایه جلوی پوشه (شیشه‌ای یک‌تکه با Clip-Path) */}
+            <div className="folder-front"></div>
+
+          </motion.div>
+        </div>
+
+      </div>
+    </section>
+  );
+}
