@@ -1,0 +1,286 @@
+---
+// ─── آدرس عکس‌ها رو اینجا وارد کن ───
+// ترتیب دقیق بر اساس چیدمان پیکسل‌پرفکت تصویر:
+// 1: بالا چپ (بزرگ - لپ‌تاپ + موبایل)
+// 2: وسط بالا اول (وب موکاپ تاریک)  
+// 3: وسط بالا دوم (انگشت و UI)
+// 4: بالا راست (داشبورد)
+// 5: پایین چپ (دست + گلو)
+// 6: پایین وسط (دو موبایل + سیلوئت)
+// 7: پایین راست (گرافیک دیزاین بنفش)
+const images = [
+  { id: 1, src: "/uiux/card1.png", alt: "Laptop and Mobile UI Presentation" },
+  { id: 2, src: "/uiux/card2.jpg", alt: "Dark Mode Website Mockup" },
+  { id: 3, src: "/uiux/card3.jpg", alt: "Finger Click UI Interaction" },
+  { id: 4, src: "/uiux/card4.jpg", alt: "Dashboard UI Dark" },
+  { id: 5, src: "/uiux/card5.jpg", alt: "Glowing Touch UI" },
+  { id: 6, src: "/uiux/card6.jpg", alt: "Mobile Apps with Silhouette" },
+  { id: 7, src: "/uiux/card2.jpg", alt: "Graphic Design Purple Theme" },
+];
+---
+
+<section class="excellence-section">
+
+
+  <div class="wrapper">
+
+    <!-- هدر -->
+    <header class="section-header">
+      <h2 class="title">
+        <span class="title-teal">UI/UX design</span>
+        <span class="title-white">excellence in action</span>
+      </h2>
+      <p class="subtitle">
+        Explore how thoughtful, strategy-driven UI design comes to life in our curated case studies. Each
+        project highlights how we tackle complex challenges with clarity, precision, and user-focused
+        solutions.
+      </p>
+    </header>
+
+
+    <div class="bento-grid">
+
+  
+      <div class="bento-item item-1">
+        <img src={images[0].src} alt={images[0].alt} loading="lazy" decoding="async" />
+      </div>
+
+
+      <div class="bento-item item-2">
+        <img src={images[1].src} alt={images[1].alt} loading="lazy" decoding="async" />
+      </div>
+
+  
+      <div class="bento-item item-3">
+        <img src={images[2].src} alt={images[2].alt} loading="lazy" decoding="async" />
+      </div>
+
+    
+      <div class="bento-item item-4">
+        <img src={images[3].src} alt={images[3].alt} loading="lazy" decoding="async" />
+      </div>
+
+
+      <div class="bento-item item-5">
+        <img src={images[4].src} alt={images[4].alt} loading="lazy" decoding="async" />
+      </div>
+
+     
+      <div class="bento-item item-6">
+        <img src={images[5].src} alt={images[5].alt} loading="lazy" decoding="async" />
+      </div>
+
+   
+      <div class="bento-item item-7">
+        <img src={images[6].src} alt={images[6].alt} loading="lazy" decoding="async" />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ──────────── Section ──────────── */
+  .excellence-section {
+    position: relative;
+    width: 100%;
+    padding: 6rem 0 7rem;
+  }
+
+  /* ──────────── Background Glows ──────────── */
+  .bg-glows {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .glow {
+    position: absolute;
+    border-radius: 50%;
+  }
+  .glow-top {
+    top: -5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(50,201,180,0.08) 0%, transparent 70%);
+    filter: blur(60px);
+  }
+  .glow-bottom-left {
+    bottom: 10%;
+    left: -5%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(ellipse, rgba(0,255,200,0.04) 0%, transparent 70%);
+    filter: blur(80px);
+  }
+  .glow-bottom-right {
+    bottom: 5%;
+    right: -5%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(100,50,255,0.05) 0%, transparent 70%);
+    filter: blur(80px);
+  }
+
+  /* ──────────── Container ──────────── */
+  .wrapper {
+    position: relative;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ──────────── Header ──────────── */
+  .section-header {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 3.5rem;
+  }
+  .title {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1em;
+    font-size: clamp(2rem, 3.8vw, 2.8rem);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+  .title-teal  { color: #32c9b4; }
+  .title-white { color: #ffffff; }
+  .subtitle {
+    font-size: 0.975rem;
+    line-height: 1.75;
+    color: #9ca3af;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* ──────────────────────────────────────────────
+     BENTO GRID — PIXEL PERFECT
+     
+     3 columns, 4 rows:
+     Row 1 height: 210px
+     Row 2 height: 210px   → item-1 & item-4 span rows 1+2 = 420px + gap
+     Row 3 height: 230px   → item-5, item-6, item-7 span rows 3+4 = 460px + gap
+     Row 4 height: 230px
+     Gap: 14px
+  ────────────────────────────────────────────── */
+  .bento-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 210px 210px 230px 230px;
+    gap: 14px;
+  }
+
+  /* ── Grid placements ── */
+
+  /* بالا چپ: col 1, rows 1–2  →  ارتفاع: 210+14+210 = 434px */
+  .item-1 {
+    grid-column: 1;
+    grid-row: 1 / 3;
+  }
+
+  /* وسط بالا اول: col 2, row 1  →  ارتفاع: 210px */
+  .item-2 {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  /* وسط بالا دوم: col 2, row 2  →  ارتفاع: 210px */
+  .item-3 {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  /* بالا راست: col 3, rows 1–2  →  ارتفاع: 434px */
+  .item-4 {
+    grid-column: 3;
+    grid-row: 1 / 3;
+  }
+
+  /* پایین چپ: col 1, rows 3–4  →  ارتفاع: 230+14+230 = 474px */
+  .item-5 {
+    grid-column: 1;
+    grid-row: 3 / 5;
+  }
+
+  /* پایین وسط: col 2, rows 3–4  →  ارتفاع: 474px */
+  .item-6 {
+    grid-column: 2;
+    grid-row: 3 / 5;
+  }
+
+  /* پایین راست: col 3, rows 3–4  →  ارتفاع: 474px */
+  .item-7 {
+    grid-column: 3;
+    grid-row: 3 / 5;
+  }
+
+  /* ──────────── Item base styles ──────────── */
+  .bento-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+    background-color: #0c1c26;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    cursor: pointer;
+    transition:
+      border-color 0.35s ease,
+      transform    0.35s cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow   0.35s ease;
+  }
+  .bento-item:hover {
+    border-color: rgba(50, 201, 180, 0.35);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(50,201,180,0.1);
+  }
+  .bento-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .bento-item:hover img {
+    transform: scale(1.05);
+  }
+
+  /* ──────────── Responsive: Tablet (768px) ──────────── */
+  @media (max-width: 900px) {
+    .bento-grid {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 200px 200px 200px 200px 200px;
+      gap: 12px;
+    }
+
+    .item-1 { grid-column: 1 / 3; grid-row: 1; }   /* wide top */
+    .item-2 { grid-column: 1;     grid-row: 2; }
+    .item-3 { grid-column: 2;     grid-row: 2; }
+    .item-4 { grid-column: 1 / 3; grid-row: 3; }   /* wide */
+    .item-5 { grid-column: 1;     grid-row: 4; }
+    .item-6 { grid-column: 2;     grid-row: 4 / 6; } /* tall */
+    .item-7 { grid-column: 1;     grid-row: 5; }
+  }
+
+  /* ──────────── Responsive: Mobile (640px) ──────────── */
+  @media (max-width: 640px) {
+    .excellence-section { padding: 4rem 0 5rem; }
+
+    .bento-grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: unset;
+      gap: 10px;
+    }
+    .item-1, .item-2, .item-3, .item-4,
+    .item-5, .item-6, .item-7 {
+      grid-column: 1;
+      grid-row: unset;
+      height: 220px;
+    }
+
+    .title { font-size: 1.8rem; }
+  }
+</style>
