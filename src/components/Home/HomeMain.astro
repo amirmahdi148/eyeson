@@ -12,14 +12,66 @@ import WorkflowSection from "./WorkflowSection.astro";
 import CostVideo from "../Shared/CostVideo.astro";
 import HomeBackground from "../../islands/Home/HomeBackground";
 import HeroHome from "../../islands/Home/HeroHome";
+import {type ContentConfig, type OrbitConfig, OrbitSystem} from "../../islands/Shared/OrbitSystem";
+
+import {buildOrbitIcon} from "../../lib/orbitIcons.ts";
+import LogoCaro from "../Shared/LogoCaro.astro";
+
+export const content: ContentConfig = {
+  headingHighlight: "Award-level",
+  headingMain: "Motion & UI Design",
+  headingSecondLine: "crafted every year",
+  subheading: "Our team brings years of experience producing high-impact visuals for brands of all sizes. We turn complex ideas into clear, compelling stories through animation, product design and motion-driven content.",
+  buttons: [
+    { label: "See our work", link: "/work", className: "bg-linear-to-r from-[#00CFE8] to-[#0D8F79]" },
+    { label: "Play showreels", link: "/showreels" },
+  ]
+};
+
+const orbits: OrbitConfig[] = [
+  {
+    pathD: "M500,10 a470,470 0 1,0 0,1300 a470,470 0 1,0 0,-1300",
+    color: "#00A9BD",
+    icons: [
+      buildOrbitIcon("icon-1", -0.1, 0.4),
+      buildOrbitIcon("icon-2", 0.1, 0.6),
+      buildOrbitIcon("icon-3", 0.7, 1.2),
+      buildOrbitIcon("icon-4", 0.8, 1.3),
+      buildOrbitIcon("icon-5", 1.0, 1.5),
+    ]
+  },
+  {
+    pathD: "M500,110 a370,370 0 1,0 0,1100 a370,370 0 1,0 0,-1100",
+    color: "#00A9BD",
+    icons: [
+      buildOrbitIcon("icon-6", -0.04, 0.4),
+      buildOrbitIcon("icon-7", 0.05, 0.6),
+      buildOrbitIcon("icon-8", 0.85, 1.2),
+    ]
+  },
+  {
+    pathD: "M500,210 a270,270 0 1,0 0,900 a270,270 0 1,0 0,-900",
+    color: "#38B6B3",
+    icons: [
+      buildOrbitIcon("icon-9", 0, 0.5),
+      buildOrbitIcon("icon-10", 0.25, 0.75),
+      buildOrbitIcon("icon-11", 0.5, 1.0),
+      buildOrbitIcon("icon-12", 0.75, 1.25),
+    ]
+  }
+];
 ---
 
 <div class="flex flex-col gap-3 items-stretch">
   <HomeBackground client:load/>
-  <HeroHome client:load />
+  <HeroHome client:visible />
   <CreativeDirections  />
+  <OrbitSystem orbits={orbits} content={content} width="1000px" height="1000px" animations={true} client:load/>
+  <LogoCaro tagline=""/>
+  <HomeServicesSection client:visible />
+  <VideoWorkShowcaseSection client:visible />
   <WhyChooseUs />
-  <TestimonialsSection client:load />
+  <TestimonialsSection client:visible />
   <WorkflowSection
     cards={[
       {
@@ -45,9 +97,9 @@ import HeroHome from "../../islands/Home/HeroHome";
       },
     ]}
   />
-  <ProcessScrollSection client:load />
-  <HomeServicesSection client:load />
-  <VideoWorkShowcaseSection client:load />
+  <ProcessScrollSection client:visible />
+
+
   <CaseStudiesSection client:load />
   <QandASection  />
   <CostVideo  />
