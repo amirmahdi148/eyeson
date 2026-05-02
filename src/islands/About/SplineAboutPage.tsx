@@ -16,12 +16,9 @@ export function SplineScene({ scene, className }: SplineSceneProps) {
         let spline: any;
 
         const init = async () => {
-            const mod = await import("@splinetool/runtime");
+            const { Application } = await import("@splinetool/runtime");
 
-
-            const SplineRuntime = (mod as any).default;
-
-            spline = new SplineRuntime(canvasRef.current);
+            spline = new Application(canvasRef.current as HTMLCanvasElement);
             await spline.load(scene);
         };
 

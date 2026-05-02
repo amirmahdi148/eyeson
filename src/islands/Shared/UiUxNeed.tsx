@@ -47,9 +47,9 @@ const defaultInfoCards: InfoCard[] = [
 ];
 
 export default function UiUxNeed({
-  titleLine1 = "Why your business needs",
-  titleHighlight = "video editing?",
-  introText = "Professional video editing transforms raw footage into content that communicates with clarity and impact. It improves how audiences consume your message and helps every second work harder.",
+  titleLine1 = "Why",
+  titleHighlight = "UI/UX",
+  introText = "Why UI/UX Is a Business Decision — Not Just Design",
   featureTitle = "Boost sales & interactivity",
   featureDescription = "High-quality editing helps your audience understand your product faster, trust your message sooner, and take action with less friction.",
   primaryButtonLabel = "Get a free sample",
@@ -104,9 +104,8 @@ export default function UiUxNeed({
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto  max-w-3xl text-center ">
           <h2 className="text-3xl font-extrabold text-white md:text-5xl">
-            {titleLine1}
-            <br />
-            <span className="text-[#12d4d1]">{titleHighlight}</span>
+            {titleLine1} {" "}
+            <span className="text-[#12d4d1]">{titleHighlight} <span className="text-white">Matters</span></span>
           </h2>
           <p className="mt-5 text-sm leading-7 text-[#c4d5df] md:text-base">
             {introText}

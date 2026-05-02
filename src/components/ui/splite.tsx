@@ -16,6 +16,7 @@ export function SplineScene({ scene, className }: SplineSceneProps) {
       }
     >
       <Spline
+
         scene={scene}
         className={className}
       />

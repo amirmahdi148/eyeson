@@ -12,23 +12,56 @@ import UiUxServicesSection from "../../islands/UiUx/UiUxServicesSection";
 import UiUxExcellenceSection from "./UiUxExcellenceSection.astro";
 import UiUxPricingSlider from "../../islands/UiUx/UiUxPricingSlider";
 import UiUxAppSlider from "../../islands/UiUx/UiUxAppSlider"; 
+import { SplineScene } from "@/islands/About/SplineAboutPage";
 ---
 
 <div class="flex flex-col gap-3 justify-center items-between">
   <UiUxBackground client:load />
   <UiUxHeroSection client:load />
   <LogoCaro />
+
+      <div class="w-full h-[500px]  relative overflow-hidden">
+
+
+        <div class="flex h-full w-full items-center justify-center">
+
+          <div class=" p-8 relative z-10 flex flex-col justify-center w-140 gap-10">
+            <div>
+              <h1 class="text-4xl md:text-5xl font-black bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
+                What is <span class="text-[#31B9C4]">UI/UX design?</span>
+              </h1>
+              <p class="mt-4 text-neutral-300 max-w-lg">
+                UI/UX design shapes how users experience your product—from the first impression to the final interaction. It’s the process of creating interfaces that look clean, feel intuitive, and guide users effortlessly through every step. Good design removes friction, clarifies information, and makes complex tasks feel simple. Whether you’re building a website, SaaS platform, or mobile app, thoughtful UI/UX helps your audience understand your product faster and enjoy using it more.
+              </p>
+            </div>
+            <button class="bg-linear-to-r from-[#00A9BD] to-[#1D553A] border-[3px] shadow-[0_0_18px_#00A9BD] border-[#00A9BD] rounded-[36px] py-2.5 px-10 w-fit">
+              See our Work
+            </button>
+          </div>
+
+
+          <div class="flex relative w-180">
+            <SplineScene
+                scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+                className="w-full h-full"
+                client:load
+            />
+          </div>
+        </div>
+      </div>
+
   <FeaturesSection
     title="Excellence in stress-free"
-    highlight="Branding & Visual Identity"
-    description="We don't treat branding as decoration. We design clear, scalable brand systems that reduce confusion, build trust, and grow with your business — without unnecessary complexity or stress."
+    highlight="UI/UX design"
+    description="We’ve spent years polishing our creative workflow to make short-form video production smooth, fast, and predictable. No chaos, no endless revisions, no losing your mind over tiny details. We know working with a creative team can feel risky, especially when you’re worried they “just won’t get your brand.” That’s why our process is built around clarity, communication, and total reliability."
   />
   <UiUxServicesSection client:load />
   <UiUxNeed client:load />
   <UiUxExcellenceSection client:load />
   <ApproachTimelineSection client:load />
-  <CaseStudiesSection client:load />
   <UiUxAppSlider client:load />
+  <CaseStudiesSection client:load />
+
   <UiUxPricingSlider client:load />
   <ContactUs client:load />
   <CTA client:load />
