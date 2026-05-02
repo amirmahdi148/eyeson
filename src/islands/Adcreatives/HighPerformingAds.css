@@ -1,0 +1,243 @@
+/* --- ساختار کلی سکشن --- */
+.hpa-section {
+  width: 100%;
+  padding: 120px 20px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hpa-container {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+/* --- ستون سمت چپ: محتوا --- */
+.hpa-content {
+  flex: 1;
+  max-width: 550px;
+}
+
+.hpa-title {
+  font-size: clamp(2rem, 3vw, 3.2rem);
+  line-height: 1.2;
+  font-weight: 800;
+  margin-bottom: 24px;
+  letter-spacing: -0.02em;
+}
+
+.title-white { color: #ffffff; }
+.title-teal { color: #32c9b4; }
+
+.hpa-description {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.hpa-description p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+/* دکمه */
+.hpa-action-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.hpa-button-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 130%;
+  height: 160%;
+  background: radial-gradient(ellipse at center, rgba(50, 201, 180, 0.3) 0%, transparent 70%);
+  filter: blur(15px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hpa-button {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0b2e31;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 14px 32px;
+  border-radius: 100px;
+  text-decoration: none;
+  border: 1px solid rgba(50, 201, 180, 0.8);
+  box-shadow: inset 0 0 10px rgba(50, 201, 180, 0.2);
+  transition: all 0.3s ease;
+}
+
+.hpa-button:hover {
+  background-color: #32c9b4;
+  color: #031319;
+  box-shadow: 0 0 20px rgba(50, 201, 180, 0.5);
+}
+
+/* --- ستون سمت راست: پوشه --- */
+.hpa-visual {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.folder-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 1.1;
+  cursor: pointer;
+  perspective: 1200px;
+}
+
+.folder-glow-bg {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  height: 90%;
+  background: radial-gradient(circle, rgba(50, 201, 180, 0.15) 0%, transparent 60%);
+  filter: blur(30px);
+  z-index: 0;
+}
+
+/* ۱. لایه عقب پوشه (مستطیل ساده) */
+.folder-back {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 85%;
+  background-color: #0b1a21;
+  border: 1px solid rgba(50, 201, 180, 0.15);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+/* ۲. کارت‌های داخلی */
+.folder-cards {
+  position: absolute;
+  bottom: 5%;
+  left: 0;
+  width: 100%;
+  height: 80%;
+  z-index: 2;
+}
+
+.hpa-card {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  width: 32%; /* عرض کارت‌ها */
+  margin-left: -16%; /* برای وسط‌چین شدن کامل */
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  transform-origin: bottom center;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* حالت بسته: کارت‌ها به صورت دسته‌ای و کمی کج (نامنظم) روی هم قرار دارند */
+.card-1 { transform: translateY(0px) rotate(-6deg); z-index: 1; }
+.card-2 { transform: translateY(5px) rotate(-2deg); z-index: 2; }
+.card-3 { transform: translateY(2px) rotate(3deg); z-index: 3; }
+.card-4 { transform: translateY(8px) rotate(7deg); z-index: 4; }
+
+/* حالت باز (هاور): باز شدن فوق‌العاده زیبا به شکل بادبزن */
+.folder-wrapper:hover .card-1 { transform: translateX(-110%) translateY(-60px) rotate(-18deg); }
+.folder-wrapper:hover .card-2 { transform: translateX(-40%) translateY(-90px) rotate(-6deg); }
+.folder-wrapper:hover .card-3 { transform: translateX(40%) translateY(-90px) rotate(6deg); }
+.folder-wrapper:hover .card-4 { transform: translateX(110%) translateY(-60px) rotate(18deg); }
+
+/* ۳. لایه جلوی پوشه (یک‌تکه شیشه‌ای با فرمول Mask SVG) */
+.folder-front {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 65%;
+  z-index: 3;
+  transform-origin: bottom center;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-style: preserve-3d;
+  
+  /* افکت شیشه‌ای یکدست */
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  
+  /* 
+    🔴 راز یک‌تکه و کاملاً گرد شدن پوشه: 
+    استفاده از SVG Mask برای برش دادن عنصر با گوشه‌های نرم (Bezier Curves)
+  */
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0,8 Q0,0 6,0 L32,0 Q38,0 39,6 L41,14 Q42,20 48,20 L94,20 Q100,20 100,28 L100,92 Q100,100 94,100 L6,100 Q0,100 0,92 Z' fill='black'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0,8 Q0,0 6,0 L32,0 Q38,0 39,6 L41,14 Q42,20 48,20 L94,20 Q100,20 100,28 L100,92 Q100,100 94,100 L6,100 Q0,100 0,92 Z' fill='black'/%3E%3C/svg%3E");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+/* 
+  🔴 ایجاد خط دور (Border) یک‌تکه با ضخامت یکدست.
+  چون Mask استفاده کردیم، Border عادی حذف میشه. 
+  پس با همون فرمول SVG یک حاشیه درخشان دور پوشه می‌کشیم!
+*/
+.folder-front::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0,8 Q0,0 6,0 L32,0 Q38,0 39,6 L41,14 Q42,20 48,20 L94,20 Q100,20 100,28 L100,92 Q100,100 94,100 L6,100 Q0,100 0,92 Z' fill='none' stroke='rgba(255, 255, 255, 0.2)' stroke-width='2' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+  background-size: 100% 100%;
+}
+
+/* خم شدن کل لایه شیشه‌ای به سمت جلو موقع هاور */
+.folder-wrapper:hover .folder-front {
+  transform: rotateX(-35deg); 
+}
+
+/* --- ریسپانسیو --- */
+@media (max-width: 992px) {
+  .hpa-container { flex-direction: column; text-align: center; }
+  .hpa-content { margin-bottom: 40px; display: flex; flex-direction: column; align-items: center;}
+  .folder-wrapper { max-width: 400px; }
+}
+
+@media (max-width: 640px) {
+  .hpa-section { padding: 60px 16px; }
+  .hpa-title { font-size: 1.8rem; }
+  .folder-wrapper { max-width: 320px; }
+}
+
+
+
+/* --- ریسپانسیو --- */
+@media (max-width: 992px) {
+  .hpa-container { flex-direction: column; text-align: center; }
+  .hpa-content { margin-bottom: 40px; align-items: center; }
+  .folder-wrapper { max-width: 400px; }
+}
+
+@media (max-width: 640px) {
+  .hpa-section { padding: 60px 16px; }
+  .hpa-title { font-size: 1.8rem; }
+  .folder-wrapper { max-width: 320px; }
+}

@@ -1,0 +1,165 @@
+/* 
+  پیکربندی کلی سکشن 
+*/
+.ad-assets-section {
+  width: 100%;  
+  padding: 100px 20px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  display: flex;
+  justify-content: center;
+}
+
+.ad-assets-container {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 
+  هدر (Header) 
+*/
+.ad-assets-header {
+  text-align: center;
+  max-width: 800px;
+  margin-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Badge بالای عنوان */
+.ad-badge {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 20px;
+  border-radius: 100px;
+  margin-bottom: 24px;
+}
+
+/* عنوان اصلی */
+.ad-assets-title {
+  font-size: clamp(2rem, 3vw, 3rem);
+  line-height: 1.2;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+
+.title-highlight {
+  color: #32c9b4; /* رنگ فیروزه‌ای */
+}
+
+/* توضیحات زیر عنوان */
+.ad-assets-description {
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.5);
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+/* 
+  گرید کارت‌ها (Grid System) 
+*/
+.ad-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  width: 100%;
+}
+
+/* 
+  کارت‌ها (Cards) 
+*/
+.ad-card {
+  background-color: #0b1a21; /* رنگ تیره کمی روشن‌تر از پس‌زمینه */
+  border: 1px solid rgba(50, 201, 180, 0.15); /* خط دور محو فیروزه‌ای */
+  border-radius: 24px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.ad-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(50, 201, 180, 0.4);
+}
+
+/* محتوای داخل کارت */
+.ad-card-content {
+  padding: 30px 30px 0 30px;
+  flex: 1; /* باعث میشه متن بالا بمونه و عکس بیفته پایین */
+}
+
+.ad-card-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.ad-card-subtitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: #32c9b4; /* زیرتیتر فیروزه‌ای */
+  margin-bottom: 12px;
+}
+
+.ad-card-desc {
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 30px;
+}
+
+/* کادر عکس داخل کارت */
+.ad-card-image-wrapper {
+  width: 100%;
+  padding: 0 30px 30px 30px; /* حاشیه برای اینکه عکس به دیواره‌های کارت نچسبه */
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.ad-card-image {
+  width: 100%;
+  height: auto;
+  border-radius: 12px; /* خود عکس هم کمی گردی داره داخل کارت */
+  display: block;
+  object-fit: contain;
+}
+
+/* 
+  ریسپانسیو (Responsive) 
+*/
+@media (max-width: 992px) {
+  .ad-cards-grid {
+    grid-template-columns: 1fr; /* در تبلت تک ستونه میشه */
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 640px) {
+  .ad-assets-section {
+    padding: 60px 16px;
+  }
+
+  .ad-assets-title {
+    font-size: 1.8rem;
+  }
+
+  .ad-card-content {
+    padding: 24px 24px 0 24px;
+  }
+
+  .ad-card-image-wrapper {
+    padding: 0 24px 24px 24px;
+  }
+}
