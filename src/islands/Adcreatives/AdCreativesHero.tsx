@@ -128,12 +128,12 @@ export default function AdCreativesHero() {
         <div className="hero-actions">
           <div className="hero-btn-wrapper">
             <div className="hero-btn-glow"></div>
-            <a href="#get-started" className="hero-btn primary-btn">
+            <a href="#" className="hero-btn primary-btn">
               Get Ad Creatives
             </a>
           </div>
 
-          <a href="#work" className="hero-btn secondary-btn">
+          <a href="#" className="hero-btn secondary-btn">
             See our work
           </a>
         </div>

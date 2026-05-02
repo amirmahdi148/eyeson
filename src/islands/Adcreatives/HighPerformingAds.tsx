@@ -28,7 +28,7 @@ export default function HighPerformingAds() {
 
           <div className="hpa-action-wrapper">
             <div className="hpa-button-glow"></div>
-            <a href="#sample" className="hpa-button">Get a free sample</a>
+            <a href="#" className="hpa-button">Get a free sample</a>
           </div>
         </div>
 
