@@ -32,47 +32,16 @@ export const BlogHero = ({ slug }: BlogHeroProps) => {
   const [error, setError] = useState<string | null>(null);
 
   const fallbackPost = useMemo(() => getPostBySlug(slug), [slug]);
-  const resolvedSlug = slug?.trim();
 
   useEffect(() => {
-    const controller = new AbortController();
+    setLoading(true);
 
-    const loadPost = async () => {
-      setLoading(true);
-      setError(null);
-
-      try {
-        if (!resolvedSlug) {
-          setPost(fallbackPost ?? null);
-          return;
-        }
-
-        const response = await fetch(`http://localhost:3000/blog/${resolvedSlug}`, {
-          signal: controller.signal,
-        });
-
-        if (!response.ok) {
-          throw new Error(`Request failed with ${response.status}`);
-        }
-
-        const data = (await response.json()) as BlogPost;
-        setPost(data);
-      } catch (err) {
-        if ((err as Error).name !== "AbortError") {
-          setError("Unable to load this post right now.");
-          setPost(fallbackPost ?? null);
-        }
-      } finally {
-        if (!controller.signal.aborted) {
-          setLoading(false);
-        }
-      }
-    };
-
-    void loadPost();
-
-    return () => controller.abort();
-  }, [fallbackPost, resolvedSlug]);
+    try {
+      setPost(fallbackPost ?? null);
+    } finally {
+      setLoading(false);
+    }
+  }, [fallbackPost]);
 
   const data = post ?? fallbackPost;
   const hasContent = Boolean(data);
