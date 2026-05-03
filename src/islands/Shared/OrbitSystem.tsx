@@ -1,5 +1,3 @@
-
-
 import { memo, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -33,7 +31,11 @@ export interface OrbitConfig {
 
 export interface ButtonConfig {
     label: string;
-    link: string;
+    link?: string;
+    onClick?: () => void;
+    icon?: React.ReactNode;
+    iconPosition?: "left" | "right";
+    variant?: "primary" | "secondary";
     className?: string;
 }
 
@@ -51,8 +53,16 @@ export const content: ContentConfig = {
     headingSecondLine: "crafted every year",
     subheading: "We started as a small collective obsessed with turning raw concepts into striking visuals. Over time, that obsession became a full-scale design and animation practice trusted by brands that care about clarity, style, and storytelling.",
     buttons: [
-        { label: "See our work", link: "/work", className: "bg-linear-to-r from-[#00CFE8] to-[#0D8F79]" },
-        { label: "Play showreels", link: "/showreels" },
+        {
+            label: "See our work",
+            link: "/work",
+            variant: "primary"
+        },
+        {
+            label: "Play showreels",
+            onClick: () => console.log("Play showreels clicked"),
+            variant: "secondary"
+        },
     ]
 };
 
@@ -150,12 +160,15 @@ export const OrbitSystem = memo(function OrbitSystem({
                                 trigger: sceneRef.current!,
                                 start: "top 85%",
                                 end: "bottom 15%",
-                                scrub: 1,
+                                scrub: 0,
+                                fastScrollEnd: true,
                             },
                         })
                     );
                 });
             });
+
+            ScrollTrigger.refresh();
         }, sceneRef);
 
         return () => {
@@ -173,18 +186,18 @@ export const OrbitSystem = memo(function OrbitSystem({
     return (
         <div
             ref={containerRef}
-            className="w-full min-h-screen overflow-hidden relative flex items-center justify-center bg-[#000E17]"
+            className="w-full min-h-screen sm:min-h-screen lg:min-h-screen overflow-hidden relative flex items-center justify-center bg-[#000E17]"
         >
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_58%,rgba(26,214,205,0.34)_0%,rgba(8,89,101,0.28)_28%,rgba(2,26,41,0.55)_55%,rgba(0,14,23,0.94)_75%,#000E17_100%)]" />
             <div
                 ref={sceneRef}
-                className="absolute inset-0 flex items-start lg:items-center justify-center pointer-events-none overflow-hidden lg:overflow-visible pt-4 sm:pt-10 lg:pt-0"
+                className="absolute inset-0 pointer-events-none overflow-hidden will-change-transform"
             >
-                <div className="relative w-full h-[72vh] sm:h-[80vh] lg:h-full max-h-[80vh] lg:max-h-none [clip-path:inset(2%_0_34%_0)] sm:[clip-path:inset(3%_0_20%_0)] lg:[clip-path:inset(0_0_0_0)]">
+                <div className="relative w-full h-full">
                     <motion.svg
                         viewBox="0 -15 1000 1000"
                         preserveAspectRatio="xMidYMid meet"
-                        className="absolute inset-0 -translate-y-1 sm:translate-y-2 lg:translate-y-0 w-245 h-245 sm:w-260 sm:h-260 lg:w-full lg:h-full mx-auto"
+                        className="absolute inset-0 w-full h-full mx-auto scale-150 sm:scale-120 md:scale-100 will-change-transform"
                     >
                         <defs>
                             <linearGradient id="orbit-fade" x1="0" y1="0" x2="0" y2="1">
@@ -193,15 +206,6 @@ export const OrbitSystem = memo(function OrbitSystem({
                                 <stop offset="82%" stopColor="#0A8FA1" stopOpacity="0.34" />
                                 <stop offset="100%" stopColor="#086374" stopOpacity="0.05" />
                             </linearGradient>
-                            <filter id="inner-shadow" x="-50%" y="-50%" width="200%" height="200%">
-                                <feDropShadow
-                                    dx="0"
-                                    dy="0"
-                                    stdDeviation="8"
-                                    floodColor="#16CAD1"
-                                    floodOpacity="0.62"
-                                />
-                            </filter>
                         </defs>
 
                         {orbits.map((orbit, orbitIndex) => {
@@ -259,8 +263,7 @@ export const OrbitSystem = memo(function OrbitSystem({
                                                     x={-orbitIconRadius}
                                                     y={-orbitIconRadius}
                                                     preserveAspectRatio="xMidYMid meet"
-                                                    filter="url(#inner-shadow)"
-                                                    className="pointer-events-none"
+                                                    className="pointer-events-none will-change-transform"
                                                 />
                                                 {iconSrcValue && (
                                                     <image
@@ -285,14 +288,14 @@ export const OrbitSystem = memo(function OrbitSystem({
             </div>
 
             <motion.div
-                className="relative z-10 flex flex-col items-center justify-end gap-3 sm:gap-4 md:gap-6 mt-0 min-h-[86vh] sm:min-h-[82vh] lg:min-h-[70vh] pt-2 sm:pt-4 lg:pt-0 pb-10 sm:pb-8 lg:pb-0 text-center px-6 sm:px-8 w-full max-w-4xl mx-auto"
+                className="relative z-10 flex flex-col items-center justify-center gap-2 sm:gap-4 md:gap-6 min-h-screen sm:min-h-[80vh] lg:min-h-[70vh] w-full pt-16 sm:pt-20 lg:pt-0 pb-6 sm:pb-8 lg:pb-0 text-center px-5 sm:px-8 max-w-4xl mx-auto"
                 variants={ContentSpawn}
                 initial="hidden"
                 animate={isInView && animations ? "visible" : "hidden"}
             >
-                <div className="w-50 h-50 md:w-170 md:h-170 rounded-full bg-[#16C7C4]/28 blur-[110px] md:blur-[200px] absolute z-1 pointer-events-none" />
+                <div className="w-32 h-32 sm:w-50 sm:h-50 md:w-170 md:h-170 rounded-full bg-[#16C7C4]/28 blur-[80px] sm:blur-[110px] md:blur-[200px] absolute z-1 pointer-events-none" />
 
-                <h3 className="text-[42px] leading-[1.08] sm:text-5xl md:text-4xl lg:text-5xl font-bold text-white">
+                <h3 className="text-xl leading-tight sm:text-2xl md:text-3xl lg:text-5xl font-bold text-white relative z-10">
                     {content.headingHighlight ? <span className="text-[#38B6B3]">{content.headingHighlight}</span> : null}
                     {content.headingHighlight ? " " : null}
                     {content.headingMain}
@@ -300,22 +303,28 @@ export const OrbitSystem = memo(function OrbitSystem({
                 </h3>
 
                 {content.subheading && (
-                    <h5 className="text-sm sm:text-base md:text-xl w-full max-w-160 md:w-120 text-[#B5C6CC]">{content.subheading}</h5>
+                    <h5 className="text-xs sm:text-sm md:text-base lg:text-xl w-full max-w-xs sm:max-w-160 md:max-w-160 lg:w-120 text-[#B5C6CC] relative z-10 leading-relaxed">{content.subheading}</h5>
                 )}
 
                 {content.buttons && (
-                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6 mt-3 sm:mt-4 md:mt-8 w-full sm:w-auto"> {/* Responsive buttons layout */}
-                        {content.buttons.map((btn, idx) => (
-                            <a
-                                key={idx}
-                                href={btn.link}
-                                className={`border-2 md:border-3 text-white border-foreground rounded-[20px] sm:rounded-3xl md:rounded-[36px] py-2.5 sm:py-3 md:py-4 px-6 sm:px-8 md:px-14 shadow-[0px_2px_15px_var(--foreground)] text-sm sm:text-base md:text-xl font-bold cursor-pointer hover:bg-foreground hover:text-background transition-colors w-full sm:w-auto text-center ${
-                                    btn.className || ""
-                                }`}
-                            >
-                                {btn.label}
-                            </a>
-                        ))}
+                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 md:gap-6 mt-4 sm:mt-6 md:mt-8 w-full sm:w-auto relative z-10">
+                        {content.buttons.map((btn, idx) => {
+                            const shared = "border-2 md:border-3 text-white rounded-full font-bold cursor-pointer transition-colors duration-300 py-3 sm:py-3 md:py-4 px-6 sm:px-8 md:px-14 text-sm sm:text-sm md:text-base lg:text-xl w-full sm:w-auto";
+
+                            const variant = idx === 0
+                                ? "border-[#00CFE8] bg-gradient-to-r from-[#00CFE8] to-[#0D8F79] hover:opacity-90"
+                                : "border-[#056E7C] hover:bg-[#056E7C]";
+
+                            return (
+                                <a
+                                    key={idx}
+                                    href={btn.link}
+                                    className={`${shared} ${variant} ${btn.className || ""}`}
+                                >
+                                    {btn.label}
+                                </a>
+                            );
+                        })}
                     </div>
                 )}
             </motion.div>

@@ -7,7 +7,7 @@ const HomeBackground = () => {
         viewBox="0 0 1440 1407"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="absolute pointer-events-none top-0 w-full"
+        className="absolute pointer-events-none top-0 w-full will-change-contents"
       >
         <g filter="url(#filter0_f_273_29152)">
           <path
@@ -33,7 +33,7 @@ const HomeBackground = () => {
               result="shape"
             />
             <feGaussianBlur
-              stdDeviation="150"
+              stdDeviation="100"
               result="effect1_foregroundBlur_273_29152"
             />
           </filter>
@@ -56,7 +56,7 @@ const HomeBackground = () => {
         viewBox="0 0 1440 1707"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="absolute pointer-events-none w-full top-250"
+        className="absolute pointer-events-none w-full will-change-contents top-250 will-change-contents"
       >
         <g filter="url(#filter0_f_273_29149)">
           <path
@@ -82,7 +82,7 @@ const HomeBackground = () => {
               result="shape"
             />
             <feGaussianBlur
-              stdDeviation="150"
+              stdDeviation="100"
               result="effect1_foregroundBlur_273_29149"
             />
           </filter>
@@ -105,7 +105,7 @@ const HomeBackground = () => {
         viewBox="0 0 1440 1707"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="absolute pointer-events-none w-full top-550"
+        className="absolute pointer-events-none w-full will-change-contents top-550 will-change-contents"
       >
         <g filter="url(#filter0_f_273_29153)">
           <path
@@ -131,7 +131,7 @@ const HomeBackground = () => {
               result="shape"
             />
             <feGaussianBlur
-              stdDeviation="150"
+              stdDeviation="100"
               result="effect1_foregroundBlur_273_29153"
             />
           </filter>
@@ -154,7 +154,7 @@ const HomeBackground = () => {
         viewBox="0 0 1440 1707"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="absolute pointer-events-none w-full top-1000"
+        className="absolute pointer-events-none w-full will-change-contents top-1000 will-change-contents"
       >
         <g filter="url(#filter0_f_273_29150)">
           <path
@@ -180,7 +180,7 @@ const HomeBackground = () => {
               result="shape"
             />
             <feGaussianBlur
-              stdDeviation="150"
+              stdDeviation="100"
               result="effect1_foregroundBlur_273_29150"
             />
           </filter>
@@ -229,7 +229,7 @@ const HomeBackground = () => {
               result="shape"
             />
             <feGaussianBlur
-              stdDeviation="150"
+              stdDeviation="100"
               result="effect1_foregroundBlur_273_29152"
             />
           </filter>
@@ -252,7 +252,7 @@ const HomeBackground = () => {
         viewBox="0 0 1440 1707"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="absolute pointer-events-none w-full top-1700"
+        className="absolute pointer-events-none w-full will-change-contents top-1700"
       >
         <g filter="url(#filter0_f_273_29149)">
           <path
@@ -278,7 +278,7 @@ const HomeBackground = () => {
               result="shape"
             />
             <feGaussianBlur
-              stdDeviation="150"
+              stdDeviation="100"
               result="effect1_foregroundBlur_273_29149"
             />
           </filter>
@@ -301,7 +301,7 @@ const HomeBackground = () => {
         viewBox="0 0 1440 1707"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="absolute pointer-events-none w-full top-2200"
+        className="absolute pointer-events-none w-full will-change-contents top-2200"
       >
         <g filter="url(#filter0_f_273_29153)">
           <path
@@ -327,7 +327,7 @@ const HomeBackground = () => {
               result="shape"
             />
             <feGaussianBlur
-              stdDeviation="150"
+              stdDeviation="100"
               result="effect1_foregroundBlur_273_29153"
             />
           </filter>
@@ -350,7 +350,7 @@ const HomeBackground = () => {
         viewBox="0 0 1440 1707"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="absolute pointer-events-none w-full top-2510"
+        className="absolute pointer-events-none w-full will-change-contents top-2510"
       >
         <g filter="url(#filter0_f_273_29150)">
           <path
@@ -376,7 +376,7 @@ const HomeBackground = () => {
               result="shape"
             />
             <feGaussianBlur
-              stdDeviation="150"
+              stdDeviation="100"
               result="effect1_foregroundBlur_273_29150"
             />
           </filter>

@@ -72,52 +72,70 @@ export default function ProcessScrollSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const gridContainerRef = useRef<HTMLDivElement>(null);
   const pinRef = useRef<HTMLDivElement>(null);
-
   const parallaxImgRef = useRef<HTMLImageElement>(null);
+  const rafRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
-    document.documentElement.style.scrollBehavior = "auto";
-
     gsap.registerPlugin(ScrollTrigger);
 
-    const ctx = gsap.context(() => {
-      const steps = gsap.utils.toArray<HTMLElement>(".process-step");
-      steps.forEach((step) => {
-        gsap.fromTo(
-          step,
-          { opacity: 0, y: 40 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: step,
-              start: "top 85%",
-              toggleActions: "play none none none",
-            },
-          },
-        );
+    // Use Intersection Observer for step fade-ins (no scroll flicker)
+    const observerOptions = {
+      threshold: 0.15,
+      rootMargin: "0px 0px -50px 0px",
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+        }
       });
+    }, observerOptions);
 
-      if (parallaxImgRef.current) {
-        gsap.fromTo(
-          parallaxImgRef.current,
-          { y: -15, scale: 1 },
-          {
-            y: 15,
-            scale: 1.05,
-            ease: "none",
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: 1.5,
-            },
-          },
-        );
-      }
+    const steps = document.querySelectorAll(".process-step");
+    steps.forEach((step) => observer.observe(step));
 
+    // Direct scroll listener with RAF for precise parallax control
+    const handleScroll = () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+
+      rafRef.current = requestAnimationFrame(() => {
+        if (!sectionRef.current || !parallaxImgRef.current) return;
+
+        const rect = sectionRef.current.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const sectionTop = rect.top;
+        const sectionBottom = rect.bottom;
+
+        // Only apply parallax when section is fully or partially visible
+        if (sectionBottom < 0 || sectionTop > viewportHeight) {
+          return;
+        }
+
+        // Calculate normalized progress (0 to 1) based on section position in viewport
+        let progress = 0;
+        if (sectionTop < viewportHeight && sectionBottom > 0) {
+          // Section is visible
+          progress = (viewportHeight - sectionTop) / (viewportHeight + rect.height);
+          progress = Math.max(0, Math.min(1, progress)); // Clamp to 0-1
+        }
+
+        // Parallax range: from -12 to 12 (limited movement)
+        const yOffset = (progress - 0.5) * 24;
+        const scale = 1 + progress * 0.04;
+
+        gsap.set(parallaxImgRef.current, {
+          y: yOffset,
+          scale: scale,
+          overwrite: "auto",
+        });
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    // Pin animation with ScrollTrigger
+    const ctx = gsap.context(() => {
       if (gridContainerRef.current && pinRef.current) {
         ScrollTrigger.create({
           trigger: gridContainerRef.current,
@@ -126,20 +144,23 @@ export default function ProcessScrollSection() {
           pin: pinRef.current,
           pinSpacing: false,
           anticipatePin: 1,
+          fastScrollEnd: true,
         });
       }
     }, sectionRef);
 
     return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      observer.disconnect();
       ctx.revert();
-      document.documentElement.style.scrollBehavior = "";
     };
   }, []);
 
   return (
     <section
       ref={sectionRef}
-      className="relative bg-background py-24 overflow-hidden"
+      className="relative  py-24 overflow-hidden"
     >
       <div className="container mx-auto px-6 max-w-7xl">
         <div className="mb-20 max-w-3xl">
@@ -163,11 +184,11 @@ export default function ProcessScrollSection() {
             {PROCESS_STEPS.map((step) => (
               <div key={step.id} className="process-step will-change-transform">
                 <div className="relative p-8 rounded-3xl bg-card hover:border-white/30 transition-all duration-300 group">
-                  <div className="absolute step-bg top-8 right-8 text-xs font-semibold text-foreground px-3 py-1.5 rounded-full">
+                  <div className="absolute step-bg top-8 right-8 text-xs font-semibold  px-3 py-1.5 rounded-full">
                     {step.step}
                   </div>
 
-                  <div className="w-14 h-14 rounded-2xl di-bg bg-foreground/10 border-foreground/20 flex items-center justify-center text-foreground mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-14 h-14 rounded-2xl di-bg  flex items-center justify-center  mb-6 group-hover:scale-110 transition-transform duration-300">
                     {step.icon}
                   </div>
 

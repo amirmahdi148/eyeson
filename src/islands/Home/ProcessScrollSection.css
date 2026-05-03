@@ -1,19 +1,16 @@
 .process-step {
   opacity: 0;
   transform: translateY(36px);
-  transition:
-    transform 0.65s ease,
-    opacity 0.65s ease;
   will-change: transform, opacity;
 }
 
 .process-step.in-view {
   opacity: 1;
   transform: translateY(0);
+  transition: transform 0.8s ease-out, opacity 0.8s ease-out;
 }
 
 .process-parallax {
-  transition: 0;
   will-change: transform, opacity;
 }
 

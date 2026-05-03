@@ -79,7 +79,7 @@ export default function TestimonialsSection() {
   ];
 
   return (
-    <section className="relative py-24 bg-background overflow-hidden">
+    <section className="relative py-24  overflow-hidden">
       
       {/* Background Glows */}
       <div className="absolute inset-0 pointer-events-none">
@@ -109,13 +109,13 @@ export default function TestimonialsSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight text-white">
-            What our <span className="text-foreground">clients</span> say about
+          <h2 className="text-xl lg:text-5xl font-bold mb-6 leading-tight text-white">
+            What our <span className=" text-[#21AFAF] ">clients</span> say about
             <br />
             working with us
           </h2>
           
-          <p className="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed">
+          <p className="text-gray-400 text-xs max-w-3xl mx-auto leading-relaxed">
             We collaborate with teams of every size, from startups to global brands. Most clients come to us for motion and product-focused visuals that support their marketing efforts.
           </p>
         </motion.div>

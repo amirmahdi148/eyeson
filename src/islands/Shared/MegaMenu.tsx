@@ -7,11 +7,11 @@ const SERVICE_GROUPS = [
         title: "Content Services",
         description: "Production systems for brands that need consistent content output.",
         items: [
-            { title: "Content Production", description: "Tailored content creation aligned with your brand voice and goals.", image: "/home/service-section.png", accent: "#17d6d4" },
-            { title: "Short-Form Content", description: "Fast-turn edits built for TikTok, Reels, and YouTube Shorts.", image: "/videoEditing.png", accent: "#4bc7ff" },
-            { title: "Video Editing", description: "Clean, modern edits focused on retention and engagement.", image: "/animation-section/video.jpg", accent: "#7ee6ff" },
-            { title: "Ad Creatives", description: "Conversion-focused creatives for paid social campaigns.", image: "/video-pieces/Featured-One.png", accent: "#66f2c5" },
-            { title: "Monthly Retainers", description: "A steady content plan with production and delivery built in.", image: "/home/frame-special.png", accent: "#ffd56a" },
+            { title: "Content Production", description: "Tailored content creation aligned with your brand voice and goals.", image: "/Header/ContentServices/cp.png", accent: "#17d6d4" },
+            { title: "Short-Form Content", description: "Fast-turn edits built for TikTok, Reels, and YouTube Shorts.", image: "/Header/ContentServices/sfc.png", accent: "#4bc7ff" },
+            { title: "Video Editing", description: "Clean, modern edits focused on retention and engagement.", image: "/Header/ContentServices/vd.png", accent: "#7ee6ff" },
+            { title: "Ad Creatives", description: "Conversion-focused creatives for paid social campaigns.", image: "/Header/ContentServices/ac.png", accent: "#66f2c5" },
+            { title: "Monthly Retainers", description: "A steady content plan with production and delivery built in.", image: "/Header/ContentServices/mr.png", accent: "#ffd56a" },
         ],
         href: "/video",
     },
@@ -19,8 +19,9 @@ const SERVICE_GROUPS = [
         title: "Creative & Motion Services",
         description: "Motion-first storytelling and animation work.",
         items: [
-            { title: "Motion Design", description: "Advanced motion systems and visual effects.", image: "/motion.jpg", accent: "#8eefff" },
-            { title: "2D/3D Animation", description: "High-end animation work for brands.", image: "/animation.jpg", accent: "#5ee8ff" },
+            { title: "2D/3D Animation", description: "High-end animation work for brands.", image: "/Header/C&MServices/23a.png", accent: "#8eefff" },
+            { title: "Motion Graphics", description: "Eye-catching animated visuals crafted for marketing, apps, and websites.", image: "/Header/C&MServices/mg.png", accent: "#5ee8ff" },
+            { title: "Motion Design", description: "Modern motion graphics that elevate your product stories with smooth animations.", image: "/Header/C&MServices/md.png", accent: "#5ee8ff" },
         ],
         href: "/animation",
     },
@@ -28,8 +29,8 @@ const SERVICE_GROUPS = [
         title: "Design Services",
         description: "Brand and digital systems built for clarity.",
         items: [
-            { title: "UI/UX Design", description: "Clean interface systems built for clarity.", image: "/ui.jpg", accent: "#ffd56a" },
-            { title: "Brand Identity", description: "Full branding systems from scratch.", image: "/brand.jpg", accent: "#ffee99" },
+            { title: "UI/UX Design", description: "Clean interface systems built for clarity.", image: "/Header/DesignServices/uixd.png", accent: "#ffd56a" },
+            { title: "Brand Identity", description: "Full branding systems from scratch.", image: "/Header/DesignServices/uixd.png", accent: "#ffee99" },
         ],
         href: "/branding",
     },
@@ -37,10 +38,10 @@ const SERVICE_GROUPS = [
 
 const MENU_ITEMS = [
     { id: "1", title: "Home", path: "/" },
-    { id: "2", title: "Portfolio", path: "/portfolio" },
-    { id: "3", title: "Pricing", path: "/pricing" },
-    { id: "4", title: "About", path: "/about" },
-    { id: "5", title: "Contact", path: "/contact" },
+    { id: "3", title: "Portfolio", path: "/portfolio" },
+    { id: "4", title: "Pricing", path: "/pricing" },
+    { id: "5", title: "About", path: "/about" },
+    { id: "6", title: "Contact", path: "/contact" },
 ];
 
 // ─── Desktop Mega Menu ────────────────────────────────────────────────────────
@@ -49,11 +50,11 @@ export const MegaMenu = () => {
     const [active, setActive] = useState(0);
 
     return (
-        <div className="w-[min(1060px,calc(100vw-2rem))] rounded-[34px] border border-[#2bb7c2]/35 bg-[#081721]/96 p-3 shadow-[0_0_40px_rgba(25,189,202,0.24)] backdrop-blur-xl">
+        <div className="w-[min(1060px,calc(100vw-2rem))] rounded-[34px] border border-[#2bb7c2]/35 bg-[#081721] p-3 shadow-[0_0_40px_rgba(25,189,202,0.24)] backdrop-blur-xl">
             <div className="grid gap-4 lg:grid-cols-[290px_minmax(0,1fr)]">
 
                 {/* LEFT — Service Groups */}
-                <aside className="rounded-[28px] border border-[#2bb7c2]/20 bg-[#071520] p-5">
+                <aside className="rounded-[28px] bg-linear-to-r from-[#0B1F2A] to-[#09252F]  p-5">
                     <p className="text-sm text-white/45">Our Services</p>
                     <div className="mt-6 space-y-2">
                         {SERVICE_GROUPS.map((group, index) => (
@@ -62,7 +63,7 @@ export const MegaMenu = () => {
                                 onMouseEnter={() => setActive(index)}
                                 className={`w-full rounded-[20px] px-4 py-4 text-left transition ${
                                     active === index
-                                        ? "bg-[#0a2b31] text-[#22d7de] shadow-[inset_0_0_0_1px_rgba(42,215,222,0.45)]"
+                                        ? " text-[#22d7de] "
                                         : "text-white hover:bg-white/5"
                                 }`}
                             >
@@ -73,13 +74,13 @@ export const MegaMenu = () => {
                 </aside>
 
                 {/* RIGHT — Service Cards */}
-                <section className="rounded-[28px] bg-[#06141d] p-3">
+                <section className="rounded-[28px] p-3">
                     <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
                         {SERVICE_GROUPS[active].items.map((card) => (
                             <a
                                 key={card.title}
                                 href={SERVICE_GROUPS[active].href}
-                                className="group flex items-start gap-3 rounded-2xl border border-white/5 bg-white/[0.03] p-3 transition hover:border-white/10 hover:bg-white/5"
+                                className="group flex items-start gap-3 rounded-2xl border border-white/5 bg-[#FFFFFF05] p-3 transition hover:border-white/10 hover:bg-linear-to-r hover:from-[#00A9BD] hover:to-[#46B6A0]"
                             >
                                 <div
                                     className="relative h-12 w-12 shrink-0 overflow-hidden rounded-xl border border-white/10 bg-[#04131b]"
@@ -90,7 +91,7 @@ export const MegaMenu = () => {
                                 </div>
                                 <div className="min-w-0">
                                     <h3 className="text-base font-semibold text-white transition group-hover:text-[#e9ffff]">{card.title}</h3>
-                                    <p className="mt-1 text-[11px] leading-4 text-white/55">{card.description}</p>
+                                    <p className="mt-1 text-[12px] leading-4 text-white/80">{card.description}</p>
                                 </div>
                             </a>
                         ))}
@@ -252,6 +253,15 @@ export const MobileMenu = ({ open, onClose }: MobileMenuProps) => {
                     {/* Nav */}
                     <div className="space-y-2">
 
+                        {/* Home link */}
+                        <a
+                            href={MENU_ITEMS[0].path}
+                            onClick={onClose}
+                            className="block rounded-2xl px-4 py-3 text-[15px] font-semibold text-white/75 transition hover:bg-white/[0.04] hover:text-white"
+                        >
+                            {MENU_ITEMS[0].title}
+                        </a>
+
                         {/* Services top-level toggle */}
                         <button
                             onClick={() => setServicesOpen((p) => !p)}
@@ -293,8 +303,8 @@ export const MobileMenu = ({ open, onClose }: MobileMenuProps) => {
                         {/* Divider */}
                         <div className="h-px bg-white/[0.06] mx-1" />
 
-                        {/* Regular nav items */}
-                        {MENU_ITEMS.map((item) => (
+                        {/* Regular nav items (Portfolio onwards) */}
+                        {MENU_ITEMS.slice(1).map((item) => (
                             <a
                                 key={item.id}
                                 href={item.path}
@@ -353,6 +363,9 @@ export const Header = () => {
                         </a>
 
                         <nav className="hidden lg:flex items-center gap-7">
+                            <a href={MENU_ITEMS[0].path} className="text-white/90 hover:text-white transition">
+                                {MENU_ITEMS[0].title}
+                            </a>
                             <div className="group relative">
                                 <a href="/video#services" className="text-white/90 hover:text-white transition inline-flex items-center gap-1">
                                     Services
@@ -363,7 +376,7 @@ export const Header = () => {
                                     <MegaMenu />
                                 </div>
                             </div>
-                            {MENU_ITEMS.map((item) => (
+                            {MENU_ITEMS.slice(1).map((item) => (
                                 <a key={item.id} href={item.path} className="text-white/90 hover:text-white transition">
                                     {item.title}
                                 </a>
