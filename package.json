@@ -10,12 +10,13 @@
   },
   "dependencies": {
     "@astrojs/language-server": "2.15.5",
-    "@astrojs/vercel": "^8.2.11",
+    "@astrojs/node": "^10.0.6",
+    "@astrojs/vercel": "^10.0.6",
     "@fontsource-variable/geist": "^5.2.8",
     "@lucide/astro": "^1.8.0",
     "@splinetool/react-spline": "^4.1.0",
     "@splinetool/runtime": "^1.12.87",
-    "astro": "^5.17.1",
+    "astro": "^6.2.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.24",
@@ -34,11 +35,14 @@
     "video.js": "^8.23.7"
   },
   "devDependencies": {
-    "@astrojs/react": "^4.4.2",
-    "@astrojs/svelte": "^7.2.3",
+    "@astrojs/react": "^5.0.4",
+    "@astrojs/svelte": "^8.1.0",
+    "@tailwindcss/postcss": "^4.2.4",
     "@tailwindcss/vite": "^4.2.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "tailwindcss": "^4.1.11"
+    "autoprefixer": "^10.5.0",
+    "postcss": "^8.5.13",
+    "tailwindcss": "^4.2.4"
   }
 }
