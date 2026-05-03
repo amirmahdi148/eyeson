@@ -149,7 +149,7 @@ export default function HomeServicesSection() {
           </p>
 
           <h2 className="text-4xl lg:text-5xl font-bold mb-8 leading-tight text-white">
-            <span className="text-foreground">Animation and design</span>
+            <span className="bg-linear-to-r from-[#44B7A5] to-[#30B9C6] bg-clip-text text-transparent">Animation and design</span>
             <br />
             services built for modern
             <br />
