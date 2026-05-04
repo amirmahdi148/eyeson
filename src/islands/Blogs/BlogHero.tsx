@@ -1,6 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
-import { getPostBySlug } from "../../lib/posts";
-import {SmartImage} from "@/utils/SmartImage.tsx";
+import { SmartImage } from "@/utils/SmartImage.tsx";
 
 type BlogSection = {
   id?: string;
@@ -24,114 +22,81 @@ type BlogPost = {
   introCopy?: string;
 };
 
-type BlogHeroProps = {
-  slug?: string;
+
+
+const examplePost: BlogPost = {
+  title: "How Video Content Drives Growth",
+  category: "Video Production / Strategy",
+  excerpt:
+      "Stories, strategies, and experiments from inside the agency. Built to inspire better decisions.",
+  date: "January 12, 2025",
+  readTime: "8 min read",
+  author: "Eyeson Studio",
+  subtitle: "A Practical Guide for Growing Brands",
+  image:
+      "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1200&q=80",
+  introCopy:
+      "Any company that needs constant video content can benefit from this subscription.",
+  sections: [
+    {
+      id: "key-takeaways",
+      title: "Key takeaways",
+      bullets: [
+        "A video production subscription gives you continuous access to a creative team.",
+        "No more repeated onboarding cycles.",
+        "Flexible vs in-house teams.",
+      ],
+    },
+  ],
 };
 
-const skeletonLines = ["w-52", "w-96", "w-80"];
-
 const CalculatorWidget = () => {
-  const [display, setDisplay] = useState("0");
-  const [prev, setPrev] = useState<number | null>(null);
-  const [operation, setOperation] = useState<string | null>(null);
-  const [waitingForNew, setWaitingForNew] = useState(false);
-
-  const handleNumber = (num: string) => {
-    if (waitingForNew) {
-      setDisplay(num);
-      setWaitingForNew(false);
-    } else {
-      setDisplay(display === "0" ? num : display + num);
-    }
+  const handleCalculate = () => {
+    alert("Calculator triggered! 🎬");
   };
 
-  const handleOperation = (op: string) => {
-    const current = parseFloat(display);
-    if (prev === null) {
-      setPrev(current);
-    } else if (operation) {
-      const result = calculate(prev, current, operation);
-      setDisplay(String(result));
-      setPrev(result);
-    }
-    setOperation(op);
-    setWaitingForNew(true);
-  };
-
-  const calculate = (prev: number, current: number, op: string): number => {
-    switch (op) {
-      case "+":
-        return prev + current;
-      case "-":
-        return prev - current;
-      case "*":
-        return prev * current;
-      case "/":
-        return current !== 0 ? prev / current : 0;
-      default:
-        return current;
-    }
-  };
-
-  const handleEquals = () => {
-    if (operation && prev !== null) {
-      const current = parseFloat(display);
-      const result = calculate(prev, current, operation);
-      setDisplay(String(result));
-      setPrev(null);
-      setOperation(null);
-      setWaitingForNew(true);
-    }
-  };
-
-  const handleClear = () => {
-    setDisplay("0");
-    setPrev(null);
-    setOperation(null);
-    setWaitingForNew(false);
-  };
-
-  const handleDot = () => {
-    if (!display.includes(".")) {
-      setDisplay(display + ".");
-      setWaitingForNew(false);
-    }
-  };
-
-  const buttons: Array<{ label: string; action: () => void }> = [
-    { label: "7", action: () => handleNumber("7") },
-    { label: "8", action: () => handleNumber("8") },
-    { label: "9", action: () => handleNumber("9") },
-    { label: "-", action: () => handleOperation("-") },
-    { label: "4", action: () => handleNumber("4") },
-    { label: "5", action: () => handleNumber("5") },
-    { label: "6", action: () => handleNumber("6") },
-    { label: "+", action: () => handleOperation("+") },
-    { label: "1", action: () => handleNumber("1") },
-    { label: "2", action: () => handleNumber("2") },
-    { label: "3", action: () => handleNumber("3") },
-    { label: "0", action: () => handleNumber("0") },
-    { label: ".", action: handleDot },
-    { label: "=", action: handleEquals },
-    { label: "C", action: handleClear },
-    { label: "*", action: () => handleOperation("*") },
+  const buttons: Array<{ label: string }> = [
+    { label: "7" },
+    { label: "8" },
+    { label: "9" },
+    { label: "-" },
+    { label: "4" },
+    { label: "5" },
+    { label: "6" },
+    { label: "+" },
+    { label: "1" },
+    { label: "2" },
+    { label: "3" },
+    { label: "0" },
+    { label: "." },
+    { label: "=" },
+    { label: "C" },
+    { label: "*" },
   ];
 
   return (
       <div className="space-y-4 rounded-[1.8rem] bg-[#091725] p-5 shadow-[0_0_45px_rgba(0,0,0,0.28)]">
-        <div className="pointer-events-none absolute top-[-16px] right-[-8px] h-16 w-16 rounded-2xl border border-white/5 bg-[#0e1217]" />
-        <div className="pointer-events-none absolute bottom-[-16px] left-[-8px] h-14 w-20 rounded-2xl border border-white/5 bg-[#0e1217]" />
-        <div className="pointer-events-none absolute bottom-[-16px] left-[52px] h-14 w-20 rounded-2xl border border-white/5 bg-[#0e1217]" />
+        <div className="pointer-events-none absolute -top-4 -right-2 h-16 w-16 rounded-2xl border border-white/5 bg-[#0e1217]" />
+        <div className="pointer-events-none absolute -bottom-4 -left-2 h-14 w-20 rounded-2xl border border-white/5 bg-[#0e1217]" />
+        <div className="pointer-events-none absolute -bottom-4 left-13 h-14 w-20 rounded-2xl border border-white/5 bg-[#0e1217]" />
 
-        <span className="pointer-events-none absolute -top-6 -left-3 text-3xl text-[#6ee7b7]">✦</span>
-        <span className="pointer-events-none absolute top-0 left-5 text-xl text-[#6ee7b7]">✦</span>
-        <span className="pointer-events-none absolute top-1/2 -left-6 text-xl text-[#a7f3d0] opacity-60">✦</span>
-        <span className="pointer-events-none absolute top-1/3 -right-4 text-xl text-[#a7f3d0] opacity-60">✦</span>
+        <span className="pointer-events-none absolute -top-6 -left-3 text-3xl text-[#6ee7b7]">
+        ✦
+      </span>
+        <span className="pointer-events-none absolute top-0 left-5 text-xl text-[#6ee7b7]">
+        ✦
+      </span>
+        <span className="pointer-events-none absolute top-1/2 -left-6 text-xl text-[#a7f3d0] opacity-60">
+        ✦
+      </span>
+        <span className="pointer-events-none absolute top-1/3 -right-4 text-xl text-[#a7f3d0] opacity-60">
+        ✦
+      </span>
 
         <div className="relative z-10 rounded-[1.4rem] border-[3px] border-[#006B77] bg-[#020617] p-4 shadow-[0_0_50px_rgba(0,107,119,0.3)]">
-          <div className="mb-4 flex h-[66px] items-center justify-between overflow-hidden rounded-2xl border border-white/10 bg-[#333b4d] px-4 shadow-inner">
+          <div className="mb-4 flex h-16.5 items-center justify-between overflow-hidden rounded-2xl border border-white/10 bg-[#333b4d] px-4 shadow-inner">
             <div className="font-sans text-2xl font-bold tracking-wide text-white">
-              {display}
+              0
             </div>
             <div className="text-white opacity-90">
               <svg
@@ -151,11 +116,10 @@ const CalculatorWidget = () => {
           </div>
 
           <div className="grid grid-cols-4 gap-2.5">
-            {buttons.map(({ label, action }) => (
+            {buttons.map(({ label }) => (
                 <button
                     key={label}
-                    onClick={action}
-                    className="flex aspect-square items-center justify-center rounded-[14px] border-b-[4px] border-[#4b5563] bg-[#2a3441] text-lg font-bold text-[#f3f4f6] shadow-sm transition active:scale-95 hover:bg-[#3a4451]"
+                    className="flex aspect-square items-center justify-center rounded-[14px] border-b-4 border-[#4b5563] bg-[#2a3441] text-lg font-bold text-[#f3f4f6] shadow-sm transition active:scale-95 hover:bg-[#3a4451]"
                 >
                   {label}
                 </button>
@@ -164,8 +128,13 @@ const CalculatorWidget = () => {
         </div>
 
         <div className="mt-5 text-center">
-          <h3 className="text-lg font-semibold text-white">Know the cost of your next video? 🎬</h3>
-          <button className="mt-4 rounded-full bg-gradient-to-r from-[#006B77] to-[#2dd4bf] px-6 py-3 font-semibold text-white shadow-[0_0_20px_rgba(0,107,119,0.3)] transition hover:scale-105 active:scale-95">
+          <h3 className="text-lg font-semibold text-white">
+            Know the cost of your next video? 🎬
+          </h3>
+          <button
+              onClick={handleCalculate}
+              className="mt-4 rounded-full bg-linear-to-r from-[#006B77] to-[#2dd4bf] px-6 py-3 font-semibold text-white shadow-[0_0_20px_rgba(0,107,119,0.3)] transition hover:scale-105 active:scale-95"
+          >
             Calculate now
           </button>
         </div>
@@ -173,47 +142,41 @@ const CalculatorWidget = () => {
   );
 };
 
-export const BlogHero = ({ slug }: BlogHeroProps) => {
-  const [post, setPost] = useState<BlogPost | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+const sharePost = (platform: "copy" | "linkedin" | "twitter"): void => {
+  const url = typeof window !== "undefined" ? window.location.href : "";
+  const title = examplePost.title || "Check this out";
+  const text = encodeURIComponent(title);
 
-  const fallbackPost = useMemo(() => getPostBySlug(slug), [slug]);
+  const links: Record<"twitter" | "linkedin" | "copy", string> = {
+    twitter: `https://twitter.com/intent/tweet?url=${url}&text=${text}`,
+    linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
+    copy: "copied",
+  };
 
-  useEffect(() => {
-    setLoading(true);
-    setError(null);
+  if (platform === "copy") {
+    navigator.clipboard.writeText(url);
+    alert("Link copied! 📋");
+  } else {
+    window.open(links[platform], "_blank", "width=600,height=400");
+  }
+};
 
-    try {
-      setPost(fallbackPost ?? null);
-      if (!fallbackPost) {
-        setError("Post not found for this slug");
-      }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to load post");
-    } finally {
-      setLoading(false);
-    }
-  }, [fallbackPost]);
-
-  const data = post ?? fallbackPost;
-  const hasContent = Boolean(data);
-
-  const title = data?.title ?? "Loading story...";
-  const category = data?.category ?? "Video Production / Strategy";
+export const BlogHero = () => {
+  const data = examplePost;
+  const title = data.title ?? "How Video Content Drives Growth";
+  const category = data.category ?? "Video Production / Strategy";
   const excerpt =
-      data?.excerpt ??
-      "Stories, strategies, and experiments from inside the agency. Built to inspire better decisions, not waste your time.";
-  const date = data?.date ?? "January 12, 2025";
-  const readTime = data?.readTime ?? "8 min read";
-  const author = data?.author ?? "Eyeson Studio";
-  const subtitle =
-      data?.subtitle ?? "A Practical Guide for Growing Brands";
+      data.excerpt ??
+      "Stories, strategies, and experiments from inside the agency. Built to inspire better decisions.";
+  const date = data.date ?? "January 12, 2025";
+  const readTime = data.readTime ?? "8 min read";
+  const author = data.author ?? "Eyeson Studio";
+  const subtitle = data.subtitle ?? "A Practical Guide for Growing Brands";
   const image =
-      data?.image ??
+      data.image ??
       "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1200&q=80";
 
-  const articleSections = data?.sections ?? [
+  const articleSections = data.sections ?? [
     {
       id: "key-takeaways",
       title: "Key takeaways",
@@ -227,26 +190,8 @@ export const BlogHero = ({ slug }: BlogHeroProps) => {
   ];
 
   const introCopy: string =
-      data?.introCopy ??
+      data.introCopy ??
       "Any company that needs constant video content can benefit from this subscription. Here's what we've noticed:";
-
-  const sharePost = (platform: "copy" | "linkedin" | "twitter"): void => {
-    const url = typeof window !== "undefined" ? window.location.href : "";
-    const text = encodeURIComponent(title);
-
-    const links: Record<"twitter" | "linkedin" | "copy", string> = {
-      twitter: `https://twitter.com/intent/tweet?url=${url}&text=${text}`,
-      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
-      copy: "copied",
-    };
-
-    if (platform === "copy") {
-      navigator.clipboard.writeText(url);
-      alert("Link copied! 📋");
-    } else {
-      window.open(links[platform], "_blank", "width=600,height=400");
-    }
-  };
 
   return (
       <>
@@ -254,115 +199,65 @@ export const BlogHero = ({ slug }: BlogHeroProps) => {
           <div className="pointer-events-none absolute inset-0">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(0,169,189,0.18),transparent_28%),radial-gradient(circle_at_80%_28%,rgba(0,169,189,0.18),transparent_26%),radial-gradient(circle_at_50%_115%,rgba(0,169,189,0.2),transparent_34%)]" />
             <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.15),rgba(0,0,0,0.4))]" />
-            <div className="absolute inset-0 opacity-35 [background-image:radial-gradient(rgba(255,255,255,0.45)_1px,transparent_1px)] [background-size:115px_115px]" />
+            <div className="absolute inset-0 opacity-35 bg-[radial-gradient(rgba(255,255,255,0.45)_1px,transparent_1px)] bg-size-[115px_115px]" />
           </div>
 
-          <div className="relative mx-auto flex min-h-[100svh] w-full max-w-[1400px] items-center px-6 py-24 sm:px-8 lg:px-12">
+          <div className="relative mx-auto flex min-h-svh w-full max-w-350 items-center px-6 py-24 sm:px-8 lg:px-12">
             <div className="grid w-full items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
               <div className="max-w-2xl">
-                {loading ? (
-                    <>
-                      <div className="mb-5 h-5 w-40 rounded-full bg-white/10 animate-pulse" />
-                      <div className="space-y-4">
-                        {skeletonLines.map((width) => (
-                            <div
-                                key={width}
-                                className={`h-14 rounded-2xl bg-white/10 animate-pulse ${width}`}
-                            />
-                        ))}
-                      </div>
-                      <div className="mt-6 space-y-3">
-                        <div className="h-4 w-[92%] rounded-full bg-white/10 animate-pulse" />
-                        <div className="h-4 w-[78%] rounded-full bg-white/10 animate-pulse" />
-                      </div>
-                      <div className="mt-8 flex gap-6">
-                        <div className="h-5 w-28 rounded-full bg-white/10 animate-pulse" />
-                        <div className="h-5 w-36 rounded-full bg-white/10 animate-pulse" />
-                        <div className="h-5 w-24 rounded-full bg-white/10 animate-pulse" />
-                      </div>
-                    </>
-                ) : hasContent ? (
-                    <>
-                      <p className="mb-5 text-sm tracking-wide text-white/45 sm:text-base">
-                        {category}
-                      </p>
-                      <h1 className="max-w-3xl text-4xl font-semibold leading-[1.05] text-[#2fd1cf] sm:text-5xl lg:text-6xl">
-                        {title}
-                      </h1>
-                      <div className="mt-2 max-w-3xl text-4xl font-semibold leading-[1.05] text-white sm:text-5xl lg:text-6xl">
-                        {subtitle}
-                      </div>
-                      <p className="mt-6 max-w-3xl text-base leading-8 text-white/75 sm:text-lg">
-                        {introCopy}
-                      </p>
-                      {error && (
-                          <p className="mt-4 text-sm text-amber-300">⚠️ {error}</p>
-                      )}
-                      <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-sm text-white/75 sm:text-base">
-                        <span>by {author}</span>
-                        <span>{date}</span>
-                        <span>{readTime}</span>
-                      </div>
-                    </>
-                ) : (
-                    <div className="flex aspect-[1.02/1] w-full items-center justify-center px-8 text-center">
-                      <div>
-                        <p className="text-sm uppercase tracking-[0.25em] text-white/50">
-                          Post not found
-                        </p>
-                        <h2 className="mt-4 text-2xl font-semibold text-white">
-                          No blog entry for this slug
-                        </h2>
-                        <p className="mt-3 text-sm leading-6 text-white/70">
-                          The page loaded, but there's no matching post data.
-                        </p>
-                      </div>
-                    </div>
-                )}
+                <p className="mb-5 text-sm tracking-wide text-white/45 sm:text-base">
+                  {category}
+                </p>
+                <h1 className="max-w-3xl text-4xl font-semibold leading-[1.05] text-[#2fd1cf] sm:text-5xl lg:text-6xl">
+                  {title}
+                </h1>
+                <div className="mt-2 max-w-3xl text-4xl font-semibold leading-[1.05] text-white sm:text-5xl lg:text-6xl">
+                  {subtitle}
+                </div>
+                <p className="mt-6 max-w-3xl text-base leading-8 text-white/75 sm:text-lg">
+                  {introCopy}
+                </p>
+                <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-sm text-white/75 sm:text-base">
+                  <span>by {author}</span>
+                  <span>{date}</span>
+                  <span>{readTime}</span>
+                </div>
               </div>
 
               <div className="relative">
                 <div className="absolute -inset-8 rounded-[2.5rem] bg-[#00A9BD]/25 blur-3xl" />
                 <div className="relative overflow-hidden rounded-[2rem] border border-[#62e8f1]/20 bg-[#102530]/75 shadow-[0_0_70px_rgba(0,169,189,0.32)] backdrop-blur-md">
-                  {loading ? (
-                      <div className="aspect-[1.02/1] w-full animate-pulse bg-white/10" />
-                  ) : hasContent ? (
-                      <>
-                        <div className="relative aspect-[1.02/1] w-full">
-                          <SmartImage
-                              src={image}
-                              alt={title}
-                              fill
-                              className="object-cover opacity-80"
-                          />
-                          <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.4),rgba(255,255,255,0.08))]" />
-                          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(255,255,255,0.22),transparent_35%)]" />
+                  <div className="relative aspect-[1.02/1] w-full">
+                    <SmartImage
+                        src={image}
+                        alt={title}
+                        fill
+                        className="object-cover opacity-80"
+                    />
+                    <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.4),rgba(255,255,255,0.08))]" />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(255,255,255,0.22),transparent_35%)]" />
 
-                          <div className="absolute left-1/2 top-1/2 w-[88%] -translate-x-1/2 -translate-y-1/2 rounded-3xl border border-white/12 bg-white/10 px-5 py-6 text-center backdrop-blur-md">
-                            <p className="text-xs font-medium tracking-[0.24em] text-white/70">
-                              FEATURED STORY
-                            </p>
-                            <h2 className="mt-3 text-2xl font-semibold leading-tight text-white sm:text-3xl">
-                              {title}
-                            </h2>
-                            <p className="mt-2 text-sm leading-6 text-white/80">
-                              {excerpt}
-                            </p>
-                          </div>
-                        </div>
+                    <div className="absolute left-1/2 top-1/2 w-[88%] -translate-x-1/2 -translate-y-1/2 rounded-3xl border border-white/12 bg-white/10 px-5 py-6 text-center backdrop-blur-md">
+                      <p className="text-xs font-medium tracking-[0.24em] text-white/70">
+                        FEATURED STORY
+                      </p>
+                      <h2 className="mt-3 text-2xl font-semibold leading-tight text-white sm:text-3xl">
+                        {title}
+                      </h2>
+                      <p className="mt-2 text-sm leading-6 text-white/80">
+                        {excerpt}
+                      </p>
+                    </div>
+                  </div>
 
-                        <div className="absolute inset-x-0 bottom-0 h-24 bg-[linear-gradient(to_top,rgba(0,169,189,0.24),transparent)]" />
-                      </>
-                  ) : (
-                      <div className="aspect-[1.02/1] w-full bg-white/5" />
-                  )}
+                  <div className="absolute inset-x-0 bottom-0 h-24 bg-[linear-gradient(to_top,rgba(0,169,189,0.24),transparent)]" />
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="relative mx-auto w-full max-w-[1400px] px-6 py-10 sm:px-8 lg:px-12 lg:py-16">
+        <section className="relative mx-auto w-full max-w-350 px-6 py-10 sm:px-8 lg:px-12 lg:py-16">
           <div className="rounded-[2rem] border border-white/5 bg-[#071b24]/92 p-6 shadow-[0_0_70px_rgba(0,169,189,0.08)] backdrop-blur-md sm:p-8 lg:p-12">
             <div className="mb-8 flex flex-wrap gap-5 text-sm text-white/55">
               {articleSections.map((section: BlogSection, index: number) => {
@@ -403,7 +298,7 @@ export const BlogHero = ({ slug }: BlogHeroProps) => {
                             <ul className="mt-5 space-y-2.5 text-[15px] leading-8 text-white/72 sm:text-[16px]">
                               {points.map((point, idx) => (
                                   <li key={idx} className="flex gap-3">
-                                    <span className="mt-[11px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#25d9e0]" />
+                                    <span className="mt-2.75 h-1.5 w-1.5 shrink-0 rounded-full bg-[#25d9e0]" />
                                     <span className="block">{point}</span>
                                   </li>
                               ))}
@@ -416,7 +311,9 @@ export const BlogHero = ({ slug }: BlogHeroProps) => {
 
               <aside className="lg:sticky lg:top-28">
                 <div className="space-y-4 rounded-[1.8rem] bg-[#091725] p-5 shadow-[0_0_45px_rgba(0,0,0,0.28)]">
-                  <p className="text-center text-sm text-white/60">Share This Post</p>
+                  <p className="text-center text-sm text-white/60">
+                    Share This Post
+                  </p>
                   <div className="flex items-center justify-center gap-4 text-white">
                     <button
                         onClick={() => sharePost("copy")}
