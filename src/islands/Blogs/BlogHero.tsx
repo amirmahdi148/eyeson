@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { getPostBySlug } from "../../lib/posts";
-import Image from "next/image"; // or your SmartImage util
+import {SmartImage} from "@/utils/SmartImage.tsx";
 
 type BlogSection = {
   id?: string;
@@ -329,7 +329,7 @@ export const BlogHero = ({ slug }: BlogHeroProps) => {
                   ) : hasContent ? (
                       <>
                         <div className="relative aspect-[1.02/1] w-full">
-                          <Image
+                          <SmartImage
                               src={image}
                               alt={title}
                               fill
