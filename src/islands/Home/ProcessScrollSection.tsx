@@ -95,8 +95,7 @@ export default function ProcessScrollSection() {
     const steps = document.querySelectorAll(".process-step");
     steps.forEach((step) => observer.observe(step));
 
-    // 🔴 GSAP MatchMedia: اسکرول‌ترایگر و پارالکس رو فقط برای مانیتورهای بزرگ (دسکتاپ) اجرا می‌کنیم.
-    // تو موبایل این انیمیشن‌های سنگین باعث پرش می‌شن.
+
     const mm = gsap.matchMedia();
 
     mm.add("(min-width: 1024px)", () => {

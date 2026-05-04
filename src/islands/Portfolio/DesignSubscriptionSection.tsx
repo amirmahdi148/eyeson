@@ -1,6 +1,6 @@
 export const DesignSubscriptionSection = () => {
   return (
-    <section className="mx-auto w-full max-w-7xl px-4 pb-24 pt-8 sm:px-6 lg:px-8">
+    <section className="mx-auto w-full max-w-7xl px-4 pb-24 pt-8 sm:px-6 lg:px-8 max-sm:text-center">
       <div className="grid items-center gap-8 rounded-3xl  p-5 backdrop-blur-sm md:grid-cols-2 md:gap-12 md:p-10">
         <div className="order-2 md:order-1">
           <img
