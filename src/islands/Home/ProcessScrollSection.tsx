@@ -11,7 +11,7 @@ const PROCESS_STEPS = [
     step: "Step 1",
     icon: (
       <svg
-        className="w-6 h-6"
+        className="w-5 h-5 sm:w-6 sm:h-6"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -31,7 +31,7 @@ const PROCESS_STEPS = [
     step: "Step 2",
     icon: (
       <svg
-        className="w-6 h-6"
+        className="w-5 h-5 sm:w-6 sm:h-6"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -51,7 +51,7 @@ const PROCESS_STEPS = [
     step: "Step 3",
     icon: (
       <svg
-        className="w-6 h-6"
+        className="w-5 h-5 sm:w-6 sm:h-6"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -78,7 +78,7 @@ export default function ProcessScrollSection() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    // Use Intersection Observer for step fade-ins (no scroll flicker)
+    // Use Intersection Observer for step fade-ins
     const observerOptions = {
       threshold: 0.15,
       rootMargin: "0px 0px -50px 0px",
@@ -95,47 +95,45 @@ export default function ProcessScrollSection() {
     const steps = document.querySelectorAll(".process-step");
     steps.forEach((step) => observer.observe(step));
 
-    // Direct scroll listener with RAF for precise parallax control
-    const handleScroll = () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    // 🔴 GSAP MatchMedia: اسکرول‌ترایگر و پارالکس رو فقط برای مانیتورهای بزرگ (دسکتاپ) اجرا می‌کنیم.
+    // تو موبایل این انیمیشن‌های سنگین باعث پرش می‌شن.
+    const mm = gsap.matchMedia();
 
-      rafRef.current = requestAnimationFrame(() => {
-        if (!sectionRef.current || !parallaxImgRef.current) return;
+    mm.add("(min-width: 1024px)", () => {
+      // Direct scroll listener for Desktop
+      const handleScroll = () => {
+        if (rafRef.current) cancelAnimationFrame(rafRef.current);
 
-        const rect = sectionRef.current.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        const sectionTop = rect.top;
-        const sectionBottom = rect.bottom;
+        rafRef.current = requestAnimationFrame(() => {
+          if (!sectionRef.current || !parallaxImgRef.current) return;
 
-        // Only apply parallax when section is fully or partially visible
-        if (sectionBottom < 0 || sectionTop > viewportHeight) {
-          return;
-        }
+          const rect = sectionRef.current.getBoundingClientRect();
+          const viewportHeight = window.innerHeight;
+          const sectionTop = rect.top;
+          const sectionBottom = rect.bottom;
 
-        // Calculate normalized progress (0 to 1) based on section position in viewport
-        let progress = 0;
-        if (sectionTop < viewportHeight && sectionBottom > 0) {
-          // Section is visible
-          progress = (viewportHeight - sectionTop) / (viewportHeight + rect.height);
-          progress = Math.max(0, Math.min(1, progress)); // Clamp to 0-1
-        }
+          if (sectionBottom < 0 || sectionTop > viewportHeight) return;
 
-        // Parallax range: from -12 to 12 (limited movement)
-        const yOffset = (progress - 0.5) * 24;
-        const scale = 1 + progress * 0.04;
+          let progress = 0;
+          if (sectionTop < viewportHeight && sectionBottom > 0) {
+            progress = (viewportHeight - sectionTop) / (viewportHeight + rect.height);
+            progress = Math.max(0, Math.min(1, progress));
+          }
 
-        gsap.set(parallaxImgRef.current, {
-          y: yOffset,
-          scale: scale,
-          overwrite: "auto",
+          const yOffset = (progress - 0.5) * 24;
+          const scale = 1 + progress * 0.04;
+
+          gsap.set(parallaxImgRef.current, {
+            y: yOffset,
+            scale: scale,
+            overwrite: "auto",
+          });
         });
-      });
-    };
+      };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+      window.addEventListener("scroll", handleScroll, { passive: true });
 
-    // Pin animation with ScrollTrigger
-    const ctx = gsap.context(() => {
+      // Pin animation for Desktop
       if (gridContainerRef.current && pinRef.current) {
         ScrollTrigger.create({
           trigger: gridContainerRef.current,
@@ -147,28 +145,35 @@ export default function ProcessScrollSection() {
           fastScrollEnd: true,
         });
       }
-    }, sectionRef);
+
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+        if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      };
+    });
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
       observer.disconnect();
-      ctx.revert();
+      mm.revert(); // این تمام اسکرول‌ترایگرها و ایونت‌های مربوط به matchMedia رو کلین‌آپ می‌کنه
     };
   }, []);
 
   return (
     <section
       ref={sectionRef}
-      className="relative  py-24 overflow-hidden"
+      className="relative py-16 sm:py-20 lg:py-24 overflow-hidden"
     >
-      <div className="container mx-auto px-6 max-w-7xl">
-        <div className="mb-20 max-w-3xl">
-          <p className="text-gray-400 text-sm mb-4">Our Creative Process</p>
-          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+      <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
+        
+        {/* 🔴 موبایل: وسط‌چین / دسکتاپ: چپ‌چین */}
+        <div className="mb-12 sm:mb-16 lg:mb-20 max-w-3xl flex flex-col items-center text-center lg:items-start lg:text-left mx-auto lg:mx-0">
+          <p className="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4 font-semibold uppercase tracking-widest">
+            Our Creative Process
+          </p>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-4 sm:mb-6 leading-[1.15] tracking-tight">
             From idea to impact — here&rsquo;s how your project comes to life.
           </h2>
-          <p className="text-gray-400 text-lg leading-relaxed">
+          <p className="text-gray-400 text-sm sm:text-base lg:text-lg leading-relaxed max-w-xl">
             Every project starts with understanding the story behind it — the
             message, the audience, and the vision. We explore ideas, study
             visual trends, and craft experiences that don&rsquo;t just look
@@ -178,58 +183,63 @@ export default function ProcessScrollSection() {
 
         <div
           ref={gridContainerRef}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-16 relative items-start"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 relative items-start"
         >
-          <div className="space-y-32 pb-32">
+          {/* 🔴 فاصله‌ی عمودی بین کارت‌ها در موبایل کمتر شد (space-y-12) */}
+          <div className="space-y-10 sm:space-y-16 lg:space-y-32 lg:pb-32">
             {PROCESS_STEPS.map((step) => (
               <div key={step.id} className="process-step will-change-transform">
-                <div className="relative p-8 rounded-3xl bg-card hover:border-white/30 transition-all duration-300 group">
-                  <div className="absolute step-bg top-8 right-8 text-xs font-semibold  px-3 py-1.5 rounded-full">
+                <div className="relative p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-card hover:border-white/30 transition-all duration-300 group shadow-lg">
+                  
+                  {/* بج دکوری */}
+                  <div className="absolute step-bg top-5 right-5 sm:top-8 sm:right-8 text-[10px] sm:text-xs font-bold px-3 py-1 sm:py-1.5 rounded-full">
                     {step.step}
                   </div>
 
-                  <div className="w-14 h-14 rounded-2xl di-bg  flex items-center justify-center  mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[14px] sm:rounded-2xl di-bg flex items-center justify-center mb-5 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
                     {step.icon}
                   </div>
 
-                  <h3 className="text-2xl font-bold text-white mb-4">
+                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">
                     {step.title}
                   </h3>
 
-                  <p className="text-gray-400 text-base leading-relaxed mb-8">
+                  <p className="text-gray-400 text-sm sm:text-base leading-relaxed mb-6 sm:mb-8">
                     {step.description}
                   </p>
 
-                  <div className="flex flex-wrap gap-3">
+                  <div className="flex flex-wrap gap-2 sm:gap-3">
                     {step.tags.map((tag, idx) => (
                       <span
                         key={idx}
-                        className="px-4 py-2 rounded-full bg-[#122E3E] text-gray-300 text-sm border border-white/5 hover:border-foreground/30 transition-colors duration-300"
+                        className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-[#122E3E] text-gray-300 text-[11px] sm:text-sm border border-white/5 hover:border-foreground/30 transition-colors duration-300"
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
 
-                  <div className="absolute inset-0 bg-gradient-to-br from-foreground/0 via-foreground/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-3xl pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-foreground/0 via-foreground/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl sm:rounded-3xl pointer-events-none" />
                 </div>
               </div>
             ))}
           </div>
 
+          {/* ===== Pinned Parallax (فقط دسکتاپ) ===== */}
+          {/* توی موبایل این بخش مخفیه چون اسکرول‌جک و پین شدن تو گوشی تجربه خوبی نمیده */}
           <div className="hidden lg:block relative h-full">
             <div
               ref={pinRef}
               className="w-full h-[600px] flex items-center justify-center will-change-transform"
             >
-              <div className="absolute inset-0  rounded-full transform scale-75 pointer-events-none" />
+              <div className="absolute inset-0 rounded-full transform scale-75 pointer-events-none" />
 
-              <div className="relative w-full h-full rounded-[40px]  ">
+              <div className="relative w-full h-full rounded-[40px]">
                 <img
                   ref={parallaxImgRef}
                   src="/home/process.png"
                   alt="Process Visualization"
-                  className="w-full h-full object-contain scale-75 will-change-transform"
+                  className="w-full h-full object-contain scale-75 will-change-transform drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
                 />
               </div>
 

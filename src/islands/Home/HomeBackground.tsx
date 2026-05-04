@@ -105,7 +105,7 @@ const HomeBackground = () => {
         viewBox="0 0 1440 1707"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="absolute pointer-events-none w-full will-change-contents top-550 will-change-contents"
+        className="absolute pointer-events-none w-full will-change-contents top-750 will-change-contents"
       >
         <g filter="url(#filter0_f_273_29153)">
           <path
@@ -154,7 +154,7 @@ const HomeBackground = () => {
         viewBox="0 0 1440 1707"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="absolute pointer-events-none w-full will-change-contents top-1000 will-change-contents"
+        className="absolute pointer-events-none w-full will-change-contents top-1200 will-change-contents"
       >
         <g filter="url(#filter0_f_273_29150)">
           <path
