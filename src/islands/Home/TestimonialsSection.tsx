@@ -81,25 +81,7 @@ export default function TestimonialsSection() {
   return (
     <section className="relative py-24  ">
       
-      {/* Background Glows */}
-      <div className="absolute inset-0 pointer-events-none">
-        {/* Main Teal/Turquoise Glow at the Top */}
-        <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-foreground/20 rounded-full blur-[120px]" />
-        
-        {/* Render Stars only on Client */}
-        <div className="absolute inset-0 opacity-30">
-           {stars.map((star, i) => (
-            <div
-              key={i}
-              className="absolute w-0.5 h-0.5 bg-white rounded-full"
-              style={{
-                top: star.top,
-                left: star.left,
-              }}
-            />
-          ))}
-        </div>
-      </div>
+
 
       <div className="relative z-10 container mx-auto px-6 max-w-7xl">
         <motion.div

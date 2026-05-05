@@ -24,58 +24,65 @@ const {
 
 <section class="relative overflow-hidden py-16 sm:py-20 lg:py-28">
 
-
   <div
-    class="relative mx-auto flex w-full max-w-7xl flex-col items-center gap-12 px-4 sm:px-6 lg:flex-row lg:gap-16 lg:px-8"
+    class="relative mx-auto flex w-full max-w-7xl flex-col items-center gap-12 px-4 sm:px-6 lg:flex-row lg:items-center lg:gap-16 lg:px-8"
   >
-    <div class="w-full lg:w-[48%]">
+    {/* ===== سمت چپ: محتوای متنی ===== */}
+    {/* 🔴 برای موبایل: flex-col, items-center, text-center. برای دسکتاپ: lg:items-start, lg:text-left */}
+    <div class="w-full lg:w-[48%] flex flex-col items-center text-center lg:items-start lg:text-left">
+      
+      {/* نشانک (Eyebrow) */}
       <div
-        class="mb-5 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2 shadow-[0_0_0_1px_rgba(0,0,0,0.15)] backdrop-blur-sm"
-        style="background: radial-gradient(56.08% 159.18% at 29.68% 91.67%, #11565F 0%, #0B1F2A 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
-"
+        class="mb-6 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2.5 sm:py-2 shadow-[0_0_0_1px_rgba(0,0,0,0.15)] backdrop-blur-sm"
+        style="background: linear-gradient(135deg, rgba(17, 86, 95, 0.4) 0%, rgba(11, 31, 42, 0.4) 100%);"
       >
         <span
-          class="h-3 w-3 rounded-full bg-cyan-400 shadow-[0_0_18px_rgba(34,211,238,0.85)]"
+          class="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-cyan-400 shadow-[0_0_18px_rgba(34,211,238,0.85)]"
         ></span>
-        <span class="text-sm text-white/75">{eyebrow}</span>
+        <span class="text-xs sm:text-sm font-medium text-white/80">{eyebrow}</span>
       </div>
 
+      {/* عنوان اصلی */}
       <h2
-        class="max-w-xl text-3xl font-black leading-[1.08] tracking-tight text-white sm:text-4xl lg:text-[3.35rem]"
+        class="max-w-xl text-3xl font-black leading-[1.12] tracking-tight text-white sm:text-4xl lg:text-[3.35rem]"
       >
         {title}
-        {highlight && <span class="block text-cyan-300">{highlight}</span>}
+        {highlight && <span class="block mt-1 text-cyan-300">{highlight}</span>}
       </h2>
 
-      <p class="mt-6 max-w-xl text-sm leading-7 text-white/65 sm:text-[15px]">
+      {/* توضیحات */}
+      <p class="mt-5 sm:mt-6 max-w-xl text-[15px] sm:text-base leading-relaxed text-white/65 mx-auto lg:mx-0">
         {description}
       </p>
 
-      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+      {/* دکمه‌ها */}
+      {/* 🔴 در موبایل: دکمه‌ها تمام عرض (w-full)، در تبلت و بالا کنار هم به اندازه محتوا */}
+      <div class="mt-8 flex w-full max-w-[340px] flex-col gap-3 sm:max-w-none sm:w-auto sm:flex-row mx-auto lg:mx-0">
         <a
           href={primaryHref}
-          class="inline-flex min-h-12 items-center justify-center rounded-full bg-gradient-to-r from-cyan-400 to-emerald-400 px-7 py-3 text-sm font-semibold text-[#031016] shadow-[0_0_24px_rgba(34,211,238,0.45)] transition-transform duration-200 hover:scale-[1.02]"
+          class="inline-flex min-h-[52px] sm:min-h-[48px] w-full sm:w-auto items-center justify-center rounded-full bg-gradient-to-r from-cyan-400 to-emerald-400 px-8 py-3 text-[15px] sm:text-sm font-bold text-[#031016] shadow-[0_0_24px_rgba(34,211,238,0.45)] transition-transform duration-200 hover:scale-[1.02]"
         >
           {primaryText}
         </a>
 
         <a
           href={secondaryHref}
-          class="inline-flex min-h-12 items-center justify-center rounded-full border border-cyan-400/35 bg-[#091E2A] px-7 py-3 text-sm font-semibold text-white shadow-[0_0_22px_rgba(34,211,238,0.18)] transition-colors duration-200 hover:border-cyan-300/60 hover:bg-[#0a1d26]"
+          class="inline-flex min-h-[52px] sm:min-h-[48px] w-full sm:w-auto items-center justify-center rounded-full border border-cyan-400/35 bg-[#091E2A] px-8 py-3 text-[15px] sm:text-sm font-bold text-white shadow-[0_0_22px_rgba(34,211,238,0.18)] transition-colors duration-200 hover:border-cyan-300/60 hover:bg-[#0a1d26]"
         >
           {secondaryText}
         </a>
       </div>
     </div>
 
-    <div class="w-full lg:w-[52%]">
-      <div class="relative mx-auto w-full max-w-[620px]">
-        <div class="absolute inset-0"></div>
-        <div class="relative overflow-hidden">
+    {/* ===== سمت راست: تصویر ===== */}
+    <div class="w-full lg:w-[52%] mt-4 lg:mt-0">
+      <div class="relative mx-auto w-full max-w-[500px] lg:max-w-[620px]">
+        <div class="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 to-emerald-500/10 blur-2xl rounded-full"></div>
+        <div class="relative overflow-hidden transition-transform duration-500 hover:scale-[1.01]">
           <img
             src="./home/eyes-home.png"
             alt="Why choose us visual"
-            class="block h-auto w-full object-cover"
+            class="block h-auto w-full object-cover drop-shadow-2xl"
             loading="lazy"
             width="1200"
             height="900"
@@ -83,5 +90,6 @@ const {
         </div>
       </div>
     </div>
+    
   </div>
 </section>

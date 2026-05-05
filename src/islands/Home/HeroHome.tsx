@@ -34,17 +34,19 @@ export default function HeroHome() {
   const activeVideo = CATEGORIES.find((c) => c.id === activeTab)?.videoUrl;
 
   return (
-    <section className="relative w-full overflow-hidden pt-50 pb-28 lg:pt-52 lg:pb-40 ">
+    <section className="relative w-full overflow-hidden pt-20 pb-28 lg:pt-32 lg:pb-40">
 
       <div className="relative mx-auto flex max-w-[1300px] flex-col items-center gap-16 px-4 sm:px-6 lg:flex-row lg:items-center lg:gap-10 lg:px-8">
         
-
-        <div className="w-full lg:w-[45%] xl:w-[48%] flex flex-col items-center justify-center text-center lg:items-start lg:text-start">
+        {/* ========================================== */}
+        {/* بخش چپ: متن‌ها و دکمه‌ها */}
+        {/* ========================================== */}
+        <div className="w-full lg:w-[45%] xl:w-[48%]">
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-3xl font-extrabold leading-[1.15] tracking-tight sm:text-3xl lg:text-[2rem]"
+            className="text-4xl font-extrabold leading-[1.15] tracking-tight sm:text-5xl lg:text-[3.2rem]"
           >
             <span className="block bg-gradient-to-r from-[#31d1a6] to-[#25aeb2] bg-clip-text text-transparent">
               Smart video, animation & design
@@ -58,7 +60,7 @@ export default function HeroHome() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mt-6 max-w-md text-[15px] leading-[1.8] text-white/55 sm:text-base text-center lg:text-start"
+            className="mt-6 max-w-md text-[15px] leading-[1.8] text-white/55 sm:text-base"
           >
             We create high-impact visuals, motion, and content systems
             that help brands grow, convert, and stand out.
@@ -68,10 +70,10 @@ export default function HeroHome() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-10 flex gap-4 flex-row sm:items-center"
+            className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center"
           >
             {/* دکمه View Our Work */}
-            <div className="relative group inline-block text-center lg:text-start">
+            <div className="relative group inline-block">
               {/* Glow درخشان زیر دکمه */}
               <div className="absolute -inset-[4px] rounded-full bg-gradient-to-r from-[#2ed1a2] to-[#1ea2a4] opacity-50 blur-[12px] transition-opacity duration-300 group-hover:opacity-80" />
               <a
@@ -107,7 +109,7 @@ export default function HeroHome() {
         {/* ========================================== */}
         {/* بخش راست: پلیر ویدیویی و پنل‌های ادیت */}
         {/* ========================================== */}
-        <div className="w-full lg:w-[55%] xl:w-[52%] hidden lg:block">
+        <div className="w-full lg:w-[55%] xl:w-[52%]">
           <div className="relative mx-auto w-full max-w-[650px] pt-10 lg:pt-0">
             
             {/* بدنه اصلی مانیتور */}
