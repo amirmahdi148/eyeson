@@ -156,14 +156,14 @@ export default function HomeServicesSection() {
             brands
           </h2>
 
-          <div className="inline-flex items-center p-1.5 rounded-full bg-transparent border border-white/10">
+          <div className="inline-flex items-center  p-1.5 rounded-full bg-transparent border border-white/10">
             <button
               onClick={() => setActiveTab("animation")}
               className={`
-                px-8 py-3 rounded-full font-medium text-sm transition-all duration-300
+                px-8 py-3 rounded-full cursor-pointer font-medium text-sm transition-all duration-300
                 ${
                   activeTab === "animation"
-                    ? "bg-linear-to-r from-foreground to-[#0d7a7f] text-white shadow-[0_0_20px_rgba(16,145,151,0.3)]"
+                    ? "bg-linear-to-r from-[#00A9BD] to-[#1D553A]  text-white shadow-[0_0_20px_#00A9BD]"
                     : "text-gray-400 hover:text-white"
                 }
               `}
@@ -173,10 +173,10 @@ export default function HomeServicesSection() {
             <button
               onClick={() => setActiveTab("design")}
               className={`
-                px-8 py-3 rounded-full font-medium text-sm transition-all duration-300
+                px-8 py-3 rounded-full cursor-pointer font-medium text-sm transition-all duration-300
                 ${
                   activeTab === "design"
-                    ? "bg-linear-to-r from-foreground to-[#0d7a7f] text-white shadow-[0_0_20px_rgba(16,145,151,0.3)]"
+                    ? "bg-linear-to-r from-[#00A9BD] to-[#1D553A]  text-white shadow-[0_0_20px_#00A9BD]"
                     : "text-gray-400 hover:text-white"
                 }
               `}
@@ -216,7 +216,7 @@ export default function HomeServicesSection() {
                 </div>
 
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-foreground transition-colors">
+                  <h3 className="text-xl font-bold text-white mb-3  transition-colors">
                     {service.title}
                   </h3>
                   <p className="text-gray-400 text-sm leading-relaxed">

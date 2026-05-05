@@ -123,7 +123,7 @@ export const OrbitSystem = memo(function OrbitSystem({
     const iconTweensRef = useRef<gsap.core.Tween[]>([]);
 
 
-    const isMobileView = useMediaQuery({ maxWidth: 639 });
+    const isMobileView = useMediaQuery({ maxWidth: 700 });
     const isInView = useInView(containerRef, {
         once: true,
         margin: "-100px",
@@ -302,7 +302,7 @@ export const OrbitSystem = memo(function OrbitSystem({
             </div>
 
             <motion.div
-                className="relative z-10 flex flex-col items-center justify-center gap-2 sm:gap-4 md:gap-6 min-h-screen sm:min-h-[80vh] pt-90 lg:pt-60 lg:min-h-[70vh] w-full text-center  max-w-4xl mx-auto"
+                className="relative z-10 flex flex-col items-center justify-center gap-2 sm:gap-4 md:gap-6 min-h-screen sm:min-h-[80vh] pt-70 lg:pt-60 lg:min-h-[70vh] w-full text-center  max-w-4xl mx-auto"
                 variants={ContentSpawn}
                 initial="hidden"
                 animate={isInView && animations ? "visible" : "hidden"}

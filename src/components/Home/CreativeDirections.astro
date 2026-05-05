@@ -1,4 +1,6 @@
 ---
+import { SmartImage } from '@/utils/SmartImage';
+
 // CreativeDirections.astro
 
 interface Props {
@@ -30,10 +32,10 @@ const {
         <div class="relative w-full max-w-[450px] sm:max-w-[600px]">
           
           <div class="relative z-10 w-full transform-gpu transition-transform duration-500 hover:scale-[1.02]">
-            <img 
+            <SmartImage
               src={imageUrl} 
               alt="Creative Directions Concept" 
-              class="w-full h-auto object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
+              className="w-full h-auto object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
               loading="lazy"
             />
           </div>

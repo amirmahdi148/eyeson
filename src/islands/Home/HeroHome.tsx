@@ -28,20 +28,20 @@ const CATEGORIES = [
 ];
 
 export default function HeroHome() {
-  // به صورت پیش‌فرض Video Editing فعاله
+
   const [activeTab, setActiveTab] = useState(CATEGORIES[1].id);
 
   const activeVideo = CATEGORIES.find((c) => c.id === activeTab)?.videoUrl;
 
   return (
-    <section className="relative w-full overflow-hidden pt-20 pb-28 lg:pt-32 lg:pb-40">
+    <section className="relative w-full overflow-hidden pt-40 pb-28 lg:pt-62 lg:pb-40 ">
 
       <div className="relative mx-auto flex max-w-[1300px] flex-col items-center gap-16 px-4 sm:px-6 lg:flex-row lg:items-center lg:gap-10 lg:px-8">
         
         {/* ========================================== */}
         {/* بخش چپ: متن‌ها و دکمه‌ها */}
         {/* ========================================== */}
-        <div className="w-full lg:w-[45%] xl:w-[48%]">
+        <div className="w-full lg:w-[45%] xl:w-[48%] flex flex-col justify-center items-center lg:items-start text-center lg:text-start">
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -70,7 +70,7 @@ export default function HeroHome() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center"
+            className="mt-10 flex  gap-4 sm:items-center"
           >
             {/* دکمه View Our Work */}
             <div className="relative group inline-block">
@@ -109,7 +109,7 @@ export default function HeroHome() {
         {/* ========================================== */}
         {/* بخش راست: پلیر ویدیویی و پنل‌های ادیت */}
         {/* ========================================== */}
-        <div className="w-full lg:w-[55%] xl:w-[52%]">
+        <div className="w-full lg:w-[55%] xl:w-[52%] hidden lg:block">
           <div className="relative mx-auto w-full max-w-[650px] pt-10 lg:pt-0">
             
             {/* بدنه اصلی مانیتور */}
