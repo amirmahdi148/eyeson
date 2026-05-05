@@ -1,10 +1,10 @@
-import { memo, useLayoutEffect, useRef } from "react";
+import {memo, useCallback, useEffect, useLayoutEffect, useRef, useState} from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { motion, useInView, type Variants } from "framer-motion";
 import OrbitCircles from "../../../public/Shared/Orbit-Circles.svg";
-
+import {useMediaQuery} from 'react-responsive';
 type AssetWithSrc = {
     src: string;
 };
@@ -122,6 +122,8 @@ export const OrbitSystem = memo(function OrbitSystem({
     const animationInitializedRef = useRef(false);
     const iconTweensRef = useRef<gsap.core.Tween[]>([]);
 
+
+    const isMobileView = useMediaQuery({ maxWidth: 639 });
     const isInView = useInView(containerRef, {
         once: true,
         margin: "-100px",
@@ -160,8 +162,14 @@ export const OrbitSystem = memo(function OrbitSystem({
                                 trigger: sceneRef.current!,
                                 start: "top 85%",
                                 end: "bottom 15%",
-                                scrub: 0,
+                                scrub: 0.5, // Add slight delay instead of 0 for smoother feel
                                 fastScrollEnd: true,
+                                onUpdate: (self) => {
+                                    // Force GPU acceleration
+                                    if (iconEl.style.willChange !== 'transform') {
+                                        iconEl.style.willChange = 'transform';
+                                    }
+                                }
                             },
                         })
                     );
@@ -186,18 +194,24 @@ export const OrbitSystem = memo(function OrbitSystem({
     return (
         <div
             ref={containerRef}
-            className="w-full min-h-screen sm:min-h-screen lg:min-h-screen overflow-hidden relative flex items-center justify-center bg-[#000E17]"
+            className="w-full min-h-screen sm:min-h-screen lg:min-h-screen overflow-hidden relative flex items-center justify-center "
         >
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_58%,rgba(26,214,205,0.34)_0%,rgba(8,89,101,0.28)_28%,rgba(2,26,41,0.55)_55%,rgba(0,14,23,0.94)_75%,#000E17_100%)]" />
+            <div className="pointer-events-none absolute inset-0 " />
             <div
                 ref={sceneRef}
                 className="absolute inset-0 pointer-events-none overflow-hidden will-change-transform"
             >
                 <div className="relative w-full h-full">
                     <motion.svg
-                        viewBox="0 -15 1000 1000"
+                        viewBox={isMobileView ? "0 -15 1000 500" : "0 -15 1000 1000"}
                         preserveAspectRatio="xMidYMid meet"
                         className="absolute inset-0 w-full h-full mx-auto scale-150 sm:scale-120 md:scale-100 will-change-transform"
+                        style={{
+                            maskImage: "linear-gradient(to bottom, black 0%, transparent 100%)",
+                            WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 100%)",
+                            contain: "layout style paint",
+                            willChange: "transform",
+                        }}
                     >
                         <defs>
                             <linearGradient id="orbit-fade" x1="0" y1="0" x2="0" y2="1">
@@ -288,14 +302,13 @@ export const OrbitSystem = memo(function OrbitSystem({
             </div>
 
             <motion.div
-                className="relative z-10 flex flex-col items-center justify-center gap-2 sm:gap-4 md:gap-6 min-h-screen sm:min-h-[80vh] lg:min-h-[70vh] w-full pt-16 sm:pt-20 lg:pt-0 pb-6 sm:pb-8 lg:pb-0 text-center px-5 sm:px-8 max-w-4xl mx-auto"
+                className="relative z-10 flex flex-col items-center justify-center gap-2 sm:gap-4 md:gap-6 min-h-screen sm:min-h-[80vh] pt-90 lg:pt-60 lg:min-h-[70vh] w-full text-center  max-w-4xl mx-auto"
                 variants={ContentSpawn}
                 initial="hidden"
                 animate={isInView && animations ? "visible" : "hidden"}
             >
-                <div className="w-32 h-32 sm:w-50 sm:h-50 md:w-170 md:h-170 rounded-full bg-[#16C7C4]/28 blur-[80px] sm:blur-[110px] md:blur-[200px] absolute z-1 pointer-events-none" />
 
-                <h3 className="text-xl leading-tight sm:text-2xl md:text-3xl lg:text-5xl font-bold text-white relative z-10">
+                <h3 className="text-lg leading-tight sm:text-xl md:text-2xl lg:text-3xl font-bold text-white relative z-10">
                     {content.headingHighlight ? <span className="text-[#38B6B3]">{content.headingHighlight}</span> : null}
                     {content.headingHighlight ? " " : null}
                     {content.headingMain}

@@ -79,7 +79,7 @@ export default function TestimonialsSection() {
   ];
 
   return (
-    <section className="relative py-24  overflow-hidden">
+    <section className="relative py-24  ">
       
       {/* Background Glows */}
       <div className="absolute inset-0 pointer-events-none">
