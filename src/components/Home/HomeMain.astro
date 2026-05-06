@@ -10,7 +10,7 @@ import WhyChooseUs from "./WhyChooseUs.astro";
 import TestimonialsSection from "../../islands/Home/TestimonialsSection";
 import WorkflowSection from "./WorkflowSection.astro";
 import CostVideo from "../Shared/CostVideo.astro";
-import HomeBackground from "../../islands/Home/HomeBackground";
+import HomeBackground from "./HomeBackground.astro";
 import HeroHome from "../../islands/Home/HeroHome";
 import {type ContentConfig, type OrbitConfig, OrbitSystem} from "../../islands/Shared/OrbitSystem";
 
@@ -63,7 +63,7 @@ const orbits: OrbitConfig[] = [
 ---
 
 <div class="flex flex-col gap-3 items-stretch">
-  <HomeBackground client:load/>
+  <HomeBackground/>
   <HeroHome client:visible />
   <CreativeDirections  />
   <OrbitSystem orbits={orbits} content={content} width="1000px" height="1000px" animations={true} client:visible/>

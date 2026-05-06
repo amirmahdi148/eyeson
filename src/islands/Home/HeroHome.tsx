@@ -1,8 +1,17 @@
-"use client";
+
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import {SmartImage} from "@/utils/SmartImage.tsx";
 
+
+const items = [
+  {src : "/home/Hero/clients/1.jpg"},
+  {src : "/home/Hero/clients/2.jpg"},
+  {src : "/home/Hero/clients/3.jpg"},
+  {src : "/home/Hero/clients/4.jpg"},
+
+]
 // آدرس ویدیوهای خودت رو اینجا قرار بده
 const CATEGORIES = [
   {
@@ -46,7 +55,7 @@ export default function HeroHome() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-4xl font-extrabold leading-[1.15] tracking-tight sm:text-5xl lg:text-[3.2rem]"
+            className="text-xl font-extrabold leading-[1.15] tracking-tight sm:text-2xl lg:text-[2.2rem]"
           >
             <span className="block bg-gradient-to-r from-[#31d1a6] to-[#25aeb2] bg-clip-text text-transparent">
               Smart video, animation & design
@@ -248,6 +257,51 @@ export default function HeroHome() {
 
           </div>
         </div>
+      </div>
+      <div className="flex flex-col items-center justify-center gap-12 py-8  pt-40  text-white">
+        {/* Section 1: Avatar Pile and Clients */}
+        <div className="flex items-center justify-center gap-12">
+          <div className="flex items-center gap-4">
+            <div className="flex -space-x-7 isolate">
+              {items.map((item, index) => (
+                  <div
+                      key={index}
+                      style={{ zIndex: index }}
+                      className={`
+                        h-10 w-10 rounded-full overflow-hidden border-2 
+                        ${index === 3 ? "border-gray-400" : "border-[#031c26]"} 
+                        bg-zinc-700
+                      `}
+                  >
+                    <SmartImage
+                        src={item.src}
+                    />
+                  </div>
+              ))}
+            </div>
+
+            <p className="text-sm md:text-base font-medium">500+ Happy Clients</p>
+          </div>
+
+          {/* Divider Line */}
+          <div className="h-12 w-[1px] bg-white/10" />
+
+          {/* Section 2: Projects */}
+          <div className="flex items-baseline gap-2">
+            <span className="text-xl font-bold">1000+</span>
+            <span className="text-sm text-gray-400">Projects Delivered</span>
+          </div>
+
+          {/* Divider Line */}
+          <div className="h-12 w-[1px] bg-white/10" />
+
+          {/* Section 3: Countries */}
+          <div className="flex items-baseline gap-2">
+            <span className="text-xl font-bold">15+</span>
+            <span className="text-sm text-gray-400">Countries Served</span>
+          </div>
+        </div>
+        <div className="h-0.5 w-full bg-linear-to-r from-[#00222600] via-[#00A9BD] to-[#00222600]" />
       </div>
     </section>
   );

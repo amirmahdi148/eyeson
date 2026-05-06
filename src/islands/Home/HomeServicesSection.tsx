@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import "./ProcessScrollSection.css";
+import {SmartImage} from "@/utils/SmartImage.tsx";
 
 export default function HomeServicesSection() {
   const [activeTab, setActiveTab] = useState("animation");
@@ -206,7 +207,7 @@ export default function HomeServicesSection() {
                 }}
               >
                 <div className="relative h-48 bg-background overflow-hidden m-2 rounded-2xl">
-                  <img
+                  <SmartImage
                     src={service.image}
                     alt={service.title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"

@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { motion, type Variants } from "framer-motion";
+import {SmartImage} from "@/utils/SmartImage.tsx";
 
-const contactImg = "/home/contact.png";
+const contactImg = "/Shared/contact/C.png";
 
 export default function ContactUs() {
   const [selectedBudget, setSelectedBudget] = useState<string | null>(null);
@@ -56,19 +57,21 @@ export default function ContactUs() {
 
           {/* Image */}
           <motion.div
-            variants={item}
-            animate={{ y: [0, -15, 0], rotate: [0, 1.5, 0] }}
-            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-            className="relative hidden sm:block w-full max-w-[500px]"
+              variants={item}
+              animate={{ y: [0, -15, 0], rotate: [0, 1.5, 0] }}
+              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+
+              className="relative hidden sm:block w-full max-w-[700px] flex justify-center"
           >
-            <img
-              src={contactImg}
-              alt="Contact Us"
-              width={800}
-              height={600}
-              loading="lazy"
-              decoding="async"
-              className="rounded-2xl sm:rounded-3xl w-full h-auto drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
+            <SmartImage
+                src={contactImg}
+                alt="Contact Us"
+                width={1200}
+                height={600}
+                loading="lazy"
+                decoding="async"
+
+                className="rounded-2xl sm:rounded-3xl w-full h-auto drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)] scale-110 lg:scale-125 transition-transform duration-500"
             />
           </motion.div>
         </motion.div>
