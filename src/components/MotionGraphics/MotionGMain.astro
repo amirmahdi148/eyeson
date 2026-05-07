@@ -1,0 +1,79 @@
+---
+import { HeroBasic } from "@/islands/Shared/HeroBasic";
+import WhatMGAre from "@/components/MotionGraphics/WhatMGAre.astro";
+import FeaturesSection from "@/components/Shared/FeaturesSection.astro";
+import WhatWeCreate from "@/components/MotionGraphics/WhatWeCreate.astro";
+import MotionHero from "@/islands/MotionGraphics/FolderSection";
+---
+
+<div class=" min-h-screen">
+    <HeroBasic
+    client:load
+    BeforeHighlight="Turn Complexity Into Clarity With"
+    Highlight="Motion Graphics"
+    Description="From product explainers to brand stories, we create motion graphics that break down complexity, communicate value clearly, and help audiences understand what matters — fast."
+    imageUrl="/motion-graphics/motionG.png"
+    primaryBtnText="Start a Project"
+    secondaryBtnText="Get Pricing"
+
+
+    imageDivClassName="relative lg:!max-w-none lg:w-[140%] lg:-ml-40 lg:mt-0 mt-10 z-0 hidden  lg:block"
+    imageWrapperClassName="absolute w-150 h-230 -right-10 top-50"
+    imageClassName="w-130 h-230 object-contain drop-shadow-[0_0_50px_rgba(50,210,199,0.15)]"
+    textContainerClassName="relative z-10 "
+
+
+
+    headingClassName="!text-white text-[24px] md:text-[27px] lg:text-[32px] font-bold tracking-tight leading-[1.1]"
+
+    highlightClassName="!text-[#2fd0c8] !bg-none font-bold"
+
+    descriptionClassName="!text-white/60 max-w-lg text-sm md:text-base leading-relaxed "
+
+
+
+    primaryBtnWrapperClassName="hover:scale-105 transition-transform duration-300"
+    primaryBtnClassName="!bg-[#2fd0c8] text-white font-bold !px-10 !py-3.5 shadow-[0_0_30px_rgba(47,208,200,0.5)]"
+
+
+    secondaryBtnWrapperClassName="hover:scale-105 transition-transform duration-300"
+    secondaryBtnClassName="!bg-transparent !border-2 !border-[#2fd0c8] !text-white font-bold !px-10 !py-3.5 shadow-[0_0_20px_rgba(47,208,200,0.2)]"
+
+
+    showBackground={true}
+
+
+    sectionClassName="!mt-0  pb-20"
+    />
+
+    <WhatMGAre/>
+    <FeaturesSection title="Excellence in stress-free" highlight="Motion Graphics Production" description="Years of refining our motion workflow allow us to deliver clear, structured, and stress-free motion graphics projects." />
+    <WhatWeCreate/>
+    <MotionHero client:load/>
+
+
+
+</div>
+
+<style is:global>
+
+    .rounded-full {
+        border-radius: 9999px !important;
+    }
+
+
+    h2 {
+        font-family: 'Inter', sans-serif;
+    }
+    section {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-wrap: balance;
+    }
+
+    /* Performance optimization for hover transitions */
+    article {
+        will-change: transform, border-color, box-shadow;
+    }
+
+</style>

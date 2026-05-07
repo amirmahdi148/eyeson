@@ -258,7 +258,7 @@ export default function HeroHome() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-center justify-center gap-12 py-8  pt-40  text-white">
+      <div className="hidden flex-col items-center justify-center gap-12 py-8  pt-0 lg:pt-40  text-white  lg:flex ">
         {/* Section 1: Avatar Pile and Clients */}
         <div className="flex items-center justify-center gap-12">
           <div className="flex items-center gap-4">

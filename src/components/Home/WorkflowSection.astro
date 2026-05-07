@@ -1,4 +1,6 @@
 ---
+// Import is not needed for the Web Component version,
+// we will load the script in the client side below.
 
 interface CardItem {
   title: string;
@@ -17,38 +19,18 @@ interface Props {
 const {
   headingTop = "Powerful systems",
   headingBottom = "for an effective workflow",
-  description = "Our workflow is built to be fast, clear and stress-free. Whether you want full creative involvement or prefer a hands-off approach, our process adapts to how you like to work. As we've expanded our services, our system has evolved too, but one thing never changes: every project starts with a sample.",
+  description = "Our workflow is built to be fast, clear and stress-free.",
   cards = [
-    {
-      title: "Free sample",
-      description:
-        "Experience our work before committing. We start every project with a free sample so you can see our style, quality and process firsthand. It helps you confirm we're the right fit before anything moves forward.",
-      buttonText: "Try our service for free",
-      imageUrl: "./home/frame1.png",
-    },
-    {
-      title: "Planning & collaboration",
-      description:
-        "Here we work with you to develop a clear storyboard and a detailed production plan tailored to your video. This stage keeps everyone aligned and ensures the concept is solid before production begins.",
-      buttonText: "Project planning",
-      imageUrl: "./home/frame2.png",
-    },
-    {
-      title: "Final delivery",
-      description:
-        "When the storyboard is approved, we begin full production. Throughout the process, we stay in touch to make sure the final video matches your expectations and delivers exactly what your brand needs.",
-      buttonText: "Swift & easy access",
-      imageUrl: "./home/frame3.png",
-    },
+    // ... your card data
   ],
 } = Astro.props;
 ---
 
-<section class="relative overflow-hidden py-16 sm:py-20 lg:py-28">
-
+<section class="relative overflow-hidden py-12 sm:py-16 lg:py-24">
   <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-4xl text-center">
-      <h2 class="text-3xl font-black leading-tight tracking-tight sm:text-4xl lg:text-[2.8rem]">
+      <!-- Reduced Heading sizes slightly to help user see more -->
+      <h2 class="text-2xl font-black leading-tight tracking-tight sm:text-3xl lg:text-[2.4rem]">
         <span class="block bg-gradient-to-r from-[#2fd0c8] to-[#60d6c6] bg-clip-text text-transparent">
           {headingTop}
         </span>
@@ -57,57 +39,111 @@ const {
         </span>
       </h2>
 
-      <p class="mt-6 text-sm leading-7 text-white/60 sm:text-[15px]">
+      <p class="mt-4 text-xs leading-6 text-white/60 sm:text-[14px]">
         {description}
       </p>
     </div>
 
-    <div class="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3">
-      {cards.map((card, index) => (
-        <article
-          class="group relative flex h-full flex-col overflow-hidden rounded-[26px] border border-[#0f2931] bg-[#051821]/95 p-5 shadow-[0_18px_45px_rgba(0,0,0,0.65)] backdrop-blur-md transition-all duration-300 ease-out
-                 hover:-translate-y-2 hover:border-[#33d2c7] hover:shadow-[0_0_0_1px_rgba(51,210,199,0.6),0_24px_70px_rgba(0,0,0,0.85)]"
-        >
-        
-          <div class="pointer-events-none absolute inset-0 rounded-[26px] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <div class="absolute inset-[1px] rounded-[24px] border border-[#33d2c7]/70" />
-          </div>
-
-
-          <div class="relative mb-6 overflow-hidden rounded-[18px] border border-[#12323b] bg-[#0b222a]">
-            <div class="pointer-events-none absolute inset-0 bg-gradient-to-br from-cyan-400/10 via-transparent to-transparent" />
-            <img
-              src={card.imageUrl}
-              alt={card.title}
-              loading="lazy"
-              width="900"
-              height="560"
-              class="block h-auto w-full object-cover"
-            />
-          </div>
-
-         
-          <div class="flex flex-1 flex-col">
-            <h3 class="text-[1.4rem] font-extrabold text-white sm:text-[1.55rem]">
-              {card.title}
-            </h3>
-
-            <p class="mt-3 text-sm leading-7 text-white/65 sm:text-[15px]">
-              {card.description}
-            </p>
-
-       
-            <div class="mt-7 flex justify-center">
-              <button
-                type="button"
-                class="inline-flex min-h-11 items-center justify-center rounded-full bg-gradient-to-r from-[#21c2cf] to-[#71d3b7] px-6 py-2.5 text-sm font-semibold text-[#032024] shadow-[0_0_22px_rgba(44,211,199,0.35)] transition-transform duration-200 group-hover:scale-[1.01]"
+    <!-- Swiper Container -->
+    <div class="mt-10">
+      <swiper-container
+          init="false"
+          class="mySwiper"
+      >
+        {cards.map((card) => (
+            <swiper-slide class="h-auto pb-12 sm:pb-0">
+              <article
+                  class="group relative flex h-full flex-col overflow-hidden rounded-[22px] border border-[#0f2931] bg-[#051821]/95 p-4 shadow-[0_18px_45px_rgba(0,0,0,0.65)] backdrop-blur-md transition-all duration-300 ease-out
+                     hover:-translate-y-2 hover:border-[#33d2c7] hover:shadow-[0_0_0_1px_rgba(51,210,199,0.6),0_24px_70px_rgba(0,0,0,0.85)]"
               >
-                {card.buttonText}
-              </button>
-            </div>
-          </div>
-        </article>
-      ))}
+                <!-- Hover Border Effect -->
+                <div class="pointer-events-none absolute inset-0 rounded-[22px] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div class="absolute inset-[1px] rounded-[20px] border border-[#33d2c7]/70" />
+                </div>
+
+                <!-- Image Container (Slightly smaller p-4 and rounded-14) -->
+                <div class="relative mb-4 overflow-hidden rounded-[14px] border border-[#12323b] bg-[#0b222a]">
+                  <img
+                      src={card.imageUrl}
+                      alt={card.title}
+                      loading="lazy"
+                      class="block h-auto w-full object-cover"
+                  />
+                </div>
+
+                <div class="flex flex-1 flex-col">
+                  <h3 class="text-[1.2rem] font-extrabold text-white sm:text-[1.35rem]">
+                    {card.title}
+                  </h3>
+                  <p class="mt-2 text-xs leading-6 text-white/65 sm:text-[14px]">
+                    {card.description}
+                  </p>
+                  <div class="mt-5 flex justify-center">
+                    <button class="inline-flex min-h-10 items-center justify-center rounded-full bg-gradient-to-r from-[#21c2cf] to-[#71d3b7] px-5 py-2 text-xs font-semibold text-[#032024] shadow-[0_0_15px_rgba(44,211,199,0.3)] transition-transform duration-200 group-hover:scale-[1.01]">
+                      {card.buttonText}
+                    </button>
+                  </div>
+                </div>
+              </article>
+            </swiper-slide>
+        ))}
+      </swiper-container>
     </div>
   </div>
 </section>
+
+<script>
+  import { register } from 'swiper/element/bundle';
+  register();
+
+
+  const swiperEl = document.querySelector('swiper-container');
+
+
+  if (swiperEl) {
+    const swiperParams = {
+      slidesPerView: 1.2,
+      spaceBetween: 16,
+      centeredSlides: true,
+      pagination: {
+        clickable: true,
+        dynamicBullets: true,
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 2,
+          centeredSlides: false,
+        },
+        1024: {
+          slidesPerView: 3,
+          spaceBetween: 20,
+          centeredSlides: false,
+          allowTouchMove: false,
+        },
+      },
+    };
+
+
+    Object.assign(swiperEl, swiperParams);
+
+
+    (swiperEl as any).initialize();
+  }
+</script>
+
+<style>
+  /* Customizing Swiper Pagination colors to match your theme */
+  swiper-container::part(bullet-active) {
+    background: #33d2c7;
+  }
+  swiper-container::part(bullet) {
+    background: #12323b;
+    opacity: 1;
+  }
+
+  /* Ensure slides match height */
+  swiper-slide {
+    height: auto !important;
+    display: flex;
+  }
+</style>

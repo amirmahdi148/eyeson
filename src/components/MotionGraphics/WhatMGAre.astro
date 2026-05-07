@@ -1,0 +1,58 @@
+---
+import { SmartImage } from "@/utils/SmartImage";
+
+
+---
+
+
+<div class="relative  py-16 sm:py-24 lg:py-32 overflow-hidden ">
+    <!-- Subtle ambient background glow -->
+    <div class="absolute top-1/4 -right-20 w-[500px] h-[500px]  -z-10"></div>
+
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="grid grid-cols-1 items-center gap-x-16 gap-y-12 lg:grid-cols-2">
+
+            <!-- Left Column: The UI Mockup / Image -->
+            <div class="relative order-2 lg:order-1">
+                <div class="relative group">
+                    <!-- Main Image -->
+                    <SmartImage
+                            src="/motion-graphics/boh.png"
+                            alt="Motion Graphics Production Interface"
+
+                            className="w-full h-auto rounded-2xl drop-shadow-[0_20px_50px_rgba(0,0,0,0.9)] transition-transform duration-500 group-hover:scale-[1.01]"
+                    />
+
+                    <!-- Inner Glow effect behind image -->
+                    <div class="absolute inset-0 -z-10 bg-[#2fd0c8]/10 blur-3xl rounded-full scale-90 opacity-50"></div>
+                </div>
+            </div>
+
+            <!-- Right Column: Content -->
+            <div class="order-1 lg:order-2">
+                <h2 class="text-[22px] md:text-[32px] lg:text-[32px] font-black tracking-tight text-white leading-[1.1]">
+                    What <span class="text-[#2fd0c8]">Motion Graphics</span> Are and Why Your Brand Needs Them
+                </h2>
+
+                <div class="mt-8 space-y-6">
+                    <p class="text-base md:text-sm leading-relaxed text-white/70 font-medium">
+                        Motion graphics turn static ideas into clear, energetic visuals that communicate fast and keep your audience engaged. Instead of relying on plain images or long paragraphs, motion graphics use movement, rhythm, and clean design to explain concepts in seconds.
+                        For brands, this means stronger visibility, better message retention, and content that feels fresh and contemporary. Whether you're highlighting features, simplifying complex information, or creating promotional visuals, motion graphics help your audience understand your message instantly and remember it longer.                        </p>
+
+                </div>
+
+
+                <div class="mt-12">
+                    <a
+                            href="#work"
+                            class="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#00A9BD] to-[#124d43] px-12 py-4 text-lg font-bold text-white shadow-[0_0_25px_rgba(0,169,189,0.5)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(0,169,189,0.7)]"
+                    >
+                        See our work
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
