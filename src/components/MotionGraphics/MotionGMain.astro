@@ -11,9 +11,11 @@ import CaseStudiesSection from "@/islands/CaseStudiesSection";
 import CostVideo from "@/components/Shared/CostVideo.astro";
 import QandASection from "@/components/Shared/QandASection.astro";
 import CTA from "../Shared/CTA.astro";
+import HomeBackground from "@/components/Home/HomeBackground.astro";
 ---
 
 <div class=" min-h-screen">
+    <HomeBackground />
     <HeroBasic
     client:load
     BeforeHighlight="Turn Complexity Into Clarity With"
@@ -25,7 +27,7 @@ import CTA from "../Shared/CTA.astro";
 
 
     imageDivClassName="relative lg:!max-w-none lg:w-[140%] lg:-ml-40 lg:mt-0 mt-10 z-0 hidden  lg:block"
-    imageWrapperClassName="absolute w-150 h-230 -right-10 top-50"
+    imageWrapperClassName="absolute w-170 h-230 -right-10 top-50"
     imageClassName="w-130 h-230 object-contain drop-shadow-[0_0_50px_rgba(50,210,199,0.15)]"
     textContainerClassName="relative z-10 "
 
