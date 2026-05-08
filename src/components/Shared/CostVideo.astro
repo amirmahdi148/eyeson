@@ -1,4 +1,7 @@
 ---
+import PrimaryButton from "./PrimaryButton";
+import SecondaryButton from "./SecondaryButton";
+
 // Mirrors eyes-on-front/app/Components/CostVideo.tsx — one layout everywhere (no separate mobile calc).
 ---
 
@@ -45,18 +48,18 @@
         <div
           class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
         >
-          <button
-            type="button"
-            class="cv-cta w-full sm:w-auto rounded-full bg-gradient-to-r from-[#006B77] to-[#2dd4bf] px-8 py-3.5 sm:py-4 text-base sm:text-lg font-bold text-white shadow-[0_0_20px_rgba(0,107,119,0.3)] transition-transform duration-300 ease-out hover:scale-105 hover:shadow-[0_0_25px_rgba(0,107,119,0.5)] active:scale-95"
-          >
-            Calculate now
-          </button>
-          <button
-            type="button"
-            class="w-full sm:w-auto rounded-full border border-[#006B77]/60 bg-white/5 px-8 py-3.5 sm:py-4 text-base sm:text-lg font-bold text-white transition-all duration-300 ease-out hover:bg-[#006B77]/20 hover:border-[#006B77] active:scale-95"
-          >
-            Contact Us
-          </button>
+          <PrimaryButton
+            text="Calculate now"
+            href="#"
+            width="14rem"
+            height="50px"
+          />
+          <SecondaryButton
+            text="Contact Us"
+            href="#"
+            width="14rem"
+            height="50px"
+          />
         </div>
       </div>
 

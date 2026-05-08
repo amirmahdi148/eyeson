@@ -42,7 +42,7 @@ export default function UiUxHeroSection() {
         <div className="relative w-full lg:w-7/12">
           <div className="relative mx-auto h-[400px] w-[90%] sm:h-[500px] md:w-[85%] lg:h-[550px] lg:w-[120%] lg:-translate-x-4">
             {/* عکس سوم (پشتی‌ترین - بالا راست) */}
-            <div className="group absolute right-0 top-0 w-[75%] sm:w-[80%] overflow-hidden rounded-[12px] border border-white/5 shadow-2xl transition-all duration-500 hover:-translate-y-4 hover:shadow-[0_20px_40px_rgba(0,0,0,0.6)] hover:z-40 z-10">
+            <div className="group absolute right-0 top-0 w-[75%] sm:w-[80%] overflow-hidden rounded-[12px] border border-white/5 shadow-2xl transition-all duration-500 hover:-translate-y-4 hover:shadow-[0_20px_40px_rgba(0,0,0,0.6)]  z-10">
               <div className="bg-[#121212] pt-5 relative h-full w-full transition-opacity duration-500 ">
                 <img
                   src={images[2].src}
@@ -53,7 +53,7 @@ export default function UiUxHeroSection() {
             </div>
 
             {/* عکس دوم (میانی) */}
-            <div className="group absolute right-[12%] top-[10%] w-[75%] sm:w-[80%] overflow-hidden rounded-[14px] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all duration-500 hover:-translate-y-4 hover:shadow-[0_20px_50px_rgba(0,0,0,0.7)] hover:z-40 z-20">
+            <div className="group absolute right-[12%] top-[10%] w-[75%] sm:w-[80%] overflow-hidden rounded-[14px] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all duration-500 hover:-translate-y-4 hover:shadow-[0_20px_50px_rgba(0,0,0,0.7)]  z-20">
               <div className="bg-[#1a1025] pt-6 relative h-full w-full transition-opacity">
                 {/* شبیه‌سازی نوار مرورگر */}
                 <div className="absolute top-0 left-0 w-full h-6 bg-[#2a1b38] flex items-center px-4 gap-1.5">

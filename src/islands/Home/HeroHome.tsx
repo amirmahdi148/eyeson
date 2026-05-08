@@ -1,17 +1,14 @@
-
-
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {SmartImage} from "@/utils/SmartImage.tsx";
-
-
+import { SmartImage } from "@/utils/SmartImage.tsx";
+import SecondaryButton from "@/components/Shared/SecondaryButton";
+import PrimaryButton from "@/components/Shared/PrimaryButton";
 const items = [
-  {src : "/home/Hero/clients/1.jpg"},
-  {src : "/home/Hero/clients/2.jpg"},
-  {src : "/home/Hero/clients/3.jpg"},
-  {src : "/home/Hero/clients/4.jpg"},
-
-]
+  { src: "/home/Hero/clients/1.jpg" },
+  { src: "/home/Hero/clients/2.jpg" },
+  { src: "/home/Hero/clients/3.jpg" },
+  { src: "/home/Hero/clients/4.jpg" },
+];
 // آدرس ویدیوهای خودت رو اینجا قرار بده
 const CATEGORIES = [
   {
@@ -37,21 +34,26 @@ const CATEGORIES = [
 ];
 
 export default function HeroHome() {
-
   const [activeTab, setActiveTab] = useState(CATEGORIES[1].id);
 
   const activeVideo = CATEGORIES.find((c) => c.id === activeTab)?.videoUrl;
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [progress, setProgress] = useState(0);
 
+  const handleTimeUpdate = () => {
+    const video = videoRef.current;
+    if (!video || !video.duration) return;
+
+    setProgress((video.currentTime / video.duration) * 100);
+  };
   return (
-    <section className="relative w-full overflow-hidden pt-40 pb-28 lg:pt-62 lg:pb-40 ">
-
+    <section className="relative w-full overflow-hidden pt-40 pb-28 lg:pt-32 lg:pb-40 ">
       <div className="relative mx-auto flex max-w-[1300px] flex-col items-center gap-16 px-4 sm:px-6 lg:flex-row lg:items-center lg:gap-10 lg:px-8">
-        
         {/* ========================================== */}
         {/* بخش چپ: متن‌ها و دکمه‌ها */}
         {/* ========================================== */}
         <div className="w-full lg:w-[45%] xl:w-[48%] flex flex-col justify-center items-center lg:items-start text-center lg:text-start">
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -65,47 +67,29 @@ export default function HeroHome() {
             </span>
           </motion.h1>
 
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             className="mt-6 max-w-md text-[15px] leading-[1.8] text-white/55 sm:text-base"
           >
-            We create high-impact visuals, motion, and content systems
-            that help brands grow, convert, and stand out.
+            We create high-impact visuals, motion, and content systems that help
+            brands grow, convert, and stand out.
           </motion.p>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-10 flex  gap-4 sm:items-center"
+            className="mt-10 flex  gap-4 sm:items-center max-sm:flex-col"
           >
-            {/* دکمه View Our Work */}
-            <div className="relative group inline-block">
-              {/* Glow درخشان زیر دکمه */}
-              <div className="absolute -inset-[4px] rounded-full bg-gradient-to-r from-[#2ed1a2] to-[#1ea2a4] opacity-50 blur-[12px] transition-opacity duration-300 group-hover:opacity-80" />
-              <a
-                href="#work"
-                className="relative flex min-h-[54px] w-full items-center justify-center rounded-full bg-gradient-to-r from-[#20a892] to-[#116b6f] px-8 py-3 text-[15px] font-bold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] transition-transform duration-200 group-hover:scale-[1.02] sm:w-auto"
-              >
-                View Our Work
-              </a>
-            </div>
+            <PrimaryButton text="Get Started" width="14rem" />
 
             {/* دکمه Get Pricing */}
-            <div className="relative group inline-block">
-              <div className="absolute -inset-[2px] rounded-full bg-cyan-400/30 blur-[8px] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-              <a
-                href="#pricing"
-                className="relative flex min-h-[54px] w-full items-center justify-center rounded-full border border-cyan-400/40 bg-[#040e14] px-10 py-3 text-[15px] font-bold text-white transition-colors hover:border-cyan-300/80 hover:bg-[#071822] sm:w-auto"
-              >
-                Get Pricing
-              </a>
-            </div>
+            <SecondaryButton text="Get Pricing" width="14rem" />
           </motion.div>
 
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -120,18 +104,46 @@ export default function HeroHome() {
         {/* ========================================== */}
         <div className="w-full lg:w-[55%] xl:w-[52%] hidden lg:block">
           <div className="relative mx-auto w-full max-w-[650px] pt-10 lg:pt-0">
-            
             {/* بدنه اصلی مانیتور */}
             <div className="relative overflow-hidden rounded-[20px] border border-[#13303d] bg-[#051118] shadow-[0_0_60px_rgba(25,150,150,0.15)]">
-              
               {/* هدر نرم‌افزار (آیکون‌های تولبار بالا) */}
               <div className="flex items-center justify-between border-b border-[#183945] bg-[#071823] px-5 py-3">
                 <div className="flex items-center gap-4 text-[#448b99]">
-                  <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-                  <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4z"/></svg>
-                  <svg className="h-4 w-4 text-cyan-400" fill="currentColor" viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 9H9V9h3v3zm4 4h-8v-2h8v2z"/></svg>
-                  <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
-                  <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 10.47l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                  <svg
+                    className="h-4 w-4"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                  </svg>
+                  <svg
+                    className="h-4 w-4"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4z" />
+                  </svg>
+                  <svg
+                    className="h-4 w-4 text-cyan-400"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 9H9V9h3v3zm4 4h-8v-2h8v2z" />
+                  </svg>
+                  <svg
+                    className="h-4 w-4"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z" />
+                  </svg>
+                  <svg
+                    className="h-4 w-4"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M3 17.25V21h3.75L17.81 10.47l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+                  </svg>
                 </div>
               </div>
 
@@ -139,12 +151,16 @@ export default function HeroHome() {
               <div className="relative aspect-[16/10] w-full bg-[#0a141a]">
                 <AnimatePresence mode="wait">
                   <motion.video
-                    key={activeTab} // عوض شدن تب باعث مانت مجدد و انیمیشن میشه
+                    key={activeTab}
+                    ref={videoRef}
                     src={activeVideo}
                     autoPlay
                     muted
                     loop
                     playsInline
+                    onTimeUpdate={handleTimeUpdate}
+                    onLoadedMetadata={handleTimeUpdate}
+                    onEnded={() => setProgress(100)}
                     initial={{ opacity: 0, scale: 1.02 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0 }}
@@ -174,11 +190,17 @@ export default function HeroHome() {
                       }`}
                     >
                       <span className="relative z-10">{cat.title}</span>
-                      
+
                       {/* آیکون مداد برای تب اکتیو */}
                       {isActive && (
                         <div className="absolute right-1 top-1 rounded-full bg-cyan-500 p-0.5 shadow-sm">
-                          <svg className="h-2 w-2 text-[#020b12]" fill="currentColor" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 10.47l-3.75-3.75L3 17.25z"/></svg>
+                          <svg
+                            className="h-2 w-2 text-[#020b12]"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path d="M3 17.25V21h3.75L17.81 10.47l-3.75-3.75L3 17.25z" />
+                          </svg>
                         </div>
                       )}
                     </button>
@@ -193,7 +215,10 @@ export default function HeroHome() {
             <div className="absolute -left-6 top-1/3 z-20 hidden w-10 flex-col gap-3 rounded-xl border border-[#163c4c] bg-[#05121a]/90 py-3 shadow-xl backdrop-blur-xl md:flex">
               <div className="mx-auto h-1 w-4 rounded-full bg-white/20 mb-2"></div>
               {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="mx-auto h-4 w-4 rounded bg-[#204a59] hover:bg-cyan-400/50 cursor-pointer transition-colors" />
+                <div
+                  key={i}
+                  className="mx-auto h-4 w-4 rounded bg-[#204a59] hover:bg-cyan-400/50 cursor-pointer transition-colors"
+                />
               ))}
             </div>
 
@@ -220,8 +245,14 @@ export default function HeroHome() {
                   <div className="ml-[10%] h-full w-1/2 rounded bg-gradient-to-r from-cyan-600 to-teal-500 opacity-70"></div>
                 </div>
                 {/* Playhead (خط سفیدی که روی تایم‌لاین حرکت میکنه) */}
-                <div className="absolute left-[30%] top-[-8px] bottom-[-4px] w-[2px] bg-white shadow-[0_0_10px_white]">
-                  <div className="absolute -top-1 -left-1 h-2 w-2 rounded-full bg-white"></div>
+                <div
+                  className="absolute top-[-8px] bottom-[-4px] w-[2px] bg-white shadow-[0_0_10px_white] transition-all duration-500 ease-out "
+                  style={{
+                    left: `${progress}%`,
+                    transform: "translateX(-50%)",
+                  }}
+                >
+                  <div className="absolute -top-1 -left-1 h-2 w-2 rounded-full bg-white" />
                 </div>
               </div>
             </div>
@@ -240,7 +271,19 @@ export default function HeroHome() {
               <div className="mb-3 flex justify-end">
                 {/* دکمه پاور سبز */}
                 <div className="flex h-8 w-8 items-center justify-center rounded-full border border-teal-400 bg-teal-400/10 text-teal-400 shadow-[0_0_12px_rgba(45,212,191,0.3)]">
-                  <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13 10V3L4 14h7v7l9-11h-7z"
+                    />
+                  </svg>
                 </div>
               </div>
               <div className="flex flex-col gap-1.5 text-[9px] text-white/50">
@@ -254,7 +297,6 @@ export default function HeroHome() {
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
@@ -264,23 +306,23 @@ export default function HeroHome() {
           <div className="flex items-center gap-4">
             <div className="flex -space-x-7 isolate">
               {items.map((item, index) => (
-                  <div
-                      key={index}
-                      style={{ zIndex: index }}
-                      className={`
+                <div
+                  key={index}
+                  style={{ zIndex: index }}
+                  className={`
                         h-10 w-10 rounded-full overflow-hidden border-2 
                         ${index === 3 ? "border-gray-400" : "border-[#031c26]"} 
                         bg-zinc-700
                       `}
-                  >
-                    <SmartImage
-                        src={item.src}
-                    />
-                  </div>
+                >
+                  <SmartImage src={item.src} />
+                </div>
               ))}
             </div>
 
-            <p className="text-sm md:text-base font-medium">500+ Happy Clients</p>
+            <p className="text-sm md:text-base font-medium">
+              500+ Happy Clients
+            </p>
           </div>
 
           {/* Divider Line */}
