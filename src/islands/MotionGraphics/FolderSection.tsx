@@ -160,17 +160,19 @@ const Folder: React.FC = () => {
 };
 
 /**
- * Main HeroSection Component
+ * Main  Component
  */
-const MotionHero: React.FC = () => {
+const MotionSection: React.FC = () => {
     const contentRef = useRef<HTMLDivElement>(null);
     const isInView = useInView(contentRef, { once: true, margin: '0px 0px -50px 0px' });
 
     return (
-        <div className="min-h-screen w-full bg-[#020b10] flex items-center justify-center px-8 font-sans overflow-hidden">
+        <div className="min-h-screen w-full  flex items-center justify-center px-6 md:px-8 font-sans overflow-hidden py-20 lg:py-0">
             <motion.div
                 ref={contentRef}
-                className="w-full flex justify-center items-center relative z-10 gap-16"
+                // Changed to flex-col for mobile, flex-row for desktop
+                // items-center ensures text is centered horizontally on mobile
+                className="w-full flex flex-col lg:flex-row justify-center items-center relative z-10 gap-12 lg:gap-16"
                 initial={{ opacity: 0 }}
                 animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ duration: 0.6, ease: 'easeOut' }}
@@ -178,30 +180,32 @@ const MotionHero: React.FC = () => {
 
                 {/* Left Section: Content */}
                 <motion.div
-                    className="space-y-8"
+                    // text-center for mobile, text-left for desktop
+                    className="space-y-8 text-center lg:text-left flex flex-col items-center lg:items-start"
                     initial={{ opacity: 0, x: -50 }}
                     animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
                     transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
                 >
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] tracking-tight">
-                        Where ideas turn into <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-400">
+                    <h1 className="text-2xl md:text-2xl lg:text-4xl font-bold text-white leading-[1.2] lg:leading-[1.1] tracking-tight">
+                        Where ideas turn into <br className="hidden md:block" />
+                        <span className="text-transparent bg-clip-text bg-linear-to-r from-teal-400 to-emerald-400">
                             consistent motion experiences
                         </span>
                     </h1>
 
-                    <p className="text-gray-400 text-lg leading-relaxed max-w-xl">
+                    <p className="text-gray-400 text-base md:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0">
                         At Eyeson, motion support isn't just about creating videos. It's about building a reliable motion system
                         that brings clarity, consistency, and momentum to your brand. Instead of starting from scratch
                         with every new asset, you work with a long-term partner.
                     </p>
 
-                    <p className="text-gray-400 text-sm leading-relaxed max-w-xl opacity-80">
+                    <p className="text-gray-400 text-sm leading-relaxed max-w-xl opacity-80 mx-auto lg:mx-0">
                         The result is smoother production, stronger storytelling, and motion that your audience instantly recognizes.
                     </p>
 
                     <motion.button
-                        className="group relative px-8 py-4 bg-teal-500/10 border border-teal-500/50 rounded-full overflow-hidden transition-all duration-300 hover:border-teal-400 hover:shadow-[0_0_20px_rgba(20,184,166,0.4)] active:scale-95"
+                        // mx-auto centers the button in its flex-col parent on mobile
+                        className="group relative px-8 py-4 bg-teal-500/10 border border-teal-500/50 rounded-full overflow-hidden transition-all duration-300 hover:border-teal-400 hover:shadow-[0_0_20px_rgba(20,184,166,0.4)] active:scale-95 mx-auto lg:mx-0"
                         initial={{ opacity: 0, y: 20 }}
                         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                         transition={{ duration: 0.6, ease: 'easeOut', delay: 0.4 }}
@@ -214,7 +218,9 @@ const MotionHero: React.FC = () => {
                 </motion.div>
 
                 {/* Right Section: Interactive Folder */}
+                {/* hidden on mobile, block on large screens (Desktop) */}
                 <motion.div
+                    className="hidden lg:block"
                     initial={{ opacity: 0, x: 50 }}
                     animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
                     transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
@@ -227,4 +233,4 @@ const MotionHero: React.FC = () => {
     );
 };
 
-export default MotionHero;
+export default MotionSection;

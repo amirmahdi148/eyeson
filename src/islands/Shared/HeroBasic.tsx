@@ -49,230 +49,329 @@ type Props = {
 };
 
 export const HeroBasic = ({
-  BeforeHighlight = "Premium",
-  Highlight = "2D & 3D Animations",
-  AfterHighlight = "",
-  Description = "High-impact animated visuals...",
+                            BeforeHighlight = "Premium",
+                            Highlight = "2D & 3D Animations",
+                            AfterHighlight = "",
+                            Description = "High-impact animated visuals...",
 
-  imageUrl = "/animation-section/Edited.png",
+                            imageUrl = "/animation-section/Edited.png",
 
-  imageClassName = "",
-  imageDivClassName = "",
-  imageWrapperClassName = "",
+                            imageClassName = "",
+                            imageDivClassName = "",
+                            imageWrapperClassName = "",
 
-  primaryBtnText = "View Our Work",
-  secondaryBtnText = "Get Pricing",
+                            primaryBtnText = "View Our Work",
+                            secondaryBtnText = "Get Pricing",
 
-  primaryBtnUrl = "#work",
-  secondaryBtnUrl = "#pricing",
+                            primaryBtnUrl = "#work",
+                            secondaryBtnUrl = "#pricing",
 
-  animationType = "slide",
+                            animationType = "fade",
 
-  enableImageHover = false,
+                            enableImageHover = false,
 
-  sectionClassName = "",
-  textContainerClassName = "",
+                            sectionClassName = "",
+                            textContainerClassName = "",
 
-  headingClassName = "",
-  highlightClassName = "",
-  beforeHighlightClassName = "",
-  afterHighlightClassName = "",
-  descriptionClassName = "",
+                            headingClassName = "",
+                            highlightClassName = "",
+                            beforeHighlightClassName = "",
+                            afterHighlightClassName = "",
+                            descriptionClassName = "",
 
-  primaryBtnClassName = "",
-  secondaryBtnClassName = "",
+                            primaryBtnClassName = "",
+                            secondaryBtnClassName = "",
 
-  primaryBtnWrapperClassName = "",
-  secondaryBtnWrapperClassName = "",
+                            primaryBtnWrapperClassName = "",
+                            secondaryBtnWrapperClassName = "",
 
-  showBackground = false,
-  backgroundClassName = "",
+                            showBackground = false,
+                            backgroundClassName = "",
 
-  reverse = false,
+                            reverse = false,
 
-  isBranding = false,
-  rightComponent = null,
-}: Props) => {
+                            isBranding = false,
+                            rightComponent = null,
+                          }: Props) => {
   const MotionTag = motion.div;
 
   const isNone = animationType === "none";
   const isFade = animationType === "fade";
 
+  // ✨ FAST variant for mobile - no stagger delays
   const textVariants: Variants = isNone
-    ? {}
-    : isFade
-      ? {
-          hidden: { opacity: 0 },
-          show: { opacity: 1, transition: { duration: 0.35 } },
-        }
-      : {
-          hidden: { opacity: 0, x: -12 },
-          show: {
-            opacity: 1,
-            x: 0,
-            transition: {
-              duration: 0.4,
-              ease: "easeOut",
-              when: "beforeChildren",
+      ? {}
+      : isFade
+          ? {
+            hidden: { opacity: 0 },
+            show: { opacity: 1, transition: { duration: 0.25 } },
+          }
+          : {
+            hidden: { opacity: 0, x: -12 },
+            show: {
+              opacity: 1,
+              x: 0,
+              transition: {
+                duration: 0.3,
+                ease: "easeOut",
+              },
             },
-          },
-        };
+          };
 
+  // ✨ Fast items - no stagger, instant show
   const itemVariants: Variants = isNone
-    ? {}
-    : isFade
-      ? {
-          hidden: { opacity: 0 },
-          show: { opacity: 1, transition: { duration: 0.25 } },
-        }
-      : {
-          hidden: { opacity: 0, y: 8 },
-          show: {
-            opacity: 1,
-            y: 0,
-            transition: { duration: 0.3, ease: "easeOut" },
-          },
-        };
+      ? {}
+      : isFade
+          ? {
+            hidden: { opacity: 0 },
+            show: { opacity: 1, transition: { duration: 0.2 } },
+          }
+          : {
+            hidden: { opacity: 0, y: 8 },
+            show: {
+              opacity: 1,
+              y: 0,
+              transition: { duration: 0.25, ease: "easeOut" },
+            },
+          };
 
   const ctaVariants: Variants = isNone
-    ? {}
-    : isFade
-      ? {
-          hidden: { opacity: 0 },
-          show: { opacity: 1, transition: { duration: 0.2 } },
-        }
-      : {
-          hidden: { opacity: 0, y: 6 },
-          show: {
-            opacity: 1,
-            y: 0,
-            transition: { duration: 0.25, ease: "easeOut" },
-          },
-        };
+      ? {}
+      : isFade
+          ? {
+            hidden: { opacity: 0 },
+            show: { opacity: 1, transition: { duration: 0.15 } },
+          }
+          : {
+            hidden: { opacity: 0, y: 6 },
+            show: {
+              opacity: 1,
+              y: 0,
+              transition: { duration: 0.2, ease: "easeOut" },
+            },
+          };
 
   const rightVariants: Variants = isNone
-    ? {}
-    : isFade
-      ? {
-          hidden: { opacity: 0 },
-          show: { opacity: 1, transition: { duration: 0.4 } },
-        }
-      : {
-          hidden: { opacity: 0, x: 14 },
-          show: {
-            opacity: 1,
-            x: 0,
-            transition: {
-              duration: 0.45,
-              ease: "easeOut",
-              delay: 0.05,
+      ? {}
+      : isFade
+          ? {
+            hidden: { opacity: 0 },
+            show: { opacity: 1, transition: { duration: 0.3 } },
+          }
+          : {
+            hidden: { opacity: 0, x: 14 },
+            show: {
+              opacity: 1,
+              x: 0,
+              transition: {
+                duration: 0.35,
+                ease: "easeOut",
+              },
             },
-          },
-        };
+          };
 
   return (
-    <section
-      className={`relative mt-36 w-full overflow-hidden px-4 pb-10 pt-4 text-white md:px-8 lg:px-12 ${sectionClassName}`}
-    >
-      {showBackground && (
-        <div className={`absolute inset-0 -z-10 ${backgroundClassName}`} />
-      )}
+      <section
+          className={`relative mt-36 w-full overflow-hidden px-4 pb-10 pt-4 text-white md:px-8 lg:px-12 ${sectionClassName}`}
+      >
+        {showBackground && (
+            <div className={`absolute inset-0 -z-10 ${backgroundClassName}`} />
+        )}
 
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-10">
-        <div
-          className={`relative z-10 grid min-h-[60vh] items-center gap-6 sm:min-h-[500px] ${
-            reverse ? "lg:grid-cols-[320px_1fr]" : "lg:grid-cols-[1fr_320px]"
-          }`}
-        >
-          <MotionTag
-            className={`mx-auto flex max-w-lg flex-col items-center text-center md:mx-0 md:items-start md:text-left ${textContainerClassName}`}
-            {...(!isNone && {
-              variants: textVariants,
-              initial: "hidden",
-              animate: "show",
-            })}
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-10">
+          {/* MOBILE VERSION - NO ANIMATION */}
+          <div
+              className={`relative z-10 md:hidden grid min-h-[60vh] items-center gap-6 sm:min-h-[500px] ${
+                  reverse ? "lg:grid-cols-[320px_1fr]" : "lg:grid-cols-[1fr_320px]"
+              }`}
           >
-            <motion.h1
-              className={`text-[22px] md:text-[35px] font-black leading-tight ${headingClassName}`}
-              {...(!isNone && { variants: itemVariants })}
+            <div
+                className={`mx-auto flex max-w-lg flex-col items-center text-center md:mx-0 md:items-start md:text-left ${textContainerClassName}`}
             >
-              <span className={beforeHighlightClassName}>{BeforeHighlight} </span>
-              <span
-                className={`bg-linear-to-r from-[#45B6A0] to-[#12ACB5] bg-clip-text text-transparent font-black ${highlightClassName}`}
+              <h1
+                  className={`text-[22px] md:text-[35px] font-black leading-tight ${headingClassName}`}
               >
+                <span className={beforeHighlightClassName}>{BeforeHighlight} </span>
+                <span
+                    className={`bg-linear-to-r from-[#45B6A0] to-[#12ACB5] bg-clip-text text-transparent font-black ${highlightClassName}`}
+                >
                 {Highlight}
               </span>
-              <br />
-              <span className={afterHighlightClassName}>{AfterHighlight}</span>
-            </motion.h1>
+                <br />
+                <span className={afterHighlightClassName}>{AfterHighlight}</span>
+              </h1>
 
-            <motion.p
-              className={`mt-4 max-w-md text-xs leading-6 text-white/75 md:text-[18px] md:text-sm ${descriptionClassName}`}
-              {...(!isNone && { variants: itemVariants })}
-            >
-              {Description}
-            </motion.p>
-
-            <motion.div
-              className="mt-6 flex flex-row flex-wrap justify-center gap-2 md:justify-start"
-              {...(!isNone && { variants: itemVariants })}
-            >
-              <motion.div
-                className={`relative inline-flex rounded-full p-[2px] ${primaryBtnWrapperClassName}`}
-                {...(!isNone && { variants: ctaVariants })}
+              <p
+                  className={`mt-4 max-w-md text-xs leading-6 text-white/75 md:text-[18px] md:text-sm ${descriptionClassName}`}
               >
-                <div className="absolute -inset-[2px] rounded-full bg-linear-to-r from-[#45B6A0] to-[#12ACB5] shadow-[0_0_18px_#00A9BD]" />
-                <a
-                  href={primaryBtnUrl}
-                  className={`relative z-10 rounded-full px-4 py-2.5 cursor-pointer bg-linear-to-r from-[#00A9BD] to-[#1D553A] text-sm md:text-lg ${primaryBtnClassName}`}
+                {Description}
+              </p>
+
+              <div className="mt-6 flex flex-row flex-wrap justify-center gap-2 md:justify-start">
+                <div
+                    className={`relative inline-flex rounded-full p-[2px] ${primaryBtnWrapperClassName}`}
                 >
-                  {primaryBtnText}
-                </a>
-              </motion.div>
+                  <div className="absolute -inset-[2px] rounded-full bg-linear-to-r from-[#45B6A0] to-[#12ACB5] shadow-[0_0_18px_#00A9BD]" />
+                  <a
+                      href={primaryBtnUrl}
+                      className={`relative z-10 rounded-full px-4 py-2.5 cursor-pointer bg-linear-to-r from-[#00A9BD] to-[#1D553A] text-sm md:text-lg ${primaryBtnClassName}`}
+                  >
+                    {primaryBtnText}
+                  </a>
+                </div>
 
-              <motion.div
-                className={`relative inline-flex rounded-full p-[2px] ${secondaryBtnWrapperClassName}`}
-                {...(!isNone && { variants: ctaVariants })}
-              >
-                <div className="absolute -inset-[2px] rounded-full bg-linear-to-r from-[#056E7C] to-[#46B6A0] shadow-[0_0_18px_#00A9BD]" />
-                <a
-                  href={secondaryBtnUrl}
-                  className={`relative z-10 rounded-full px-4 py-2.5 bg-linear-to-r from-[#00061D] to-[#0B1F2A] cursor-pointer text-sm md:text-lg ${secondaryBtnClassName}`}
+                <div
+                    className={`relative inline-flex rounded-full p-[2px] ${secondaryBtnWrapperClassName}`}
                 >
-                  {secondaryBtnText}
-                </a>
-              </motion.div>
-            </motion.div>
-          </MotionTag>
-
-          <MotionTag
-            className={`mx-auto w-full max-w-[480px] md:mx-0 ${imageDivClassName}`}
-            {...(!isNone && {
-              variants: rightVariants,
-              initial: "hidden",
-              animate: "show",
-            })}
-          >
-            {isBranding && rightComponent}
-
-            {!isBranding && imageUrl && (
-              <div
-                className={`relative transform-gpu will-change-transform transition-transform duration-300 ease-out ${
-                  enableImageHover ? "hover:scale-[1.03]" : ""
-                } ${imageWrapperClassName}`}
-              >
-                <SmartImage
-                  src={imageUrl}
-                  alt="Hero image"
-                  width={800}
-                  height={640}
-                  className={imageClassName}
-                />
+                  <div className="absolute -inset-[2px] rounded-full bg-linear-to-r from-[#056E7C] to-[#46B6A0] shadow-[0_0_18px_#00A9BD]" />
+                  <a
+                      href={secondaryBtnUrl}
+                      className={`relative z-10 rounded-full px-4 py-2.5 bg-linear-to-r from-[#00061D] to-[#0B1F2A] cursor-pointer text-sm md:text-lg ${secondaryBtnClassName}`}
+                  >
+                    {secondaryBtnText}
+                  </a>
+                </div>
               </div>
-            )}
-          </MotionTag>
+            </div>
+
+            <div
+                className={`mx-auto w-full max-w-[480px] md:mx-0 ${imageDivClassName}`}
+            >
+              {isBranding && rightComponent}
+
+              {!isBranding && imageUrl && (
+                  <div
+                      className={`relative transform-gpu will-change-transform transition-transform duration-300 ease-out ${
+                          enableImageHover ? "hover:scale-[1.03]" : ""
+                      } ${imageWrapperClassName}`}
+                  >
+                    <SmartImage
+                        src={imageUrl}
+                        alt="Hero image"
+                        width={800}
+                        height={640}
+                        className={imageClassName}
+                    />
+                  </div>
+              )}
+            </div>
+          </div>
+
+          {/* DESKTOP VERSION - WITH ANIMATION */}
+          <div
+              className={`relative z-10 hidden md:grid min-h-[60vh] items-center gap-6 sm:min-h-[500px] ${
+                  reverse ? "lg:grid-cols-[320px_1fr]" : "lg:grid-cols-[1fr_320px]"
+              }`}
+          >
+            <MotionTag
+                className={`mx-auto flex max-w-lg flex-col items-center text-center md:mx-0 md:items-start md:text-left ${textContainerClassName}`}
+                {...(!isNone && {
+                  initial: "hidden",
+                  animate: "show",
+                  variants: textVariants,
+                })}
+            >
+              <motion.h1
+                  className={`text-[22px] md:text-[35px] font-black leading-tight ${headingClassName}`}
+                  {...(!isNone && {
+                    initial: "hidden",
+                    animate: "show",
+                    variants: itemVariants,
+                  })}
+              >
+                <span className={beforeHighlightClassName}>{BeforeHighlight} </span>
+                <span
+                    className={`bg-linear-to-r from-[#45B6A0] to-[#12ACB5] bg-clip-text text-transparent font-black ${highlightClassName}`}
+                >
+                {Highlight}
+              </span>
+                <br />
+                <span className={afterHighlightClassName}>{AfterHighlight}</span>
+              </motion.h1>
+
+              <motion.p
+                  className={`mt-4 max-w-md text-xs leading-6 text-white/75 md:text-[18px] md:text-sm ${descriptionClassName}`}
+                  {...(!isNone && {
+                    initial: "hidden",
+                    animate: "show",
+                    variants: itemVariants,
+                  })}
+              >
+                {Description}
+              </motion.p>
+
+              <motion.div
+                  className="mt-6 flex flex-row flex-wrap justify-center gap-2 md:justify-start"
+                  {...(!isNone && {
+                    initial: "hidden",
+                    animate: "show",
+                    variants: itemVariants,
+                  })}
+              >
+                <motion.div
+                    className={`relative inline-flex rounded-full p-[2px] ${primaryBtnWrapperClassName}`}
+                    {...(!isNone && {
+                      initial: "hidden",
+                      animate: "show",
+                      variants: ctaVariants,
+                    })}
+                >
+                  <div className="absolute -inset-[2px] rounded-full bg-linear-to-r from-[#45B6A0] to-[#12ACB5] shadow-[0_0_18px_#00A9BD]" />
+                  <a
+                      href={primaryBtnUrl}
+                      className={`relative z-10 rounded-full px-4 py-2.5 cursor-pointer bg-linear-to-r from-[#00A9BD] to-[#1D553A] text-sm md:text-lg ${primaryBtnClassName}`}
+                  >
+                    {primaryBtnText}
+                  </a>
+                </motion.div>
+
+                <motion.div
+                    className={`relative inline-flex rounded-full p-[2px] ${secondaryBtnWrapperClassName}`}
+                    {...(!isNone && {
+                      initial: "hidden",
+                      animate: "show",
+                      variants: ctaVariants,
+                    })}
+                >
+                  <div className="absolute -inset-[2px] rounded-full bg-linear-to-r from-[#056E7C] to-[#46B6A0] shadow-[0_0_18px_#00A9BD]" />
+                  <a
+                      href={secondaryBtnUrl}
+                      className={`relative z-10 rounded-full px-4 py-2.5 bg-linear-to-r from-[#00061D] to-[#0B1F2A] cursor-pointer text-sm md:text-lg ${secondaryBtnClassName}`}
+                  >
+                    {secondaryBtnText}
+                  </a>
+                </motion.div>
+              </motion.div>
+            </MotionTag>
+
+            <MotionTag
+                className={`mx-auto w-full max-w-[480px] md:mx-0 ${imageDivClassName}`}
+                {...(!isNone && {
+                  initial: "hidden",
+                  animate: "show",
+                  variants: rightVariants,
+                })}
+            >
+              {isBranding && rightComponent}
+
+              {!isBranding && imageUrl && (
+                  <div
+                      className={`relative transform-gpu will-change-transform transition-transform duration-300 ease-out ${
+                          enableImageHover ? "hover:scale-[1.03]" : ""
+                      } ${imageWrapperClassName}`}
+                  >
+                    <SmartImage
+                        src={imageUrl}
+                        alt="Hero image"
+                        width={800}
+                        height={640}
+                        className={imageClassName}
+                    />
+                  </div>
+              )}
+            </MotionTag>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
   );
 };

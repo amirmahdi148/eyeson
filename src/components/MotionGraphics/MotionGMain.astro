@@ -3,7 +3,9 @@ import { HeroBasic } from "@/islands/Shared/HeroBasic";
 import WhatMGAre from "@/components/MotionGraphics/WhatMGAre.astro";
 import FeaturesSection from "@/components/Shared/FeaturesSection.astro";
 import WhatWeCreate from "@/components/MotionGraphics/WhatWeCreate.astro";
-import MotionHero from "@/islands/MotionGraphics/FolderSection";
+import MotionSection from "@/islands/MotionGraphics/FolderSection";
+import {BusinessNeedsWrapper} from "@/islands/MotionGraphics/BusinessNeedsWrapper.tsx";
+import {MotionGraphicsSection} from "@/islands/MotionGraphics/WhyUs";
 ---
 
 <div class=" min-h-screen">
@@ -42,6 +44,9 @@ import MotionHero from "@/islands/MotionGraphics/FolderSection";
 
     showBackground={true}
 
+   
+    
+
 
     sectionClassName="!mt-0  pb-20"
     />
@@ -49,14 +54,19 @@ import MotionHero from "@/islands/MotionGraphics/FolderSection";
     <WhatMGAre/>
     <FeaturesSection title="Excellence in stress-free" highlight="Motion Graphics Production" description="Years of refining our motion workflow allow us to deliver clear, structured, and stress-free motion graphics projects." />
     <WhatWeCreate/>
-    <MotionHero client:load/>
+    <BusinessNeedsWrapper  client:load/>
+    <MotionGraphicsSection client:only="react"/>
+    <MotionSection  client:load/>
 
 
 
 </div>
 
 <style is:global>
-
+    .motion-div {
+        will-change: transform, opacity;
+        backface-visibility: hidden;
+    }
     .rounded-full {
         border-radius: 9999px !important;
     }

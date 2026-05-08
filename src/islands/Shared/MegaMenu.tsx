@@ -7,11 +7,11 @@ const SERVICE_GROUPS = [
         title: "Content Services",
         description: "Production systems for brands that need consistent content output.",
         items: [
-            { title: "Content Production", description: "Tailored content creation aligned with your brand voice and goals.", image: "/Header/ContentServices/cp.png", accent: "#17d6d4" },
-            { title: "Short-Form Content", description: "Fast-turn edits built for TikTok, Reels, and YouTube Shorts.", image: "/Header/ContentServices/sfc.png", accent: "#4bc7ff" },
-            { title: "Video Editing", description: "Clean, modern edits focused on retention and engagement.", image: "/Header/ContentServices/vd.png", accent: "#7ee6ff" },
-            { title: "Ad Creatives", description: "Conversion-focused creatives for paid social campaigns.", image: "/Header/ContentServices/ac.png", accent: "#66f2c5" },
-            { title: "Monthly Retainers", description: "A steady content plan with production and delivery built in.", image: "/Header/ContentServices/mr.png", accent: "#ffd56a" },
+            { title: "Content Production", description: "Tailored content creation aligned with your brand voice and goals.", image: "/Header/ContentServices/cp.png", accent: "#17d6d4", href: "/video" },
+            { title: "Short-Form Content", description: "Fast-turn edits built for TikTok, Reels, and YouTube Shorts.", image: "/Header/ContentServices/sfc.png", accent: "#4bc7ff", href: "/video" },
+            { title: "Video Editing", description: "Clean, modern edits focused on retention and engagement.", image: "/Header/ContentServices/vd.png", accent: "#7ee6ff", href: "/video" },
+            { title: "Ad Creatives", description: "Conversion-focused creatives for paid social campaigns.", image: "/Header/ContentServices/ac.png", accent: "#66f2c5", href: "/adcreatives" },
+            { title: "Monthly Retainers", description: "A steady content plan with production and delivery built in.", image: "/Header/ContentServices/mr.png", accent: "#ffd56a", href: "/video" },
         ],
         href: "/video",
     },
@@ -19,9 +19,9 @@ const SERVICE_GROUPS = [
         title: "Creative & Motion Services",
         description: "Motion-first storytelling and animation work.",
         items: [
-            { title: "2D/3D Animation", description: "High-end animation work for brands.", image: "/Header/C&MServices/23a.png", accent: "#8eefff" },
-            { title: "Motion Graphics", description: "Eye-catching animated visuals crafted for marketing, apps, and websites.", image: "/Header/C&MServices/mg.png", accent: "#5ee8ff" },
-            { title: "Motion Design", description: "Modern motion graphics that elevate your product stories with smooth animations.", image: "/Header/C&MServices/md.png", accent: "#5ee8ff" },
+            { title: "2D/3D Animation", description: "High-end animation work for brands.", image: "/Header/C&MServices/23a.png", accent: "#8eefff", href: "/animation" },
+            { title: "Motion Graphics", description: "Eye-catching animated visuals crafted for marketing, apps, and websites.", image: "/Header/C&MServices/mg.png", accent: "#5ee8ff", href: "/motiongraphics" },
+            { title: "Motion Design", description: "Modern motion graphics that elevate your product stories with smooth animations.", image: "/Header/C&MServices/md.png", accent: "#5ee8ff", href: "/services/motion-design" },
         ],
         href: "/animation",
     },
@@ -29,8 +29,8 @@ const SERVICE_GROUPS = [
         title: "Design Services",
         description: "Brand and digital systems built for clarity.",
         items: [
-            { title: "UI/UX Design", description: "Clean interface systems built for clarity.", image: "/Header/DesignServices/uixd.png", accent: "#ffd56a" },
-            { title: "Brand Identity", description: "Full branding systems from scratch.", image: "/Header/DesignServices/uixd.png", accent: "#ffee99" },
+            { title: "UI/UX Design", description: "Clean interface systems built for clarity.", image: "/Header/DesignServices/uixd.png", accent: "#ffd56a", href: "/uiux" },
+            { title: "Brand Identity", description: "Full branding systems from scratch.", image: "/Header/DesignServices/uixd.png", accent: "#ffee99", href: "/branding" },
         ],
         href: "/branding",
     },
@@ -79,7 +79,7 @@ export const MegaMenu = () => {
                         {SERVICE_GROUPS[active].items.map((card) => (
                             <a
                                 key={card.title}
-                                href={SERVICE_GROUPS[active].href}
+                                href={card.href}
                                 className="group flex items-start gap-3 rounded-2xl border border-white/5 bg-[#FFFFFF05] p-3 transition hover:border-white/10 hover:bg-linear-to-r hover:from-[#00A9BD] hover:to-[#46B6A0]"
                             >
                                 <div
@@ -173,7 +173,7 @@ const MobileServiceGroup = ({ group, onClose }: MobileServiceGroupProps) => {
                         {group.items.map((card) => (
                             <a
                                 key={card.title}
-                                href={group.href}
+                                href={card.href}
                                 onClick={onClose}
                                 className="group flex flex-col items-center gap-1.5 rounded-xl border border-white/[0.06] bg-[#04131b] p-2 text-center transition hover:border-[#2bd6de]/30 hover:bg-[#071f2b]"
                             >
