@@ -41,64 +41,61 @@ const services = [
 ];
 ---
 
-<section class="relative py-20 px-4 sm:px-6 lg:px-8  overflow-hidden min-h-screen font-sans selection:bg-teal-500/30">
-    <!-- Visual Background: Deep radial gradients and teal glow effects -->
-
+<section class="relative py-16 sm:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden min-h-screen font-sans selection:bg-teal-500/30">
 
     <div class="relative z-10 max-w-[1200px] mx-auto">
         <!-- Header Section: Centered typography with gradient accent -->
-        <header class="text-center mb-16">
-      <span class="block text-xs tracking-[0.2em] text-white/60 uppercase font-medium mb-6">
-        WHAT WE CREATE
-      </span>
+        <header class="text-center mb-12 sm:mb-16">
+            <span class="block text-xs tracking-[0.2em] text-white/60 uppercase font-medium mb-4 sm:mb-6">
+                WHAT WE CREATE
+            </span>
 
-            <h2 class="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight text-white mb-6 tracking-tight">
+            <h2 class="text-2xl sm:text-4xl md:text-5xl font-semibold leading-tight text-white mb-4 sm:mb-6 tracking-tight">
                 Types of <span class="bg-gradient-to-r from-teal-400 to-cyan-500 bg-clip-text text-transparent">Motion Graphics</span><br class="hidden md:block" /> Services
             </h2>
 
-            <p class="text-sm md:text-base text-gray-400 max-w-2xl mx-auto leading-relaxed">
+            <p class="text-xs sm:text-base text-gray-400 max-w-2xl mx-auto leading-relaxed">
                 At Eyeson, we create motion graphics that communicate clearly, guide users, and strengthen brand perception across platforms.
             </p>
         </header>
 
         <!-- Grid Layout: 4-column base with responsive col-span logic -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 items-stretch">
             {services.map((service) => {
                 // Dynamic column spanning for tablet and desktop
-        const spanClass = service.colSpan === 2 ? 'lg:col-span-2' : 'lg:col-span-1';
+                const spanClass = service.colSpan === 2 ? 'lg:col-span-2' : 'lg:col-span-1';
 
                 return (
-                        <article class={`group flex flex-col bg-[#0f172a] border border-white/10 rounded-2xl p-5 transition-all duration-300 hover:border-teal-400/40 hover:shadow-[0_0_25px_rgba(20,184,166,0.1)] ${spanClass}`}>
+                        <article class={`group flex flex-col bg-[#0f172a] border border-white/10 rounded-2xl p-4 sm:p-5 transition-all duration-300 hover:border-teal-400/40 hover:shadow-[0_0_25px_rgba(20,184,166,0.1)] h-full ${spanClass}`}>
 
-                            <div class="flex flex-col h-full gap-5">
+                            <div class="flex flex-col-reverse gap-4 sm:gap-5 h-full">
 
-                                <!-- Text Content (Reversed to Top) -->
-                                <div class="flex flex-col">
-                                    <h3 class="text-lg font-semibold text-white leading-snug mb-2 transition-colors duration-300 group-hover:text-teal-400">
-                                        {service.title}
-                                    </h3>
-                                    <p class="text-sm text-gray-400 leading-relaxed">
-                                        {service.description}
-                                    </p>
-                                </div>
-
-                                <!-- Image Area: Configured with flex-grow to occupy all available vertical space -->
-                                <div class="relative flex-grow w-full overflow-hidden rounded-xl bg-slate-900 min-h-[200px]">
+                                <!-- Image: always on top -->
+                                <div class="relative grow w-full overflow-hidden rounded-xl bg-slate-900 min-h-[140px] sm:min-h-[200px]">
                                     <img
                                             src={service.image}
                                             alt={service.title}
                                             class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                             loading="lazy"
                                     />
-                                    <!-- Glassmorphism inner ring for depth -->
                                     <div class="absolute inset-0 ring-1 ring-inset ring-white/5 rounded-xl pointer-events-none"></div>
                                 </div>
 
+                                <!-- Text: centered mobile, left on desktop -->
+                                <div class="flex flex-col items-center justify-center sm:items-start text-center sm:text-left">
+                                    <h3 class="text-base sm:text-lg font-semibold text-white leading-snug mb-1.5 sm:mb-2 transition-colors duration-300 group-hover:text-teal-400">
+                                        {service.title}
+                                    </h3>
+                                    <p class="text-xs sm:text-sm text-gray-400 leading-relaxed">
+                                        {service.description}
+                                    </p>
+                                </div>
+
                             </div>
+
                         </article>
                 );
             })}
         </div>
     </div>
 </section>
-

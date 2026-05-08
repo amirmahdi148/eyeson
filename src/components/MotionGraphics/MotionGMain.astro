@@ -6,6 +6,11 @@ import WhatWeCreate from "@/components/MotionGraphics/WhatWeCreate.astro";
 import MotionSection from "@/islands/MotionGraphics/FolderSection";
 import {BusinessNeedsWrapper} from "@/islands/MotionGraphics/BusinessNeedsWrapper.tsx";
 import {MotionGraphicsSection} from "@/islands/MotionGraphics/WhyUs";
+import CustomerStoriesShowcase from "@/components/Portfolio/CustomerStoriesShowcase.astro";
+import CaseStudiesSection from "@/islands/CaseStudiesSection";
+import CostVideo from "@/components/Shared/CostVideo.astro";
+import QandASection from "@/components/Shared/QandASection.astro";
+import CTA from "../Shared/CTA.astro";
 ---
 
 <div class=" min-h-screen">
@@ -57,7 +62,10 @@ import {MotionGraphicsSection} from "@/islands/MotionGraphics/WhyUs";
     <BusinessNeedsWrapper  client:load/>
     <MotionGraphicsSection client:only="react"/>
     <MotionSection  client:load/>
-
+    <CaseStudiesSection client:load/>
+    <CostVideo/>
+    <QandASection/>
+    <CTA/>
 
 
 </div>
