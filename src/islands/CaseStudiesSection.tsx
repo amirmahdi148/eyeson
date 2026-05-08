@@ -85,68 +85,15 @@ export default function CaseStudiesSection() {
           >
             {caseStudies.map((study) => (
               <SwiperSlide key={study.id}>
-                <div className="relative overflow-hidden rounded-[20px] border border-[#0B7D88]/70 bg-[#061B22] shadow-[0_0_0_1px_rgba(0,255,255,0.03),0_18px_60px_rgba(0,0,0,0.35)]">
-                  <div className="grid min-h-[290px] grid-cols-1 lg:grid-cols-[1.12fr_0.88fr]">
-                    <div className="order-2 flex flex-col justify-center px-4 py-4 sm:px-5 sm:py-5 md:px-6 md:py-6 lg:order-1 lg:px-6 lg:py-7 xl:px-8 xl:py-8">
-                      <h3 className="mb-4 text-[22px] font-extrabold leading-tight text-white sm:text-[26px] md:text-[30px] xl:text-[34px]">
-                        {study.category}
-                      </h3>
-
-                      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-2 md:gap-3">
-                        <div className="rounded-[12px] border border-[#18B7C1]/30 bg-[#061F26] px-3 py-2.5">
-                          <h4 className="mb-1 text-[13px] font-semibold text-cyan-300 md:text-sm">
-                            {study.title}
-                          </h4>
-                          <p className="text-[11px] leading-[1.3rem] text-white/60 md:text-[13px]">
-                            {study.challenge}
-                          </p>
-                        </div>
-
-                        <div className="rounded-[12px] border border-[#18B7C1]/30 bg-[#061F26] px-3 py-2.5">
-                          <h4 className="mb-1 text-[13px] font-semibold text-cyan-300 md:text-sm">
-                            {study.solutionTitle}
-                          </h4>
-                          <p className="text-[11px] leading-[1.3rem] text-white/60 md:text-[13px]">
-                            {study.solution}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="mt-4">
-                        <h4 className="mb-2 text-sm font-semibold text-white md:text-base">
-                          The Result
-                        </h4>
-
-                        <div className="mb-2 flex flex-wrap gap-2">
-                          {study.stats.map((stat, idx) => (
-                            <span
-                              key={idx}
-                              className="rounded-full bg-[#0C5E6A] px-3 py-1 text-[11px] text-white/92"
-                            >
-                              {stat.label}
-                            </span>
-                          ))}
-                        </div>
-
-                        <div className="mb-5 rounded-full bg-[#0B5561] px-3 py-2 text-center text-[11px] text-white/85 md:text-xs">
-                          {study.resultText}
-                        </div>
-
-                        <button className="w-full sm:w-auto rounded-full bg-gradient-to-r from-cyan-400 to-teal-400 px-15 py-2.5 text-sm font-bold text-white shadow-[0_0_18px_rgba(34,211,238,0.25)] transition-transform duration-300 hover:scale-[1.03]">
-                          See Case Study
-                        </button>
-                      </div>
-                    </div>
-
-                    <div className="order-1 relative min-h-[250px] overflow-hidden rounded-tr-[20px] rounded-br-[20px] border-b border-white/5 lg:order-2 lg:min-h-[290px] lg:border-b-0 lg:border-l">
-                      <img
-                        src={study.image}
-                        alt={study.category}
-                        className="h-full w-full object-cover"
-                      />
-                      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(6,27,34,0.08)_0%,rgba(6,27,34,0.15)_50%,rgba(6,27,34,0.28)_100%)]" />
-                    </div>
-                  </div>
+                <div className="relative overflow-hidden rounded-[20px]">
+                  <div className="relative min-h-[250px] overflow-hidden rounded-[20px] border-b border-white/5">
+  <img
+    src={study.image}
+    alt={study.category}
+    className="h-full w-full object-cover"
+  />
+  <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(6,27,34,0.08)_0%,rgba(6,27,34,0.15)_50%,rgba(6,27,34,0.28)_100%)]" />
+</div>
                 </div>
               </SwiperSlide>
             ))}
