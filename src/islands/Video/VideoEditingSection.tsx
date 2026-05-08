@@ -4,6 +4,7 @@
 
 import { motion } from "framer-motion";
 import {SmartImage} from "../../utils/SmartImage.tsx";
+import PrimaryButton from "@/components/Shared/PrimaryButton.tsx";
 
 export default function VideoEditingSection() {
     return (
@@ -46,17 +47,7 @@ export default function VideoEditingSection() {
                     feel polished, impactful, and worth watching.
                 </p>
 
-                <motion.div
-                    whileHover={{ scale: 1.05, boxShadow: "0 10px 25px rgba(15,224,210,0.5)" }}
-                    transition={{ duration: 0.3 }}
-                    className="mx-auto max-w-max rounded-full bg-gradient-to-r from-[#0fe0d2] to-[#04525d] p-[3px] shadow-[0_0_10px_rgba(15,224,210,0.6)] md:mx-0"
-                >
-                    <button
-                        className="cursor-pointer rounded-full bg-gradient-to-r from-[#39d0c3] to-[#03a4b3] px-8 py-2 text-[14px] font-semibold text-black transition hover:opacity-90 md:px-10 md:py-2.5 md:text-base"
-                    >
-                        See Our Work
-                    </button>
-                </motion.div>
+                <PrimaryButton text="See Our Work" href="/portfolio" width="14rem" height="50px"/>
             </div>
         </motion.section>
     );

@@ -6,124 +6,216 @@ import Section4 from "../FooterElements/Section4.astro";
 
 // lucide (client side)
 import {
-    PhoneCall,
-    Mail,
-    Instagram,
-    Send,
-    Play,
-    Copyright,
+  PhoneCall,
+  Mail,
+  Instagram,
+  Send,
+  Play,
+  Copyright,
 } from "lucide-react";
 ---
 
 <div class="relative w-full">
-
-    <!-- Background text -->
-    <div
-            class="absolute inset-0 hidden md:flex w-full h-full justify-center items-center pointer-events-none"
-            style="z-index:1"
+  <!-- Background text -->
+  <div
+    class="absolute inset-0 hidden md:flex w-full h-full justify-center items-center pointer-events-none"
+    style="z-index:1"
+  >
+    <h2
+      class="font-bold text-[250px] leading-[100%] opacity-50 bg-linear-to-b from-[#00262B] to-[#00222B] text-transparent bg-clip-text"
     >
-        <h2 class="font-bold text-[250px] leading-[100%] opacity-50 bg-linear-to-b from-[#00262B] to-[#00222B] text-transparent bg-clip-text">
-            Eyeson
-        </h2>
+      Eyeson
+    </h2>
+  </div>
+
+  <footer
+    class="relative w-full bg-cover bg-center overflow-hidden text-white bg-linear-to-b from-[#000E17] to-[#006b7747]"
+  >
+    <div class="absolute inset-0 opacity-70 pointer-events-none">
+      <div class="stars"></div>
+      <div class="stars2"></div>
+      <div class="stars3"></div>
     </div>
-
-    <footer class="relative w-full bg-cover bg-center overflow-hidden text-white bg-linear-to-b from-[#000E17] to-[#006B77]">
-
-        <div class="container relative mx-auto px-6 py-16 md:py-20 lg:px-12 xl:px-16 z-10">
-
-            <!-- 📱 MOBILE -->
-            <div class="flex flex-col gap-6 md:hidden">
-
-                <!-- Logo -->
-                <div class="flex items-center justify-center">
-                    <img
-                            src="/logos/img.png"
-                            alt="Eyeson logo"
-                            class="h-10 w-auto object-contain"
-                            loading="lazy"
-                    />
-                </div>
-
-                <!-- Contact -->
-                <div class="flex flex-col gap-3 text-sm text-white/90">
-
-                    <div class="flex items-center gap-3">
-                        <PhoneCall client:load className="text-[#00A9BD] h-4 w-4" />
-                        <span>+0123456789</span>
-                    </div>
-
-                    <div class="flex items-center gap-3">
-                        <Mail client:load className="text-[#00A9BD] h-4 w-4" />
-                        <span>eyeson.agency@gmail.com</span>
-                    </div>
-
-                    <div class="flex items-center gap-3">
-                        <Instagram client:load className="text-[#00A9BD] h-4 w-4" />
-                        <span>@eyeson</span>
-                    </div>
-
-                    <div class="flex items-center gap-3">
-                        <Send client:load className="text-[#00A9BD] h-4 w-4" />
-                        <span>eyeson.agency</span>
-                    </div>
-
-                    <div class="flex items-center gap-3">
-                        <Play client:load className="text-[#00A9BD] h-4 w-4" />
-                        <span>eyeson.agency</span>
-                    </div>
-
-                </div>
-
-                <!-- Copyright -->
-                <div class="flex items-center gap-2 text-sm text-white/60 pt-2">
-                    <Copyright client:load className="h-4 w-4" />
-                    <span>{new Date().getFullYear()} Eyeson Agency All rights reserved.</span>
-                </div>
-
-            </div>
-
-            <!-- 💻 DESKTOP -->
-            <div class="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12 lg:gap-x-12 xl:gap-x-16 justify-items-start">
-
-                <div class="w-full flex flex-col items-start">
-                    <Section1 />
-                </div>
-
-                <div class="w-full flex flex-col items-start">
-                    <Section2 />
-                </div>
-
-                <div class="w-full flex flex-col items-start">
-                    <Section3 />
-                </div>
-
-                <div class="w-full flex flex-col items-start">
-                    <Section4 />
-                </div>
-
-            </div>
-
-            <!-- Divider -->
-            <div class="hidden md:block w-full h-px bg-white/10 my-10 md:my-14" />
-
-            <!-- Bottom -->
-            <div class="hidden md:flex w-full flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
-
-                <h3 class="text-xs md:text-sm text-gray-400 hover:text-white transition-colors duration-300">
-                    &copy; {new Date().getFullYear()} EyesOn Agency. All rights reserved.
-                </h3>
-
-                <div class="flex gap-6 text-xs md:text-sm text-gray-400">
-                    <a href="#" class="hover:text-white transition-colors">
-                        Privacy Policy
-                    </a>
-                    <a href="#" class="hover:text-white transition-colors">
-                        Terms of Service
-                    </a>
-                </div>
-
-            </div>
-
+    <div
+      class="container relative mx-auto px-6 py-16 md:py-20 lg:px-12 xl:px-16 z-10"
+    >
+      <!-- 📱 MOBILE -->
+      <div class="flex flex-col gap-6 md:hidden">
+        <!-- Logo -->
+        <div class="flex items-center justify-center">
+          <img
+            src="/logos/img.png"
+            alt="Eyeson logo"
+            class="h-10 w-auto object-contain"
+            loading="lazy"
+          />
         </div>
-    </footer>
+
+        <!-- Contact -->
+        <div class="flex flex-col gap-3 text-sm text-white/90">
+          <div class="flex items-center gap-3">
+            <PhoneCall client:load className="text-[#00A9BD] h-4 w-4" />
+            <span>+0123456789</span>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <Mail client:load className="text-[#00A9BD] h-4 w-4" />
+            <span>eyeson.agency@gmail.com</span>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <Instagram client:load className="text-[#00A9BD] h-4 w-4" />
+            <span>@eyeson</span>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <Send client:load className="text-[#00A9BD] h-4 w-4" />
+            <span>eyeson.agency</span>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <Play client:load className="text-[#00A9BD] h-4 w-4" />
+            <span>eyeson.agency</span>
+          </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="flex items-center gap-2 text-sm text-white/60 pt-2">
+          <Copyright client:load className="h-4 w-4" />
+          <span
+            >{new Date().getFullYear()} Eyeson Agency All rights reserved.</span
+          >
+        </div>
+      </div>
+
+      <!-- 💻 DESKTOP -->
+      <div
+        class="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12 lg:gap-x-12 xl:gap-x-16 justify-items-start"
+      >
+        <div class="w-full flex flex-col items-start">
+          <Section1 />
+        </div>
+
+        <div class="w-full flex flex-col items-start">
+          <Section2 />
+        </div>
+
+        <div class="w-full flex flex-col items-start">
+          <Section3 />
+        </div>
+
+        <div class="w-full flex flex-col items-start">
+          <Section4 />
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="hidden md:block w-full h-px bg-white/10 my-10 md:my-14"></div>
+
+      <!-- Bottom -->
+      <div
+        class="hidden md:flex w-full flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left"
+      >
+        <h3
+          class="text-xs md:text-sm text-gray-400 hover:text-white transition-colors duration-300"
+        >
+          &copy; {new Date().getFullYear()} EyesOn Agency. All rights reserved.
+        </h3>
+
+        <div class="flex gap-6 text-xs md:text-sm text-gray-400">
+          <a href="#" class="hover:text-white transition-colors">
+            Privacy Policy
+          </a>
+          <a href="#" class="hover:text-white transition-colors">
+            Terms of Service
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
 </div>
+<style>
+  .stars,
+  .stars2,
+  .stars3 {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-repeat: repeat;
+  }
+
+  .stars {
+    background-image:
+      radial-gradient(
+        2px 2px at 20px 30px,
+        rgba(255, 255, 255, 0.9),
+        transparent
+      ),
+      radial-gradient(
+        1px 1px at 120px 80px,
+        rgba(255, 255, 255, 0.7),
+        transparent
+      ),
+      radial-gradient(
+        1.5px 1.5px at 200px 150px,
+        rgba(0, 169, 189, 0.8),
+        transparent
+      ),
+      radial-gradient(
+        2px 2px at 300px 40px,
+        rgba(255, 255, 255, 0.8),
+        transparent
+      );
+    background-size: 350px 350px;
+    animation: starsMove 90s linear infinite;
+  }
+
+  .stars2 {
+    background-image:
+      radial-gradient(
+        1px 1px at 50px 60px,
+        rgba(255, 255, 255, 0.6),
+        transparent
+      ),
+      radial-gradient(
+        2px 2px at 180px 120px,
+        rgba(0, 169, 189, 0.7),
+        transparent
+      ),
+      radial-gradient(
+        1.5px 1.5px at 250px 220px,
+        rgba(255, 255, 255, 0.7),
+        transparent
+      );
+    background-size: 500px 500px;
+    animation: starsMove 140s linear infinite reverse;
+    opacity: 0.7;
+  }
+
+  .stars3 {
+    background-image:
+      radial-gradient(
+        2px 2px at 100px 200px,
+        rgba(255, 255, 255, 0.5),
+        transparent
+      ),
+      radial-gradient(
+        1px 1px at 220px 100px,
+        rgba(0, 169, 189, 0.6),
+        transparent
+      );
+    background-size: 700px 700px;
+    animation: starsMove 200s linear infinite;
+    opacity: 0.5;
+  }
+
+  @keyframes starsMove {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-200px);
+    }
+  }
+</style>

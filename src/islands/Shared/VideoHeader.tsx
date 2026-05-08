@@ -1,6 +1,8 @@
 import { motion, type Variants } from "framer-motion";
 import type { ReactNode } from "react";
 import { SmartImage } from "../../utils/SmartImage.tsx";
+import SecondaryButton from "@/components/Shared/SecondaryButton.tsx";
+import PrimaryButton from "@/components/Shared/PrimaryButton.tsx";
 
 type Props = {
   BeforeHighlight?: string;
@@ -203,7 +205,9 @@ export const VideoHeader = ({
               {...(!isNone && { variants: itemVariants })}
             >
               {BeforeHighlight && (
-                <span className={beforeHighlightClassName}>{BeforeHighlight} </span>
+                <span className={beforeHighlightClassName}>
+                  {BeforeHighlight}{" "}
+                </span>
               )}
               <span className={`text-[#39d0c3] ${highlightClassName}`}>
                 {Highlight}
@@ -225,34 +229,24 @@ export const VideoHeader = ({
               {...(!isNone && { variants: itemVariants })}
             >
               {/* دکمه اصلی */}
-              <motion.div
-                className={`relative inline-flex w-full sm:w-auto rounded-full p-[2px] ${primaryBtnWrapperClassName}`}
-                {...(!isNone && { variants: ctaVariants })}
-              >
-                {/* Glow دکمه اصلی */}
-                <div className="absolute -inset-[1px] rounded-full bg-gradient-to-r from-[#29C4A9] to-[#0d7a7f] shadow-[0_0_20px_rgba(41,196,169,0.3)] opacity-80" />
-                <a
-                  href={primaryBtnUrl}
-                  className={`relative z-10 flex w-full items-center justify-center rounded-full px-8 py-3.5 cursor-pointer bg-gradient-to-r from-[#179B89] to-[#0A4F53] text-[15px] sm:text-base font-bold ${primaryBtnClassName}`}
-                >
-                  {primaryBtnText}
-                </a>
-              </motion.div>
+
+                <PrimaryButton
+                  text={secondaryBtnText}
+                  href={secondaryBtnUrl}
+                  width="14rem"
+                  height="50px"
+                />
+          
 
               {/* دکمه فرعی */}
-              <motion.div
-                className={`relative inline-flex w-full sm:w-auto rounded-full p-[2px] ${secondaryBtnWrapperClassName}`}
-                {...(!isNone && { variants: ctaVariants })}
-              >
-                {/* بردر گردینت دکمه فرعی */}
-                <div className="absolute -inset-[1px] rounded-full bg-gradient-to-r from-cyan-400/40 to-cyan-700/20" />
-                <a
+  
+                <SecondaryButton
+                  text={secondaryBtnText}
                   href={secondaryBtnUrl}
-                  className={`relative z-10 flex w-full items-center justify-center rounded-full px-8 py-3.5 cursor-pointer bg-[#08111f] text-[15px] sm:text-base font-bold ${secondaryBtnClassName}`}
-                >
-                  {secondaryBtnText}
-                </a>
-              </motion.div>
+                  width="14rem"
+                  height="50px"
+                />
+           
             </motion.div>
           </MotionTag>
 

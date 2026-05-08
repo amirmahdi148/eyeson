@@ -26,7 +26,7 @@ const {
 } = Astro.props;
 ---
 
-<section class="relative overflow-hidden py-12 sm:py-16 lg:py-24">
+<section class="relative overflow-hidden py-12 sm:py-16 lg:py-24 ">
   <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-4xl text-center">
       <!-- Reduced Heading sizes slightly to help user see more -->
@@ -54,15 +54,15 @@ const {
             <swiper-slide class="h-auto pb-12 sm:pb-0">
               <article
                   class="group relative flex h-full flex-col overflow-hidden rounded-[22px] border border-[#0f2931] bg-[#051821]/95 p-4 shadow-[0_18px_45px_rgba(0,0,0,0.65)] backdrop-blur-md transition-all duration-300 ease-out
-                     hover:-translate-y-2 hover:border-[#33d2c7] hover:shadow-[0_0_0_1px_rgba(51,210,199,0.6),0_24px_70px_rgba(0,0,0,0.85)]"
+                      hover:border-[#33d2c7] hover:shadow-[0_0_0_1px_rgba(51,210,199,0.6),0_24px_70px_rgba(0,0,0,0.85)]"
               >
                 <!-- Hover Border Effect -->
                 <div class="pointer-events-none absolute inset-0 rounded-[22px] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div class="absolute inset-[1px] rounded-[20px] border border-[#33d2c7]/70" />
                 </div>
 
-                <!-- Image Container (Slightly smaller p-4 and rounded-14) -->
-                <div class="relative mb-4 overflow-hidden rounded-[14px] border border-[#12323b] bg-[#0b222a]">
+               
+                <div class="relative mb-4 overflow-hidden rounded-[14px] border border-[#12323b] bg-[#0b222a] bottom-0">
                   <img
                       src={card.imageUrl}
                       alt={card.title}
@@ -79,7 +79,7 @@ const {
                     {card.description}
                   </p>
                   <div class="mt-5 flex justify-center">
-                    <button class="inline-flex min-h-10 items-center justify-center rounded-full bg-gradient-to-r from-[#21c2cf] to-[#71d3b7] px-5 py-2 text-xs font-semibold text-[#032024] shadow-[0_0_15px_rgba(44,211,199,0.3)] transition-transform duration-200 group-hover:scale-[1.01]">
+                    <button class="inline-flex min-h-10 items-center justify-center rounded-lg bg-gradient-to-r from-[#21c2cf] to-[#71d3b7] px-5 py-2 text-xs font-semibold text-[#032024] shadow-[0_0_15px_rgba(44,211,199,0.3)] transition-transform duration-200 group-hover:scale-[1.01] text-white!">
                       {card.buttonText}
                     </button>
                   </div>

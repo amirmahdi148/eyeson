@@ -15,7 +15,6 @@ export default function TestimonialCard({ item }: { item: any }) {
                 className="w-full h-full object-cover rounded-full"
               />
             </div>
-            <div className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-[#00A9BD1F] rounded-full border-2 border-[#020617]" />
           </div>
 
           <div>

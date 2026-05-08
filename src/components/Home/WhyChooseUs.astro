@@ -1,4 +1,7 @@
 ---
+import PrimaryButton from '../Shared/PrimaryButton';
+import SecondaryButton from '../Shared/SecondaryButton';
+
 interface Props {
   eyebrow?: string;
   title?: string;
@@ -58,19 +61,18 @@ const {
       {/* دکمه‌ها */}
       {/* 🔴 در موبایل: دکمه‌ها تمام عرض (w-full)، در تبلت و بالا کنار هم به اندازه محتوا */}
       <div class="mt-8 flex w-full max-w-[340px] flex-col gap-3 sm:max-w-none sm:w-auto sm:flex-row mx-auto lg:mx-0">
-        <a
+        <PrimaryButton
+          text={primaryText}
           href={primaryHref}
-          class="inline-flex min-h-[52px] sm:min-h-[48px] w-full sm:w-auto items-center justify-center rounded-full bg-gradient-to-r from-cyan-400 to-emerald-400 px-8 py-3 text-[15px] sm:text-sm font-bold text-[#031016] shadow-[0_0_24px_rgba(34,211,238,0.45)] transition-transform duration-200 hover:scale-[1.02]"
-        >
-          {primaryText}
-        </a>
-
-        <a
+          width="14rem"
+          height="50px"
+        />
+        <SecondaryButton
+          text={secondaryText}
           href={secondaryHref}
-          class="inline-flex min-h-[52px] sm:min-h-[48px] w-full sm:w-auto items-center justify-center rounded-full border border-cyan-400/35 bg-[#091E2A] px-8 py-3 text-[15px] sm:text-sm font-bold text-white shadow-[0_0_22px_rgba(34,211,238,0.18)] transition-colors duration-200 hover:border-cyan-300/60 hover:bg-[#0a1d26]"
-        >
-          {secondaryText}
-        </a>
+          width="14rem"
+          height="50px"
+        />
       </div>
     </div>
 
