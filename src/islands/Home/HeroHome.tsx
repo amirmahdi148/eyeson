@@ -36,6 +36,11 @@ const CATEGORIES = [
 export default function HeroHome() {
   const [activeTab, setActiveTab] = useState(CATEGORIES[1].id);
 
+  // Detect reduced‑motion preference (e.g., on mobile or when user requests it)
+  const prefersReducedMotion = typeof window !== "undefined" && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const motionTransition = { duration: prefersReducedMotion ? 0 : 0.3 };
+
+
   const activeVideo = CATEGORIES.find((c) => c.id === activeTab)?.videoUrl;
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [progress, setProgress] = useState(0);
@@ -56,7 +61,7 @@ export default function HeroHome() {
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={motionTransition}
             className="text-xl font-extrabold leading-[1.15] tracking-tight sm:text-2xl lg:text-[2.2rem]"
           >
             <span className="block bg-gradient-to-r from-[#31d1a6] to-[#25aeb2] bg-clip-text text-transparent">
@@ -70,7 +75,7 @@ export default function HeroHome() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={motionTransition}
             className="mt-6 max-w-md text-[15px] leading-[1.8] text-white/55 sm:text-base"
           >
             We create high-impact visuals, motion, and content systems that help
@@ -80,19 +85,19 @@ export default function HeroHome() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-10 flex  gap-4 sm:items-center max-sm:flex-col"
+            transition={motionTransition}
+            className="mt-10 flex  gap-4 sm:items-center "
           >
-            <PrimaryButton text="Get Started" width="14rem" />
+            <PrimaryButton text="Get Started" width="11rem" />
 
             {/* دکمه Get Pricing */}
-            <SecondaryButton text="Get Pricing" width="14rem" />
+            <SecondaryButton text="Get Pricing" width="11rem" />
           </motion.div>
 
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={motionTransition}
             className="mt-8 text-sm text-white/40"
           >
             Trusted by fast-growing brands & creative teams.

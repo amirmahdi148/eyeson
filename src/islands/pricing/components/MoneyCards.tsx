@@ -64,11 +64,10 @@ export const MoneyCards = () => {
       ? plans
       : [plans[(popularIndex + 1) % 3], plans[popularIndex], plans[(popularIndex + 2) % 3]];
 
-  const [activeIndex, setActiveIndex] = useState(1);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  useEffect(() => {
-    setActiveIndex(1);
-  }, []);
+  // No need to force active index on mount; Swiper will initialize to the first slide.
+
 
   return (
     <section className="relative z-10 w-full px-4 pb-20 sm:px-6 lg:px-8">
@@ -81,41 +80,31 @@ export const MoneyCards = () => {
         </div>
 
         {/* موبایل: Swiper */}
-        <div className="md:hidden">
+        <div className="md:hidden ">
           <Swiper
             modules={[Pagination, A11y]}
             slidesPerView={1}
             spaceBetween={16}
             centeredSlides
             centeredSlidesBounds
-            initialSlide={1}
+            initialSlide={0}
             onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
-            className="money-swiper h-auto"
+            className="money-swiper h-auto pb-10 mt-8 overflow-visible"
             pagination={{
               dynamicBullets: true,
               dynamicMainBullets: 2,
+              clickable: true,
+
             }}
+
           >
             {orderedPlans.map((plan) => (
-              <SwiperSlide key={plan.name}>
+              <SwiperSlide key={plan.name} className="flex justify-center items-center" >
                 <PlanCard plan={plan} mobile />
               </SwiperSlide>
             ))}
           </Swiper>
 
-          {/* دات‌های سفارشی (بهتر از Pagination پیش‌فرض Swiper) */}
-          <div className="mt-6 flex justify-center gap-3">
-            {orderedPlans.map((_, index) => (
-              <span
-                key={index}
-                className={`h-3 w-3 rounded-full transition-all duration-300 cursor-pointer ${
-                  activeIndex === index ? "bg-[#39C2B6] scale-110 shadow-lg shadow-[#39C2B6]/50" : "bg-white/25 hover:bg-white/40"
-                }`}
-                aria-hidden="true"
-                onClick={() => setActiveIndex(index)}
-              />
-            ))}
-          </div>
         </div>
       </div>
     </section>
@@ -129,7 +118,7 @@ function PlanCard({ plan, mobile = false }: { plan: Plan; mobile?: boolean }) {
         plan.highlighted
           ? "border-[#44B39F] bg-linear-to-b from-[#09232E] via-[#083440] to-[#073E4A] scale-[1.02]"
           : "border-[#1A4648] bg-[#0B1F2A]"
-      }`}
+      } ${mobile ? "w-[95%] mx-auto" : ""}`}
     >
       {/* بج Most Popular */}
       {plan.highlighted ? (

@@ -7,7 +7,7 @@ import {MoneyCards} from "../../islands/pricing/components/MoneyCards.tsx";
 import DesignCard from "./components/DesignCard.astro";
 import QandASection from "../Shared/QandASection.astro";
 import EndCard from "./components/EndCard.astro";
-import ProcessScrollSection from "../../islands/Shared/ProcessBase";
+
 ---
 
 
@@ -18,9 +18,7 @@ import ProcessScrollSection from "../../islands/Shared/ProcessBase";
 <div class="relative overflow-x-clip">
     <StarBackground client:load/>
     <PricingHero client:load/>
-    <div class="relative -mt-16 flex items-center justify-center">
-        <MoneyCards client:load/>
-    </div>
+    <MoneyCards client:load/>
     <ConversionScroll client:load/>
     <DesignCard />
 

@@ -26,23 +26,23 @@ const {
 <section class="relative w-full overflow-hidden  ">
   <div class="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
     <div
-      class="flex flex-col lg:flex-row items-center gap-10 lg:gap-16 xl:gap-24"
+      class="flex flex-col lg:flex-row items-center gap-6 lg:gap-8 xl:gap-12"
     >
       {/* Image Section: Now comes first in the DOM for mobile top-alignment */}
       <div
-        class="w-full lg:w-[55%] flex justify-center lg:justify-start order-1 lg:order-1"
+        class="w-full lg:w-[55%] flex justify-center lg:justify-start order-1 lg:order-1 mx-auto"
       >
         <div
-          class="relative w-full max-w-[500px] sm:max-w-[700px] lg:max-w-none"
+          class="relative w-full max-w-[500px]"
         >
           {/* Increased height and scale for a more prominent look */}
           <div
-            class="relative z-10 w-full transform-gpu transition-transform duration-500 hover:scale-[1.05] min-h-[300px] sm:min-h-[450px] flex items-center"
+            class="relative z-10 w-full transform-gpu transition-transform duration-500 hover:scale-[1.05] min-h-[300px] sm:min-h-[450px] flex items-center justify-center mx-auto"
           >
             <SmartImage
               src={imageUrl}
               alt="Creative Directions Concept"
-              className="w-full h-auto object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)] scale-110 lg:scale-125"
+              className="w-full h-auto object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)] scale-100 lg:scale-100"
               loading="lazy"
             />
           </div>
