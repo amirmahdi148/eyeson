@@ -2,8 +2,6 @@
 import { SmartImage } from "@/utils/SmartImage";
 import PrimaryButton from "../Shared/PrimaryButton";
 
-// CreativeDirections.astro
-
 interface Props {
   titleLine1?: string;
   titleLine2?: string;
@@ -23,37 +21,37 @@ const {
 } = Astro.props;
 ---
 
-<section class="relative w-full overflow-hidden  ">
+<section class="relative w-full overflow-hidden">
   <div class="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
     <div
       class="flex flex-col lg:flex-row items-center gap-6 lg:gap-8 xl:gap-12"
     >
-      {/* Image Section: Now comes first in the DOM for mobile top-alignment */}
+      {/* ========================================== */}
+      {/* Image Section (با کلاس‌های انیمیشن اسکرول) */}
+      {/* ========================================== */}
       <div
-        class="w-full lg:w-[55%] flex justify-center lg:justify-start order-1 lg:order-1 mx-auto"
+        class="w-full lg:w-[55%] flex justify-center lg:justify-start order-1 lg:order-1 mx-auto reveal-on-scroll fade-right"
       >
-        <div
-          class="relative w-full max-w-[500px]"
-        >
-          {/* Increased height and scale for a more prominent look */}
+        <div class="relative w-full max-w-[500px] group">
           <div
-            class="relative z-10 w-full transform-gpu transition-transform duration-500 hover:scale-[1.05] min-h-[300px] sm:min-h-[450px] flex items-center justify-center mx-auto"
+            class="relative z-10 w-full transform-gpu transition-all duration-700 ease-out group-hover:scale-[1.03] group-hover:-translate-y-2 min-h-[300px] sm:min-h-[450px] flex items-center justify-center mx-auto"
           >
             <SmartImage
               src={imageUrl}
               alt="Creative Directions Concept"
-              className="w-full h-auto object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)] scale-100 lg:scale-100"
+              className="w-full h-auto object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]  transition-all duration-700"
               loading="lazy"
             />
           </div>
         </div>
       </div>
 
-      {/* Text Content Section */}
+      {/* ========================================== */}
+      {/* Text Section (با کلاس‌های انیمیشن اسکرول) */}
+      {/* ========================================== */}
       <div
-        class="w-full lg:w-[45%] flex flex-col items-center text-center lg:items-start lg:text-left order-2 lg:order-2"
+        class="w-full lg:w-[45%] flex flex-col items-center text-center lg:items-start lg:text-left order-2 lg:order-2 reveal-on-scroll fade-up"
       >
-        {/* Adjusted Font Sizes: Smaller than previous version */}
         <h2
           class="text-[28px] sm:text-[34px] lg:text-[42px] font-extrabold leading-[1.15] tracking-tight mb-4 sm:mb-6"
         >
@@ -65,18 +63,99 @@ const {
           </span>
         </h2>
 
-        {/* Adjusted Description Font Size */}
         <p
           class="text-[14px] sm:text-[15px] leading-[1.6] text-white/60 max-w-[48ch] mx-auto lg:mx-0 mb-8 sm:mb-10 font-light"
         >
           {description}
         </p>
 
-        {/* Button Section: Centered on mobile via items-center on parent */}
-        <div class="relative group w-full sm:w-auto">
-          <PrimaryButton text={buttonText} width="14rem" />
+        {/* دکمه با افکت هاور فنری با CSS */}
+        <div class="relative group/btn w-full sm:w-auto">
+          {/* افکت بلور (Glow) پشت دکمه */}
+          <div
+            class="absolute -inset-1 rounded-full bg-gradient-to-r from-[#29C4A9] to-[#128a8a] opacity-0 blur-lg transition-opacity duration-500 group-hover/btn:opacity-40"
+          >
+          </div>
+
+          <div
+            class="relative transform-gpu transition-transform duration-300 ease-out group-hover/btn:scale-[1.05] group-active/btn:scale-[0.95]"
+          >
+            <PrimaryButton text={buttonText} width="14rem" />
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+{/* استایل‌های اختصاصی برای انیمیشن‌های اسکرول */}
+<style>
+  /* حالت اولیه: محو شده و جابه‌جا شده */
+  .reveal-on-scroll {
+    opacity: 0;
+    will-change: opacity, transform, filter;
+  }
+
+  .fade-up {
+    transform: translateY(40px);
+    transition:
+      opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .fade-right {
+    transform: translateX(-40px);
+    filter: blur(8px);
+    transition:
+      opacity 0.8s ease-out,
+      transform 0.8s ease-out,
+      filter 0.8s ease-out;
+  }
+
+  /* حالتی که توسط جاوااسکریپت اضافه میشه (وقتی وارد کادر میشه) */
+  .reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translate(0);
+    filter: blur(0);
+  }
+</style>
+
+{/* اسکریپت سبک Intersection Observer برای هندل کردن اسکرول */}
+<script>
+  function initScrollAnimations() {
+    // ترجیحات کاربر (اگر انیمیشن رو خاموش کرده باشه)
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    const elements = document.querySelectorAll(".reveal-on-scroll");
+
+    if (prefersReducedMotion) {
+      // اگر کاربر انیمیشن نمی‌خواد، همون اول همه رو نشون بده
+      elements.forEach((el) => el.classList.add("is-visible"));
+      return;
+    }
+
+    const observerOptions = {
+      root: null,
+      rootMargin: "0px 0px -100px 0px", // انیمیشن وقتی شروع میشه که 100 پیکسل از پایین صفحه بیاد بالا
+      threshold: 0.1,
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          // وقتی یه بار نشون داده شد، دیگه مانیتورش نکن تا پرفورمنس بالا بمونه
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    elements.forEach((el) => observer.observe(el));
+  }
+
+  // اجرای اسکریپت با پشتیبانی از Astro View Transitions
+  document.addEventListener("DOMContentLoaded", initScrollAnimations);
+  document.addEventListener("astro:page-load", initScrollAnimations);
+</script>

@@ -1,4 +1,6 @@
-import { useState, useEffect, useRef } from "react";
+"use client";
+
+import { useState, useEffect } from "react";
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
@@ -52,19 +54,16 @@ export const MegaMenu = () => {
     return (
         <div className="w-[min(1060px,calc(100vw-2rem))] rounded-[34px] border border-[#2bb7c2]/35 bg-[#081721] p-3 shadow-[0_0_40px_rgba(25,189,202,0.24)] backdrop-blur-xl">
             <div className="grid gap-4 lg:grid-cols-[290px_minmax(0,1fr)]">
-
                 {/* LEFT — Service Groups */}
-                <aside className="rounded-[28px] bg-linear-to-r from-[#0B1F2A] to-[#09252F]  p-5">
+                <aside className="rounded-[28px] bg-gradient-to-r from-[#0B1F2A] to-[#09252F] p-5">
                     <p className="text-sm text-white/45">Our Services</p>
                     <div className="mt-6 space-y-2">
                         {SERVICE_GROUPS.map((group, index) => (
                             <button
                                 key={group.title}
                                 onMouseEnter={() => setActive(index)}
-                                className={`w-full rounded-[20px] px-4 py-4 text-left transition ${
-                                    active === index
-                                        ? " text-[#22d7de] "
-                                        : "text-white hover:bg-white/5"
+                                className={`w-full rounded-[20px] px-4 py-4 text-left transition-colors duration-200 ${
+                                    active === index ? "text-[#22d7de] bg-white/5" : "text-white hover:bg-white/5"
                                 }`}
                             >
                                 <div className="text-[22px] font-semibold leading-tight">{group.title}</div>
@@ -75,12 +74,12 @@ export const MegaMenu = () => {
 
                 {/* RIGHT — Service Cards */}
                 <section className="rounded-[28px] p-3">
-                    <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                    <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3 transition-opacity duration-300">
                         {SERVICE_GROUPS[active].items.map((card) => (
                             <a
                                 key={card.title}
                                 href={card.href}
-                                className="group flex items-start gap-3 rounded-2xl border border-white/5 bg-[#FFFFFF05] p-3 transition hover:border-white/10 hover:bg-linear-to-r hover:from-[#00A9BD] hover:to-[#46B6A0]"
+                                className="group flex items-start gap-3 rounded-2xl border border-white/5 bg-[#FFFFFF05] p-3 transition-colors hover:border-white/10 hover:bg-gradient-to-r hover:from-[#00A9BD]/20 hover:to-[#46B6A0]/20"
                             >
                                 <div
                                     className="relative h-12 w-12 shrink-0 overflow-hidden rounded-xl border border-white/10 bg-[#04131b]"
@@ -90,20 +89,19 @@ export const MegaMenu = () => {
                                     <div className="absolute inset-0 bg-gradient-to-br from-black/10 via-transparent to-transparent" />
                                 </div>
                                 <div className="min-w-0">
-                                    <h3 className="text-base font-semibold text-white transition group-hover:text-[#e9ffff]">{card.title}</h3>
-                                    <p className="mt-1 text-[12px] leading-4 text-white/80">{card.description}</p>
+                                    <h3 className="text-base font-semibold text-white transition-colors group-hover:text-[#e9ffff]">{card.title}</h3>
+                                    <p className="mt-1 text-[12px] leading-4 text-white/80 line-clamp-2">{card.description}</p>
                                 </div>
                             </a>
                         ))}
                     </div>
                 </section>
-
             </div>
         </div>
     );
 };
 
-// ─── Mobile: Single Service Group Accordion ───────────────────────────────────
+// ─── Mobile: Single Service Group Accordion (CSS Grid Optimized) ────────────
 
 interface MobileServiceGroupProps {
     group: (typeof SERVICE_GROUPS)[number];
@@ -112,88 +110,33 @@ interface MobileServiceGroupProps {
 
 const MobileServiceGroup = ({ group, onClose }: MobileServiceGroupProps) => {
     const [open, setOpen] = useState(false);
-    const contentRef = useRef<HTMLDivElement>(null);
-    const [height, setHeight] = useState(0);
-
-    // Measure real height for smooth animation
-    useEffect(() => {
-        if (contentRef.current) {
-            setHeight(open ? contentRef.current.scrollHeight : 0);
-        }
-    }, [open]);
 
     return (
-        <div
-            className={`rounded-2xl border transition-colors duration-200 overflow-hidden ${
-                open
-                    ? "border-[#2bd6de]/25 bg-[#071e2b]"
-                    : "border-white/[0.07] bg-white/[0.03]"
-            }`}
-        >
-            {/* Group Header */}
-            <button
-                onClick={() => setOpen((p) => !p)}
-                className="flex w-full items-center justify-between px-4 py-3.5 text-left"
-            >
+        <div className={`rounded-2xl border transition-colors duration-200 ${open ? "border-[#2bd6de]/25 bg-[#071e2b]" : "border-white/[0.07] bg-white/[0.03]"}`}>
+            <button onClick={() => setOpen((p) => !p)} className="flex w-full items-center justify-between px-4 py-3.5 text-left">
                 <div className="flex items-center gap-3">
-                    <span
-                        className="h-2 w-2 rounded-full shrink-0"
-                        style={{
-                            background: group.items[0].accent,
-                            boxShadow: `0 0 8px ${group.items[0].accent}`,
-                        }}
-                    />
+                    <span className="h-2 w-2 rounded-full shrink-0" style={{ background: group.items[0].accent, boxShadow: `0 0 8px ${group.items[0].accent}` }} />
                     <span className="text-[15px] font-semibold text-white">{group.title}</span>
                 </div>
                 <div className="flex items-center gap-3">
-                    <a
-                        href={group.href}
-                        onClick={(e) => { e.stopPropagation(); onClose(); }}
-                        className="text-[11px] text-[#86f5ff]/50 hover:text-[#86f5ff] transition"
-                    >
-                        View all ↗
-                    </a>
-                    <span
-                        className={`text-[10px] text-[#86f5ff] transition-transform duration-300 ${
-                            open ? "rotate-180" : ""
-                        }`}
-                    >
-                        ▾
-                    </span>
+                    <span className={`text-[10px] text-[#86f5ff] transition-transform duration-300 ${open ? "rotate-180" : ""}`}>▾</span>
                 </div>
             </button>
 
-            {/* Animated Cube Cards */}
-            <div
-                style={{ maxHeight: `${height}px`, opacity: open ? 1 : 0 }}
-                className="overflow-hidden transition-all duration-300 ease-in-out"
-            >
-                <div ref={contentRef} className="px-3 pb-3">
-                    <div className="grid grid-cols-3 gap-2">
-                        {group.items.map((card) => (
-                            <a
-                                key={card.title}
-                                href={card.href}
-                                onClick={onClose}
-                                className="group flex flex-col items-center gap-1.5 rounded-xl border border-white/[0.06] bg-[#04131b] p-2 text-center transition hover:border-[#2bd6de]/30 hover:bg-[#071f2b]"
-                            >
-                                {/* Image Cube */}
-                                <div
-                                    className="h-10 w-10 rounded-xl overflow-hidden border border-white/10 shrink-0"
-                                    style={{ boxShadow: `0 0 0 1px ${card.accent}33, 0 0 12px ${card.accent}22` }}
-                                >
-                                    <img
-                                        src={card.image}
-                                        alt={card.title}
-                                        className="h-full w-full object-cover"
-                                    />
-                                </div>
-                                {/* Label */}
-                                <p className="text-[10px] leading-tight text-white/60 group-hover:text-white/90 transition line-clamp-2">
-                                    {card.title}
-                                </p>
-                            </a>
-                        ))}
+            {/* CSS Grid Animation Trick for Performance */}
+            <div className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
+                <div className="overflow-hidden">
+                    <div className="px-3 pb-3">
+                        <div className="grid grid-cols-3 gap-2">
+                            {group.items.map((card) => (
+                                <a key={card.title} href={card.href} onClick={onClose} className="group flex flex-col items-center gap-1.5 rounded-xl border border-white/[0.06] bg-[#04131b] p-2 text-center transition-colors hover:border-[#2bd6de]/30 hover:bg-[#071f2b]">
+                                    <div className="h-10 w-10 rounded-xl overflow-hidden border border-white/10 shrink-0" style={{ boxShadow: `0 0 0 1px ${card.accent}33` }}>
+                                        <img src={card.image} alt={card.title} className="h-full w-full object-cover" loading="lazy" />
+                                    </div>
+                                    <p className="text-[10px] leading-tight text-white/60 line-clamp-2">{card.title}</p>
+                                </a>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -201,7 +144,7 @@ const MobileServiceGroup = ({ group, onClose }: MobileServiceGroupProps) => {
     );
 };
 
-// ─── Mobile Menu Panel ────────────────────────────────────────────────────────
+// ─── Mobile Menu Panel (Hardware Accelerated) ─────────────────────────────────
 
 interface MobileMenuProps {
     open: boolean;
@@ -216,116 +159,65 @@ export const MobileMenu = ({ open, onClose }: MobileMenuProps) => {
         return () => { document.body.style.overflow = ""; };
     }, [open]);
 
-    useEffect(() => {
-        if (!open) setServicesOpen(false);
-    }, [open]);
-
     return (
-        <div
-            className={`fixed inset-0 z-[60] transition-opacity duration-300 ${
-                open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-            }`}
-        >
+        <div className={`fixed inset-0 z-[60] transition-opacity duration-300 ${open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
             {/* Backdrop */}
-            <div className="absolute inset-0 bg-black/55" onClick={onClose} />
+            <div className="absolute inset-0 bg-[#000E17]/80" onClick={onClose} />
 
-            {/* Slide-in Panel */}
-            <div
-                className={`absolute right-0 top-0 h-screen w-[92%] max-w-[380px] border-l border-[#3AAFC8]/25 bg-[#020915] backdrop-blur-xl transform transition-transform duration-300 ${
-                    open ? "translate-x-0" : "translate-x-full"
-                }`}
-            >
-                <div className="flex h-full flex-col px-4 pb-5 pt-6 overflow-y-auto">
-
+            {/* Slide-in Panel (transform-gpu for 60fps) */}
+            <div className={`absolute right-0 top-0 h-screen w-[92%] max-w-[380px] border-l border-[#3AAFC8]/25 bg-[#020915] transform-gpu transition-transform duration-300 ease-out flex flex-col ${open ? "translate-x-0" : "translate-x-full"}`}>
+                
+                <div className="flex-1 px-4 pb-5 pt-6 overflow-y-auto overscroll-contain">
                     {/* Header */}
                     <div className="mb-8 flex items-center justify-between">
                         <a href="/" onClick={onClose}>
                             <img src="/logo.png" className="h-10 object-contain" alt="EyesOn logo" />
                         </a>
-                        <button
-                            onClick={onClose}
-                            className="h-10 w-10 rounded-full border border-[#3AAFC8]/40 bg-[#071D29] text-[#45D4E8] text-2xl leading-none flex items-center justify-center"
-                        >
+                        <button onClick={onClose} className="h-10 w-10 rounded-full border border-[#3AAFC8]/40 bg-[#071D29] text-[#45D4E8] text-2xl flex items-center justify-center">
                             ×
                         </button>
                     </div>
 
                     {/* Nav */}
                     <div className="space-y-2">
-
-                        {/* Home link */}
-                        <a
-                            href={MENU_ITEMS[0].path}
-                            onClick={onClose}
-                            className="block rounded-2xl px-4 py-3 text-[15px] font-semibold text-white/75 transition hover:bg-white/[0.04] hover:text-white"
-                        >
+                        <a href={MENU_ITEMS[0].path} onClick={onClose} className="block rounded-2xl px-4 py-3 text-[15px] font-semibold text-white/75 transition-colors hover:bg-white/[0.04]">
                             {MENU_ITEMS[0].title}
                         </a>
 
-                        {/* Services top-level toggle */}
-                        <button
-                            onClick={() => setServicesOpen((p) => !p)}
-                            className={`flex w-full items-center justify-between rounded-2xl border px-4 py-4 text-left transition ${
-                                servicesOpen
-                                    ? "border-[#2bd6de]/35 bg-[#0a2330] text-white"
-                                    : "border-white/[0.08] bg-white/[0.04] text-white hover:border-[#2bd6de]/20 hover:bg-[#0a2330]"
-                            }`}
-                        >
+                        <button onClick={() => setServicesOpen((p) => !p)} className={`flex w-full items-center justify-between rounded-2xl border px-4 py-4 text-left transition-colors ${servicesOpen ? "border-[#2bd6de]/35 bg-[#0a2330] text-white" : "border-white/[0.08] bg-white/[0.04] text-white"}`}>
                             <span className="flex items-center gap-3">
-                                <span className="h-2 w-2 rounded-full bg-[#2bd6de] shadow-[0_0_10px_rgba(43,214,222,0.7)]" />
+                                <span className="h-2 w-2 rounded-full bg-[#2bd6de]" />
                                 <span className="text-[15px] font-semibold">Services</span>
                             </span>
-                            <span
-                                className={`text-xs text-[#86f5ff] transition-transform duration-300 ${
-                                    servicesOpen ? "rotate-180" : ""
-                                }`}
-                            >
-                                ▾
-                            </span>
+                            <span className={`text-xs text-[#86f5ff] transition-transform duration-300 ${servicesOpen ? "rotate-180" : ""}`}>▾</span>
                         </button>
 
-                        {/* Services accordion — each group expands independently */}
-                        {servicesOpen && (
-                            <div className="rounded-3xl border border-[#2bb7c2]/[0.18] bg-[#06141d]/90 p-2.5 shadow-[0_0_30px_rgba(25,189,202,0.16)] space-y-2">
-                                <p className="px-2 pt-1 pb-1.5 text-[10px] uppercase tracking-[0.25em] text-white/30">
-                                    Our Services
-                                </p>
-                                {SERVICE_GROUPS.map((group) => (
-                                    <MobileServiceGroup
-                                        key={group.title}
-                                        group={group}
-                                        onClose={onClose}
-                                    />
-                                ))}
+                        {/* Services List */}
+                        <div className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${servicesOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
+                            <div className="overflow-hidden">
+                                <div className="rounded-3xl border border-[#2bb7c2]/20 bg-[#06141d] p-2.5 mt-2 space-y-2">
+                                    <p className="px-2 pt-1 pb-1.5 text-[10px] uppercase tracking-[0.25em] text-white/30">Our Services</p>
+                                    {SERVICE_GROUPS.map((group) => (
+                                        <MobileServiceGroup key={group.title} group={group} onClose={onClose} />
+                                    ))}
+                                </div>
                             </div>
-                        )}
+                        </div>
 
-                        {/* Divider */}
-                        <div className="h-px bg-white/[0.06] mx-1" />
+                        <div className="h-px bg-white/[0.06] mx-1 my-2" />
 
-                        {/* Regular nav items (Portfolio onwards) */}
                         {MENU_ITEMS.slice(1).map((item) => (
-                            <a
-                                key={item.id}
-                                href={item.path}
-                                onClick={onClose}
-                                className="block rounded-2xl px-4 py-3 text-[15px] font-semibold text-white/75 transition hover:bg-white/[0.04] hover:text-white"
-                            >
+                            <a key={item.id} href={item.path} onClick={onClose} className="block rounded-2xl px-4 py-3 text-[15px] font-semibold text-white/75 transition-colors hover:bg-white/[0.04]">
                                 {item.title}
                             </a>
                         ))}
                     </div>
+                </div>
 
-                    {/* CTA Buttons */}
-                    <div className="mt-auto grid grid-cols-2 gap-3 pt-6">
-                        <button className="rounded-full border border-[#3AAFC8]/45 bg-[#041827] px-3 py-3 text-sm font-semibold text-white">
-                            Book a call
-                        </button>
-                        <button className="rounded-full bg-gradient-to-r from-[#00A9BD] to-[#1D553A] px-3 py-3 text-sm font-semibold text-white shadow-[0_0_20px_rgba(0,169,189,0.35)]">
-                            Get free sample
-                        </button>
-                    </div>
-
+                {/* CTA Buttons Sticky at Bottom */}
+                <div className="mt-auto grid grid-cols-2 gap-3 p-4 border-t border-white/5 bg-[#020915]">
+                    <button className="rounded-full border border-[#3AAFC8]/45 bg-[#041827] px-3 py-3 text-sm font-semibold text-white">Book a call</button>
+                    <button className="rounded-full bg-gradient-to-r from-[#00A9BD] to-[#1D553A] px-3 py-3 text-sm font-semibold text-white">Free sample</button>
                 </div>
             </div>
         </div>
@@ -339,7 +231,7 @@ export const Header = () => {
     const [scrolled, setScrolled] = useState(false);
 
     useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 12);
+        const onScroll = () => setScrolled(window.scrollY > 20);
         window.addEventListener("scroll", onScroll, { passive: true });
         return () => window.removeEventListener("scroll", onScroll);
     }, []);
@@ -347,66 +239,52 @@ export const Header = () => {
     return (
         <>
             <header className="fixed z-50 w-full top-0">
-                <div className="relative px-4 sm:px-6 lg:px-10 max-sm:py-1.5 sm:py-2 lg:py-5">
+                <div className={`relative px-4 sm:px-6 lg:px-10 transition-[padding] duration-300 ease-out ${scrolled ? "py-2 lg:py-3" : "py-3 lg:py-6"}`}>
 
                     {/* Scroll background */}
-                    <div
-                        className={`pointer-events-none absolute inset-x-0 top-0 h-full transition-all duration-300 ${
-                            scrolled ? "bg-[#061520]/85 backdrop-blur-xl" : ""
-                        }`}
-                    />
+                    <div className={`pointer-events-none absolute inset-x-0 top-0 h-full transition-all duration-300 ease-out ${scrolled ? "bg-[#03111C]/95 backdrop-blur-md shadow-md" : "bg-transparent"}`} />
 
                     {/* Desktop Header */}
                     <div className="relative mx-auto max-w-[1200px] hidden lg:flex items-center justify-between gap-3">
                         <a href="/" className="relative z-50">
-                            <img src="/logo.png" className="h-12 sm:h-14 lg:h-18 object-contain" alt="EyesOn logo" />
+                            <img src="/logo.png" className={`object-contain transition-[height] duration-300 ${scrolled ? "h-10" : "h-14"}`} alt="EyesOn logo" />
                         </a>
 
                         <nav className="hidden lg:flex items-center gap-7">
-                            <a href={MENU_ITEMS[0].path} className="text-white/90 hover:text-white transition">
-                                {MENU_ITEMS[0].title}
-                            </a>
+                            <a href={MENU_ITEMS[0].path} className="text-white/90 hover:text-white transition-colors">{MENU_ITEMS[0].title}</a>
                             <div className="group relative">
-                                <a href="/video#services" className="text-white/90 hover:text-white transition inline-flex items-center gap-1">
-                                    Services
-                                    <span className="text-xs transition-transform duration-200 group-hover:translate-y-0.5">▾</span>
+                                <a href="/video#services" className="text-white/90 hover:text-white transition-colors inline-flex items-center gap-1 py-4">
+                                    Services <span className="text-xs transition-transform group-hover:rotate-180">▾</span>
                                 </a>
-                                <div className="pointer-events-none absolute left-1/2 top-full z-50 w-[min(1060px,calc(100vw-2rem))] -translate-x-1/2 opacity-0 transition duration-200 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100">
+                                <div className="pointer-events-none absolute left-1/2 top-full z-50 w-[min(1060px,calc(100vw-2rem))] -translate-x-1/2 opacity-0 translate-y-2 transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:pointer-events-auto group-focus-within:opacity-100">
                                     <div className="h-4 w-full" aria-hidden="true" />
                                     <MegaMenu />
                                 </div>
                             </div>
                             {MENU_ITEMS.slice(1).map((item) => (
-                                <a key={item.id} href={item.path} className="text-white/90 hover:text-white transition">
-                                    {item.title}
-                                </a>
+                                <a key={item.id} href={item.path} className="text-white/90 hover:text-white transition-colors">{item.title}</a>
                             ))}
                         </nav>
 
-                        <button className="hidden lg:block px-8 py-3 rounded-full text-white font-semibold bg-[#0B1F2A] border border-cyan-300/70 shadow-[0_0_50px_rgba(45,220,255,0.35)]">
+                        <button className="hidden lg:block px-8 py-2.5 rounded-full text-white font-semibold bg-[#0B1F2A] border border-cyan-300/70 shadow-[0_0_30px_rgba(45,220,255,0.2)] hover:bg-[#0f2c3d] transition-colors">
                             Book a Call
                         </button>
                     </div>
 
                     {/* Mobile / Compact Header */}
-                    <div className="relative mx-auto max-w-[1200px] flex lg:hidden items-center justify-between rounded-full border border-[#3AAFC8]/35 bg-[#03111C]/90 px-4 py-3 shadow-[0_0_28px_rgba(18,172,181,0.2)] backdrop-blur-xl sm:px-6">
+                    <div className="relative mx-auto max-w-[1200px] flex lg:hidden items-center justify-between rounded-full border border-[#3AAFC8]/35 bg-[#03111C]/90 px-4 py-2 shadow-lg backdrop-blur-md sm:px-6">
                         <a href="/" className="relative z-50">
-                            <img src="/logo.png" className="h-10 sm:h-11 object-contain" alt="EyesOn logo" />
+                            <img src="/logo.png" className="h-9 object-contain" alt="EyesOn logo" />
                         </a>
-                        <button className="rounded-full px-4 py-2 text-sm font-semibold text-white bg-gradient-to-r from-[#00A9BD] to-[#1D553A] shadow-[0_0_22px_rgba(0,169,189,0.45)] sm:px-7 sm:py-2.5">
-                            Get free sample
+                        <button className="rounded-full px-5 py-2 text-[13px] font-semibold text-white bg-gradient-to-r from-[#00A9BD] to-[#1D553A]">
+                            Free sample
                         </button>
-                        <button
-                            onClick={() => setMobileOpen(true)}
-                            className="h-10 w-10 rounded-full border border-[#3AAFC8]/40 bg-[#07202B] flex flex-col justify-center items-center gap-1.5"
-                            aria-label="Open menu"
-                        >
-                            <span className="w-4 h-0.5 bg-[#45D4E8]" />
-                            <span className="w-5 h-0.5 bg-[#45D4E8]" />
-                            <span className="w-4 h-0.5 bg-[#45D4E8]" />
+                        <button onClick={() => setMobileOpen(true)} className="h-10 w-10 rounded-full border border-[#3AAFC8]/40 bg-[#07202B] flex flex-col justify-center items-center gap-[4px]">
+                            <span className="w-5 h-[2px] bg-[#45D4E8] rounded-full" />
+                            <span className="w-4 h-[2px] bg-[#45D4E8] rounded-full" />
+                            <span className="w-5 h-[2px] bg-[#45D4E8] rounded-full" />
                         </button>
                     </div>
-
                 </div>
             </header>
 

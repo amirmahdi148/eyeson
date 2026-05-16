@@ -19,55 +19,39 @@ const {
   ],
 } = Astro.props as Props;
 
+// دو برابر کردن لوگوها برای لوپ بی‌نهایت
 const loopLogos = [...logos, ...logos];
 ---
 
 <section class="relative flex flex-col items-center gap-8 overflow-hidden pt-8">
-  <p class="text-center text-sm tracking-wide text-white">{tagline}</p>
+  <p class="text-center text-sm tracking-wide text-white/80">{tagline}</p>
 
-  <!-- ================= MOBILE ================= -->
-  <div class="logo-mask w-full px-4 opacity-80 md:hidden" aria-label="Brand logos">
+  <!-- ================= UNIFIED MARQUEE ================= -->
+  <div class="logo-mask w-full px-4 opacity-80" aria-label="Brand logos">
     <div class="logo-scroll flex w-max items-center">
       {loopLogos.map((logo, index) => (
-          <div class="logo-slot">
-            <div class="logo-item">
-              <img
-                  src={logo.src}
-                  alt={logo.alt}
-                  width="220"
-                  height="88"
-                  loading="lazy"
-                  decoding="async"
-                  class="logo-img h-16 w-full object-contain"
-              />
-            </div>
-          </div>
-      ))}
-    </div>
-  </div>
-
-  <!-- ================= DESKTOP ================= -->
-  <div class="hidden w-full flex-wrap items-center justify-center gap-16 px-6 opacity-80 md:flex" aria-label="Brand logos">
-    {logos.map((logo, index) => (
-        <div class="logo-item">
-          <img
+        <div class="logo-slot">
+          <div class="logo-item group">
+            <img
               src={logo.src}
               alt={logo.alt}
-              width="500"
-              height="128"
+              width="220"
+              height="88"
               loading="lazy"
               decoding="async"
-              class="logo-img h-20 w-auto object-contain"
-          />
+              class="logo-img h-14 md:h-20 w-full object-contain"
+            />
+          </div>
         </div>
-    ))}
+      ))}
+    </div>
   </div>
 </section>
 
 <style>
   /* ================= ONLY FIX: prevent layout shift ================= */
   .logo-item {
-    aspect-ratio: 220 / 88; /* safe default for both mobile & desktop */
+    aspect-ratio: 220 / 88;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -75,35 +59,56 @@ const loopLogos = [...logos, ...logos];
 
   /* ================= IMAGE FIX ================= */
   .logo-img {
-    opacity: 0; /* prevent alt flash */
-    transition: opacity 0.35s ease, transform 0.3s ease;
-
+    opacity: 0;
+    transition: opacity 0.35s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), filter 0.3s ease;
     filter: grayscale(100%);
-    will-change: opacity, transform;
+    will-change: opacity, transform, filter;
   }
 
   /* reveal after load */
   .logo-img.is-loaded {
-    opacity: 0.7;
+    opacity: 0.5;
   }
 
-  /* hover effect (unchanged behavior) */
+  /* hover effect (بسیار نرم و جذاب) */
   .logo-item:hover .logo-img {
     filter: grayscale(0%);
     opacity: 1;
     transform: scale(1.08);
   }
 
-  /* ================= MARQUEE (UNCHANGED) ================= */
+  /* ================= MARQUEE & MASK ================= */
   .logo-mask {
-    --logo-visible-count: 3;
+    --logo-visible-count: 3; /* موبایل: 3 لوگو */
     --logo-gap: 1.25rem;
     overflow: hidden;
+    
+    /* جادوی ماسک برای هاله‌های محوشونده در دو طرف */
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 15%,
+      black 85%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 15%,
+      black 85%,
+      transparent 100%
+    );
   }
 
   .logo-scroll {
-    animation: logo-scroll 24s linear infinite;
+    /* انیمیشن به سمت راست (مدت زمان رو میتونی کم و زیاد کنی) */
+    animation: logo-scroll-right 30s linear infinite;
     will-change: transform;
+  }
+
+  /* با هاور کردن روی اسلایدر، سرعتش نصف میشه که کاربر بتونه راحت‌تر ببینه */
+  .logo-scroll:hover {
+    animation-play-state: paused; /* یا میتونی paused بذاری که کامل وایسته */
   }
 
   .logo-slot {
@@ -111,19 +116,31 @@ const loopLogos = [...logos, ...logos];
     padding-inline: calc(var(--logo-gap) / 2);
   }
 
-  @keyframes logo-scroll {
+  /* کلید حرکت به راست: شروع از -50% و پایان در 0 */
+  @keyframes logo-scroll-right {
     0% {
-      transform: translateX(0);
+      transform: translateX(-50%);
     }
     100% {
-      transform: translateX(-50%);
+      transform: translateX(0);
     }
   }
 
-  /* ================= RESPONSIVE (UNCHANGED) ================= */
+  /* ================= RESPONSIVE ================= */
   @media (min-width: 640px) {
     .logo-mask {
-      --logo-gap: 1.5rem;
+      --logo-visible-count: 4; /* تبلت: 4 لوگو */
+      --logo-gap: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .logo-mask {
+      --logo-visible-count: 5; /* دسکتاپ: 5 لوگو */
+      --logo-gap: 3rem;
+      /* ماسک رو تو دسکتاپ ملایم‌تر می‌کنیم */
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
     }
   }
 

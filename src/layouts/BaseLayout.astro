@@ -12,12 +12,95 @@ import "../styles/global.css";
   </head>
 
   <body class="bg-[#000E17] text-white overflow-x-hidden" transition:animate="fade">
-    <Header client:load/>
+    <Header client:load />
 
-    <main class="min-w-0 overflow-x-hidden">
+    {/* اضافه شدن pt-24 lg:pt-32 برای جلوگیری از رفتن محتوا به زیر هدر */}
+    <main class="min-w-0 overflow-x-hidden pt-8 lg:pt-10">
       <slot />
     </main>
 
     <Footer />
+
+    {/* ========================================== */}
+    {/* 1. کدهای جاوااسکریپت Lenis */}
+    {/* ========================================== */}
+    <script>
+      import Lenis from 'lenis';
+
+      let lenis: Lenis;
+
+      function initSmoothScrolling() {
+        if (lenis) lenis.destroy();
+
+        lenis = new Lenis({
+          duration: 1.2,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
+          wheelMultiplier: 1,
+          touchMultiplier: 2,
+        });
+
+        function raf(time: number) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+        
+        requestAnimationFrame(raf);
+      }
+
+      document.addEventListener('DOMContentLoaded', initSmoothScrolling);
+      document.addEventListener('astro:page-load', initSmoothScrolling);
+    </script>
+
+    {/* ========================================== */}
+    {/* 2. استایل‌های اسکرول‌بار و الزامات Lenis */}
+    {/* ========================================== */}
+    <style is:global>
+      /* --- استایل اسکرول‌بار مرورگرهای کرومیوم --- */
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #183945; 
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(to bottom, #31d1a6, #25aeb2);
+        border-radius: 8px;
+        border: 2px solid #183945; 
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(to bottom, #31d1a6, #31d1a6);
+      }
+
+      /* --- استایل اسکرول‌بار برای فایرفاکس --- */
+      * {
+        scrollbar-width: thin;
+        scrollbar-color: #31d1a6 #183945;
+      }
+
+      /* --- استایل‌های ضروری برای عملکرد درست Lenis --- */
+      html.lenis, html.lenis body {
+        height: auto;
+      }
+
+      .lenis.lenis-smooth {
+        scroll-behavior: auto !important;
+      }
+
+      .lenis.lenis-smooth [data-lenis-prevent] {
+        overscroll-behavior: contain;
+      }
+
+      .lenis.lenis-stopped {
+        overflow: hidden;
+      }
+
+      .lenis.lenis-smooth iframe {
+        pointer-events: none;
+      }
+    </style>
   </body>
 </html>

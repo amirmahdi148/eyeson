@@ -34,23 +34,22 @@ const QAImg = "/Shared/QandA.png";
   <div class="relative mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-[380px_1fr] lg:gap-12 lg:items-start">
     
     {/* ===== بخش هدر و تصویر سمت چپ ===== */}
-    {/* 🔴 در موبایل وسط‌چین، در دسکتاپ چپ‌چین */}
     <div class="space-y-6 sm:space-y-8 flex flex-col items-center text-center lg:items-start lg:text-left">
-      <div class="w-full">
+      <div class="w-full qa-reveal fade-up">
         <h2 class="text-3xl font-extrabold leading-tight sm:text-4xl md:text-5xl">
           <span class="block">Your Questions</span>
-          <span class="block text-[#39d0c3]">Answered</span>
+          <span class="block text-[#39d0c3] drop-shadow-[0_0_15px_rgba(57,208,195,0.4)]">Answered</span>
         </h2>
-        <p class="mt-4 sm:mt-5 max-w-md text-[15px] leading-7 text-white/70 md:text-base mx-auto lg:mx-0">
+        <p class="mt-4 sm:mt-5 max-w-md text-[15px] leading-7 text-white/70 md:text-base mx-auto lg:mx-0 font-light">
           Find answers to common questions about Eyeson and our services.
         </p>
       </div>
 
-      {/* تصویر در موبایل‌های کوچک مخفی می‌شه، در سایزهای بزرگتر (تبلت و بالا) نشون داده میشه */}
+      {/* تصویر سمت چپ */}
       <img
           src={QAImg}
           alt="Questions and answers illustration"
-          class="hidden w-[280px] sm:w-[320px] select-none object-contain opacity-95 md:block drop-shadow-2xl"
+          class="qa-reveal fade-up delay-100 hidden w-[280px] sm:w-[320px] select-none object-contain opacity-95 md:block drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)] transform-gpu transition-transform duration-700 hover:scale-105 hover:-translate-y-2"
           loading="lazy"
           decoding="async"
       />
@@ -61,28 +60,28 @@ const QAImg = "/Shared/QandA.png";
       <div class="space-y-3 sm:space-y-4">
         {questions.map((item, index) => (
             <div
-                class={`qa-item overflow-hidden rounded-xl sm:rounded-2xl border border-cyan-400/15 bg-[#06242B] transition-colors duration-300 ease-out ${
-                    index === 0 ? "is-open bg-[#07323B] border-cyan-400/25" : "hover:border-cyan-400/22 hover:bg-[#072830]"
+                class={`qa-item qa-reveal fade-left overflow-hidden rounded-xl sm:rounded-2xl border bg-[#06242B] transition-all duration-400 ease-out shadow-lg hover:shadow-xl ${
+                    index === 0 ? "is-open bg-[#07323B] border-cyan-400/40 shadow-[0_0_20px_rgba(57,208,195,0.1)]" : "border-cyan-400/15 hover:border-cyan-400/30 hover:bg-[#072830]"
                 }`}
+                style={`transition-delay: ${index * 100}ms;`}
                 data-qa-index={index}
             >
               <button
                   type="button"
-                  class="qa-trigger flex w-full items-start sm:items-center justify-between gap-3 sm:gap-4 px-4 py-4 sm:px-5 md:px-6 md:py-5 text-left"
+                  class="qa-trigger flex w-full items-start sm:items-center justify-between gap-3 sm:gap-4 px-4 py-4 sm:px-5 md:px-6 md:py-5 text-left group"
                   aria-expanded={index === 0 ? "true" : "false"}
                   aria-controls={`qa-panel-${index}`}
               >
-                {/* 🔴 تنظیم سایز متن و لاین‌هایت برای جلوگیری از درهم‌رفتگی در موبایل */}
-                <span class="text-[15px] sm:text-base md:text-lg font-semibold leading-relaxed text-white pr-2">
-                  <span class="text-white/95 mr-1">{item.id}.</span>
+                <span class="text-[15px] sm:text-base md:text-lg font-semibold leading-relaxed text-white/90 group-hover:text-white transition-colors pr-2">
+                  <span class="text-white/50 group-hover:text-cyan-400/80 transition-colors mr-1">{item.id}.</span>
                   {item.q}
                 </span>
 
-                <span class="qa-icon mt-0.5 sm:mt-0 inline-flex h-6 w-6 sm:h-8 sm:w-8 shrink-0 items-center justify-center text-[#39d0c3]">
-                <svg class="qa-icon-plus" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <span class="qa-icon mt-0.5 sm:mt-0 inline-flex h-6 w-6 sm:h-8 sm:w-8 shrink-0 items-center justify-center text-[#39d0c3] transition-transform duration-300 group-hover:scale-110">
+                <svg class="qa-icon-plus transition-transform duration-300" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
                 </svg>
-                <svg class="qa-icon-close" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <svg class="qa-icon-close transition-transform duration-300 rotate-90" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
                 </svg>
               </span>
@@ -95,14 +94,14 @@ const QAImg = "/Shared/QandA.png";
                   aria-label={item.q}
               >
                 <div class="pb-4 sm:pb-5 md:pb-6">
-                  <div class="mb-3 sm:mb-4 h-px w-full bg-white/10"></div>
+                  <div class="mb-4 h-px w-full bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent"></div>
 
-                  <div class="flex items-start gap-2.5 sm:gap-3">
+                  <div class="flex items-start gap-3 sm:gap-4">
                   {/* دایره A */}
-                  <span class="mt-0.5 sm:mt-1 inline-flex h-5 w-5 sm:h-6 sm:w-6 shrink-0 items-center justify-center rounded-full bg-[#39d0c3]/15 text-[10px] sm:text-[11px] font-semibold text-[#39d0c3]">
+                  <span class="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-cyan-400/10 border border-cyan-400/20 text-[11px] font-bold text-cyan-400 shadow-[0_0_10px_rgba(57,208,195,0.15)]">
                     A
                   </span>
-                    <p class="max-w-4xl text-[14px] sm:text-sm leading-relaxed sm:leading-7 text-white/75 md:text-base">
+                    <p class="max-w-4xl text-[14px] sm:text-sm leading-relaxed sm:leading-7 text-white/70 font-light">
                       {item.a}
                     </p>
                   </div>
@@ -116,16 +115,39 @@ const QAImg = "/Shared/QandA.png";
 </section>
 
 <style>
-  /* استایل‌ها تغییری نکردن، لاجیک انیمیشن درسته */
+  /* ================= انیمیشن‌های اسکرول ================= */
+  .qa-reveal {
+    opacity: 0;
+    will-change: opacity, transform;
+  }
+
+  .fade-up {
+    transform: translateY(30px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .fade-left {
+    transform: translateX(30px);
+    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .qa-reveal.is-visible {
+    opacity: 1;
+    transform: translate(0);
+  }
+
+  .delay-100 { transition-delay: 0.15s; }
+
+  /* ================= منطق آکوردیون (CSS Grid Trick) ================= */
   .qa-panel {
     display: grid;
     grid-template-rows: 0fr;
     opacity: 0;
-    transform: translateY(-4px);
-    transition:
-        grid-template-rows 460ms cubic-bezier(0.22, 1, 0.36, 1),
-        opacity 240ms ease,
-        transform 460ms cubic-bezier(0.22, 1, 0.36, 1);
+    transform: translateY(-8px);
+    transition: 
+        grid-template-rows 400ms cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 300ms ease,
+        transform 400ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .qa-panel.is-open {
@@ -138,21 +160,12 @@ const QAImg = "/Shared/QandA.png";
     overflow: hidden;
   }
 
-  .qa-icon-plus {
-    display: block;
-  }
+  /* ================= تغییر وضعیت آیکون‌ها ================= */
+  .qa-icon-plus { display: block; }
+  .qa-icon-close { display: none; }
 
-  .qa-icon-close {
-    display: none;
-  }
-
-  .qa-item.is-open .qa-icon-plus {
-    display: none;
-  }
-
-  .qa-item.is-open .qa-icon-close {
-    display: block;
-  }
+  .qa-item.is-open .qa-icon-plus { display: none; }
+  .qa-item.is-open .qa-icon-close { display: block; transform: rotate(0deg); }
 
   .qa-trigger {
     -webkit-tap-highlight-color: transparent;
@@ -160,7 +173,27 @@ const QAImg = "/Shared/QandA.png";
 </style>
 
 <script is:inline>
-  document.addEventListener("DOMContentLoaded", () => {
+  function initQA() {
+    // 1. منطق انیمیشن اسکرول
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const revealElements = document.querySelectorAll('.qa-reveal');
+    
+    if (prefersReducedMotion) {
+      revealElements.forEach(el => el.classList.add('is-visible'));
+    } else {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { root: null, rootMargin: '0px 0px -50px 0px', threshold: 0.1 });
+
+      revealElements.forEach(el => observer.observe(el));
+    }
+
+    // 2. منطق آکوردیون
     const items = Array.from(document.querySelectorAll(".qa-item"));
 
     const setState = (item, open) => {
@@ -169,25 +202,45 @@ const QAImg = "/Shared/QandA.png";
       if (!trigger || !panel) return;
 
       item.classList.toggle("is-open", open);
+      
+      // تغییر استایل دایو اصلی موقع باز شدن
+      if(open) {
+        item.classList.add("bg-[#07323B]", "border-cyan-400/40", "shadow-[0_0_20px_rgba(57,208,195,0.1)]");
+        item.classList.remove("border-cyan-400/15");
+      } else {
+        item.classList.remove("bg-[#07323B]", "border-cyan-400/40", "shadow-[0_0_20px_rgba(57,208,195,0.1)]");
+        item.classList.add("border-cyan-400/15");
+      }
+
       trigger.setAttribute("aria-expanded", open ? "true" : "false");
       panel.classList.toggle("is-open", open);
       panel.classList.toggle("is-collapsed", !open);
     };
 
-    // در حالت موبایل بهتره وقتی کاربر کلیک میکنه رو اسکرول کنیم تا سوال رو ببینه
-    items.forEach((item, idx) => setState(item, idx === 0));
-
+    // ریست کردن ایونت لیسنرها (برای Astro View Transitions)
     items.forEach((item) => {
       const trigger = item.querySelector(".qa-trigger");
       if (!trigger) return;
+      
+      // کلون کردن المنت برای حذف ایونت‌های قبلی
+      const newTrigger = trigger.cloneNode(true);
+      trigger.parentNode.replaceChild(newTrigger, trigger);
 
-      trigger.addEventListener("click", () => {
+      newTrigger.addEventListener("click", () => {
         const isOpen = item.classList.contains("is-open");
+        
+        // بستن بقیه
         items.forEach((other) => setState(other, false));
+        
+        // باز کردن آیتم کلیک شده
         if (!isOpen) {
           setState(item, true);
         }
       });
     });
-  });
+  }
+
+  // اجرا در لود اولیه و جابجایی بین صفحات در Astro
+  document.addEventListener("DOMContentLoaded", initQA);
+  document.addEventListener("astro:page-load", initQA);
 </script>
