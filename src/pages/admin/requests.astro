@@ -1,0 +1,12 @@
+---
+import RequestsList from "../../islands/Admin/RequestsList";
+import AdminGuard from "../../islands/Admin/AdminGuard";
+import "../../styles/global.css";
+---
+<div class="min-h-screen p-6 bg-[radial-gradient(ellipse_at_top_right,_#062428,_#001219)]">
+  <div class="max-w-7xl mx-auto">
+    <AdminGuard client:only="react">
+      <RequestsList client:load />
+    </AdminGuard>
+  </div>
+</div>

@@ -1,7 +1,9 @@
 ---
 // CaseStudyHero.astro
+import { httpService } from "../../utils/httpService";
 
-interface Props {
+interface CaseData {
+  avatarUrl?: string;
   title?: string;
   description?: string;
   tools?: { name: string; iconUrl?: string }[];
@@ -9,19 +11,48 @@ interface Props {
   projectTimeline?: string;
 }
 
+let caseData: CaseData = {};
+let fetchError: string | null = null;
+
+try {
+  console.log("[CaseStudyHero] Starting fetch to /case endpoint...");
+  console.log("[CaseStudyHero] PUBLIC_API_URL:", import.meta.env.PUBLIC_API_URL);
+  caseData = await httpService.get<CaseData>("/project/details?slug=cryptozen-351ff825");
+  console.log("[CaseStudyHero] Fetch successful, data:", caseData);
+} catch (error) {
+  console.error("[CaseStudyHero] Fetch failed at /case endpoint");
+  console.error("[CaseStudyHero] Error type:", error instanceof Error ? error.constructor.name : typeof error);
+  console.error("[CaseStudyHero] Error message:", error instanceof Error ? error.message : String(error));
+  console.error("[CaseStudyHero] Full error:", error);
+  console.error("[CaseStudyHero] Stack trace:", error instanceof Error ? error.stack : "No stack");
+  fetchError = error instanceof Error ? error.message : String(error);
+  caseData = {};
+}
+
+// Destructure with defaults
 const {
   title = "CryptoZen",
   description = "CryptoZen is a crypto education brand aiming to make blockchain simple, engaging, and actionable. Our mission was to help them scale their content and grow their audience across Instagram, TikTok, and YouTube, with a focus on driving VIP membership conversions through high-retention, short-form video.",
   tools = [
-    { name: "Blender", iconUrl: "" },
-    { name: "Illustrator", iconUrl: "" },
-    { name: "Photoshop", iconUrl: "" },
-    { name: "After Effects", iconUrl: "" },
+    { name: "Blender", iconUrl: "/case/blender.png" },
+    { name: "Illustrator", iconUrl: "/case/ai.png" },
+    { name: "Photoshop", iconUrl: "/case/ps.png" },
+    { name: "After Effects", iconUrl: "/case/ae.png" },
   ],
   projectType = "Subscription",
   projectTimeline = "9 Months",
-} = Astro.props;
+  avatarUrl = "",
+} = caseData;
+
 ---
+
+{fetchError && (
+  <div class="fixed top-4 right-4 z-50 rounded-lg bg-red-500/90 p-4 text-white">
+    <strong>Fetch Error:</strong> {fetchError}
+    <br />
+    <small>Check browser console for details.</small>
+  </div>
+)}
 
 <section class="relative overflow-hidden py-16 sm:py-20 lg:py-28">
 
@@ -80,7 +111,7 @@ const {
         <div class="absolute inset-0 rounded-[28px] bg-cyan-400/10 blur-[38px]"></div>
 
         <div class="relative overflow-hidden rounded-[28px] ">
-          
+
             <img
               src="/case/hero-case.png"
               alt={title}
