@@ -30,14 +30,14 @@ const slides = [
     ],
     primaryCta: "Get free sample",
     secondaryCta: "See our price",
-    mainImage: "/uiux/slidebg.png",
+    mainImage: "/uiux/slidebg.webp",
     floatingTags: [
-      "/pricing/tag-price-1.png",
-      "/pricing/tag-price-2.png",
-      "/pricing/tag-branding.png",
-      "/pricing/tag-ui.png",
-      "/pricing/device-small.png",
-      "/pricing/tag-off.png",
+      "/pricing/tag-price-1.webp",
+      "/pricing/tag-price-2.webp",
+      "/pricing/tag-branding.webp",
+      "/pricing/tag-ui.webp",
+      "/pricing/device-small.webp",
+      "/pricing/tag-off.webp",
     ],
   },
   {
@@ -57,14 +57,14 @@ const slides = [
     ],
     primaryCta: "Book a call",
     secondaryCta: "View plans",
-    mainImage: "/uiux/slidebg.png",
+    mainImage: "/uiux/slidebg.webp",
     floatingTags: [
-      "/pricing/tag-price-3.png",
-      "/pricing/tag-price-4.png",
-      "/pricing/tag-retainer.png",
-      "/pricing/tag-product.png",
-      "/pricing/device-small-2.png",
-      "/pricing/tag-note.png",
+      "/pricing/tag-price-3.webp",
+      "/pricing/tag-price-4.webp",
+      "/pricing/tag-retainer.webp",
+      "/pricing/tag-product.webp",
+      "/pricing/device-small-2.webp",
+      "/pricing/tag-note.webp",
     ],
   },
   {
@@ -84,14 +84,14 @@ const slides = [
     ],
     primaryCta: "Start a sprint",
     secondaryCta: "See workflow",
-    mainImage: "/uiux/slidebg.png",
+    mainImage: "/uiux/slidebg.webp",
     floatingTags: [
-      "/pricing/tag-price-5.png",
-      "/pricing/tag-price-6.png",
-      "/pricing/tag-sprint.png",
-      "/pricing/tag-ux.png",
-      "/pricing/device-small-3.png",
-      "/pricing/tag-sale.png",
+      "/pricing/tag-price-5.webp",
+      "/pricing/tag-price-6.webp",
+      "/pricing/tag-sprint.webp",
+      "/pricing/tag-ux.webp",
+      "/pricing/device-small-3.webp",
+      "/pricing/tag-sale.webp",
     ],
   },
   {
@@ -111,14 +111,14 @@ const slides = [
     ],
     primaryCta: "Contact Sales",
     secondaryCta: "View Case Studies",
-    mainImage: "/uiux/slidebg.png",
+    mainImage: "/uiux/slidebg.webp",
     floatingTags: [
-      "/pricing/tag-enterprise.png",
-      "/pricing/tag-system.png",
-      "/pricing/tag-scale.png",
-      "/pricing/tag-secure.png",
-      "/pricing/device-large.png",
-      "/pricing/tag-custom.png",
+      "/pricing/tag-enterprise.webp",
+      "/pricing/tag-system.webp",
+      "/pricing/tag-scale.webp",
+      "/pricing/tag-secure.webp",
+      "/pricing/device-large.webp",
+      "/pricing/tag-custom.webp",
     ],
   },
   {
@@ -138,14 +138,14 @@ const slides = [
     ],
     primaryCta: "Request Audit",
     secondaryCta: "See Examples",
-    mainImage: "/uiux/slidebg.png",
+    mainImage: "/uiux/slidebg.webp",
     floatingTags: [
-      "/pricing/tag-audit.png",
-      "/pricing/tag-boost.png",
-      "/pricing/tag-revamp.png",
-      "/pricing/tag-speed.png",
-      "/pricing/device-mobile.png",
-      "/pricing/tag-report.png",
+      "/pricing/tag-audit.webp",
+      "/pricing/tag-boost.webp",
+      "/pricing/tag-revamp.webp",
+      "/pricing/tag-speed.webp",
+      "/pricing/device-mobile.webp",
+      "/pricing/tag-report.webp",
     ],
   },
 ];
@@ -154,7 +154,6 @@ export default function UiUxPricingSlider() {
   return (
     <section className="pricing-slider-section">
       <div className="pricing-slider-shell">
-        
         {/* هدر */}
         <div className="pricing-slider-header">
           <h2 className="pricing-slider-title">
@@ -166,15 +165,18 @@ export default function UiUxPricingSlider() {
           <p className="pricing-slider-subtitle">
             Clear pricing with no hidden costs.
             <br />
-            Choose a fixed design package or a flexible engagement model based on your
-            product size, goals, and timeline.
+            Choose a fixed design package or a flexible engagement model based
+            on your product size, goals, and timeline.
           </p>
         </div>
 
         {/* بدنه اسلایدر */}
         <div className="pricing-slider-stage">
           {/* دکمه قبلی */}
-          <button className="pricing-nav pricing-prev" aria-label="Previous slide">
+          <button
+            className="pricing-nav pricing-prev"
+            aria-label="Previous slide"
+          >
             <ChevronLeft size={20} strokeWidth={2.5} />
           </button>
 
@@ -223,7 +225,9 @@ export default function UiUxPricingSlider() {
 
                       <p className="pricing-description">{slide.description}</p>
 
-                      <div className="pricing-features-title">What's included</div>
+                      <div className="pricing-features-title">
+                        What's included
+                      </div>
                       <div className="pricing-features">
                         {slide.features.map((feature) => (
                           <div className="pricing-feature" key={feature}>
@@ -236,8 +240,12 @@ export default function UiUxPricingSlider() {
                       </div>
 
                       <div className="pricing-actions">
-                        <button className="btn-primary">{slide.primaryCta}</button>
-                        <button className="btn-secondary">{slide.secondaryCta}</button>
+                        <button className="btn-primary">
+                          {slide.primaryCta}
+                        </button>
+                        <button className="btn-secondary">
+                          {slide.secondaryCta}
+                        </button>
                       </div>
                     </div>
 
@@ -245,12 +253,36 @@ export default function UiUxPricingSlider() {
                     <div className="pricing-visual">
                       <div className="visual-wrap">
                         {/* تگ‌های شناور اطراف مانیتور */}
-                        <img className="float-card float-1" src={slide.floatingTags[0]} alt="" />
-                        <img className="float-card float-2" src={slide.floatingTags[1]} alt="" />
-                        <img className="float-card float-3" src={slide.floatingTags[2]} alt="" />
-                        <img className="float-card float-4" src={slide.floatingTags[3]} alt="" />
-                        <img className="float-card float-5" src={slide.floatingTags[4]} alt="" />
-                        <img className="float-card float-6" src={slide.floatingTags[5]} alt="" />
+                        <img
+                          className="float-card float-1"
+                          src={slide.floatingTags[0]}
+                          alt=""
+                        />
+                        <img
+                          className="float-card float-2"
+                          src={slide.floatingTags[1]}
+                          alt=""
+                        />
+                        <img
+                          className="float-card float-3"
+                          src={slide.floatingTags[2]}
+                          alt=""
+                        />
+                        <img
+                          className="float-card float-4"
+                          src={slide.floatingTags[3]}
+                          alt=""
+                        />
+                        <img
+                          className="float-card float-5"
+                          src={slide.floatingTags[4]}
+                          alt=""
+                        />
+                        <img
+                          className="float-card float-6"
+                          src={slide.floatingTags[5]}
+                          alt=""
+                        />
 
                         <div className="screen-frame">
                           <img

@@ -18,28 +18,28 @@ export default function HomeServicesSection() {
       title: "Short-form",
       description:
         "Used by UX/UI and web designers to improve customer experience.",
-      image: "/animation-section/short-form.png",
+      image: "/animation-section/short-form.webp",
     },
     {
       id: 2,
       title: "3D/2D Animation",
       description:
         "Used by UX/UI and web designers to improve customer experience.",
-      image: "/animation-section/3D.jpg",
+      image: "/animation-section/3D.webp",
     },
     {
       id: 3,
       title: "Motion Graphics",
       description:
         "Used by UX/UI and web designers to improve customer experience.",
-      image: "/animation-section/motion.jpg",
+      image: "/animation-section/motion.webp",
     },
     {
       id: 4,
       title: "Videos",
       description:
         "Used by UX/UI and web designers to improve customer experience.",
-      image: "/animation-section/video.jpg",
+      image: "/animation-section/video.webp",
     },
   ];
 
@@ -49,19 +49,21 @@ export default function HomeServicesSection() {
       title: "Ad Creatives",
       description:
         "Used by UX/UI and web designers to improve customer experience.",
-      image: "/animation-section/adcreatives.jpg",
+      image: "/animation-section/adcreatives.webp",
     },
     {
       id: 2,
       title: "Brand Identity",
-      description: "Used by UX/UI and web designers to improve customer experience.",
-      image: "/animation-section/brandidentity.jpg",
+      description:
+        "Used by UX/UI and web designers to improve customer experience.",
+      image: "/animation-section/brandidentity.webp",
     },
     {
       id: 3,
       title: "UI/UX",
-      description: "Used by UX/UI and web designers to improve customer experience.",
-      image: "/animation-section/uiux.jpg",
+      description:
+        "Used by UX/UI and web designers to improve customer experience.",
+      image: "/animation-section/uiux.webp",
     },
   ];
   const services =
@@ -113,7 +115,7 @@ export default function HomeServicesSection() {
                   : "text-gray-400 hover:text-white"
               }`}
             >
-             Design services
+              Design services
             </button>
           </div>
         </div>

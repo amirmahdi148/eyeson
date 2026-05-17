@@ -3,162 +3,183 @@ import { SmartImage } from "../../utils/SmartImage.tsx";
 ---
 
 <style>
-    @keyframes floatXLeft {
-        0%, 100% { transform: translate3d(0,0,0); }
-        50% { transform: translate3d(-15px,0,0); }
+  @keyframes floatXLeft {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0);
     }
-
-    @keyframes floatXRight {
-        0%, 100% { transform: translate3d(0,0,0); }
-        50% { transform: translate3d(15px,0,0); }
+    50% {
+      transform: translate3d(-15px, 0, 0);
     }
+  }
 
-    .animate-left {
-        animation: floatXLeft 4s ease-in-out infinite;
-        will-change: transform;
+  @keyframes floatXRight {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0);
     }
+    50% {
+      transform: translate3d(15px, 0, 0);
+    }
+  }
 
+  .animate-left {
+    animation: floatXLeft 4s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  .animate-right {
+    animation: floatXRight 4s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  .portfolio-hero-reveal {
+    animation: portfolioHeroReveal 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes portfolioHeroReveal {
+    0% {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* 🚀 موبایل = بدون انیمیشن + بدون لود تصویر */
+  @media (max-width: 768px) {
+    .animate-left,
     .animate-right {
-        animation: floatXRight 4s ease-in-out infinite;
-        will-change: transform;
+      animation: none;
     }
-
-    .portfolio-hero-reveal {
-        animation: portfolioHeroReveal 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
-    }
-
-    @keyframes portfolioHeroReveal {
-        0% {
-            opacity: 0;
-            transform: translateY(18px);
-        }
-        100% {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    /* 🚀 موبایل = بدون انیمیشن + بدون لود تصویر */
-    @media (max-width: 768px) {
-        .animate-left,
-        .animate-right {
-            animation: none;
-        }
-    }
+  }
 </style>
 
-<div class="portfolio-hero-reveal h-200 flex items-center justify-between relative overflow-hidden">
-
-    <!-- Left Image (فقط دسکتاپ) -->
-    <div class="absolute left-1 top-40 animate-left hidden md:block -z-10">
-        <div class="w-100 h-55">
-            <SmartImage
-                    src="/portfolio/left.png"
-                    width={400}
-                    height={220}
-                    priority={true}
-                    loading="eager"
-                    decoding="async"
-            />
-        </div>
+<div
+  class="portfolio-hero-reveal h-200 flex items-center justify-between relative overflow-hidden"
+>
+  <!-- Left Image (فقط دسکتاپ) -->
+  <div class="absolute left-1 top-40 animate-left hidden md:block -z-10">
+    <div class="w-100 h-55">
+      <SmartImage
+        src="/portfolio/left.webp"
+        width={400}
+        height={220}
+        priority={true}
+        loading="eager"
+        decoding="async"
+      />
     </div>
+  </div>
 
-    <!-- Center Content -->
-    <div class="flex flex-col items-center text-center w-full px-4">
-
-        <!-- Badge -->
-        <div class="mb-6">
-            <div class="flex items-center gap-4 px-4 py-2 rounded-full
+  <!-- Center Content -->
+  <div class="flex flex-col items-center text-center w-full px-4">
+    <!-- Badge -->
+    <div class="mb-6">
+      <div
+        class="flex items-center gap-4 px-4 py-2 rounded-full
                 bg-linear-to-r from-teal-500/20 to-transparent
                 border border-white/20 backdrop-blur-sm md:backdrop-blur-md
-                shadow-[0_0_10px_rgba(20,184,166,0.2)] md:shadow-[0_0_30px_rgba(20,184,166,0.2)]">
-
-                <div class="relative w-10 h-10 flex items-center justify-center rounded-full border-2 border-teal-400">
-                    <div class="w-4 h-4 bg-teal-400 rounded-full"></div>
-                </div>
-
-                <span class="text-white text-lg font-medium tracking-wide -ml-2">
-                    About Us
-                </span>
-            </div>
+                shadow-[0_0_10px_rgba(20,184,166,0.2)] md:shadow-[0_0_30px_rgba(20,184,166,0.2)]"
+      >
+        <div
+          class="relative w-10 h-10 flex items-center justify-center rounded-full border-2 border-teal-400"
+        >
+          <div class="w-4 h-4 bg-teal-400 rounded-full"></div>
         </div>
 
-        <!-- Title -->
-        <h1 class="text-3xl md:text-5xl font-bold text-white mb-6">
-            We're <span class="text-teal-400">EyesOn</span> Studio
-        </h1>
+        <span class="text-white text-lg font-medium tracking-wide -ml-2">
+          About Us
+        </span>
+      </div>
+    </div>
 
-        <!-- Description -->
-        <p class="text-white max-w-2xl mb-10 text-sm md:text-base">
-            A team of motion designers, video editors, and creative strategists
-            obsessed with creating content that converts
+    <!-- Title -->
+    <h1 class="text-3xl md:text-5xl font-bold text-white mb-6">
+      We're <span class="text-teal-400">EyesOn</span> Studio
+    </h1>
+
+    <!-- Description -->
+    <p class="text-white max-w-2xl mb-10 text-sm md:text-base">
+      A team of motion designers, video editors, and creative strategists
+      obsessed with creating content that converts
+    </p>
+
+    <!-- Stats -->
+    <div class="flex items-center gap-5 md:gap-16 mb-12 text-white">
+      <div>
+        <h2 class="text-xl md:text-2xl font-bold">2000+</h2>
+        <p class="text-white text-xs md:text-sm font-thin">
+          Projects Delivered
         </p>
+      </div>
 
-        <!-- Stats -->
-        <div class="flex items-center gap-5 md:gap-16 mb-12 text-white">
+      <hr
+        class="w-[1.5px] h-13.75 border-none bg-linear-to-b from-transparent via-white to-transparent opacity-70"
+      />
 
-            <div>
-                <h2 class="text-xl md:text-2xl font-bold">2000+</h2>
-                <p class="text-white text-xs md:text-sm font-thin">Projects Delivered</p>
-            </div>
+      <div>
+        <h2 class="text-xl md:text-2xl font-bold">10+</h2>
+        <p class="text-white text-xs md:text-sm font-thin">Years Experience</p>
+      </div>
 
-            <hr class="w-[1.5px] h-13.75 border-none bg-linear-to-b from-transparent via-white to-transparent opacity-70" />
+      <hr
+        class="w-[1.5px] h-13.75 border-none bg-linear-to-b from-transparent via-white to-transparent opacity-70"
+      />
 
-            <div>
-                <h2 class="text-xl md:text-2xl font-bold">10+</h2>
-                <p class="text-white text-xs md:text-sm font-thin">Years Experience</p>
-            </div>
-
-            <hr class="w-[1.5px] h-13.75 border-none bg-linear-to-b from-transparent via-white to-transparent opacity-70" />
-
-            <div>
-                <h2 class="text-xl md:text-2xl font-bold">98%</h2>
-                <p class="text-white text-xs md:text-sm font-thin">Client Satisfaction</p>
-            </div>
-
-        </div>
-
-        <!-- Buttons -->
-        <div class="mt-6 flex flex-row flex-wrap justify-center gap-3">
-
-            <!-- Primary -->
-            <div class="relative inline-flex rounded-full p-0.5">
-                <div class="absolute -inset-0.5 rounded-full bg-linear-to-r from-[#45B6A0] to-[#12ACB5] shadow-[0_0_12px_#00A9BD]" />
-                <a
-                        href="#"
-                        class="relative z-10 rounded-full px-5 py-2.5 bg-linear-to-r from-[#00A9BD] to-[#1D553A] text-sm md:text-lg"
-                >
-                    Get free sample
-                </a>
-            </div>
-
-            <!-- Secondary -->
-            <div class="relative inline-flex rounded-full p-0.5">
-                <div class="absolute -inset-0.5 rounded-full bg-linear-to-r from-[#056E7C] to-[#46B6A0] shadow-[0_0_12px_#00A9BD]" />
-                <a
-                        href="#"
-                        class="relative z-10 rounded-full px-5 py-2.5 bg-linear-to-r from-[#00061D] to-[#0B1F2A] text-sm md:text-lg"
-                >
-                    See our work
-                </a>
-            </div>
-
-        </div>
-
+      <div>
+        <h2 class="text-xl md:text-2xl font-bold">98%</h2>
+        <p class="text-white text-xs md:text-sm font-thin">
+          Client Satisfaction
+        </p>
+      </div>
     </div>
 
-    <!-- Right Image (فقط دسکتاپ) -->
-    <div class="absolute right-1 top-40 animate-right hidden md:block -z-10">
-        <div class="w-100 h-55">
-            <SmartImage
-                    src="/portfolio/right.png"
-                    width={400}
-                    height={220}
-                    priority={true}
-                    loading="eager"
-                    decoding="async"
-            />
+    <!-- Buttons -->
+    <div class="mt-6 flex flex-row flex-wrap justify-center gap-3">
+      <!-- Primary -->
+      <div class="relative inline-flex rounded-full p-0.5">
+        <div
+          class="absolute -inset-0.5 rounded-full bg-linear-to-r from-[#45B6A0] to-[#12ACB5] shadow-[0_0_12px_#00A9BD]"
+        >
         </div>
-    </div>
+        <a
+          href="#"
+          class="relative z-10 rounded-full px-5 py-2.5 bg-linear-to-r from-[#00A9BD] to-[#1D553A] text-sm md:text-lg"
+        >
+          Get free sample
+        </a>
+      </div>
 
+      <!-- Secondary -->
+      <div class="relative inline-flex rounded-full p-0.5">
+        <div
+          class="absolute -inset-0.5 rounded-full bg-linear-to-r from-[#056E7C] to-[#46B6A0] shadow-[0_0_12px_#00A9BD]"
+        >
+        </div>
+        <a
+          href="#"
+          class="relative z-10 rounded-full px-5 py-2.5 bg-linear-to-r from-[#00061D] to-[#0B1F2A] text-sm md:text-lg"
+        >
+          See our work
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Image (فقط دسکتاپ) -->
+  <div class="absolute right-1 top-40 animate-right hidden md:block -z-10">
+    <div class="w-100 h-55">
+      <SmartImage
+        src="/portfolio/right.webp"
+        width={400}
+        height={220}
+        priority={true}
+        loading="eager"
+        decoding="async"
+      />
+    </div>
+  </div>
 </div>

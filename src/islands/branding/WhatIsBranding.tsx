@@ -46,12 +46,11 @@ export const WhatIsBranding = () => {
           >
             <div className="absolute inset-0 bg-linear-to-br from-[#5C45FD] to-[#3B25D4] flex items-center justify-center">
               <SmartImage
-                src="/Branding/whatisbranding.jpg"
+                src="/Branding/whatisbranding.webp"
                 alt="Nexora Identity"
                 fill
                 className="object-cover"
               />
-
             </div>
           </motion.div>
 

@@ -12,23 +12,63 @@ type WorkflowItem = {
 // آیکون‌های مشابه با تصویر (به صورت SVG)
 const icons = {
   concept: (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
+    <svg
+      className="w-6 h-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={1.5}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"
+      />
     </svg>
   ),
   design: (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+    <svg
+      className="w-6 h-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={1.5}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+      />
     </svg>
   ),
   animation: (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+    <svg
+      className="w-6 h-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={1.5}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"
+      />
     </svg>
   ),
   lighting: (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+    <svg
+      className="w-6 h-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={1.5}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M13 10V3L4 14h7v7l9-11h-7z"
+      />
     </svg>
   ),
 };
@@ -70,10 +110,8 @@ export default function AnimationWorkflowSection() {
   return (
     // حذف بک‌گراند کلی از سکشن، فقط استایل پدینگ و فونت
     <section className="relative w-full overflow-hidden px-4 py-16 sm:px-8 md:py-24 lg:px-16 font-sans">
-      
       {/* گرید دو ستونه */}
       <div className="mx-auto grid max-w-[1200px] gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 items-start">
-        
         {/* === ستون چپ: متن و عکس === */}
         <div className="flex flex-col text-left lg:sticky lg:top-24 max-sm:text-center">
           <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.15em] text-[#00aabf] mb-4">
@@ -85,16 +123,16 @@ export default function AnimationWorkflowSection() {
             production process
           </h2>
           <p className="text-[13px] sm:text-sm leading-[1.8] text-white/60">
-            2D and 3D animation require precision, planning, and a clear creative vision. Our
-            production process is designed to stay efficient without sacrificing quality —
-            delivering polished visuals that look premium, feel intentional, and perform across
-            platforms.
+            2D and 3D animation require precision, planning, and a clear
+            creative vision. Our production process is designed to stay
+            efficient without sacrificing quality — delivering polished visuals
+            that look premium, feel intentional, and perform across platforms.
           </p>
 
           {/* عکس دسکتاپ (بدون بک‌گراند باکس، مستقیما عکس) */}
           <div className="mt-8 md:mt-12 w-full max-w-[400px]">
             <img
-              src="/preview.png" // همون عکس 3D که توی دیزاینت هست رو اینجا لود کن
+              src="/preview.webp" // همون عکس 3D که توی دیزاینت هست رو اینجا لود کن
               alt="Workflow 3D visual"
               className="w-full h-auto object-contain"
             />
@@ -103,7 +141,6 @@ export default function AnimationWorkflowSection() {
 
         {/* === ستون راست: باکس اصلی حاوی لیست آکاردئون === */}
         <div className="relative w-full rounded-2xl sm:rounded-[32px] bg-gradient-to-br from-[#00aabf]/20 to-[#0A1A1F]/90 backdrop-blur-xl border border-[#244b4b]/50 shadow-[0_0_50px_rgba(27,54,54,0.3)] overflow-hidden">
-          
           {/* خط دکوری فیروزه‌ای سمت چپ کانتینر */}
           <div className="absolute left-0 top-16 bottom-16 w-[3px] bg-[#00aabf]/80 rounded-r-md hidden sm:block shadow-[0_0_15px_#00aabf]" />
 
@@ -112,7 +149,7 @@ export default function AnimationWorkflowSection() {
               const isOpen = openId === item.id;
               // خط جداکننده بین آیتم‌ها (بجز آخری)
               const isLast = index === workflowItems.length - 1;
-              
+
               return (
                 <article
                   key={item.id}
@@ -133,7 +170,7 @@ export default function AnimationWorkflowSection() {
                         {item.icon}
                       </div>
                     </div>
-                    
+
                     {/* تایتل */}
                     <h3 className="text-lg sm:text-xl font-bold text-white tracking-wide">
                       {item.title}
@@ -143,7 +180,9 @@ export default function AnimationWorkflowSection() {
                   {/* محتوای توضیحات آکاردئون */}
                   <div
                     className={`grid transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                      isOpen ? "grid-rows-[1fr] opacity-100 pb-8" : "grid-rows-[0fr] opacity-0 pb-0"
+                      isOpen
+                        ? "grid-rows-[1fr] opacity-100 pb-8"
+                        : "grid-rows-[0fr] opacity-0 pb-0"
                     }`}
                   >
                     <div className="overflow-hidden">
@@ -157,7 +196,6 @@ export default function AnimationWorkflowSection() {
             })}
           </div>
         </div>
-
       </div>
     </section>
   );

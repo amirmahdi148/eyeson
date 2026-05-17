@@ -7,27 +7,26 @@ type CardItem = {
   imageUrl: string;
 };
 
-
 const items: CardItem[] = [
   {
     label: "Lottie Animation",
-    imageUrl: "/case/rframe.png",
+    imageUrl: "/case/rframe.webp",
   },
   {
     label: "UI Animation",
-    imageUrl: "/case/lframe.png", 
+    imageUrl: "/case/lframe.webp",
   },
   {
     label: "Branded motion",
-    imageUrl: "/case/b1f.png",
+    imageUrl: "/case/b1f.webp",
   },
   {
     label: "UI Animation",
-    imageUrl: "/case/b2f.png",
+    imageUrl: "/case/b2f.webp",
   },
   {
     label: "Lottie Animation",
-    imageUrl: "/case/b3f.png",
+    imageUrl: "/case/b3f.webp",
   },
 ];
 
@@ -103,7 +102,6 @@ export default function VisualProofSection() {
                   ${isTopRow ? "min-h-[280px] sm:min-h-[340px] lg:min-h-[420px]" : "min-h-[220px] sm:min-h-[240px] lg:min-h-[280px]"}
                 `}
               >
-
                 <img
                   src={item.imageUrl}
                   alt={item.label}

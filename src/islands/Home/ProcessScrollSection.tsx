@@ -236,7 +236,7 @@ export default function ProcessScrollSection() {
               <div className="relative w-full h-full rounded-[40px]">
                 <img
                   ref={parallaxImgRef}
-                  src="/home/process.png"
+                  src="/home/process.webp"
                   alt="Process Visualization"
                   className="w-full h-full object-contain scale-75 will-change-transform drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
                 />

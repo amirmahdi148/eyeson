@@ -1,11 +1,10 @@
 "use client";
 
-
 // آدرس عکس‌های سمت راست رو اینجا وارد کن
 const images = [
-  { id: 1, src: "/uiux/screen.png", alt: "Fluidity UI" },
-  { id: 2, src: "/uiux/screen1.png", alt: "Exploration UI" },
-  { id: 3, src: "/uiux/screen2.png", alt: "Third UI" },
+  { id: 1, src: "/uiux/screen.webp", alt: "Fluidity UI" },
+  { id: 2, src: "/uiux/screen1.webp", alt: "Exploration UI" },
+  { id: 3, src: "/uiux/screen2.webp", alt: "Third UI" },
 ];
 
 export default function UiUxHeroSection() {

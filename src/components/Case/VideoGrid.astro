@@ -13,12 +13,12 @@ interface Props {
 
 // اگر دیتایی پاس داده نشد، این دیتای پیش‌فرض (مثل تصویر) لود میشه
 const defaultVideos: VideoItem[] = [
-  { id: 1, thumbnailUrl: "/images/video-thumb.jpg" }, // بالا چپ 1
-  { id: 2, thumbnailUrl: "/images/video-thumb.jpg" }, // بالا چپ 2
-  { id: 3, thumbnailUrl: "/images/video-thumb.jpg" }, // پایین چپ 1
-  { id: 4, thumbnailUrl: "/images/video-thumb.jpg" }, // پایین چپ 2
-  { id: 5, thumbnailUrl: "/images/seogate-logo.jpg" }, // راست بالا (بزرگ)
-  { id: 6, thumbnailUrl: "/images/video-thumb.jpg" }, // راست پایین
+  { id: 1, thumbnailUrl: "/images/video-thumb.webp" }, // بالا چپ 1
+  { id: 2, thumbnailUrl: "/images/video-thumb.webp" }, // بالا چپ 2
+  { id: 3, thumbnailUrl: "/images/video-thumb.webp" }, // پایین چپ 1
+  { id: 4, thumbnailUrl: "/images/video-thumb.webp" }, // پایین چپ 2
+  { id: 5, thumbnailUrl: "/images/seogate-logo.webp" }, // راست بالا (بزرگ)
+  { id: 6, thumbnailUrl: "/images/video-thumb.webp" }, // راست پایین
 ];
 
 const { videos = defaultVideos } = Astro.props;
@@ -31,84 +31,91 @@ const rightBottomVideo = videos[5];
 
 <section class="w-full max-w-[1200px] mx-auto px-4 sm:px-6 py-12 bg-[#02080D]">
   <div class="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-4 md:gap-6">
-    
     {/* ===== بخش چپ: گرید 2 در 2 (چهار ویدیو کوچک) ===== */}
     <div class="grid grid-cols-2 gap-4 md:gap-6">
-      {leftGridVideos.map((video) => (
-        <a 
-          href={video.videoUrl || "#"} 
-          class="group relative block w-full aspect-square md:aspect-[4/3] overflow-hidden rounded-[20px] md:rounded-[24px] border border-[#1AA19C]/20 bg-[#0A1A1F] transition-transform duration-300 hover:scale-[1.02]"
-        >
-          <img 
-            src={video.thumbnailUrl} 
-            alt={`Video ${video.id}`} 
-            class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300"
-          />
-          {/* Overlay تاریک */}
-          <div class="absolute inset-0 bg-gradient-to-t from-[#02080D]/80 via-[#02080D]/40 to-transparent mix-blend-overlay"></div>
-          
-          {/* دکمه Play */}
-          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white/80 group-hover:text-white transition-colors duration-300">
-            <svg class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </div>
-        </a>
-      ))}
+      {
+        leftGridVideos.map((video) => (
+          <a
+            href={video.videoUrl || "#"}
+            class="group relative block w-full aspect-square md:aspect-[4/3] overflow-hidden rounded-[20px] md:rounded-[24px] border border-[#1AA19C]/20 bg-[#0A1A1F] transition-transform duration-300 hover:scale-[1.02]"
+          >
+            <img
+              src={video.thumbnailUrl}
+              alt={`Video ${video.id}`}
+              class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+            />
+            {/* Overlay تاریک */}
+            <div class="absolute inset-0 bg-gradient-to-t from-[#02080D]/80 via-[#02080D]/40 to-transparent mix-blend-overlay" />
+
+            {/* دکمه Play */}
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white/80 group-hover:text-white transition-colors duration-300">
+              <svg class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+          </a>
+        ))
+      }
     </div>
 
     {/* ===== بخش راست: یک کارت بزرگ بالا، یک کارت پهن پایین ===== */}
     <div class="flex flex-col gap-4 md:gap-6">
-      
       {/* کارت راست بالا (بزرگ با لوگو - طبق عکس) */}
-      {rightTopVideo && (
-        <a 
-          href={rightTopVideo.videoUrl || "#"} 
-          class="group relative block w-full h-[250px] md:h-[300px] lg:h-full lg:min-h-[280px] overflow-hidden rounded-[24px] md:rounded-[32px] border border-[#1AA19C]/20 bg-[#0A1A1F] transition-transform duration-300 hover:scale-[1.02]"
-        >
-          <img 
-            src={rightTopVideo.thumbnailUrl} 
-            alt="Main Feature Video" 
-            class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300"
-          />
-          <div class="absolute inset-0 bg-gradient-to-tr from-[#02080D]/90 via-[#02080D]/50 to-transparent mix-blend-overlay"></div>
-          
-          {/* اگر نیاز بود لوگو وسط این کارت باشه (مثل عکس) این قسمت فعاله */}
-          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-90 group-hover:opacity-100 transition-opacity duration-300">
-            {/* اینجا میتونی لوگوی اصلی SeoGate رو بذاری - فعلا آیکون پلی گذاشتم */}
-            <div class="w-16 h-16 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white">
-               <svg class="w-8 h-8 ml-1" fill="currentColor" viewBox="0 0 24 24">
+      {
+        rightTopVideo && (
+          <a
+            href={rightTopVideo.videoUrl || "#"}
+            class="group relative block w-full h-[250px] md:h-[300px] lg:h-full lg:min-h-[280px] overflow-hidden rounded-[24px] md:rounded-[32px] border border-[#1AA19C]/20 bg-[#0A1A1F] transition-transform duration-300 hover:scale-[1.02]"
+          >
+            <img
+              src={rightTopVideo.thumbnailUrl}
+              alt="Main Feature Video"
+              class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+            />
+            <div class="absolute inset-0 bg-gradient-to-tr from-[#02080D]/90 via-[#02080D]/50 to-transparent mix-blend-overlay" />
+
+            {/* اگر نیاز بود لوگو وسط این کارت باشه (مثل عکس) این قسمت فعاله */}
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-90 group-hover:opacity-100 transition-opacity duration-300">
+              {/* اینجا میتونی لوگوی اصلی SeoGate رو بذاری - فعلا آیکون پلی گذاشتم */}
+              <div class="w-16 h-16 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white">
+                <svg
+                  class="w-8 h-8 ml-1"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+            </div>
+          </a>
+        )
+      }
+
+      {/* کارت راست پایین (کارت افقی/پهن) */}
+      {
+        rightBottomVideo && (
+          <a
+            href={rightBottomVideo.videoUrl || "#"}
+            class="group relative block w-full h-[180px] md:h-[200px] lg:h-[220px] overflow-hidden rounded-[24px] md:rounded-[32px] border border-[#1AA19C]/20 bg-[#0A1A1F] transition-transform duration-300 hover:scale-[1.02]"
+          >
+            <img
+              src={rightBottomVideo.thumbnailUrl}
+              alt="Secondary Feature Video"
+              class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+            />
+            {/* نور پردازی و بلور مطابق عکس */}
+            <div class="absolute right-0 bottom-0 w-[150px] h-[150px] bg-[#1AA19C]/20 blur-[60px] pointer-events-none" />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#02080D]/80 via-[#02080D]/40 to-transparent mix-blend-overlay" />
+
+            {/* دکمه Play */}
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white/80 group-hover:text-white transition-colors duration-300">
+              <svg class="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M8 5v14l11-7z" />
               </svg>
             </div>
-          </div>
-        </a>
-      )}
-
-      {/* کارت راست پایین (کارت افقی/پهن) */}
-      {rightBottomVideo && (
-        <a 
-          href={rightBottomVideo.videoUrl || "#"} 
-          class="group relative block w-full h-[180px] md:h-[200px] lg:h-[220px] overflow-hidden rounded-[24px] md:rounded-[32px] border border-[#1AA19C]/20 bg-[#0A1A1F] transition-transform duration-300 hover:scale-[1.02]"
-        >
-          <img 
-            src={rightBottomVideo.thumbnailUrl} 
-            alt="Secondary Feature Video" 
-            class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300"
-          />
-          {/* نور پردازی و بلور مطابق عکس */}
-          <div class="absolute right-0 bottom-0 w-[150px] h-[150px] bg-[#1AA19C]/20 blur-[60px] pointer-events-none"></div>
-          <div class="absolute inset-0 bg-gradient-to-t from-[#02080D]/80 via-[#02080D]/40 to-transparent mix-blend-overlay"></div>
-          
-          {/* دکمه Play */}
-          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white/80 group-hover:text-white transition-colors duration-300">
-            <svg class="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </div>
-        </a>
-      )}
-      
+          </a>
+        )
+      }
     </div>
   </div>
 </section>

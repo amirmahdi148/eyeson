@@ -11,56 +11,56 @@ const storyItems: StoryItem[] = [
     id: "top-1",
     title: "Branded Motion",
     category: "Branded motion",
-    src: "/portfolio/customer-showcase/top-1.jpg",
+    src: "/portfolio/customer-showcase/top-1.webp",
     className: "md:col-span-4 md:row-span-2 md:row-start-1",
   },
   {
     id: "top-2",
     title: "UI Animation",
     category: "UI Animation",
-    src: "/portfolio/customer-showcase/top-2.jpg",
+    src: "/portfolio/customer-showcase/top-2.webp",
     className: "md:col-span-4 md:row-span-2 md:row-start-1",
   },
   {
     id: "top-3",
     title: "Lottie Animation",
     category: "Lottie Animation",
-    src: "/portfolio/customer-showcase/top-3.jpg",
+    src: "/portfolio/customer-showcase/top-3.webp",
     className: "md:col-span-4 md:row-span-2 md:row-start-1",
   },
   {
     id: "bottom-wide",
     title: "Lottie Animation",
     category: "Lottie Animation",
-    src: "/portfolio/customer-showcase/bottom-left.jpg",
+    src: "/portfolio/customer-showcase/bottom-left.webp",
     className: "md:col-span-6 md:row-span-3 md:row-start-3",
   },
   {
     id: "bottom-mid",
     title: "UI Animation",
     category: "UI Animation",
-    src: "/portfolio/design-showcase/top-3.jpg",
+    src: "/portfolio/design-showcase/top-3.webp",
     className: "md:col-span-3 md:col-start-7 md:row-start-3",
   },
   {
     id: "bottom-right-top",
     title: "UI Animation",
     category: "UI Animation",
-    src: "/portfolio/customer-showcase/mid-2.jpg",
+    src: "/portfolio/customer-showcase/mid-2.webp",
     className: "md:col-span-3 md:col-start-10 md:row-span-2 md:row-start-3",
   },
   {
     id: "bottom-right-bottom",
     title: "UI Animation",
     category: "UI Animation",
-    src: "/portfolio/customer-showcase/bot-1.jpg",
+    src: "/portfolio/customer-showcase/bot-1.webp",
     className: "md:col-span-3 md:col-start-7 md:row-span-2 md:row-start-4",
   },
   {
     id: "bottom-right-tail",
     title: "UI Animation",
     category: "UI Animation",
-    src: "/portfolio/design-showcase/top-3.jpg",
+    src: "/portfolio/design-showcase/top-3.webp",
     className: "md:col-span-3 md:col-start-10 md:row-start-5",
   },
 ];
@@ -69,7 +69,9 @@ export const CustomerStoriesShowcase = () => {
   return (
     <section className="mx-auto w-full max-w-6xl px-4 pb-24 pt-8 sm:px-6">
       <div className="mx-auto max-w-3xl text-center">
-        <p className="text-xs tracking-[0.18em] text-white/55">Customer Stories</p>
+        <p className="text-xs tracking-[0.18em] text-white/55">
+          Customer Stories
+        </p>
         <h2 className="mt-2 text-3xl font-black leading-tight text-white sm:text-4xl md:text-5xl">
           See how brands grow
           <br />
@@ -79,9 +81,9 @@ export const CustomerStoriesShowcase = () => {
           </span>
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-white/70 sm:text-base">
-          Real impact shows itself in real projects. Our case studies highlight the
-          teams and companies that trusted eyeson with motion, design and product
-          needs, and the results that followed.
+          Real impact shows itself in real projects. Our case studies highlight
+          the teams and companies that trusted eyeson with motion, design and
+          product needs, and the results that followed.
         </p>
       </div>
 

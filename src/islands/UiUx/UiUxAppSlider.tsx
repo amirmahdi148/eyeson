@@ -8,13 +8,13 @@ import "swiper/css/effect-coverflow";
 import "./UiUxAppSlider.css";
 
 const baseScreens = [
-  { id: 1, src: "/uiux/mobile-frame1.jpg", alt: "App Screen 1" },
-  { id: 2, src: "/uiux/mobile-frame2.jpg", alt: "App Screen 2" },
-  { id: 3, src: "/uiux/mobile-frame1.jpg", alt: "App Screen 3 (Appointy)" },
-  { id: 4, src: "/uiux/mobile-frame2.jpg", alt: "App Screen 4" },
-  { id: 5, src: "/uiux/mobile-frame1.jpg", alt: "App Screen 5" },
-  { id: 6, src: "/uiux/mobile-frame2.jpg", alt: "App Screen 6" },
-  { id: 7, src: "/uiux/mobile-frame1.jpg", alt: "App Screen 7" },
+  { id: 1, src: "/uiux/mobile-frame1.webp", alt: "App Screen 1" },
+  { id: 2, src: "/uiux/mobile-frame2.webp", alt: "App Screen 2" },
+  { id: 3, src: "/uiux/mobile-frame1.webp", alt: "App Screen 3 (Appointy)" },
+  { id: 4, src: "/uiux/mobile-frame2.webp", alt: "App Screen 4" },
+  { id: 5, src: "/uiux/mobile-frame1.webp", alt: "App Screen 5" },
+  { id: 6, src: "/uiux/mobile-frame2.webp", alt: "App Screen 6" },
+  { id: 7, src: "/uiux/mobile-frame1.webp", alt: "App Screen 7" },
 ];
 
 const appScreens = [

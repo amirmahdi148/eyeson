@@ -15,7 +15,7 @@ type PortfolioItem = {
 const buildItems = (prefix: PortfolioKey, category: string, count: number) =>
   Array.from({ length: count }, (_, idx) => ({
     id: `${prefix}-${category}-${idx + 1}`,
-    src: "/video-pieces/person.png",
+    src: "/video-pieces/person.webp",
     playable: true,
     category,
   }));

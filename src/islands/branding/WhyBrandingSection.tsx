@@ -27,7 +27,6 @@ export const WhyBrandingSection = () => {
       >
         {/* ===== ستون چپ: تیتر + ۲ کارت افقی ===== */}
         <div className="flex flex-col gap-5 lg:w-[42%]">
-          
           {/* تیتر */}
           <motion.div variants={itemVariants} className="mb-1">
             <h2 className="text-3xl font-black uppercase leading-tight tracking-tight text-white sm:text-4xl text-center lg:text-left md:text-5xl">
@@ -46,19 +45,24 @@ export const WhyBrandingSection = () => {
           >
             <div className="relative shrink-0" style={{ width: "42%" }}>
               <SmartImage
-                src="/Branding/leftnum1.png"
+                src="/Branding/leftnum1.webp"
                 alt="Builds Instant Trust and Credibility"
                 fill
                 className="object-none"
               />
             </div>
-            <div className="flex flex-col justify-center p-4 sm:p-5 lg:p-6" style={{ width: "58%" }}>
+            <div
+              className="flex flex-col justify-center p-4 sm:p-5 lg:p-6"
+              style={{ width: "58%" }}
+            >
               <h3 className="text-base font-bold text-white leading-snug mb-2 sm:text-lg lg:mb-3">
-                Builds Instant Trust &<br />Credibility
+                Builds Instant Trust &<br />
+                Credibility
               </h3>
               <p className="text-gray-400 text-xs leading-relaxed sm:text-sm">
                 First impressions happen fast. A strong visual identity signals
-                professionalism, confidence, and reliability from the first interaction.
+                professionalism, confidence, and reliability from the first
+                interaction.
               </p>
             </div>
           </motion.div>
@@ -69,9 +73,13 @@ export const WhyBrandingSection = () => {
             className="flex flex-row rounded-2xl border border-[#14313B] bg-[#081620] overflow-hidden"
             style={{ minHeight: 160 }}
           >
-            <div className="flex flex-col justify-center p-4 sm:p-5 lg:p-6" style={{ width: "58%" }}>
+            <div
+              className="flex flex-col justify-center p-4 sm:p-5 lg:p-6"
+              style={{ width: "58%" }}
+            >
               <h3 className="text-base font-bold text-white leading-snug mb-2 sm:text-lg lg:mb-3">
-                Recognizable &<br />Memorable
+                Recognizable &<br />
+                Memorable
               </h3>
               <p className="text-gray-400 text-xs leading-relaxed sm:text-sm">
                 Consistent visuals help your brand stand out and stay
@@ -80,7 +88,7 @@ export const WhyBrandingSection = () => {
             </div>
             <div className="relative shrink-0" style={{ width: "42%" }}>
               <SmartImage
-                src="/Branding/leftnum2.png"
+                src="/Branding/leftnum2.webp"
                 alt="Recognizable and Memorable"
                 fill
                 className="object-none"
@@ -96,7 +104,9 @@ export const WhyBrandingSection = () => {
         >
           <div className="p-5 sm:p-6 lg:p-7 shrink-0">
             <h3 className="text-xl font-bold text-white leading-tight mb-3 sm:text-2xl lg:mb-4">
-              Consistency Across<br />Product & Marketing
+              Consistency Across
+              <br />
+              Product & Marketing
             </h3>
             <p className="text-gray-400 text-sm leading-relaxed lg:text-[15px]">
               A unified brand system ensures your product, website, content, and
@@ -106,7 +116,7 @@ export const WhyBrandingSection = () => {
 
           <div className="relative flex-1" style={{ minHeight: 260 }}>
             <SmartImage
-              src="/Branding/rightnum1.png"
+              src="/Branding/rightnum1.webp"
               alt="Consistency Across Product and Marketing"
               fill
               className="object-none scale-110"
@@ -121,7 +131,7 @@ export const WhyBrandingSection = () => {
         >
           <div className="relative flex-1" style={{ minHeight: 240 }}>
             <SmartImage
-              src="/Branding/rightnum2.png"
+              src="/Branding/rightnum2.webp"
               alt="Better Performing Content and Ads"
               fill
               className="object-none scale-110"
@@ -130,7 +140,9 @@ export const WhyBrandingSection = () => {
 
           <div className="p-5 sm:p-6 lg:p-7 shrink-0">
             <h3 className="text-lg font-bold text-white leading-tight mb-2 sm:text-xl lg:mb-3">
-              Better Performing<br />Content & Ads
+              Better Performing
+              <br />
+              Content & Ads
             </h3>
             <p className="text-gray-400 text-sm leading-relaxed lg:text-[15px]">
               Clear, recognizable branding improves recall, engagement, and
@@ -138,7 +150,6 @@ export const WhyBrandingSection = () => {
             </p>
           </div>
         </motion.div>
-
       </motion.div>
     </section>
   );

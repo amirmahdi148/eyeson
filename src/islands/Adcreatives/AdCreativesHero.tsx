@@ -8,7 +8,7 @@ import "./AdCreativesHero.css";
 const cards = [
   {
     id: 1,
-    src: "/adcreatives/hero1.jpg",
+    src: "/adcreatives/hero1.webp",
     alt: "Ad 1",
     tooltip: "Agency",
     rotate: 0,
@@ -18,7 +18,7 @@ const cards = [
   },
   {
     id: 2,
-    src: "/adcreatives/hero2.jpg",
+    src: "/adcreatives/hero2.webp",
     alt: "Ad 2",
     tooltip: "Campaign",
     rotate: 0,
@@ -28,7 +28,7 @@ const cards = [
   },
   {
     id: 3,
-    src: "/adcreatives/hero3.jpg",
+    src: "/adcreatives/hero3.webp",
     alt: "Ad 3",
     tooltip: "Creative",
     rotate: 0,
@@ -38,7 +38,7 @@ const cards = [
   },
   {
     id: 4,
-    src: "/adcreatives/hero4.jpg",
+    src: "/adcreatives/hero4.webp",
     alt: "Ad 4",
     tooltip: "Growth",
     rotate: 0,
@@ -48,7 +48,7 @@ const cards = [
   },
   {
     id: 5,
-    src: "/adcreatives/hero5.jpg",
+    src: "/adcreatives/hero5.webp",
     alt: "Ad 5",
     tooltip: "Launch",
     rotate: 0,
@@ -58,7 +58,7 @@ const cards = [
   },
   {
     id: 6,
-    src: "/adcreatives/hero6.jpg",
+    src: "/adcreatives/hero6.webp",
     alt: "Ad 6",
     tooltip: "Trade",
     rotate: 0,
@@ -68,7 +68,7 @@ const cards = [
   },
   {
     id: 7,
-    src: "/adcreatives/hero7.jpg",
+    src: "/adcreatives/hero7.webp",
     alt: "Ad 7",
     tooltip: "Innovation",
     rotate: 0,

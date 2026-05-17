@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import { SmartImage } from "@/utils/SmartImage.tsx";
 
-const contactImg = "/Shared/contact/C.png";
+const contactImg = "/Shared/contact/C.webp";
 
 export default function ContactUs() {
   const [selectedBudget, setSelectedBudget] = useState<string | null>(null);
