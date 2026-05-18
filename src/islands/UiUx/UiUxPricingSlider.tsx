@@ -10,6 +10,8 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-creative";
 import "./UiUxPricingSlider.css";
+import PrimaryButton from "@/components/Shared/PrimaryButton";
+import SecondaryButton from "@/components/Shared/SecondaryButton";
 
 // اضافه کردن کارت‌های بیشتر (۵ کارت)
 const slides = [
@@ -240,12 +242,13 @@ export default function UiUxPricingSlider() {
                       </div>
 
                       <div className="pricing-actions">
-                        <button className="btn-primary">
-                          {slide.primaryCta}
-                        </button>
-                        <button className="btn-secondary">
-                          {slide.secondaryCta}
-                        </button>
+
+                        <PrimaryButton text={slide.primaryCta} width="auto" />
+
+                        <SecondaryButton
+                          text={slide.secondaryCta}
+                          width="auto"
+                        />
                       </div>
                     </div>
 

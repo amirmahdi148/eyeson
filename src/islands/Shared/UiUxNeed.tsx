@@ -1,3 +1,5 @@
+import PrimaryButton from "@/components/Shared/PrimaryButton";
+import SecondaryButton from "@/components/Shared/SecondaryButton";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
 type InfoCard = {
@@ -139,20 +141,13 @@ export default function UiUxNeed({
               </p>
 
               <div className="mt-7 flex flex-nowrap gap-3 md:flex-wrap md:gap-4">
-                <button className="rounded-full border-4 cursor-pointer border-[#00A9BD] bg-linear-to-r from-[#00A9BD] to-[#1D553A] px-6 py-2 text-[12px] md:text-[17px] font-semibold text-white shadow-[0_0_22px_rgba(14,224,208,0.55)] md:px-7 md:text-sm">
-                  {primaryButtonLabel}
-                </button>
-                <div className="relative inline-flex rounded-full p-1">
+                <PrimaryButton text={primaryButtonLabel} width="auto" />
+                <div className="relative inline-flex rounded-full ">
                   <div
                     aria-hidden
                     className="absolute inset-0 rounded-full bg-linear-to-r from-[#056E7C] to-[#46B6A0]"
                   />
-                  <button
-                    type="button"
-                    className="relative z-10 cursor-pointer rounded-full bg-linear-to-r from-[#00061D] to-[#0B1F2A] px-8  text-[12px] md:text-[17px] font-semibold text-white shadow-[0_0_24px_rgba(34,211,238,0.25)] md:px-10 md:text-base"
-                  >
-                    {secondaryButtonLabel}
-                  </button>
+                  <SecondaryButton text={secondaryButtonLabel} width="auto" />
                 </div>
               </div>
             </div>
@@ -243,18 +238,8 @@ export default function UiUxNeed({
         </div>
 
         <div className="mt-4 flex items-center justify-center gap-2 md:hidden">
-          {cards.map((card, index) => (
-            <button
-              key={card.id}
-              type="button"
-              onClick={() => goToCard(index)}
-              aria-label={`Go to card ${index + 1}`}
-              aria-pressed={activeSlide === index}
-              className={`h-2.5 w-2.5 rounded-full transition-all ${
-                activeSlide === index ? "bg-[#2ecfc9]" : "bg-white/20"
-              }`}
-            />
-          ))}
+          <PrimaryButton text={primaryButtonLabel} width="auto" />
+          <SecondaryButton text={secondaryButtonLabel} width="auto" />
         </div>
       </div>
     </section>

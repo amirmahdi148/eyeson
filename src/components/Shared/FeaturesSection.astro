@@ -91,16 +91,17 @@ const features = [
     </div>
 
     <div
-      class="feature-track grid w-full grid-cols-1 gap-4 md:gap-6 lg:grid-cols-3"
+      class="feature-track grid w-full grid-cols-1 gap-5 md:gap-6 lg:grid-cols-3"
       data-feature-track
     >
       {
         features.map((feature, index) => (
           <article
-            class="feature-card group relative min-h-70 overflow-hidden rounded-[22px] border border-[#163044]/60 bg-[#0A1A2A]/40 p-5 shadow-xl md:rounded-3xl md:p-6 lg:p-8 md:backdrop-blur-md"
+            class="feature-card group relative min-h-70 overflow-hidden rounded-[24px] border border-white/5 bg-[#0A1A2A]/20 p-6 md:p-8 transition-all duration-300 hover:border-white/10 hover:bg-[#0A1A2A]/40 md:backdrop-blur-lg"
             data-feature-card-index={index}
           >
-            <div class="absolute inset-0 z-0 transition-opacity duration-500">
+            {/* تصویر پس‌زمینه کارت (با شفافیت کمتر برای مینیمال شدن) */}
+            <div class="absolute inset-0 z-0 mix-blend-overlay transition-opacity duration-500 ">
               <SmartImage
                 src={feature.bgImage}
                 fill={true}
@@ -109,12 +110,14 @@ const features = [
               />
             </div>
 
-            <div class="pointer-events-none absolute inset-x-0 -bottom-10 z-0 h-24 bg-linear-to-t from-[#00A9BD]/20 to-transparent opacity-40 transition-opacity duration-500 md:blur-xl md:group-hover:opacity-100" />
+            {/* افکت نوری ملایم در هاور */}
+            <div class="pointer-events-none absolute inset-x-0 -bottom-10 z-0 h-32 bg-gradient-to-t from-[#42D1D1]/10 to-transparent opacity-0 transition-opacity duration-500 blur-2xl group-hover:opacity-100" />
 
             <div class="relative z-10 flex h-full flex-col">
-              <div class="mb-6 inline-flex self-start rounded-xl border border-white/5 bg-linear-to-b from-white/10 to-transparent p-3 shadow-inner">
+              {/* آیکون مینیمال شده */}
+              <div class="mb-8 flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 shadow-sm transition-transform duration-300 group-hover:scale-105 group-hover:border-[#42D1D1]/30">
                 <svg
-                  class="h-6 w-6 text-white"
+                  class="h-5 w-5 text-white group-hover:text-[#42D1D1] transition-colors duration-300"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -129,8 +132,11 @@ const features = [
                 </svg>
               </div>
 
-              <h3 class="mb-3 text-xl font-bold text-white">{feature.title}</h3>
-              <p class="text-sm leading-relaxed font-light text-gray-300">
+              {/* متون مینیمال شده */}
+              <h3 class="mb-3 text-[19px] font-semibold tracking-wide text-white/95">
+                {feature.title}
+              </h3>
+              <p class="text-[14px] leading-[1.8] font-light text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
                 {feature.description}
               </p>
             </div>
@@ -140,14 +146,14 @@ const features = [
     </div>
 
     <div
-      class="mt-4 flex items-center justify-center gap-2 md:hidden"
+      class="mt-6 flex items-center justify-center gap-2.5 md:hidden"
       data-feature-dots
     >
       {
         features.map((feature, index) => (
           <button
             type="button"
-            class={`feature-dot h-2.5 w-2.5 rounded-full transition-all ${index === 0 ? "is-active" : ""}`}
+            class={`feature-dot h-2 w-2 rounded-full transition-all duration-300 ${index === 0 ? "is-active" : ""}`}
             aria-label={`Go to slide ${index + 1}`}
             aria-pressed={index === 0 ? "true" : "false"}
             data-feature-dot-index={index}
@@ -166,34 +172,35 @@ const features = [
       scroll-snap-type: x mandatory;
       -ms-overflow-style: none;
       scrollbar-width: none;
+      padding-bottom: 1rem; /* برای جا باز کردن سایه‌ی کارت‌ها */
     }
 
-    .feature-track::-webkit-scrollbar {
-      display: none;
-    }
+
 
     .feature-card {
-      min-width: 100%;
+      min-width: 85%; /* کارت‌ها تو موبایل کمی از کناره‌ها جا می‌ذارن تا کاربر بفهمه اسکرول میشه */
       scroll-snap-align: center;
     }
   }
 
   @media (min-width: 1024px) {
     .feature-card {
-      transition: transform 200ms ease;
+      transition: transform 300ms ease, box-shadow 300ms ease;
     }
 
     .feature-card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-4px);
+     
     }
   }
 
   .feature-dot {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.15);
   }
 
   .feature-dot.is-active {
-    background: #2ecfc9;
+    background: #42D1D1;
+    width: 1.25rem; /* نقطه فعال کشیده‌تر میشه (مینیمال‌تر از رنگ پررنگ) */
   }
 </style>
 
@@ -247,7 +254,7 @@ const features = [
         if (!(card instanceof HTMLElement)) return;
         card.scrollIntoView({
           behavior: "smooth",
-          inline: "start",
+          inline: "center",
           block: "nearest",
         });
       });
