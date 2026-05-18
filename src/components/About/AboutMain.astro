@@ -11,6 +11,7 @@ import { Communication } from "../../islands/About/Communication";
 import VideoWorkShowcaseSection from "../../islands/Shared/VideoWorkShowcaseSection";
 import QandASection from "../Shared/QandASection.astro";
 import ContactUs from "../../islands/ContactUs";
+import CTA from "../Shared/CTA.astro";
 
 const orbits: OrbitConfig[] = [
   {
@@ -99,4 +100,5 @@ const aboutShowcaseSecondRow = [
   />
   <QandASection />
   <ContactUs client:visible />
+  <CTA />
 </div>

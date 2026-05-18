@@ -3,6 +3,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import "./AdCreativesHero.css";
+import SecondaryButton from "@/components/Shared/SecondaryButton";
+import PrimaryButton from "@/components/Shared/PrimaryButton";
 
 // 🔴 تغییرات: rotate همه صفر شد تا دیگه کج نشن. فقط بالا پایین برن.
 const cards = [
@@ -128,14 +130,10 @@ export default function AdCreativesHero() {
         <div className="hero-actions">
           <div className="hero-btn-wrapper">
             <div className="hero-btn-glow"></div>
-            <a href="#" className="hero-btn primary-btn">
-              Get Ad Creatives
-            </a>
+            <PrimaryButton text="Get Ad Creatives" width="auto" />
           </div>
 
-          <a href="#" className="hero-btn secondary-btn">
-            See our work
-          </a>
+          <SecondaryButton text="See our work" width="auto" />
         </div>
       </div>
     </section>

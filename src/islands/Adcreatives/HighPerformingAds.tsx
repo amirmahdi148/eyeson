@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import "./HighPerformingAds.css";
+import PrimaryButton from "@/components/Shared/PrimaryButton";
 
 export default function HighPerformingAds() {
   return (
@@ -32,9 +33,7 @@ export default function HighPerformingAds() {
 
           <div className="hpa-action-wrapper">
             <div className="hpa-button-glow"></div>
-            <a href="#" className="hpa-button">
-              Get a free sample
-            </a>
+            <PrimaryButton text="Get a free sample" width="auto" />
           </div>
         </div>
 

@@ -364,12 +364,21 @@ export const MobileMenu = ({ open, onClose }: MobileMenuProps) => {
 
         {/* CTA Buttons Sticky at Bottom */}
         <div className="mt-auto grid grid-cols-2 gap-3 p-4 border-t border-white/5 bg-[#020915]">
-          <button className="rounded-full border border-[#3AAFC8]/45 bg-[#041827] px-3 py-3 text-sm font-semibold text-white">
+          {/* لینک اول - به صفحه Contact هدایت می‌کنه */}
+          <a
+            href="/contact"
+            className="inline-flex items-center justify-center rounded-full border border-[#3AAFC8]/45 bg-[#041827] px-3 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#3AAFC8]/10"
+          >
             Book a call
-          </button>
-          <button className="rounded-full bg-gradient-to-r from-[#00A9BD] to-[#1D553A] px-3 py-3 text-sm font-semibold text-white">
+          </a>
+
+          {/* لینک دوم - به صفحه Contact (یا هر مسیر دیگه‌ای) هدایت می‌کنه */}
+          <a
+            href="/contact"
+            className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#00A9BD] to-[#1D553A] px-3 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+          >
             Free sample
-          </button>
+          </a>
         </div>
       </div>
     </div>
@@ -442,9 +451,13 @@ export const Header = () => {
               ))}
             </nav>
 
-            <button className="hidden lg:block px-8 py-2.5 rounded-full text-white font-semibold bg-[#0B1F2A] border border-cyan-300/70 shadow-[0_0_30px_rgba(45,220,255,0.2)] hover:bg-[#0f2c3d] transition-colors">
-              Book a Call
-            </button>
+            {/* لینک اول - به صفحه Contact هدایت می‌کنه */}
+            <a
+              href="/contact"
+              className="hidden lg:block px-8 py-2.5 rounded-full text-white font-semibold bg-[#0B1F2A] border border-cyan-300/70 shadow-[0_0_30px_rgba(45,220,255,0.2)] hover:bg-[#0f2c3d] transition-colors"
+            >
+              Book a call
+            </a>
           </div>
 
           {/* Mobile / Compact Header */}
@@ -456,9 +469,13 @@ export const Header = () => {
                 alt="EyesOn logo"
               />
             </a>
-            <button className="rounded-full px-5 py-2 text-[13px] font-semibold text-white bg-gradient-to-r from-[#00A9BD] to-[#1D553A]">
+            {/* لینک دوم - به صفحه Contact (یا هر مسیر دیگه‌ای) هدایت می‌کنه */}
+            <a
+              href="/contact"
+              className="rounded-full px-5 py-2 text-[13px] font-semibold text-white bg-gradient-to-r from-[#00A9BD] to-[#1D553A]"
+            >
               Free sample
-            </button>
+            </a>
             <button
               onClick={() => setMobileOpen(true)}
               className="h-10 w-10 rounded-full border border-[#3AAFC8]/40 bg-[#07202B] flex flex-col justify-center items-center gap-[4px]"
