@@ -4,7 +4,7 @@ import { SmartImage } from "../../../utils/SmartImage.tsx";
 const STEPS = [
   {
     id: 1,
-    image: "/video-pieces/slide1.jpg",
+    image: "/video-pieces/slide1.webp",
     title: "Faster Understanding",
     subtitle: "Understand in Seconds. Not Minutes.",
     description:
@@ -12,7 +12,7 @@ const STEPS = [
   },
   {
     id: 2,
-    image: "/animation-section/3D.jpg",
+    image: "/animation-section/3D.webp",
     title: "Higher Landing Page Conversion",
     subtitle: "Clarity Removes Hesitation.",
     description:
@@ -20,7 +20,7 @@ const STEPS = [
   },
   {
     id: 3,
-    image: "/animation-section/motion.jpg",
+    image: "/animation-section/motion.webp",
     title: "Shorter Sales Calls",
     subtitle: "Less Explaining. More Closing.",
     description:
@@ -28,7 +28,7 @@ const STEPS = [
   },
   {
     id: 4,
-    image: "/animation-section/video.jpg",
+    image: "/animation-section/video.webp",
     title: "Stronger Brand Perception",
     subtitle: "Professional Motion Builds Trust.",
     description:
@@ -73,9 +73,13 @@ export const ConversionScroll = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative z-10 mx-auto block w-full max-w-[920px] px-4 pb-24 pt-5">
+    <section
+      ref={sectionRef}
+      className="relative z-10 mx-auto block w-full max-w-[920px] px-4 pb-24 pt-5"
+    >
       <h2 className="text-center text-white text-2xl md:text-3xl font-black mb-12">
-        Why <span className="text-[#1FC5C8]">Product Videos</span> increase conversion
+        Why <span className="text-[#1FC5C8]">Product Videos</span> increase
+        conversion
       </h2>
 
       {/* Desktop version */}
@@ -97,16 +101,25 @@ export const ConversionScroll = () => {
             const segment = 1 / STEPS.length;
             const segmentStart = index * segment;
             const offset = 0.25; // faster activation on desktop
-            const stepProgress = clamp((progress - segmentStart + offset) / segment, 0, 1);
+            const stepProgress = clamp(
+              (progress - segmentStart + offset) / segment,
+              0,
+              1,
+            );
             const isActive = stepProgress > 0;
             const imageOffset = (1 - stepProgress) * -220;
             const textOffset = (1 - stepProgress) * 220;
 
             return (
-              <div key={step.id} className="grid grid-cols-1 items-center gap-5 lg:grid-cols-[1fr_90px_1fr]">
+              <div
+                key={step.id}
+                className="grid grid-cols-1 items-center gap-5 lg:grid-cols-[1fr_90px_1fr]"
+              >
                 <div
                   className={`overflow-hidden rounded-2xl border transition-all duration-500 ${
-                    isActive ? "border-[#37D0CD] shadow-[0_0_35px_rgba(55,208,205,0.25)]" : "border-[#194356]"
+                    isActive
+                      ? "border-[#37D0CD] shadow-[0_0_35px_rgba(55,208,205,0.25)]"
+                      : "border-[#194356]"
                   }`}
                   style={{
                     transform: `translate3d(${imageOffset}px, 0, 0)`,
@@ -127,7 +140,9 @@ export const ConversionScroll = () => {
                 <div className="hidden lg:block" />
                 <article
                   className={`rounded-2xl border bg-[#0A1C29]/85 p-5 backdrop-blur-sm transition-all duration-500 ${
-                    isActive ? "border-[#1FC5C8] shadow-[0_0_30px_rgba(31,197,200,0.18)]" : "border-[#14384B]"
+                    isActive
+                      ? "border-[#1FC5C8] shadow-[0_0_30px_rgba(31,197,200,0.18)]"
+                      : "border-[#14384B]"
                   }`}
                   style={{
                     transform: `translate3d(${textOffset}px, 0, 0)`,
@@ -135,9 +150,15 @@ export const ConversionScroll = () => {
                     willChange: "transform, opacity",
                   }}
                 >
-                  <h3 className="text-[#1FC5C8] text-xl font-black">{step.id}. {step.title}</h3>
-                  <h4 className="mt-2 text-white text-lg font-semibold">{step.subtitle}</h4>
-                  <p className="mt-3 text-white/70 text-base leading-6">{step.description}</p>
+                  <h3 className="text-[#1FC5C8] text-xl font-black">
+                    {step.id}. {step.title}
+                  </h3>
+                  <h4 className="mt-2 text-white text-lg font-semibold">
+                    {step.subtitle}
+                  </h4>
+                  <p className="mt-3 text-white/70 text-base leading-6">
+                    {step.description}
+                  </p>
                 </article>
               </div>
             );
@@ -152,7 +173,11 @@ export const ConversionScroll = () => {
             const segment = 1 / STEPS.length;
             const segmentStart = index * segment;
             const offset = 0.1; // slightly increased activation offset for mobile
-            const stepProgress = clamp((progress - segmentStart + offset) / segment, 0, 1);
+            const stepProgress = clamp(
+              (progress - segmentStart + offset) / segment,
+              0,
+              1,
+            );
             const isActive = stepProgress > 0;
             const textOffset = (1 - stepProgress) * 220;
 
@@ -160,7 +185,9 @@ export const ConversionScroll = () => {
               <article
                 key={step.id}
                 className={`rounded-2xl border bg-[#0A1C29]/85 p-5 backdrop-blur-sm transition-all duration-500 ${
-                  isActive ? "border-[#1FC5C8] shadow-[0_0_30px_rgba(31,197,200,0.18)]" : "border-[#14384B]"
+                  isActive
+                    ? "border-[#1FC5C8] shadow-[0_0_30px_rgba(31,197,200,0.18)]"
+                    : "border-[#14384B]"
                 }`}
                 style={{
                   transform: `translate3d(${textOffset}px, 0, 0)`,
@@ -168,9 +195,15 @@ export const ConversionScroll = () => {
                   willChange: "transform, opacity",
                 }}
               >
-                <h3 className="text-[#1FC5C8] text-xl font-black">{step.id}. {step.title}</h3>
-                <h4 className="mt-2 text-white text-lg font-semibold">{step.subtitle}</h4>
-                <p className="mt-3 text-white/70 text-base leading-6">{step.description}</p>
+                <h3 className="text-[#1FC5C8] text-xl font-black">
+                  {step.id}. {step.title}
+                </h3>
+                <h4 className="mt-2 text-white text-lg font-semibold">
+                  {step.subtitle}
+                </h4>
+                <p className="mt-3 text-white/70 text-base leading-6">
+                  {step.description}
+                </p>
               </article>
             );
           })}

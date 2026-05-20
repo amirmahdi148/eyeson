@@ -40,19 +40,19 @@ import {
       class="container relative mx-auto px-6 py-16 md:py-20 lg:px-12 xl:px-16 z-10"
     >
       <!-- 📱 MOBILE -->
-      <div class="flex flex-col gap-6 md:hidden">
+      <div class="flex flex-col items-center text-center gap-6 md:hidden">
         <!-- Logo -->
         <div class="flex items-center justify-center">
           <img
-            src="/logos/img.png"
+            src="/logos/img.webp"
             alt="Eyeson logo"
             class="h-10 w-auto object-contain"
             loading="lazy"
           />
         </div>
 
-        <!-- Contact -->
-        <div class="flex flex-col gap-3 text-sm text-white/90">
+        <!-- Contact (وسط‌چین شده برای موبایل) -->
+        <div class="flex flex-col items-center gap-3 text-sm text-white/90">
           <div class="flex items-center gap-3">
             <PhoneCall client:load className="text-[#00A9BD] h-4 w-4" />
             <span>+0123456789</span>
@@ -79,8 +79,10 @@ import {
           </div>
         </div>
 
-        <!-- Copyright -->
-        <div class="flex items-center gap-2 text-sm text-white/60 pt-2">
+        <!-- Copyright (وسط‌چین شده برای موبایل) -->
+        <div
+          class="flex items-center justify-center gap-2 text-sm text-white/60 pt-2"
+        >
           <Copyright client:load className="h-4 w-4" />
           <span
             >{new Date().getFullYear()} Eyeson Agency All rights reserved.</span

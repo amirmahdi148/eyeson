@@ -4,7 +4,7 @@ export const DesignSubscriptionSection = () => {
       <div className="grid items-center gap-8 rounded-3xl  p-5 backdrop-blur-sm md:grid-cols-2 md:gap-12 md:p-10">
         <div className="order-2 md:order-1">
           <img
-            src="/video-pieces/person.png"
+            src="/video-pieces/person.webp"
             alt="Design subscription workspace preview"
             loading="lazy"
             decoding="async"

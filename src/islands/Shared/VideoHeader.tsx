@@ -56,7 +56,7 @@ export const VideoHeader = ({
   AfterHighlight = "",
   Description = "High-impact animated visuals...",
 
-  imageUrl = "/animation-section/Edited.png",
+  imageUrl = "/animation-section/Edited.webp",
 
   imageClassName = "object-contain w-full h-auto",
   imageDivClassName = "",
@@ -230,23 +230,21 @@ export const VideoHeader = ({
             >
               {/* دکمه اصلی */}
 
-                <PrimaryButton
-                  text={secondaryBtnText}
-                  href={secondaryBtnUrl}
-                  width="14rem"
-                  height="50px"
-                />
-          
+              <PrimaryButton
+                text={secondaryBtnText}
+                href={secondaryBtnUrl}
+                width="14rem"
+                height="50px"
+              />
 
               {/* دکمه فرعی */}
-  
-                <SecondaryButton
-                  text={secondaryBtnText}
-                  href={secondaryBtnUrl}
-                  width="14rem"
-                  height="50px"
-                />
-           
+
+              <SecondaryButton
+                text={secondaryBtnText}
+                href={secondaryBtnUrl}
+                width="14rem"
+                height="50px"
+              />
             </motion.div>
           </MotionTag>
 

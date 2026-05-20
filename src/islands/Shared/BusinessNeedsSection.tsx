@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
@@ -30,21 +30,21 @@ const defaultInfoCards: InfoCard[] = [
     title: "Promote brand individuality",
     description:
       "Professional editing shapes your content into a style that feels uniquely yours. From pacing to color and transitions, consistent editing builds a recognizable identity.",
-    image: "/animation-section/short-form.png",
+    image: "/animation-section/short-form.webp",
   },
   {
     id: 2,
     title: "Stand out from competitors",
     description:
       "Clean, well-structured edits naturally separate you from noise. Strong storytelling and polished visuals make your videos feel more professional and memorable.",
-    image: "/animation-section/motion.jpg",
+    image: "/animation-section/motion.webp",
   },
   {
     id: 3,
     title: "Create shareable & reusable assets",
     description:
       "Great edits can be repurposed across social platforms and campaigns. This gives your team more content options without starting from scratch each time.",
-    image: "/animation-section/video.jpg",
+    image: "/animation-section/video.webp",
   },
 ];
 
@@ -117,7 +117,7 @@ export default function BusinessNeedsSection({
 
         <div className="relative mt-4 overflow-hidden rounded-[34px] border border-[#12c9d5]/55 bg-[radial-gradient(circle_at_80%_100%,rgba(17,180,185,0.2),rgba(3,19,31,0.92)_58%)] p-5 shadow-[0_0_40px_rgba(0,168,182,0.24)] md:mt-10 md:rounded-3xl md:border-[#0f7f98]/60 md:bg-transparent md:p-8 md:shadow-[0_0_60px_rgba(0,168,182,0.2)]">
           <img
-            src="/blogs/Story-Back.png"
+            src="/blogs/Story-Back.webp"
             alt=""
             className="object-cover absolute bottom-2 left-0"
             sizes="(max-width: 1024px) 100vw, 1200px"

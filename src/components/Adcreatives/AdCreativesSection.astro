@@ -1,16 +1,16 @@
 ---
-import './AdCreativesSection.css';
+import PrimaryButton from "../Shared/PrimaryButton";
+import "./AdCreativesSection.css";
 ---
 
 <section class="ad-creatives-section">
   <div class="ad-creatives-container">
-    
     {/* ستون سمت چپ: تصویر */}
     <div class="ad-image-column">
       <div class="ad-image-wrapper">
-        <img 
-          src="/adcreatives/com-sec2.jpg" 
-          alt="Mouse cursor clicking on a red book" 
+        <img
+          src="/adcreatives/com-sec2.webp"
+          alt="Mouse cursor clicking on a red book"
           class="ad-image"
           loading="lazy"
         />
@@ -22,24 +22,29 @@ import './AdCreativesSection.css';
       <h2 class="ad-title">
         <span class="title-white">IMPACTFUL & HIGH-CONVERTING</span>
         <br />
-        <span class="title-teal">Ad Creatives</span> 
+        <span class="title-teal">Ad Creatives</span>
         <span class="title-white">that elevate your brand</span>
       </h2>
-      
+
       <div class="ad-description">
         <p>
-          By understanding how each creative fits into your campaign's funnel, we design ads that stop the scroll, deliver your message fast, and drive measurable performance. Every asset is crafted with strategic clarity, bold visuals, and platform-specific optimization to maximize engagement and conversions.
+          By understanding how each creative fits into your campaign's funnel,
+          we design ads that stop the scroll, deliver your message fast, and
+          drive measurable performance. Every asset is crafted with strategic
+          clarity, bold visuals, and platform-specific optimization to maximize
+          engagement and conversions.
         </p>
         <p>
-          Our approach blends creativity with data-driven thinking, helping your brand stand out while reducing wasted ad spend and strengthening long-term campaign results.
+          Our approach blends creativity with data-driven thinking, helping your
+          brand stand out while reducing wasted ad spend and strengthening
+          long-term campaign results.
         </p>
       </div>
 
       <div class="ad-action-wrapper">
         <div class="ad-button-glow"></div>
-        <a href="#" class="ad-button">See our work</a>
+        <PrimaryButton text="See our work" width="100%" />
       </div>
     </div>
-
   </div>
 </section>

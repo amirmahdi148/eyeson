@@ -123,7 +123,7 @@ export default function VideoPackagesSection() {
                   style={
                     pack.featured
                       ? {
-                          backgroundImage: "url('/video-pieces/Featured-One.png')",
+                          backgroundImage: "url('/video-pieces/Featured-One.webp')",
                           backgroundSize: "cover",
                           backgroundPosition: "center",
                         }
@@ -233,7 +233,7 @@ export default function VideoPackagesSection() {
               style={
                 pack.featured
                   ? {
-                      backgroundImage: "url('/video-pieces/Featured-One.png')",
+                      backgroundImage: "url('/video-pieces/Featured-One.webp')",
                       backgroundSize: "cover",
                       backgroundPosition: "center",
                     }

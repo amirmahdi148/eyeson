@@ -19,21 +19,21 @@ export default function AnimationNeedsBlock() {
           title: "Promote brand individuality",
           description:
             "3D animation requires a more specialized workflow, which means every result feels unique and tailored.",
-          image: "/animation-section/short-form.png",
+          image: "/animation-section/short-form.webp",
         },
         {
           id: 2,
           title: "Stand out from competitors",
           description:
             "Because 3D animation demands expertise, brands that use it naturally look more polished and advanced.",
-          image: "/animation-section/motion.jpg",
+          image: "/animation-section/motion.webp",
         },
         {
           id: 3,
           title: "Create shareable & reusable assets",
           description:
             "3D models can be reused, updated, and repurposed across future campaigns with minimal effort.",
-          image: "/animation-section/video.jpg",
+          image: "/animation-section/video.webp",
         },
       ]}
     />

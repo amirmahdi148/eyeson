@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 export default function BusinessNeeds3DVisual() {
   return (
@@ -7,7 +7,7 @@ export default function BusinessNeeds3DVisual() {
 
       <div className="panel-float absolute right-25 md:right-50 top-6 w-[62%]">
         <img
-          src="/animation-section/3D/Big.png"
+          src="/animation-section/3D/Big.webp"
           alt="3D animation panel"
           width={620}
           height={380}
@@ -17,7 +17,7 @@ export default function BusinessNeeds3DVisual() {
 
       <div className="movement-float absolute bottom-10 md:bottom-30 right-0 w-[58%]">
         <img
-          src="/animation-section/3D/Movement.png"
+          src="/animation-section/3D/Movement.webp"
           alt="Animated movement panel"
           width={560}
           height={320}

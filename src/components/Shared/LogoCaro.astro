@@ -9,13 +9,13 @@ type Props = {
 const {
   tagline = "Trusted by forward-thinking SaaS & AI teams worldwide",
   logos = [
-    { src: "/obvi.png", alt: "Obvi" },
-    { src: "/trueclassic.png", alt: "True Classic" },
-    { src: "/obvi.png", alt: "Obvi" },
-    { src: "/trueclassic.png", alt: "True Classic" },
-    { src: "/obvi.png", alt: "Obvi" },
-    { src: "/trueclassic.png", alt: "True Classic" },
-    { src: "/obvi.png", alt: "Obvi" },
+    { src: "/obvi.webp", alt: "Obvi" },
+    { src: "/trueclassic.webp", alt: "True Classic" },
+    { src: "/obvi.webp", alt: "Obvi" },
+    { src: "/trueclassic.webp", alt: "True Classic" },
+    { src: "/obvi.webp", alt: "Obvi" },
+    { src: "/trueclassic.webp", alt: "True Classic" },
+    { src: "/obvi.webp", alt: "Obvi" },
   ],
 } = Astro.props as Props;
 
@@ -29,21 +29,23 @@ const loopLogos = [...logos, ...logos];
   <!-- ================= UNIFIED MARQUEE ================= -->
   <div class="logo-mask w-full px-4 opacity-80" aria-label="Brand logos">
     <div class="logo-scroll flex w-max items-center">
-      {loopLogos.map((logo, index) => (
-        <div class="logo-slot">
-          <div class="logo-item group">
-            <img
-              src={logo.src}
-              alt={logo.alt}
-              width="220"
-              height="88"
-              loading="lazy"
-              decoding="async"
-              class="logo-img h-14 md:h-20 w-full object-contain"
-            />
+      {
+        loopLogos.map((logo, index) => (
+          <div class="logo-slot">
+            <div class="logo-item group">
+              <img
+                src={logo.src}
+                alt={logo.alt}
+                width="220"
+                height="88"
+                loading="lazy"
+                decoding="async"
+                class="logo-img h-14 md:h-20 w-full object-contain"
+              />
+            </div>
           </div>
-        </div>
-      ))}
+        ))
+      }
     </div>
   </div>
 </section>
@@ -60,7 +62,10 @@ const loopLogos = [...logos, ...logos];
   /* ================= IMAGE FIX ================= */
   .logo-img {
     opacity: 0;
-    transition: opacity 0.35s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), filter 0.3s ease;
+    transition:
+      opacity 0.35s ease,
+      transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+      filter 0.3s ease;
     filter: grayscale(100%);
     will-change: opacity, transform, filter;
   }
@@ -82,7 +87,7 @@ const loopLogos = [...logos, ...logos];
     --logo-visible-count: 3; /* موبایل: 3 لوگو */
     --logo-gap: 1.25rem;
     overflow: hidden;
-    
+
     /* جادوی ماسک برای هاله‌های محوشونده در دو طرف */
     -webkit-mask-image: linear-gradient(
       to right,
@@ -139,8 +144,20 @@ const loopLogos = [...logos, ...logos];
       --logo-visible-count: 5; /* دسکتاپ: 5 لوگو */
       --logo-gap: 3rem;
       /* ماسک رو تو دسکتاپ ملایم‌تر می‌کنیم */
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
-      mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+      -webkit-mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        black 10%,
+        black 90%,
+        transparent 100%
+      );
+      mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        black 10%,
+        black 90%,
+        transparent 100%
+      );
     }
   }
 

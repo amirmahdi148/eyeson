@@ -3,12 +3,14 @@
 import React from "react";
 import { motion } from "framer-motion";
 import "./AdCreativesHero.css";
+import SecondaryButton from "@/components/Shared/SecondaryButton";
+import PrimaryButton from "@/components/Shared/PrimaryButton";
 
 // 🔴 تغییرات: rotate همه صفر شد تا دیگه کج نشن. فقط بالا پایین برن.
 const cards = [
   {
     id: 1,
-    src: "/adcreatives/hero1.jpg",
+    src: "/adcreatives/hero1.webp",
     alt: "Ad 1",
     tooltip: "Agency",
     rotate: 0,
@@ -18,7 +20,7 @@ const cards = [
   },
   {
     id: 2,
-    src: "/adcreatives/hero2.jpg",
+    src: "/adcreatives/hero2.webp",
     alt: "Ad 2",
     tooltip: "Campaign",
     rotate: 0,
@@ -28,7 +30,7 @@ const cards = [
   },
   {
     id: 3,
-    src: "/adcreatives/hero3.jpg",
+    src: "/adcreatives/hero3.webp",
     alt: "Ad 3",
     tooltip: "Creative",
     rotate: 0,
@@ -38,7 +40,7 @@ const cards = [
   },
   {
     id: 4,
-    src: "/adcreatives/hero4.jpg",
+    src: "/adcreatives/hero4.webp",
     alt: "Ad 4",
     tooltip: "Growth",
     rotate: 0,
@@ -48,7 +50,7 @@ const cards = [
   },
   {
     id: 5,
-    src: "/adcreatives/hero5.jpg",
+    src: "/adcreatives/hero5.webp",
     alt: "Ad 5",
     tooltip: "Launch",
     rotate: 0,
@@ -58,7 +60,7 @@ const cards = [
   },
   {
     id: 6,
-    src: "/adcreatives/hero6.jpg",
+    src: "/adcreatives/hero6.webp",
     alt: "Ad 6",
     tooltip: "Trade",
     rotate: 0,
@@ -68,7 +70,7 @@ const cards = [
   },
   {
     id: 7,
-    src: "/adcreatives/hero7.jpg",
+    src: "/adcreatives/hero7.webp",
     alt: "Ad 7",
     tooltip: "Innovation",
     rotate: 0,
@@ -128,14 +130,10 @@ export default function AdCreativesHero() {
         <div className="hero-actions">
           <div className="hero-btn-wrapper">
             <div className="hero-btn-glow"></div>
-            <a href="#" className="hero-btn primary-btn">
-              Get Ad Creatives
-            </a>
+            <PrimaryButton text="Get Ad Creatives" width="auto" />
           </div>
 
-          <a href="#" className="hero-btn secondary-btn">
-            See our work
-          </a>
+          <SecondaryButton text="See our work" width="auto" />
         </div>
       </div>
     </section>

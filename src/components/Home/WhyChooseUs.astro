@@ -1,6 +1,6 @@
 ---
-import PrimaryButton from '../Shared/PrimaryButton';
-import SecondaryButton from '../Shared/SecondaryButton';
+import PrimaryButton from "../Shared/PrimaryButton";
+import SecondaryButton from "../Shared/SecondaryButton";
 
 interface Props {
   eyebrow?: string;
@@ -26,81 +26,97 @@ const {
 ---
 
 <section class="relative py-16 sm:py-20 lg:py-28 overflow-hidden">
-  <div class="relative mx-auto flex w-full max-w-7xl flex-col items-center gap-6 px-4 sm:px-6 lg:flex-row lg:items-center lg:gap-8 lg:px-8">
+  <div class="relative mx-auto flex w-full max-w-7xl flex-col lg:flex-row lg:items-center lg:justify-between px-4 sm:px-6 lg:px-8">
     
-    {/* ===== سمت چپ: محتوای متنی (با انیمیشن آبشاری) ===== */}
-    <div class="w-full lg:w-[48%] flex flex-col items-center text-center lg:items-start lg:text-left">
+    {/* ===== سمت چپ: محتوای متنی و سمت راست: تصویر ===== */}
+    {/* با استفاده از Grid و Order جایگاه عناصر رو تو موبایل و دسکتاپ مدیریت کردیم */}
+    
+    <div class="grid grid-cols-1 lg:grid-cols-12 w-full gap-y-8 lg:gap-8 items-center text-center lg:text-left">
       
-      {/* نشانک (Eyebrow) */}
-      <div
-        class="why-reveal fade-up delay-100 mb-6 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2.5 sm:py-2 shadow-[0_0_0_1px_rgba(0,0,0,0.15)] backdrop-blur-sm group"
-        style="background: linear-gradient(135deg, rgba(17, 86, 95, 0.4) 0%, rgba(11, 31, 42, 0.4) 100%);"
-      >
-        <span class="relative flex h-2.5 w-2.5 sm:h-3 sm:w-3">
-          {/* افکت نبض (Pulse) برای نقطه */}
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-full w-full bg-cyan-400 shadow-[0_0_12px_rgba(34,211,238,1)] group-hover:shadow-[0_0_20px_rgba(34,211,238,1)] transition-shadow duration-300"></span>
-        </span>
-        <span class="text-xs sm:text-sm font-medium text-white/80">{eyebrow}</span>
+      {/* 1. نشانک و عنوان (در موبایل اولین عنصر، در دسکتاپ داخل ستون چپ) */}
+      <div class="lg:col-span-6 flex flex-col items-center lg:items-start order-1">
+        {/* نشانک (Eyebrow) */}
+        <div
+          class="why-reveal fade-up delay-100 mb-6 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2.5 sm:py-2 shadow-[0_0_0_1px_rgba(0,0,0,0.15)] backdrop-blur-sm group"
+          style="background: linear-gradient(135deg, rgba(17, 86, 95, 0.4) 0%, rgba(11, 31, 42, 0.4) 100%);"
+        >
+          <span class="relative flex h-2.5 w-2.5 sm:h-3 sm:w-3">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-full w-full bg-cyan-400 shadow-[0_0_12px_rgba(34,211,238,1)] group-hover:shadow-[0_0_20px_rgba(34,211,238,1)] transition-shadow duration-300"></span>
+          </span>
+          <span class="text-xs sm:text-sm font-medium text-white/80">{eyebrow}</span>
+        </div>
+
+        {/* عنوان اصلی */}
+        <h2 class="why-reveal fade-up delay-200 max-w-xl text-3xl font-black leading-[1.12] tracking-tight text-white sm:text-4xl lg:text-[3.35rem]">
+          {title}
+          {highlight && (
+            <span class="block mt-1 bg-gradient-to-r from-cyan-300 to-teal-400 bg-clip-text text-transparent">
+              {highlight}
+            </span>
+          )}
+        </h2>
       </div>
 
-      {/* عنوان اصلی */}
-      <h2 class="why-reveal fade-up delay-200 max-w-xl text-3xl font-black leading-[1.12] tracking-tight text-white sm:text-4xl lg:text-[3.35rem]">
-        {title}
-        {highlight && <span class="block mt-1 bg-gradient-to-r from-cyan-300 to-teal-400 bg-clip-text text-transparent">{highlight}</span>}
-      </h2>
-
-      {/* توضیحات */}
-      <p class="why-reveal fade-up delay-300 mt-5 sm:mt-6 max-w-xl text-[15px] sm:text-base leading-relaxed text-white/65 mx-auto lg:mx-0 font-light">
-        {description}
-      </p>
-
-      {/* دکمه‌ها */}
-      <div class="why-reveal fade-up delay-400 mt-8 flex flex-row gap-3 justify-center items-center">
-        <div class="relative group/btn transform-gpu transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]">
-          <div class="absolute -inset-1 rounded-full bg-gradient-to-r from-cyan-400 to-teal-400 opacity-0 blur-lg transition-opacity duration-500 group-hover/btn:opacity-30"></div>
-          <div class="relative">
-            <PrimaryButton text={primaryText} href={primaryHref} width="14rem" height="50px" />
+      {/* 2. تصویر (در موبایل بین عنوان و توضیحات میافته - order-2، در دسکتاپ میره سمت راست) */}
+      <div class="lg:col-span-6 lg:row-span-2 w-full mt-4 lg:mt-0 why-reveal fade-left delay-300 order-2 lg:order-none">
+        <div class="relative mx-auto w-full max-w-[450px] lg:max-w-[620px] animate-float group">
+          <div class="relative transform-gpu transition-all duration-700 ease-out group-hover:scale-[1.04] group-hover:-translate-y-2">
+            <img
+              src="./home/eyes-home.webp"
+              alt="Why choose us visual"
+              class="block h-auto w-full object-cover drop-shadow-[0_20px_40px_rgba(0,0,0,0.4)] group-hover:drop-shadow-[0_30px_60px_rgba(20,150,150,0.3)] transition-all duration-700"
+              loading="lazy"
+              width="1200"
+              height="900"
+            />
           </div>
         </div>
-        <div class="relative group/btn transform-gpu transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]">
-          <SecondaryButton text={secondaryText} href={secondaryHref} width="14rem" height="50px" />
-        </div>
       </div>
-    </div>
 
-    {/* ===== سمت راست: تصویر (با انیمیشن شناور و هاور) ===== */}
-    <div class="w-full lg:w-[52%] mt-12 lg:mt-0 why-reveal fade-left delay-300">
-      {/* کانتینر انیمیشن شناور مداوم */}
-      <div class="relative mx-auto w-full max-w-[500px] lg:max-w-[620px] animate-float group">
-        
-        {/* هاله نورانی (Glow) که روی هاور شدت می‌گیره */}
-        
-        {/* کانتینر اصلی عکس برای افکت هاور */}
-        <div class="relative transform-gpu transition-all duration-700 ease-out group-hover:scale-[1.04] group-hover:-translate-y-2">
-          <img
-            src="./home/eyes-home.png"
-            alt="Why choose us visual"
-            class="block h-auto w-full object-cover drop-shadow-[0_20px_40px_rgba(0,0,0,0.4)] group-hover:drop-shadow-[0_30px_60px_rgba(20,150,150,0.3)] transition-all duration-700"
-            loading="lazy"
-            width="1200"
-            height="900"
-          />
+      {/* 3. توضیحات و دکمه‌ها (در موبایل میوفته زیر عکس - order-3، در دسکتاپ زیر عنوان) */}
+      <div class="lg:col-span-6 flex flex-col items-center lg:items-start mt-2 lg:mt-0 order-3">
+        {/* توضیحات */}
+        <p class="why-reveal fade-up delay-300 max-w-xl text-[15px] sm:text-base leading-relaxed text-white/65 mx-auto lg:mx-0 font-light">
+          {description}
+        </p>
+
+        {/* دکمه‌ها - در موبایل زیر هم (flex-col)، در تبلت/دسکتاپ کنار هم (sm:flex-row) */}
+        <div class="why-reveal fade-up delay-400 mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center w-full sm:w-auto">
+          <div class="relative group/btn transform-gpu transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] w-full sm:w-auto">
+            <div class="absolute -inset-1 rounded-full bg-gradient-to-r from-cyan-400 to-teal-400 opacity-0 blur-lg transition-opacity duration-500 group-hover/btn:opacity-30"></div>
+            <div class="relative flex justify-center w-full">
+              {/* توی موبایل دکمه عرض کامل میشه تا خوشگل‌تر بشه */}
+              <div class="w-[16rem] sm:w-auto">
+                <PrimaryButton text={primaryText} href={primaryHref} width="100%" height="50px" />
+              </div>
+            </div>
+          </div>
+          
+          <div class="relative group/btn transform-gpu transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] w-full sm:w-auto">
+            <div class="relative flex justify-center w-full">
+               {/* توی موبایل دکمه عرض کامل میشه تا خوشگل‌تر بشه */}
+              <div class="w-[16rem] sm:w-auto">
+                <SecondaryButton text={secondaryText} href={secondaryHref} width="100%" height="50px" />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
     </div>
-    
   </div>
 </section>
 
 <style>
   /* ================= انیمیشن شناور (Float) ================= */
   @keyframes float {
-    0%, 100% {
+    0%,
+    100% {
       transform: translateY(0);
     }
     50% {
-      transform: translateY(-15px); /* تو فضا یکم میره بالا */
+      transform: translateY(-15px);
     }
   }
   .animate-float {
@@ -114,31 +130,30 @@ const {
     will-change: opacity, transform;
   }
 
-  /* افکت محو شدن و بالا آمدن */
   .fade-up {
     transform: translateY(30px);
-    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    transition:
+      opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  /* افکت محو شدن و از راست آمدن (برای عکس) */
   .fade-left {
     transform: translateX(40px);
-    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    transition:
+      opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  /* کلاس فعال‌ساز که جاوااسکریپت اضافه‌اش می‌کنه */
   .why-reveal.is-visible {
     opacity: 1;
     transform: translate(0);
   }
 
-  /* تاخیرهای آبشاری (دومینو) */
   .delay-100 { transition-delay: 0.1s; }
   .delay-200 { transition-delay: 0.2s; }
   .delay-300 { transition-delay: 0.3s; }
   .delay-400 { transition-delay: 0.4s; }
 
-  /* برای کاربرانی که انیمیشن دوست ندارن */
   @media (prefers-reduced-motion: reduce) {
     .why-reveal {
       opacity: 1;
@@ -152,33 +167,36 @@ const {
 </style>
 
 <script is:inline>
-  // همون آبزرور قبلی با یک اسم فانکشن جدید تا تداخلی نداشته باشه
   function initWhyUsAnimations() {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const elements = document.querySelectorAll('.why-reveal');
-    
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    const elements = document.querySelectorAll(".why-reveal");
+
     if (prefersReducedMotion) {
-      elements.forEach(el => el.classList.add('is-visible'));
+      elements.forEach((el) => el.classList.add("is-visible"));
       return;
     }
 
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          obs.unobserve(entry.target); // فقط یک‌بار اجرا بشه تا سبک بمونه
-        }
-      });
-    }, {
-      root: null,
-      rootMargin: '0px 0px -50px 0px', // یکم بیاد تو تصویر بعد لود بشه
-      threshold: 0.1
-    });
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: "0px 0px -50px 0px",
+        threshold: 0.1,
+      },
+    );
 
-    elements.forEach(el => observer.observe(el));
+    elements.forEach((el) => observer.observe(el));
   }
 
-  // پشتیبانی از SSR و رفرش‌های Astro
-  document.addEventListener('DOMContentLoaded', initWhyUsAnimations);
-  document.addEventListener('astro:page-load', initWhyUsAnimations);
+  document.addEventListener("DOMContentLoaded", initWhyUsAnimations);
+  document.addEventListener("astro:page-load", initWhyUsAnimations);
 </script>

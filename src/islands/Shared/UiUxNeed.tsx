@@ -1,3 +1,5 @@
+import PrimaryButton from "@/components/Shared/PrimaryButton";
+import SecondaryButton from "@/components/Shared/SecondaryButton";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
 type InfoCard = {
@@ -28,21 +30,21 @@ const defaultInfoCards: InfoCard[] = [
     title: "Promote brand individuality",
     description:
       "Professional editing shapes your content into a style that feels uniquely yours. From pacing to color and transitions, consistent editing builds a recognizable identity.",
-    image: "/animation-section/short-form.png",
+    image: "/animation-section/short-form.webp",
   },
   {
     id: 2,
     title: "Stand out from competitors",
     description:
       "Clean, well-structured edits naturally separate you from noise. Strong storytelling and polished visuals make your videos feel more professional and memorable.",
-    image: "/animation-section/motion.jpg",
+    image: "/animation-section/motion.webp",
   },
   {
     id: 3,
     title: "Create shareable & reusable assets",
     description:
       "Great edits can be repurposed across social platforms and campaigns. This gives your team more content options without starting from scratch each time.",
-    image: "/animation-section/video.jpg",
+    image: "/animation-section/video.webp",
   },
 ];
 
@@ -104,8 +106,10 @@ export default function UiUxNeed({
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto  max-w-3xl text-center ">
           <h2 className="text-3xl font-extrabold text-white md:text-5xl">
-            {titleLine1} {" "}
-            <span className="text-[#12d4d1]">{titleHighlight} <span className="text-white">Matters</span></span>
+            {titleLine1}{" "}
+            <span className="text-[#12d4d1]">
+              {titleHighlight} <span className="text-white">Matters</span>
+            </span>
           </h2>
           <p className="mt-5 text-sm leading-7 text-[#c4d5df] md:text-base">
             {introText}
@@ -114,7 +118,7 @@ export default function UiUxNeed({
 
         <div className="relative mt-4 overflow-hidden rounded-[34px] border border-[#12c9d5]/55 bg-[radial-gradient(circle_at_80%_100%,rgba(17,180,185,0.2),rgba(3,19,31,0.92)_58%)] p-5 shadow-[0_0_40px_rgba(0,168,182,0.24)] md:mt-10 md:rounded-3xl md:border-[#0f7f98]/60 md:bg-transparent md:p-8 md:shadow-[0_0_60px_rgba(0,168,182,0.2)]">
           <img
-            src="/blogs/Story-Back.png"
+            src="/blogs/Story-Back.webp"
             alt=""
             className="object-cover absolute bottom-2 left-0"
             sizes="(max-width: 1024px) 100vw, 1200px"
@@ -137,20 +141,13 @@ export default function UiUxNeed({
               </p>
 
               <div className="mt-7 flex flex-nowrap gap-3 md:flex-wrap md:gap-4">
-                <button className="rounded-full border-4 cursor-pointer border-[#00A9BD] bg-linear-to-r from-[#00A9BD] to-[#1D553A] px-6 py-2 text-[12px] md:text-[17px] font-semibold text-white shadow-[0_0_22px_rgba(14,224,208,0.55)] md:px-7 md:text-sm">
-                  {primaryButtonLabel}
-                </button>
-                <div className="relative inline-flex rounded-full p-1">
+                <PrimaryButton text={primaryButtonLabel} width="auto" />
+                <div className="relative inline-flex rounded-full ">
                   <div
                     aria-hidden
                     className="absolute inset-0 rounded-full bg-linear-to-r from-[#056E7C] to-[#46B6A0]"
                   />
-                  <button
-                    type="button"
-                    className="relative z-10 cursor-pointer rounded-full bg-linear-to-r from-[#00061D] to-[#0B1F2A] px-8  text-[12px] md:text-[17px] font-semibold text-white shadow-[0_0_24px_rgba(34,211,238,0.25)] md:px-10 md:text-base"
-                  >
-                    {secondaryButtonLabel}
-                  </button>
+                  <SecondaryButton text={secondaryButtonLabel} width="auto" />
                 </div>
               </div>
             </div>
@@ -241,18 +238,8 @@ export default function UiUxNeed({
         </div>
 
         <div className="mt-4 flex items-center justify-center gap-2 md:hidden">
-          {cards.map((card, index) => (
-            <button
-              key={card.id}
-              type="button"
-              onClick={() => goToCard(index)}
-              aria-label={`Go to card ${index + 1}`}
-              aria-pressed={activeSlide === index}
-              className={`h-2.5 w-2.5 rounded-full transition-all ${
-                activeSlide === index ? "bg-[#2ecfc9]" : "bg-white/20"
-              }`}
-            />
-          ))}
+          <PrimaryButton text={primaryButtonLabel} width="auto" />
+          <SecondaryButton text={secondaryButtonLabel} width="auto" />
         </div>
       </div>
     </section>

@@ -2,45 +2,60 @@
 import { SmartImage } from "../../../utils/SmartImage";
 
 const actions = [
-    { label: "Book a Call", href: "/contact", primary: true },
-    { label: "Get Pricing", href: "/pricing", primary: false },
+  { label: "Book a Call", href: "/contact", primary: true },
+  { label: "Get Pricing", href: "/pricing", primary: false },
 ];
 ---
 
 <div class="w-full flex items-center justify-center px-4 py-10">
-    <div class="relative w-full  max-w-7xl overflow-hidden rounded-[28px] border border-cyan-500/10  px-6 py-14 shadow-[0_0_80px_rgba(0,0,0,0.45)] md:px-10 lg:px-16">
-        <SmartImage
-            src="/blogs/Story-Back.png"  
-            className="absolute bottom-0 left-0 opacity-20"
-                client:load/>
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(38,203,211,0.22),transparent_35%),radial-gradient(circle_at_50%_50%,rgba(0,255,255,0.08),transparent_55%)]"></div>
-
-        <div class="absolute inset-0 bg-[url('/pricing/star-noise.png')] bg-cover bg-center opacity-20 mix-blend-screen"></div>
-
-        <div class="relative z-10 flex flex-col items-center justify-center text-center">
-            <h2 class="max-w-3xl text-3xl font-semibold leading-tight text-white md:text-4xl">
-                Ready to make your product clear?
-            </h2>
-
-            <p class="mt-4 text-base text-white/80 md:text-xl">
-                Let&apos;s turn complexity into conversion.
-            </p>
-
-            <div class="mt-8 flex flex-wrap items-center justify-center gap-5">
-                {actions.map((action) => (
-                        <a
-                                href={action.href}
-                                class:list={[
-                                    "rounded-xl px-8 py-3 text-sm font-medium transition-all duration-200 md:text-base",
-                                    action.primary
-                                        ? "bg-gradient-to-r from-[#46B6A0] to-[#00A9BD] text-white shadow-[0_8px_30px_rgba(39,183,193,0.35)] hover:brightness-110"
-                                        : "bg-[#0B1F2A] text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] hover:bg-[#15323A]",
-                                ]}
-                        >
-                            {action.label}
-                        </a>
-                ))}
-            </div>
-        </div>
+  <div
+    class="relative w-full max-w-7xl overflow-hidden rounded-[28px] border border-cyan-500/10 px-6 py-14 shadow-[0_0_80px_rgba(0,0,0,0.45)] md:px-10 lg:px-16"
+  >
+    <SmartImage
+      src="/blogs/Story-Back.webp"
+      className="absolute bottom-0 left-0 opacity-20"
+      client:load
+    />
+    <div
+      class="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(38,203,211,0.22),transparent_35%),radial-gradient(circle_at_50%_50%,rgba(0,255,255,0.08),transparent_55%)]"
+    >
     </div>
+
+    <div
+      class="absolute inset-0 bg-[url('/pricing/star-noise.webp')] bg-cover bg-center opacity-20 mix-blend-screen"
+    >
+    </div>
+
+    <div
+      class="relative z-10 flex flex-col items-center justify-center text-center"
+    >
+      <h2
+        class="max-w-3xl text-3xl font-semibold leading-tight text-white md:text-4xl"
+      >
+        Ready to make your product clear?
+      </h2>
+
+      <p class="mt-4 text-base text-white/80 md:text-xl">
+        Let&apos;s turn complexity into conversion.
+      </p>
+
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-5">
+        {
+          actions.map((action) => (
+            <a
+              href={action.href}
+              class:list={[
+                "rounded-xl px-8 py-3 text-sm font-medium transition-all duration-200 md:text-base",
+                action.primary
+                  ? "bg-gradient-to-r from-[#46B6A0] to-[#00A9BD] text-white shadow-[0_8px_30px_rgba(39,183,193,0.35)] hover:brightness-110"
+                  : "bg-[#0B1F2A] text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] hover:bg-[#15323A]",
+              ]}
+            >
+              {action.label}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
 </div>
