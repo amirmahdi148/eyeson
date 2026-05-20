@@ -1,7 +1,29 @@
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import {SmartImage} from "../../utils/SmartImage.tsx";
-import {getPostSlug, posts} from "../../lib/posts.ts";
+import {getPostSlug} from "@/lib/posts.ts";
+
+const API_URL = "http://localhost:1337/api/posts";
+const PLACEHOLDER_IMAGE = "/blogs/placeholder.svg";
+
+interface StrapiPost {
+    id: number;
+    documentId: string;
+    title: string;
+    slug: string;
+    category: string;
+    publishedAt: string;
+}
+
+interface Post {
+    id: number;
+    category: string;
+    title: string;
+    slug: string;
+    excerpt: string;
+    date: string;
+    image: string;
+}
 
 const categories = [
     { id: 1, name: "All" },
@@ -14,7 +36,35 @@ const categories = [
 export const RealBlogs = () => {
     const [page, setPage] = useState<number>(1);
     const [selectedCategory, setSelectedCategory] = useState<string>("All");
+    const [posts, setPosts] = useState<Post[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({});
     const pageSize = 12;
+
+    useEffect(() => {
+        fetch(API_URL)
+            .then((res) => res.json())
+            .then((data) => {
+                const mapped: Post[] = data.data.map((post: StrapiPost) => ({
+                    id: post.id,
+                    title: post.title,
+                    slug: post.slug,
+                    category: post.category || "Video Production",
+                    excerpt: "Read more about this topic...",
+                    date: new Date(post.publishedAt).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                    }),
+                    image: "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1000&q=80",
+                }));
+                setPosts(mapped);
+                setLoading(false);
+            })
+            .catch(() => {
+                setLoading(false);
+            });
+    }, []);
 
     const normalize = (value: string) => value.trim().toLowerCase();
 
@@ -25,7 +75,7 @@ export const RealBlogs = () => {
 
         const selected = normalize(selectedCategory);
         return posts.filter((post) => normalize(post.category) === selected);
-    }, [selectedCategory]);
+    }, [selectedCategory, posts]);
 
     const totalPages = Math.max(1, Math.ceil(filteredPosts.length / pageSize));
     const paginatedPosts = useMemo(() => {
@@ -45,6 +95,48 @@ export const RealBlogs = () => {
         setPage(1);
     };
 
+    if (loading) {
+        return (
+            <>
+                <div className="relative z-10 mx-auto mt-8 grid w-full max-w-7xl grid-cols-1 justify-items-center gap-4 px-4 pb-14 sm:grid-cols-2 sm:gap-6 sm:px-6 md:grid-cols-3 md:gap-8 md:px-8 xl:gap-10 xl:px-10">
+                    {Array.from({ length: 9 }).map((_, idx) => {
+                        const showOnTablet = idx >= 3 ? "hidden sm:block" : "";
+                        const showOnDesktop = idx >= 6 ? "hidden md:block" : "";
+                        return (
+                            <div
+                                key={idx}
+                                className={`flex min-h-70 h-full w-full cursor-pointer flex-col overflow-hidden rounded-2xl border-[0.5px] border-[#00A9BD]/30 bg-linear-to-r from-[#0B1F2A] to-[#003A43] sm:max-w-90 ${showOnTablet} ${showOnDesktop}`}
+                            >
+                                <div className="relative h-40 w-full overflow-hidden bg-white/5">
+                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" />
+                                </div>
+                                <div className="flex flex-1 flex-col gap-3 px-4 py-4">
+                                    <div className="h-4 w-16 rounded-full bg-white/10" />
+                                    <div className="h-5 w-full rounded bg-white/10" />
+                                    <div className="h-4 w-full rounded bg-white/10" />
+                                    <div className="h-4 w-3/4 rounded bg-white/10" />
+                                    <div className="mt-auto flex items-center justify-between pt-2">
+                                        <div className="h-3 w-20 rounded bg-white/10" />
+                                        <div className="h-3 w-16 rounded bg-white/10" />
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+                <div className="relative z-10 mx-auto flex max-w-7xl items-center justify-center gap-2 px-6 pb-10">
+                    <div className="h-9 w-20 rounded-lg bg-white/10" />
+                    <div className="flex gap-2">
+                        {Array.from({ length: 3 }).map((_, idx) => (
+                            <div key={idx} className="h-9 w-9 rounded-lg bg-white/10" />
+                        ))}
+                    </div>
+                    <div className="h-9 w-16 rounded-lg bg-white/10" />
+                </div>
+            </>
+        );
+    }
+
     return (
         <div
             className="relative min-h-712.5 overflow-x-hidden lg:min-h-587.5 overflow-y-hidden"
@@ -63,7 +155,8 @@ export const RealBlogs = () => {
                 ))}
             </div>
 
-            <div className="relative z-10 mx-auto mt-8 grid w-full max-w-7xl grid-cols-1 justify-items-center gap-4 px-4 pb-14 sm:grid-cols-2 sm:gap-6 sm:px-6 md:grid-cols-3 md:gap-8 md:px-8 xl:gap-10 xl:px-10">
+            <div
+                className="relative z-10 mx-auto mt-8 grid w-full max-w-7xl grid-cols-1 justify-items-center gap-4 px-4 pb-14 sm:grid-cols-2 sm:gap-6 sm:px-6 md:grid-cols-3 md:gap-8 md:px-8 xl:gap-10 xl:px-10">
                 {paginatedPosts.map((post) => (
                     <a
                         href={`/blog/${getPostSlug(post.title)}`}
@@ -71,12 +164,21 @@ export const RealBlogs = () => {
                         className="group flex min-h-70 h-full overflow-y-hidden w-full cursor-pointer flex-col overflow-hidden rounded-2xl border-[0.5px] border-[#00A9BD] bg-linear-to-r from-[#0B1F2A]  to-[#003A43] shadow-[0px_6px_22px_0px_#00000060] backdrop-blur-sm transition-transform duration-200 hover:-translate-y-1 hover:border-[#00A9BD]/60 sm:max-w-90"
                     >
                         <div className="relative h-40 w-full overflow-hidden">
-                            <img
-                                src={post.image}
-                                alt={post.title}
-                                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                                loading="lazy"
-                            />
+                            {imageErrors[post.id] || !post.image ? (
+                                <div className="flex h-full w-full items-center justify-center bg-[#0B1F2A]">
+                                    <svg className="h-12 w-12 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
+                            ) : (
+                                <img
+                                    src={post.image}
+                                    alt={post.title}
+                                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                    loading="lazy"
+                                    onError={() => setImageErrors((prev) => ({ ...prev, [post.id]: true }))}
+                                />
+                            )}
                             <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
                         </div>
 

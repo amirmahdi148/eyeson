@@ -1,8 +1,7 @@
-"use client";
+import { useEffect, useMemo, useState, memo } from "react";
 
-import { useEffect, useMemo, useState } from "react";
-
-type TabKey =
+// Types for tab data
+export type TabKey =
   | "client"
   | "industry"
   | "service"
@@ -11,14 +10,15 @@ type TabKey =
   | "ourRole"
   | "startingPoint";
 
-type TabItem = {
+export type TabItem = {
   key: TabKey;
   label: string;
   title: string;
   text: string;
 };
 
-const TABS: TabItem[] = [
+// Default static tabs – used when no data is supplied by the parent
+const DEFAULT_TABS: TabItem[] = [
   {
     key: "client",
     label: "Client",
@@ -70,25 +70,27 @@ const TABS: TabItem[] = [
   },
 ];
 
-export default function CaseStudyTabsSection() {
+// Component – receives optional tabsData from parent
+function CaseStudyTabsSection({ tabsData }: { tabsData?: TabItem[] }) {
+  const tabs = tabsData ?? DEFAULT_TABS;
+
   const [activeTab, setActiveTab] = useState<TabKey>("industry");
   const [displayedText, setDisplayedText] = useState("");
+
   const active = useMemo(
-    () => TABS.find((tab) => tab.key === activeTab) ?? TABS[1],
-    [activeTab],
+    () => tabs.find((tab) => tab.key === activeTab) ?? tabs[0],
+    [activeTab, tabs],
   );
 
+  // Typewriter effect for the active tab's text
   useEffect(() => {
     let i = 0;
     setDisplayedText("");
-
-    const text = active.text;
     const timer = window.setInterval(() => {
       i += 2;
-      setDisplayedText(text.slice(0, i));
-      if (i >= text.length) window.clearInterval(timer);
+      setDisplayedText(active.text.slice(0, i));
+      if (i >= active.text.length) window.clearInterval(timer);
     }, 18);
-
     return () => window.clearInterval(timer);
   }, [activeTab, active.text]);
 
@@ -96,9 +98,8 @@ export default function CaseStudyTabsSection() {
     <section className="relative overflow-hidden lg:py-40">
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="mb-4 flex flex-wrap items-center justify-evenly overflow-x-auto pb-2 sm:gap-7">
-          {TABS.map((tab) => {
+          {tabs.map((tab) => {
             const isActive = tab.key === activeTab;
-
             return (
               <button
                 key={tab.key}
@@ -108,9 +109,7 @@ export default function CaseStudyTabsSection() {
                 onClick={() => setActiveTab(tab.key)}
                 className={[
                   "relative shrink-0 text-sm font-medium transition-colors duration-200 sm:text-[15px]",
-                  isActive
-                    ? "text-cyan-300"
-                    : "text-white/35 hover:text-white/60",
+                  isActive ? "text-cyan-300" : "text-white/35 hover:text-white/60",
                 ].join(" ")}
               >
                 {tab.label}
@@ -121,12 +120,10 @@ export default function CaseStudyTabsSection() {
             );
           })}
         </div>
-
         <div className="rounded-[26px] border border-white/5 bg-[#07181d]/95 px-5 py-7 shadow-[0_20px_60px_rgba(0,0,0,0.35)] sm:px-7 sm:py-8 lg:px-8 lg:py-9">
           <h2 className="text-[28px] font-black leading-tight tracking-tight text-white sm:text-[32px]">
             {active.title}
           </h2>
-
           <p className="mt-4 max-w-5xl text-[15px] leading-7 text-white/80 sm:text-base">
             {displayedText}
             <span className="ml-0.5 inline-block h-[1em] w-[2px] translate-y-[2px] bg-cyan-300 align-middle animate-pulse" />
@@ -136,3 +133,5 @@ export default function CaseStudyTabsSection() {
     </section>
   );
 }
+
+export default memo(CaseStudyTabsSection);

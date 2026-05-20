@@ -266,9 +266,9 @@ export const Header = () => {
                             ))}
                         </nav>
 
-                        <button className="hidden lg:block px-8 py-2.5 rounded-full text-white font-semibold bg-[#0B1F2A] border border-cyan-300/70 shadow-[0_0_30px_rgba(45,220,255,0.2)] hover:bg-[#0f2c3d] transition-colors">
+                        <a href="/contact" className="hidden lg:block px-8 py-2.5 rounded-full text-white font-semibold bg-[#0B1F2A] border border-cyan-300/70 shadow-[0_0_30px_rgba(45,220,255,0.2)] hover:bg-[#0f2c3d] transition-colors text-center">
                             Book a Call
-                        </button>
+                        </a>
                     </div>
 
                     {/* Mobile / Compact Header */}

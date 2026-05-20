@@ -1,9 +1,9 @@
 ---
 // CaseStudyHero.astro
-import { httpService } from "../../utils/httpService";
+import { httpService } from "@/utils/httpService.ts";
 
 interface CaseData {
-  avatarUrl?: string;
+  avatar?: string;
   title?: string;
   description?: string;
   tools?: { name: string; iconUrl?: string }[];
@@ -12,12 +12,16 @@ interface CaseData {
 }
 
 let caseData: CaseData = {};
+let projectTexts: {title:string; description:string; section:string}[] = [];
+const BURL = import.meta.env.PUBLIC_API_URL;
 let fetchError: string | null = null;
 
 try {
   console.log("[CaseStudyHero] Starting fetch to /case endpoint...");
   console.log("[CaseStudyHero] PUBLIC_API_URL:", import.meta.env.PUBLIC_API_URL);
-  caseData = await httpService.get<CaseData>("/project/details?slug=cryptozen-351ff825");
+  caseData = await httpService.get<CaseData>("/project/details?slug=skylines-989762e9");
+
+
   console.log("[CaseStudyHero] Fetch successful, data:", caseData);
 } catch (error) {
   console.error("[CaseStudyHero] Fetch failed at /case endpoint");
@@ -41,7 +45,7 @@ const {
   ],
   projectType = "Subscription",
   projectTimeline = "9 Months",
-  avatarUrl = "",
+  avatar = ""
 } = caseData;
 
 ---
@@ -108,17 +112,81 @@ const {
     <!-- Right -->
     <div class="w-full lg:w-[52%]">
       <div class="relative mx-auto w-full max-w-[620px]">
-        <div class="absolute inset-0 rounded-[28px] bg-cyan-400/10 blur-[38px]"></div>
+        <div class="absolute inset-0 rounded-[28px] bg-[#061b21]/30 blur-[38px]"></div>
 
         <div class="relative overflow-hidden rounded-[28px] ">
+  <div class="skeleton-placeholder absolute inset-0 rounded-[28px] border border-cyan-300/30 shadow-[0_8px_32px_rgba(0,0,0,0.2)] backdrop-blur-xl" style="overflow: hidden; border-radius: inherit; background: rgba(6,27,33,0.45); z-index:1; transition: opacity 0.4s ease;">
+  <!-- Moving orbs -->
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+      <div class="orb orb4" style="top: 20%; left: 80%;"></div>
+      <div class="orb orb5" style="top: 75%; left: 30%;"></div>
+      <div class="orb orb6" style="top: 50%; left: 50%;"></div>
+      <!-- Line-orbs -->
+      <div class="orb-line line1"></div>
+      <div class="orb-line line2" style="top: 60%; left: 60%; transform: rotate(-30deg);"></div>
+      <div class="orb-line line3" style="top: 30%; left: 80%; transform: rotate(15deg);"></div>
+  <style>
+    .orb {
+      /* existing orb styling */
+
+      /* existing orb styling */
+
+      position: absolute;
+      width: 350px;
+      height: 250px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), rgba(49,209,166,0.1), transparent 70%);
+      border-radius: 50%;
+      filter: blur(20px);
+      opacity: 0.7;
+    }
+    .orb1 { animation: scaleOrb1 6s ease-in-out infinite; }
+    .orb2 { animation: moveOrb2 8s ease-in-out infinite; }
+    .orb3 { animation: moveOrb3 10s ease-in-out infinite; }
+        /* line orbs */
+        .orb-line {
+          position: absolute;
+          width: 180px;
+          height: 6px;
+          background: linear-gradient(90deg, rgba(49,209,166,0.3), rgba(255,255,255,0.1));
+          border-radius: 3px;
+          filter: blur(12px);
+          opacity: 0.5;
+        }
+        .line1 { animation: moveLine1 7s linear infinite; }
+        .line2 { animation: moveLine2 9s linear infinite; }
+        .line3 { animation: moveLine3 11s linear infinite; }
+        @keyframes moveLine1 { 0% { transform: translate(-20%, -20%) rotate(45deg); } 50% { transform: translate(120%, 120%) rotate(45deg); } 100% { transform: translate(-20%, -20%) rotate(45deg); } }
+        @keyframes moveLine2 { 0% { transform: translate(120%, -20%) rotate(-30deg); } 50% { transform: translate(-20%, 120%) rotate(-30deg); } 100% { transform: translate(120%, -20%) rotate(-30deg); } }
+        @keyframes moveLine3 { 0% { transform: translate(-20%, 120%) rotate(15deg); } 50% { transform: translate(120%, -30%) rotate(15deg); } 100% { transform: translate(-20%, 120%) rotate(15deg); } }
+    @keyframes moveOrb1 {
+      0% { transform: translate(-30%, -30%); }
+      50% { transform: translate(120%, 120%); }
+      100% { transform: translate(-30%, -30%); }
+    }
+    @keyframes moveOrb2 {
+      0% { transform: translate(120%, -20%); }
+      50% { transform: translate(-20%, 120%); }
+      100% { transform: translate(120%, -20%); }
+    }
+    @keyframes moveOrb3 {
+      0% { transform: translate(-20%, 120%); }
+      50% { transform: translate(120%, -30%); }
+      100% { transform: translate(-20%, 120%); }
+    }
+  </style>
+</div>
 
             <img
-              src="/case/hero-case.png"
+              src={`${BURL}${avatar || "/case/hero-case.png"}` }
               alt={title}
               width="1200"
               height="900"
               loading="lazy"
               class="block h-full w-full object-cover"
+              style="opacity:0; transition:opacity .4s ease;"
+              onload="this.style.opacity='1'; const prev = this.previousElementSibling; if(prev) prev.style.display='none';"
             />
 
         </div>
@@ -126,3 +194,16 @@ const {
     </div>
   </div>
 </section>
+
+<!-- Additional Project Text Sections -->
+{projectTexts && projectTexts.length > 0 && (
+  <section class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    {projectTexts.map((t) => (
+      <div class="mb-8" key={t.title}>
+        <h2 class="text-2xl font-bold text-cyan-300 mb-2">{t.section}</h2>
+        <h3 class="text-xl font-semibold text-white mb-1">{t.title}</h3>
+        <p class="text-white/80 leading-relaxed">{t.description}</p>
+      </div>
+    ))}
+  </section>
+)}
