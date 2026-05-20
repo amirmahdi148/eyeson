@@ -49,7 +49,7 @@ export default function ProjectsList() {
       description,
     };
 
-    let uuid = 'example';
+    let uuid: string;
 
     try {
       const res = await fetch('/api/projects', {
@@ -58,13 +58,9 @@ export default function ProjectsList() {
         body: JSON.stringify(payload),
       });
 
-      if (!res.ok) throw new Error('Bad response');
-
       const data = await res.json();
-      // expect backend to return { uuid: '...' }
       uuid = data?.uuid || data?.id || 'example';
-    } catch (err) {
-      // Backend not available — fallback to example id for testing
+    } catch {
       uuid = 'example';
     }
 

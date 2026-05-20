@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Layers, Eye, FileText, CheckCircle, Clock, Activity, Cpu, Database } from "lucide-react";
+import { motion } from "framer-motion";
+import { Layers, Eye, FileText, CheckCircle, Activity, Cpu, Database } from "lucide-react";
 
 const quickStats = [
   { label: "Projects Count", value: 42, icon: Layers },
@@ -19,7 +19,7 @@ const recentRequests = [
   { id: 102, title: "Request: Extra revisions", from: "Client B", status: "Completed" },
 ];
 
-const statTransition = { type: 'spring', stiffness: 140, damping: 18, mass: 0.6 };
+const statTransition = { type: "spring" as const, stiffness: 140, damping: 18, mass: 0.6 };
 
 export default function DashboardOverview() {
   const [apiInterval, setApiInterval] = useState<number | null>(null);
@@ -100,7 +100,7 @@ export default function DashboardOverview() {
                   whileHover={{ scale: 1.03 }}
                   className="backdrop-blur-xl bg-white/5 border border-white/6 rounded-xl p-5 flex flex-col items-center"
                 >
-                  <div className="p-3 rounded-full bg-gradient-to-r from-[#00E6D7] to-[#12ACB5] shadow-[0_12px_40px_rgba(18,172,181,0.14)] mb-3">
+                  <div className="p-3 rounded-full bg-linear-to-r from-[#00E6D7] to-[#12ACB5] shadow-[0_12px_40px_rgba(18,172,181,0.14)] mb-3">
                     <Icon color="#fff" size={18} />
                   </div>
                   <div className="text-2xl font-semibold text-white">{s.value}</div>
@@ -124,7 +124,7 @@ export default function DashboardOverview() {
                       <div className="font-semibold">{p.title}</div>
                       <div className="text-sm text-white/70">Owner: {p.owner} • {p.updated}</div>
                     </div>
-                    <a className="px-3 py-1 rounded-full bg-gradient-to-r from-[#00E6D7] to-[#12ACB5] text-black text-sm" href={`/projects/${p.id}`}>Open</a>
+                    <a className="px-3 py-1 rounded-full bg-linear-to-r from-[#00E6D7] to-[#12ACB5] text-black text-sm" href={`/projects/${p.id}`}>Open</a>
                   </li>
                 ))}
               </ul>
@@ -148,7 +148,7 @@ export default function DashboardOverview() {
                     <span>{cpu}%</span>
                   </div>
                   <div className="w-full bg-white/6 rounded-full h-2 mt-1">
-                    <div className="bg-gradient-to-r from-[#00E6D7] to-[#12ACB5] h-2 rounded-full" style={{ width: `${cpu}%` }} />
+                    <div className="bg-linear-to-r from-[#00E6D7] to-[#12ACB5] h-2 rounded-full" style={{ width: `${cpu}%` }} />
                   </div>
 
                   <div className="flex items-center justify-between text-xs text-white/80 mt-2">

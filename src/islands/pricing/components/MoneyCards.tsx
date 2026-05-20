@@ -1,6 +1,5 @@
-"use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Pagination, A11y } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -64,7 +63,7 @@ export const MoneyCards = () => {
       ? plans
       : [plans[(popularIndex + 1) % 3], plans[popularIndex], plans[(popularIndex + 2) % 3]];
 
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [, setActiveIndex] = useState(0);
 
   // No need to force active index on mount; Swiper will initialize to the first slide.
 

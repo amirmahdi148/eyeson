@@ -7,43 +7,7 @@ import { HeroBasic } from "../Shared/HeroBasic.tsx";
 import PrimaryButton from "@/components/Shared/PrimaryButton";
 import SecondaryButton from "@/components/Shared/SecondaryButton";
 
-const cards = [
-  {
-    src: "/hero-card/1.webp",
-    alt: "3D hand",
-    className: "col-start-1 row-start-1 h-56",
-  },
-  {
-    src: "/hero-card/2.webp",
-    alt: "abstract shapes",
-    className: "col-start-2 row-start-1 h-40",
-  },
-  {
-    src: "/hero-card/3.webp",
-    alt: "planet scene",
-    className: "col-start-3 row-start-1 h-56",
-  },
-  {
-    src: "/hero-card/4.webp",
-    alt: "colorful room",
-    className: "col-start-2 row-start-2 h-40",
-  },
-  {
-    src: "/hero-card/5.webp",
-    alt: "character portal",
-    className: "col-start-1 row-start-2 h-40",
-  },
-  {
-    src: "/hero-card/6.webp",
-    alt: "floating spheres",
-    className: "col-start-3 row-start-2 h-40",
-  },
-  {
-    src: "/hero-card/7.webp",
-    alt: "coin render",
-    className: "col-start-2 row-start-3 h-28",
-  },
-];
+
 
 export const AnimationsHero = () => {
   return (

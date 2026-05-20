@@ -7,7 +7,6 @@ const budgetRanges = ["< $10k", "$10k - $25k", "$25k - $50k", "$50k +"];
 
 export const ContactBookingSection = () => {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
-  const [selectedMonth , setSelectedMonth] = useState<number | undefined>(new Date().getUTCMonth());
   const [selectedDuration, setSelectedDuration] = useState("15 min");
   const [selectedTime, setSelectedTime] = useState("4:00 pm");
   const [selectedBudget, setSelectedBudget] = useState("< $10k");

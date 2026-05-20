@@ -14,8 +14,6 @@ interface InteractiveCardProps extends CardData {
 }
 
 const InteractiveCard: React.FC<InteractiveCardProps> = ({
-  title,
-  subTitle,
   image,
   index,
   cardRef,

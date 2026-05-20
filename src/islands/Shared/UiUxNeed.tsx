@@ -61,7 +61,7 @@ export default function UiUxNeed({
   cards = defaultInfoCards,
 }: UiUxNeedProps) {
   const mobileTrackRef = useRef<HTMLDivElement>(null);
-  const [activeSlide, setActiveSlide] = useState(0);
+  const [, setActiveSlide] = useState(0);
 
   useEffect(() => {
     const track = mobileTrackRef.current;
@@ -86,21 +86,6 @@ export default function UiUxNeed({
     cardsEls.forEach((card) => observer.observe(card));
     return () => observer.disconnect();
   }, [cards.length]);
-
-  const goToCard = (index: number) => {
-    const track = mobileTrackRef.current;
-    if (!track) return;
-    const card = track.querySelector<HTMLElement>(
-      `[data-card-index="${index}"]`,
-    );
-    if (!card) return;
-    card.scrollIntoView({
-      behavior: "smooth",
-      inline: "start",
-      block: "nearest",
-    });
-  };
-
   return (
     <section className="relative w-full overflow-hidden px-4 pb-20 pt-8 sm:px-6 lg:px-24 lg:pb-28 ">
       <div className="mx-auto max-w-6xl">

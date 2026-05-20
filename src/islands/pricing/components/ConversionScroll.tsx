@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { SmartImage } from "../../../utils/SmartImage.tsx";
+import { SmartImage } from "@/utils/SmartImage.tsx";
 
 const STEPS = [
   {
@@ -75,7 +75,7 @@ export const ConversionScroll = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative z-10 mx-auto block w-full max-w-[920px] px-4 pb-24 pt-5"
+      className="relative z-10 mx-auto block w-full max-w-230 px-4 pb-24 pt-5"
     >
       <h2 className="text-center text-white text-2xl md:text-3xl font-black mb-12">
         Why <span className="text-[#1FC5C8]">Product Videos</span> increase
@@ -85,9 +85,9 @@ export const ConversionScroll = () => {
       {/* Desktop version */}
       <div className="relative hidden lg:block">
         <div className="pointer-events-none absolute left-1/2 top-0 h-full -translate-x-1/2">
-          <div className="relative h-full w-[4px] rounded-full bg-[#0D3444]">
+          <div className="relative h-full w-1 rounded-full bg-[#0D3444]">
             <div
-              className="absolute left-0 top-0 w-full rounded-full bg-gradient-to-b from-[#24D6D2] to-[#0FA8C4] transition-[height] duration-200"
+              className="absolute left-0 top-0 w-full rounded-full bg-linear-to-b from-[#24D6D2] to-[#0FA8C4] transition-[height] duration-200"
               style={{ height: `${progress * 100}%` }}
             />
             <div
@@ -132,7 +132,7 @@ export const ConversionScroll = () => {
                     alt={step.title}
                     width={860}
                     height={520}
-                    className={`h-[150px] w-full object-cover transition-all duration-500 md:h-[170px] ${
+                    className={`h-37.5 w-full object-cover transition-all duration-500 md:h-[170px] ${
                       isActive ? "scale-100" : "scale-[0.98]"
                     }`}
                   />

@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useLayoutEffect } from 'react';
-import { httpService } from '../../utils/httpService';
+import React, { useState, useLayoutEffect } from 'react';
+import { httpService } from '@/utils/httpService.ts';
 
 export default function AdminGuard({ children }: { children: React.ReactNode }) {
   const [isAuthorized, setIsAuthorized] = useState(false);
@@ -24,7 +24,7 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
         try { (window as any).__userRole = role; } catch (e) { }
           setIsAuthorized(true);
       } catch (err) {
-        // failed to fetch -> redirect to login
+        // failed to fetch -> redirect to
         try { window.location.href = '/login'; } catch (e) { }
       }
     })();

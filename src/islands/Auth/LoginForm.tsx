@@ -13,13 +13,6 @@ import { useAsyncOperation } from "@/utils/useAsyncOperation";
 import { loginService } from "@/services/loginService.ts";
 
 /* ---------------- TYPES ---------------- */
-
-type LoginPayload = {
-  email: string;
-  username: string;
-  password: string;
-};
-
 /* ---------------- API ---------------- */
 
 const BASE_URL = import.meta.env.PUBLIC_API_URL;
@@ -130,12 +123,12 @@ export default function LoginForm() {
     }
 
     loginMutation.mutate(() =>
-      loginService.login({
-        email,
-        username,
-        password,
-      })
-    );
+        loginService.login({
+            email,
+            username,
+            password,
+        })
+    ).then(r =>r);
   };
 
   /* ---------- UI ---------- */

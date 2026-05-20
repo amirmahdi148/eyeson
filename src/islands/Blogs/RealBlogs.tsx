@@ -4,8 +4,6 @@ import {SmartImage} from "../../utils/SmartImage.tsx";
 import {getPostSlug} from "@/lib/posts.ts";
 
 const API_URL = "http://localhost:1337/api/posts";
-const PLACEHOLDER_IMAGE = "/blogs/placeholder.svg";
-
 interface StrapiPost {
     id: number;
     documentId: string;

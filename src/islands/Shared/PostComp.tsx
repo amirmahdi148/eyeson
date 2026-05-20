@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from "react";;
+import { useMemo, useState, useEffect } from "react";
 import { PlayableMediaFrame } from "../animations/PlayableMediaFrame.tsx";
 
 type PortfolioKey = "Video" | "Animation" | "Industries";

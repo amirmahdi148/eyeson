@@ -8,7 +8,7 @@ const sampleRequests = [
   { id: 103, title: "Add subtitles", client: "Client C", status: "In Progress" },
 ];
 
-const itemTransition = { type: "spring", stiffness: 120, damping: 18 };
+const itemTransition = { type: "spring" as const, stiffness: 120, damping: 18 };
 
 export default function RequestsList() {
   return (

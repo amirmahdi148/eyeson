@@ -11,10 +11,10 @@ import SecondaryButton from "./SecondaryButton";
   aria-labelledby="cost-video-heading"
 >
   <div
-    class="cv-card animate-cv-card-in relative w-full max-w-6xl overflow-hidden rounded-[32px] sm:rounded-[40px] border border-[#006B77]/30 bg-gradient-to-r from-[#000E17] to-[#002830] p-6 sm:p-8 md:p-12 lg:p-16 shadow-2xl"
+    class="cv-card animate-cv-card-in relative w-full max-w-6xl overflow-hidden rounded-[32px] sm:rounded-[40px] border border-[#006B77]/30 bg-linear-to-r from-[#000E17] to-[#002830] p-6 sm:p-8 md:p-12 lg:p-16 shadow-2xl"
   >
     <div
-      class="pointer-events-none absolute top-0 left-0 h-px w-full bg-gradient-to-r from-transparent via-[#006B77] to-transparent opacity-70"
+      class="pointer-events-none absolute top-0 left-0 h-px w-full bg-linear-to-r from-transparent via-[#006B77] to-transparent opacity-70"
     >
     </div>
 
@@ -68,24 +68,24 @@ import SecondaryButton from "./SecondaryButton";
         class="relative flex items-center justify-center pt-12 lg:justify-end lg:pt-0"
       >
         <div
-          class="cv-float relative z-10 w-full max-w-[340px] sm:max-w-[380px]"
+          class="cv-float relative z-10 w-full max-w-85 sm:max-w-95"
         >
           <div class="relative w-full flex justify-center">
             <!-- decorative squares -->
             <div
-              class="pointer-events-none absolute top-[-20px] right-[-10px] sm:top-[-30px] sm:right-[-20px] z-0 h-20 w-20 sm:h-24 sm:w-24 rounded-2xl border border-white/5 bg-[#0e1217]"
+              class="pointer-events-none absolute -top-5 -right-2.5 sm:-top-7.5 sm:-right-5 z-0 h-20 w-20 sm:h-24 sm:w-24 rounded-2xl border border-white/5 bg-[#0e1217]"
             >
             </div>
             <div
-              class="pointer-events-none absolute bottom-[-20px] left-[-10px] sm:bottom-[-30px] sm:left-[-20px] z-0 h-16 w-24 sm:h-20 sm:w-28 rounded-2xl border border-white/5 bg-[#0e1217]"
+              class="pointer-events-none absolute -bottom-5 -left-2.5 sm:-bottom-7.5 sm:-left-5 z-0 h-16 w-24 sm:h-20 sm:w-28 rounded-2xl border border-white/5 bg-[#0e1217]"
             >
             </div>
             <div
-              class="pointer-events-none absolute bottom-[-20px] left-[60px] sm:bottom-[-30px] sm:left-[80px] z-0 h-16 w-24 sm:h-20 sm:w-28 rounded-2xl border border-white/5 bg-[#0e1217]"
+              class="pointer-events-none absolute -bottom-5 left-15 sm:-bottom-7.5 sm:left-20 z-0 h-16 w-24 sm:h-20 sm:w-28 rounded-2xl border border-white/5 bg-[#0e1217]"
             >
             </div>
             <div
-              class="pointer-events-none absolute right-[-10px] bottom-[-20px] sm:right-[-20px] sm:bottom-[-30px] z-0 h-16 w-20 sm:h-20 sm:w-24 rounded-2xl border border-white/5 bg-[#0e1217]"
+              class="pointer-events-none absolute -right-2.5 -bottom-5 sm:-right-5 sm:-bottom-7.5 z-0 h-16 w-20 sm:h-20 sm:w-24 rounded-2xl border border-white/5 bg-[#0e1217]"
             >
             </div>
 
@@ -118,7 +118,7 @@ import SecondaryButton from "./SecondaryButton";
             >
               <!-- صفحه نمایش -->
               <div
-                class="relative mb-5 sm:mb-6 flex h-[70px] sm:h-[84px] items-center justify-between overflow-hidden rounded-2xl sm:rounded-[20px] border border-white/10 bg-[#333b4d] px-5 sm:px-6 shadow-inner"
+                class="relative mb-5 sm:mb-6 flex h-17.5 sm:h-21 items-center justify-between overflow-hidden rounded-2xl sm:rounded-[20px] border border-white/10 bg-[#333b4d] px-5 sm:px-6 shadow-inner"
               >
                 <div
                   data-calc-display
@@ -168,7 +168,7 @@ import SecondaryButton from "./SecondaryButton";
                   ].map((key) => (
                     <div
                       data-calc-key={key}
-                      class="cv-key flex aspect-square w-full cursor-default items-center justify-center rounded-[14px] sm:rounded-[18px] border-b-[4px] border-[#4b5563] bg-[#2a3441] text-xl sm:text-2xl font-bold text-[#f3f4f6] shadow-sm transition-all duration-150 ease-out"
+                      class="cv-key flex aspect-square w-full cursor-default items-center justify-center rounded-[14px] sm:rounded-[18px] border-b-4 border-[#4b5563] bg-[#2a3441] text-xl sm:text-2xl font-bold text-[#f3f4f6] shadow-sm transition-all duration-150 ease-out"
                     >
                       {key}
                     </div>
@@ -251,7 +251,7 @@ import SecondaryButton from "./SecondaryButton";
   .cv-key.is-pressed {
     transform: translateY(2px) scale(0.95);
     background-color: #005a63 !important;
-    border-bottom-width: 0px !important;
+    border-bottom-width: 0 !important;
     border-top-width: 4px !important;
     border-top-color: transparent !important;
   }
@@ -296,12 +296,12 @@ import SecondaryButton from "./SecondaryButton";
     function runCalcLoop(root, displayEl) {
       async function tick() {
         while (true) {
-          var text = "";
+          let text = "";
           displayEl.textContent = text ? text : "$0";
           await sleep(1000);
 
-          for (var i = 0; i < 5; i++) {
-            var c = "12345"[i];
+          for (let i = 0; i < 5; i++) {
+            const c = "12345"[i];
             setPressed(root, c);
             text += c;
             displayEl.textContent = text;
@@ -320,8 +320,8 @@ import SecondaryButton from "./SecondaryButton";
     }
 
     function init() {
-      var root = document.getElementById("cost-video-calc");
-      var displayEl = root && root.querySelector("[data-calc-display]");
+      const root = document.getElementById("cost-video-calc");
+      const displayEl = root && root.querySelector("[data-calc-display]");
       if (!root || !displayEl) return;
       runCalcLoop(root, displayEl);
     }

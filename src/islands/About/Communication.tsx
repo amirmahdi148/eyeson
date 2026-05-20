@@ -35,16 +35,6 @@ const lineReveal: Variants = {
     transition: { duration: 0.8, ease: "easeOut" },
   },
 };
-
-const splineReveal: Variants = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 1.2, ease: "easeOut" },
-  },
-};
-
 const sectionVariants: Variants = {
   hidden: {},
   visible: {
@@ -63,17 +53,6 @@ const fadeIn: Variants = {
   },
 };
 
-// ================= SPLINE COMPONENT =================
-function SplineSceneBasic() {
-  return (
-    <div className="w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] relative overflow-hidden flex justify-center">
-      <SplineScene
-        scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-        className="w-full h-full object-contain"
-      />
-    </div>
-  );
-}
 
 // ================= MAIN COMPONENT =================
 export const Communication = memo(function Communication() {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ToggleRight, Clock, Settings, Bell, RefreshCcw } from 'lucide-react';
+import { Clock, Settings, Bell, RefreshCcw } from 'lucide-react';
 
 type ApiSetting = { enabled: boolean; value: number };
 
@@ -35,7 +35,7 @@ export default function SettingsPanel() {
             <Settings />
             <h1 className="text-2xl font-bold">Settings</h1>
           </div>
-          <button className="px-3 py-1 rounded-full bg-gradient-to-r from-[#00E6D7] to-[#12ACB5] text-black">Save</button>
+          <button className="px-3 py-1 rounded-full bg-linear-to-r from-[#00E6D7] to-[#12ACB5] text-black">Save</button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
