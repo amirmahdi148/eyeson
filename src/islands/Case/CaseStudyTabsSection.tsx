@@ -17,6 +17,8 @@ export type TabItem = {
   text: string;
 };
 
+const SLUG = "skylines-989762e9";
+
 // Default static tabs – used when no data is supplied by the parent
 const DEFAULT_TABS: TabItem[] = [
   {
@@ -70,12 +72,35 @@ const DEFAULT_TABS: TabItem[] = [
   },
 ];
 
-// Component – receives optional tabsData from parent
-function CaseStudyTabsSection({ tabsData }: { tabsData?: TabItem[] }) {
-  const tabs = tabsData ?? DEFAULT_TABS;
-
+// Component – fetches data from API on mount, falls back to defaults
+function CaseStudyTabsSection() {
+  const [tabs, setTabs] = useState<TabItem[]>(DEFAULT_TABS);
   const [activeTab, setActiveTab] = useState<TabKey>("industry");
   const [displayedText, setDisplayedText] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const API_URL = import.meta.env.PUBLIC_API_URL;
+        const response = await fetch(
+          `${API_URL}/project/texts?slug=${SLUG}`,
+          { credentials: "include" }
+        );
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const texts = await response.json();
+        const mapped = texts.map((t: any) => ({
+          key: t.section.replace(/\s+/g, "").toLowerCase(),
+          label: t.section,
+          title: t.title,
+          text: t.description,
+        }));
+        if (mapped.length > 0) setTabs(mapped);
+      } catch (err) {
+        console.warn("[CaseStudyTabsSection] Using fallback tabs:", err);
+      }
+    };
+    fetchData();
+  }, []);
 
   const active = useMemo(
     () => tabs.find((tab) => tab.key === activeTab) ?? tabs[0],
