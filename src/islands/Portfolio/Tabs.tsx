@@ -35,10 +35,10 @@ export const Tabs = ({type , SetType} : Props) => {
                     <button
                         key={i}
                         onClick={() => SetType(port.key)}
-                        className="relative cursor-pointer pb-2"
+                        className="group relative cursor-pointer pb-2 overflow-hidden"
                     >
                         {port.title}
-
+                        <div className="absolute inset-0 -translate-x-[150%] bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-[150%] skew-x-[-20deg]" />
                         <span
                             className={`absolute left-0 bottom-0 h-0.5 w-full bg-linear-to-r from-transparent via-teal-400 to-transparent
                                                   transition-transform duration-300 ease-out  origin-center

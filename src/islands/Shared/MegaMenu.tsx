@@ -9,11 +9,11 @@ const SERVICE_GROUPS = [
         title: "Content Services",
         description: "Production systems for brands that need consistent content output.",
         items: [
-            { title: "Content Production", description: "Tailored content creation aligned with your brand voice and goals.", image: "/Header/ContentServices/cp.png", accent: "#17d6d4", href: "/video" },
-            { title: "Short-Form Content", description: "Fast-turn edits built for TikTok, Reels, and YouTube Shorts.", image: "/Header/ContentServices/sfc.png", accent: "#4bc7ff", href: "/video" },
-            { title: "Video Editing", description: "Clean, modern edits focused on retention and engagement.", image: "/Header/ContentServices/vd.png", accent: "#7ee6ff", href: "/video" },
-            { title: "Ad Creatives", description: "Conversion-focused creatives for paid social campaigns.", image: "/Header/ContentServices/ac.png", accent: "#66f2c5", href: "/adcreatives" },
-            { title: "Monthly Retainers", description: "A steady content plan with production and delivery built in.", image: "/Header/ContentServices/mr.png", accent: "#ffd56a", href: "/video" },
+            { title: "Content Production", description: "Tailored content creation aligned with your brand voice and goals.", image: "/Header/ContentServices/cp.webp", accent: "#17d6d4", href: "/video" },
+            { title: "Short-Form Content", description: "Fast-turn edits built for TikTok, Reels, and YouTube Shorts.", image: "/Header/ContentServices/sfc.webp", accent: "#4bc7ff", href: "/video" },
+            { title: "Video Editing", description: "Clean, modern edits focused on retention and engagement.", image: "/Header/ContentServices/vd.webp", accent: "#7ee6ff", href: "/video" },
+            { title: "Ad Creatives", description: "Conversion-focused creatives for paid social campaigns.", image: "/Header/ContentServices/ac.webp", accent: "#66f2c5", href: "/adcreatives" },
+            { title: "Monthly Retainers", description: "A steady content plan with production and delivery built in.", image: "/Header/ContentServices/mr.webp", accent: "#ffd56a", href: "/video" },
         ],
         href: "/video",
     },
@@ -21,9 +21,9 @@ const SERVICE_GROUPS = [
         title: "Creative & Motion Services",
         description: "Motion-first storytelling and animation work.",
         items: [
-            { title: "2D/3D Animation", description: "High-end animation work for brands.", image: "/Header/C&MServices/23a.png", accent: "#8eefff", href: "/animation" },
-            { title: "Motion Graphics", description: "Eye-catching animated visuals crafted for marketing, apps, and websites.", image: "/Header/C&MServices/mg.png", accent: "#5ee8ff", href: "/motiongraphics" },
-            { title: "Motion Design", description: "Modern motion graphics that elevate your product stories with smooth animations.", image: "/Header/C&MServices/md.png", accent: "#5ee8ff", href: "/services/motion-design" },
+            { title: "2D/3D Animation", description: "High-end animation work for brands.", image: "/Header/C&MServices/23a.webp", accent: "#8eefff", href: "/animation" },
+            { title: "Motion Graphics", description: "Eye-catching animated visuals crafted for marketing, apps, and websites.", image: "/Header/C&MServices/mg.webp", accent: "#5ee8ff", href: "/motiongraphics" },
+            { title: "Motion Design", description: "Modern motion graphics that elevate your product stories with smooth animations.", image: "/Header/C&MServices/md.webp", accent: "#5ee8ff", href: "/services/motion-design" },
         ],
         href: "/animation",
     },
@@ -31,8 +31,8 @@ const SERVICE_GROUPS = [
         title: "Design Services",
         description: "Brand and digital systems built for clarity.",
         items: [
-            { title: "UI/UX Design", description: "Clean interface systems built for clarity.", image: "/Header/DesignServices/uixd.png", accent: "#ffd56a", href: "/uiux" },
-            { title: "Brand Identity", description: "Full branding systems from scratch.", image: "/Header/DesignServices/uixd.png", accent: "#ffee99", href: "/branding" },
+            { title: "UI/UX Design", description: "Clean interface systems built for clarity.", image: "/Header/DesignServices/uixd.webp", accent: "#ffd56a", href: "/uiux" },
+            { title: "Brand Identity", description: "Full branding systems from scratch.", image: "/Header/DesignServices/uixd.webp", accent: "#ffee99", href: "/branding" },
         ],
         href: "/branding",
     },
@@ -171,7 +171,7 @@ export const MobileMenu = ({ open, onClose }: MobileMenuProps) => {
                     {/* Header */}
                     <div className="mb-8 flex items-center justify-between">
                         <a href="/" onClick={onClose}>
-                            <img src="/logo.png" className="h-10 object-contain" alt="EyesOn logo" />
+                            <img src="/logo.webp" className="h-10 object-contain" alt="EyesOn logo" />
                         </a>
                         <button onClick={onClose} className="h-10 w-10 rounded-full border border-[#3AAFC8]/40 bg-[#071D29] text-[#45D4E8] text-2xl flex items-center justify-center">
                             ×
@@ -247,7 +247,7 @@ export const Header = () => {
                     {/* Desktop Header */}
                     <div className="relative mx-auto max-w-[1200px] hidden lg:flex items-center justify-between gap-3">
                         <a href="/" className="relative z-50">
-                            <img src="/logo.png" className={`object-contain transition-[height] duration-300 ${scrolled ? "h-10" : "h-14"}`} alt="EyesOn logo" />
+                            <img src="/logo.webp" className={`object-contain transition-[height] duration-300 ${scrolled ? "h-10" : "h-14"}`} alt="EyesOn logo" />
                         </a>
 
                         <nav className="hidden lg:flex items-center gap-7">
@@ -274,7 +274,7 @@ export const Header = () => {
                     {/* Mobile / Compact Header */}
                     <div className="relative mx-auto max-w-[1200px] flex lg:hidden items-center justify-between rounded-full border border-[#3AAFC8]/35 bg-[#03111C]/90 px-4 py-2 shadow-lg backdrop-blur-md sm:px-6">
                         <a href="/" className="relative z-50">
-                            <img src="/logo.png" className="h-9 object-contain" alt="EyesOn logo" />
+                            <img src="/logo.webp" className="h-9 object-contain" alt="EyesOn logo" />
                         </a>
                         <button className="rounded-full px-5 py-2 text-[13px] font-semibold text-white bg-gradient-to-r from-[#00A9BD] to-[#1D553A]">
                             Free sample

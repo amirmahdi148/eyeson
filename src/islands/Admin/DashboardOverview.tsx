@@ -1,196 +1,221 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Layers, Eye, FileText, CheckCircle, Activity, Cpu, Database } from "lucide-react";
+import {
+  Layers,
+  Eye,
+  FileText,
+  CheckCircle,
+  Activity,
+  Cpu,
+  Database,
+  TrendingUp,
+  Clock,
+  ArrowUpRight,
+  ArrowDownRight
+} from "lucide-react";
 
 const quickStats = [
-  { label: "Projects Count", value: 42, icon: Layers },
-  { label: "Project Views", value: 1234, icon: Eye },
-  { label: "Project Requests", value: 56, icon: FileText },
-  { label: "Completed Requests", value: 38, icon: CheckCircle },
+  { label: "Projects", value: 42, change: "+12%", up: true, icon: Layers },
+  { label: "Total Views", value: 1234, change: "+8%", up: true, icon: Eye },
+  { label: "Requests", value: 56, change: "-3%", up: false, icon: FileText },
+  { label: "Completed", value: 38, change: "+15%", up: true, icon: CheckCircle },
 ];
 
 const recentProjects = [
-  { id: 1, title: "Branding Refresh", owner: "Alice", updated: "2 days ago" },
-  { id: 2, title: "Landing Page Redesign", owner: "Bob", updated: "5 days ago" },
+  { id: 1, title: "Branding Refresh", owner: "Alice", updated: "2 days ago", views: 1240 },
+  { id: 2, title: "Landing Page Redesign", owner: "Bob", updated: "5 days ago", views: 890 },
+  { id: 3, title: "Ad Campaign Assets", owner: "Carol", updated: "1 week ago", views: 430 },
 ];
 
 const recentRequests = [
-  { id: 101, title: "Request: New hero video", from: "Client A", status: "Pending" },
-  { id: 102, title: "Request: Extra revisions", from: "Client B", status: "Completed" },
+  { id: 101, title: "New hero video", from: "Client A", status: "Pending" },
+  { id: 102, title: "Extra revisions", from: "Client B", status: "Completed" },
+  { id: 103, title: "Add subtitles", from: "Client C", status: "In Progress" },
 ];
 
-const statTransition = { type: "spring" as const, stiffness: 140, damping: 18, mass: 0.6 };
+const itemTransition = { type: "spring" as const, stiffness: 120, damping: 18 };
 
 export default function DashboardOverview() {
-  const [apiInterval, setApiInterval] = useState<number | null>(null);
   const [uptime] = useState("12 days 4 hrs");
   const [activeUsers] = useState(128);
   const [cpu] = useState(26);
   const [dbConnections] = useState(8);
 
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem('admin-settings');
-      if (raw) {
-        const s = JSON.parse(raw);
-        if (s.apiInterval && s.apiInterval.enabled) setApiInterval(Number(s.apiInterval.value));
-      }
-    } catch (e) {
-      // ignore
-    }
-  }, []);
-
-  const [role, setRole] = useState<string | null>(null);
-  useEffect(() => {
-    try {
-      if (typeof window !== 'undefined') {
-        const r = (window as any).__userRole;
-        if (r) setRole(String(r));
-      }
-    } catch (e) {
-      // ignore
-    }
-  }, []);
-
-  const navItems = ["Dashboard", "Projects", "Requests", "Users", "Settings"].filter(item => !(item === 'Users' && role !== 'owner'));
+  const statusColors: Record<string, string> = {
+    Pending: "bg-yellow-500/20 text-yellow-300 border-yellow-500/30",
+    Completed: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
+    "In Progress": "bg-cyan-500/20 text-cyan-300 border-cyan-500/30",
+  };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row gap-6 text-white">
-      <aside className="w-full md:w-72 backdrop-blur-xl bg-white/6 border border-white/6 rounded-2xl p-6 shadow-2xl">
-        <h2 className="text-2xl font-semibold mb-6 text-white">Admin Panel</h2>
-        <nav className="flex flex-col gap-2">
-          {navItems.map((s) => (
-            <a
-              key={s}
-              href={s === 'Projects' ? '/admin/projects' : s === 'Requests' ? '/admin/requests' : s === 'Settings' ? '/admin/settings' : '#'}
-              className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/8 transition-colors text-white"
+    <div className="space-y-6">
+      {/* Stats Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {quickStats.map((s, i) => {
+          const Icon = s.icon;
+          return (
+            <motion.div
+              key={s.label}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ ...itemTransition, delay: i * 0.06 }}
+              className="relative overflow-hidden rounded-2xl border border-white/5 bg-white/[0.03] backdrop-blur-xl p-5"
             >
-              <span className="text-white"><Layers size={18} /></span>
-              <span className="text-sm">{s}</span>
-            </a>
-          ))}
-        </nav>
-      </aside>
-
-      <main className="flex-1">
-        <section
-          className="rounded-2xl p-6"
-          style={{
-            background: 'linear-gradient(135deg, rgba(4,18,20,0.6), rgba(6,180,166,0.12))',
-            border: '1px solid rgba(255,255,255,0.04)',
-            boxShadow: '0 15px 40px rgba(2,80,80,0.12)'
-          }}
-        >
-          <div className="flex items-center justify-between mb-6">
-            <h1 className="text-3xl font-bold">Dashboard Overview</h1>
-            <div className="text-sm text-white/80">Welcome back, Admin</div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-            {quickStats.map((s, i) => {
-              const Icon = s.icon;
-              return (
-                <motion.div
-                  key={s.label}
-                  layout
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 6 }}
-                  transition={{ ...statTransition, delay: i * 0.06 }}
-                  whileHover={{ scale: 1.03 }}
-                  className="backdrop-blur-xl bg-white/5 border border-white/6 rounded-xl p-5 flex flex-col items-center"
-                >
-                  <div className="p-3 rounded-full bg-linear-to-r from-[#00E6D7] to-[#12ACB5] shadow-[0_12px_40px_rgba(18,172,181,0.14)] mb-3">
-                    <Icon color="#fff" size={18} />
-                  </div>
-                  <div className="text-2xl font-semibold text-white">{s.value}</div>
-                  <div className="text-sm text-white/80 mt-1">{s.label}</div>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 backdrop-blur-xl bg-white/5 border border-white/6 rounded-2xl p-5">
               <div className="flex items-start justify-between">
-                <h3 className="text-xl font-semibold mb-3">Recent Projects</h3>
-                <div className="text-sm text-white/70">API Interval: {apiInterval ? `${apiInterval}s` : 'Not set'}</div>
+                <div className="p-2.5 rounded-xl bg-gradient-to-br from-[#00E6D7]/20 to-[#12ACB5]/10">
+                  <Icon className="h-5 w-5 text-[#00E6D7]" />
+                </div>
+                <div className={`flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-full ${s.up ? "bg-emerald-500/15 text-emerald-400" : "bg-red-500/15 text-red-400"}`}>
+                  {s.up ? <ArrowUpRight size={12} /> : <ArrowDownRight size={12} />}
+                  {s.change}
+                </div>
               </div>
-
-              <ul className="flex flex-col gap-3">
-                {recentProjects.map((p) => (
-                  <li key={p.id} className="flex items-center justify-between">
-                    <div>
-                      <div className="font-semibold">{p.title}</div>
-                      <div className="text-sm text-white/70">Owner: {p.owner} • {p.updated}</div>
-                    </div>
-                    <a className="px-3 py-1 rounded-full bg-linear-to-r from-[#00E6D7] to-[#12ACB5] text-black text-sm" href={`/projects/${p.id}`}>Open</a>
-                  </li>
-                ))}
-              </ul>
-
               <div className="mt-4">
-                <h4 className="text-sm font-medium mb-2">System Metrics</h4>
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="text-sm">
-                    <div className="text-white/80 text-xs">Uptime</div>
-                    <div className="font-semibold">{uptime}</div>
+                <div className="text-2xl font-bold text-white">{s.value.toLocaleString()}</div>
+                <div className="text-sm text-white/50 mt-0.5">{s.label}</div>
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      {/* Main Content Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Recent Projects */}
+        <div className="lg:col-span-2 rounded-2xl border border-white/5 bg-white/[0.03] backdrop-blur-xl">
+          <div className="flex items-center justify-between p-5 border-b border-white/5">
+            <h3 className="font-semibold text-white">Recent Projects</h3>
+            <motion.a whileHover={{ x: 3 }} whileTap={{ scale: 0.97 }} href="/admin/projects" className="text-sm text-[#00E6D7] hover:text-[#00E6D7]/80 transition-colors cursor-pointer">
+              View all
+            </motion.a>
+          </div>
+          <div className="divide-y divide-white/5">
+            {recentProjects.map((p, i) => (
+              <motion.div
+                key={p.id}
+                initial={{ opacity: 0, x: -8 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ ...itemTransition, delay: i * 0.05 }}
+                className="flex items-center justify-between p-5 hover:bg-white/[0.02] transition-colors"
+              >
+                <div className="flex items-center gap-4 min-w-0">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00E6D7]/20 to-[#12ACB5]/10 flex items-center justify-center shrink-0">
+                    <span className="text-sm font-bold text-[#00E6D7]">{p.title.charAt(0)}</span>
                   </div>
-                  <div className="text-sm">
-                    <div className="text-white/80 text-xs">Active Users</div>
-                    <div className="font-semibold">{activeUsers}</div>
+                  <div className="min-w-0">
+                    <div className="font-medium text-white truncate">{p.title}</div>
+                    <div className="text-sm text-white/40 flex items-center gap-2">
+                      <span>{p.owner}</span>
+                      <span className="w-1 h-1 rounded-full bg-white/20" />
+                      <span>{p.updated}</span>
+                    </div>
                   </div>
                 </div>
+                <div className="flex items-center gap-4 shrink-0 ml-4">
+                  <div className="hidden sm:flex items-center gap-1.5 text-sm text-white/50">
+                    <Eye size={14} />
+                    <span>{p.views.toLocaleString()}</span>
+                  </div>
+                  <motion.a
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    href={`/admin/project/${p.id}`}
+                    className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#00E6D7] to-[#12ACB5] text-black text-sm font-medium hover:opacity-90 transition-opacity cursor-pointer"
+                  >
+                    Open
+                  </motion.a>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
 
-                <div className="mt-3">
-                  <div className="flex items-center justify-between text-xs text-white/80">
+        {/* Right Column */}
+        <div className="space-y-6">
+          {/* Recent Requests */}
+          <div className="rounded-2xl border border-white/5 bg-white/[0.03] backdrop-blur-xl">
+            <div className="flex items-center justify-between p-5 border-b border-white/5">
+              <h3 className="font-semibold text-white">Recent Requests</h3>
+              <motion.a whileHover={{ x: 3 }} whileTap={{ scale: 0.97 }} href="/admin/requests" className="text-sm text-[#00E6D7] hover:text-[#00E6D7]/80 transition-colors cursor-pointer">
+                View all
+              </motion.a>
+            </div>
+            <div className="divide-y divide-white/5">
+              {recentRequests.map((r, i) => (
+                <motion.div
+                  key={r.id}
+                  initial={{ opacity: 0, x: 8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ ...itemTransition, delay: i * 0.05 }}
+                  className="flex items-center justify-between p-4 hover:bg-white/[0.02] transition-colors"
+                >
+                  <div className="min-w-0">
+                    <div className="font-medium text-white text-sm truncate">{r.title}</div>
+                    <div className="text-xs text-white/40 mt-0.5">{r.from}</div>
+                  </div>
+                  <span className={`px-2.5 py-1 rounded-full text-xs font-medium border shrink-0 ml-2 ${statusColors[r.status] || "bg-white/10 text-white/60 border-white/10"}`}>
+                    {r.status}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* System Metrics */}
+          <div className="rounded-2xl border border-white/5 bg-white/[0.03] backdrop-blur-xl p-5">
+            <h3 className="font-semibold text-white mb-4 flex items-center gap-2">
+              <Activity size={16} className="text-[#00E6D7]" />
+              System Metrics
+            </h3>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 text-sm text-white/60">
+                  <Clock size={14} />
+                  <span>Uptime</span>
+                </div>
+                <span className="text-sm font-medium text-white">{uptime}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 text-sm text-white/60">
+                  <Eye size={14} />
+                  <span>Active Users</span>
+                </div>
+                <span className="text-sm font-medium text-white">{activeUsers}</span>
+              </div>
+              <div>
+                <div className="flex items-center justify-between text-sm mb-1.5">
+                  <div className="flex items-center gap-2 text-white/60">
+                    <Cpu size={14} />
                     <span>CPU</span>
-                    <span>{cpu}%</span>
                   </div>
-                  <div className="w-full bg-white/6 rounded-full h-2 mt-1">
-                    <div className="bg-linear-to-r from-[#00E6D7] to-[#12ACB5] h-2 rounded-full" style={{ width: `${cpu}%` }} />
-                  </div>
-
-                  <div className="flex items-center justify-between text-xs text-white/80 mt-2">
+                  <span className="font-medium text-white">{cpu}%</span>
+                </div>
+                <div className="w-full bg-white/5 rounded-full h-1.5">
+                  <div
+                    className="bg-gradient-to-r from-[#00E6D7] to-[#12ACB5] h-1.5 rounded-full transition-all duration-500"
+                    style={{ width: `${cpu}%` }}
+                  />
+                </div>
+              </div>
+              <div>
+                <div className="flex items-center justify-between text-sm mb-1.5">
+                  <div className="flex items-center gap-2 text-white/60">
+                    <Database size={14} />
                     <span>DB Connections</span>
-                    <span>{dbConnections}</span>
                   </div>
+                  <span className="font-medium text-white">{dbConnections}</span>
                 </div>
-              </div>
-            </div>
-
-            <div className="backdrop-blur-xl bg-white/5 border border-white/6 rounded-2xl p-5">
-              <h3 className="text-xl font-semibold mb-3">Recent Requests</h3>
-              <ul className="flex flex-col gap-3 mb-4">
-                {recentRequests.map((r) => (
-                  <li key={r.id} className="flex items-center justify-between">
-                    <div>
-                      <div className="font-semibold">{r.title}</div>
-                      <div className="text-sm text-white/70">From: {r.from}</div>
-                    </div>
-                    <div className={`px-3 py-1 rounded-full text-sm ${r.status === 'Completed' ? 'bg-green-200 text-black' : 'bg-white/8 text-white'}`}>
-                      {r.status}
-                    </div>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="text-sm text-white/70">
-                <div className="flex items-center gap-2">
-                  <Cpu size={14} /> <span>CPU: {cpu}%</span>
-                </div>
-                <div className="flex items-center gap-2 mt-2">
-                  <Database size={14} /> <span>DB Connections: {dbConnections}</span>
+                <div className="w-full bg-white/5 rounded-full h-1.5">
+                  <div
+                    className="bg-gradient-to-r from-[#00E6D7] to-[#12ACB5] h-1.5 rounded-full transition-all duration-500"
+                    style={{ width: `${(dbConnections / 20) * 100}%` }}
+                  />
                 </div>
               </div>
             </div>
           </div>
-
-          <div className="mt-6 text-sm text-white/60 flex items-center gap-3">
-            <Activity size={16} /> Live system metrics and activity streams available in full admin.
-          </div>
-        </section>
-      </main>
+        </div>
+      </div>
     </div>
   );
 }

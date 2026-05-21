@@ -1,12 +1,13 @@
 ---
-import ProjectsList from "../../islands/Admin/ProjectsList";
-import AdminGuard from "../../islands/Admin/AdminGuard";
-import "../../styles/global.css";
+import AdminBaseLayout from "../../layouts/AdminLayout.astro";
+import AdminLayout from "@/islands/Admin/AdminLayout";
+import ProjectsList from "@/islands/Admin/ProjectsList";
+import AdminGuard from "@/islands/Admin/AdminGuard";
 ---
-<div class="min-h-screen p-6 bg-[radial-gradient(ellipse_at_top_right,#062428,#001219)]">
-  <div class="max-w-7xl mx-auto">
-    <AdminGuard client:only="react">
+<AdminBaseLayout>
+  <AdminGuard client:only="react">
+    <AdminLayout client:load>
       <ProjectsList client:load />
-    </AdminGuard>
-  </div>
-</div>
+    </AdminLayout>
+  </AdminGuard>
+</AdminBaseLayout>
