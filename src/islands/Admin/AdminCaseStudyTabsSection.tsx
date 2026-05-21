@@ -30,22 +30,32 @@ const DEFAULT_TABS: TabItem[] = [
   { key: "startingPoint", label: "Starting Point", title: "Content Audit & Brief", text: "We started by reviewing the existing content style." },
 ];
 
-export default function AdminCaseStudyTabsSection({
-  tabsData: propTabsData,
-  tabsError = null
-}: {
-  tabsData?: TabItem[];
-  tabsError?: string | null;
-}) {
-  const tabsData = propTabsData && propTabsData.length > 0 ? propTabsData : DEFAULT_TABS;
-  const tabs = tabsData as TabItem[];
-
+export default function AdminCaseStudyTabsSection() {
+  const [tabs, setTabs] = useState<TabItem[]>(DEFAULT_TABS);
   const [activeTab, setActiveTab] = useState<TabKey>("industry");
   const [displayedText, setDisplayedText] = useState("");
   const [editField, setEditField] = useState<string | null>(null);
   const [editValue, setEditValue] = useState("");
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const texts = await httpService.get<any[]>(`/project/texts?slug=${SLUG}`);
+        const mapped = texts.map((t) => ({
+          key: t.section.replace(/\s+/g, "").toLowerCase(),
+          label: t.section,
+          title: t.title,
+          text: t.description,
+        }));
+        if (mapped.length > 0) setTabs(mapped);
+      } catch (err) {
+        console.warn("[AdminCaseStudyTabsSection] Using fallback tabs:", err);
+      }
+    };
+    fetchData();
+  }, []);
 
   const active = useMemo(
     () => tabs.find((tab) => tab.key === activeTab) ?? tabs[0],
@@ -144,19 +154,6 @@ export default function AdminCaseStudyTabsSection({
       </div>
     </div>
   );
-
-  if (tabsError) {
-    return (
-      <section className="relative overflow-hidden lg:py-40">
-        <div className="relative mx-auto max-w-6xl px-4">
-          <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-            <h3 className="text-red-800">Failed to load tabs data</h3>
-            <p className="text-red-600">{tabsError}</p>
-          </div>
-        </div>
-      </section>
-    );
-  }
 
   return (
     <section className="relative overflow-hidden lg:py-40">

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Edit2, Save, X, Loader2 } from "lucide-react";
 import { httpService } from "@/utils/httpService.ts";
 
@@ -13,34 +13,41 @@ interface CaseData {
 
 const SLUG = "skylines-989762e9";
 
-export default function AdminCaseStudyHero({
-  caseData = {},
-  heroError = null
-}: {
-  caseData?: CaseData;
-  heroError?: string | null;
-}) {
-  const {
-    title = "CryptoZen",
-    description = "CryptoZen is a crypto education brand aiming to make blockchain simple, engaging, and actionable. Our mission was to help them scale their content and grow their audience across Instagram, TikTok, and YouTube, with a focus on driving VIP membership conversions through high-retention, short-form video.",
-    tools = [
-      { name: "Blender", iconUrl: "/case/blender.webp" },
-      { name: "Illustrator", iconUrl: "/case/ai.webp" },
-      { name: "Photoshop", iconUrl: "/case/ps.webp" },
-      { name: "After Effects", iconUrl: "/case/ae.webp" },
-    ],
-    projectType = "Subscription",
-    projectTimeline = "9 Months",
-    avatar = ""
-  } = caseData;
+const DEFAULT_DATA: CaseData = {
+  title: "CryptoZen",
+  description: "CryptoZen is a crypto education brand aiming to make blockchain simple, engaging, and actionable. Our mission was to help them scale their content and grow their audience across Instagram, TikTok, and YouTube, with a focus on driving VIP membership conversions through high-retention, short-form video.",
+  tools: [
+    { name: "Blender", iconUrl: "/case/blender.webp" },
+    { name: "Illustrator", iconUrl: "/case/ai.webp" },
+    { name: "Photoshop", iconUrl: "/case/ps.webp" },
+    { name: "After Effects", iconUrl: "/case/ae.webp" },
+  ],
+  projectType: "Subscription",
+  projectTimeline: "9 Months",
+  avatar: "/case/hero-case.webp",
+};
 
-  const [data, setData] = useState<CaseData>({
-    title, description, tools, projectType, projectTimeline, avatar
-  });
+export default function AdminCaseStudyHero() {
+  const [data, setData] = useState<CaseData>(DEFAULT_DATA);
+  const [loading, setLoading] = useState(true);
   const [editField, setEditField] = useState<string | null>(null);
   const [editValue, setEditValue] = useState("");
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await httpService.get<CaseData>(`/project/details?slug=${SLUG}`);
+        setData((prev) => ({ ...prev, ...res }));
+      } catch (err) {
+        console.warn("[AdminCaseStudyHero] Using fallback data:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
   const fixImageUrl = (url?: string) => {
     if (!url) return url;
@@ -137,19 +144,6 @@ export default function AdminCaseStudyHero({
       </div>
     </div>
   );
-
-  if (heroError) {
-    return (
-      <section className="relative overflow-hidden py-16 sm:py-20 lg:py-28">
-        <div className="relative mx-auto max-w-7xl px-4">
-          <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-            <h3 className="text-red-800">Failed to load hero data</h3>
-            <p className="text-red-600">{heroError}</p>
-          </div>
-        </div>
-      </section>
-    );
-  }
 
   return (
     <>
@@ -529,12 +523,12 @@ export default function AdminCaseStudyHero({
                 }} />
                 <img
                   src={`${import.meta.env.PUBLIC_API_URL}${fixImageUrl(data.avatar) || "/case/hero-case.webp"}`}
-                  alt={data.title}
+                  alt={data.title || "Hero"}
                   width="1200"
                   height="900"
                   loading="lazy"
                   className="block h-full w-full object-cover"
-                  style={{ opacity: 0, transition: 'opacity .4s ease' }}
+                  style={{ opacity: loading ? 0 : 0, transition: 'opacity .4s ease' }}
                   onLoad={(e) => {
                     const img = e.currentTarget;
                     img.style.opacity = '1';

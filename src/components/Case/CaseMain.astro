@@ -1,33 +1,17 @@
 ---
-import CaseStudyHero from "./CaseStudyHero.astro";
+import CaseStudyHero from "../../islands/Case/CaseStudyHero";
 import CaseStudyTabsSection from "../../islands/Case/CaseStudyTabsSection";
 import VisualProofSection from "../../islands/Case/VisualProofSection";
 import CaseStudiesSection from "../../islands/CaseStudiesSection";
 import ContactUs from "../../islands/ContactUs";
 import CaseBackground from "../../islands/Case/CaseBackground";
-import { httpService } from "@/utils/httpService.ts";
-
-// Fetch tab data on the server side
-let tabsData: { key: any; label: string; title: string; text: string; }[] | undefined = [];
-try {
-  const texts = await httpService.get<any[]>(`/project/texts?slug=skylines-989762e9`);
-  tabsData = texts.map((t) => ({
-    key: t.section.replace(/\s+/g, "").toLowerCase(),
-    label: t.section,
-    title: t.title,
-    text: t.description,
-  }));
-  console.log('[CaseMain] Fetched tabs data', tabsData);
-} catch (e) {
-  console.error('[CaseMain] Failed to fetch tabs data', e);
-}
 ---
 
 <div class="flex flex-col gap-3 justify-center items-between">
   <CaseBackground client:load />
-  <CaseStudyHero />
+  <CaseStudyHero client:load />
   <VisualProofSection client:load />
-  <CaseStudyTabsSection client:load tabsData={tabsData} />
+  <CaseStudyTabsSection client:load />
   <CaseStudiesSection client:load />
   <ContactUs client:load />
 </div>

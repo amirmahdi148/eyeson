@@ -1,58 +1,17 @@
 ---
-import { httpService } from "@/utils/httpService.ts";
 import AdminCaseStudyHero from "../../islands/Admin/AdminCaseStudyHero";
 import AdminCaseStudyTabsSection from "../../islands/Admin/AdminCaseStudyTabsSection";
 import AdminVisualProofSection from "../../islands/Admin/AdminVisualProofSection";
 import CaseStudiesSection from "../../islands/CaseStudiesSection";
 import ContactUs from "../../islands/ContactUs";
 import CaseBackground from "../../islands/Case/CaseBackground";
-
-interface CaseData {
-  avatar?: string;
-  title?: string;
-  description?: string;
-  tools?: { name: string; iconUrl?: string }[];
-  projectType?: string;
-  projectTimeline?: string;
-}
-
-interface TabItem {
-  key: string;
-  label: string;
-  title: string;
-  text: string;
-}
-
-let caseData: CaseData = {};
-let tabsData: TabItem[] = [];
-let heroError: string | null = null;
-let tabsError: string | null = null;
-
-try {
-  const heroRes = await httpService.get<CaseData>(`/project/details?slug=skylines-989762e9`);
-  caseData = heroRes;
-} catch (e) {
-  heroError = e instanceof Error ? e.message : String(e);
-}
-
-try {
-  const texts = await httpService.get<any[]>(`/project/texts?slug=skylines-989762e9`);
-  tabsData = texts.map((t) => ({
-    key: t.section.replace(/\s+/g, "").toLowerCase(),
-    label: t.section,
-    title: t.title,
-    text: t.description,
-  }));
-} catch (e) {
-  tabsError = e instanceof Error ? e.message : String(e);
-}
 ---
 
 <div class="flex flex-col gap-3 justify-center items-between">
   <CaseBackground client:load />
-  <AdminCaseStudyHero client:load caseData={caseData} heroError={heroError} />
+  <AdminCaseStudyHero client:load />
   <AdminVisualProofSection client:load />
-  <AdminCaseStudyTabsSection client:load tabsData={tabsData} tabsError={tabsError} />
+  <AdminCaseStudyTabsSection client:load />
   <CaseStudiesSection client:load />
   <ContactUs client:load />
 </div>
