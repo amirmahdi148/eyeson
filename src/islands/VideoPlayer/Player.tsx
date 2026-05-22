@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Play, Pause, SkipBack, SkipForward, X } from "lucide-react";
 
 export type VideoItem = {
@@ -87,7 +87,7 @@ export default function VideoPlayer({ videos, activeVideo, closeModal }: Props) 
     const v = videoRef.current;
     if (!v) return;
 
-    if (v.paused) v.play();
+    if (v.paused) v.play().then(r => r);
     else v.pause();
 
     showControls();

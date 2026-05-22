@@ -1,5 +1,5 @@
 {
-  "name": "eyeson",
+  "name": "EyesON",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -16,6 +16,7 @@
     "@splinetool/react-spline": "^4.1.0",
     "@splinetool/runtime": "^1.12.87",
     "astro": "^6.0.0",
+    "axios": "^1.16.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.24",

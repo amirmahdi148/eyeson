@@ -22,7 +22,7 @@ export function SplineScene({ scene, className }: SplineSceneProps) {
             await spline.load(scene);
         };
 
-        init();
+        init().then(r => r);
 
         return () => {
             if (spline) spline.dispose();

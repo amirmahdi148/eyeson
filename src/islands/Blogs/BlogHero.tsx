@@ -154,7 +154,7 @@ const sharePost = (platform: "copy" | "linkedin" | "twitter"): void => {
   };
 
   if (platform === "copy") {
-    navigator.clipboard.writeText(url);
+    navigator.clipboard.writeText(url).then(r => r);
     alert("Link copied! 📋");
   } else {
     window.open(links[platform], "_blank", "width=600,height=400");

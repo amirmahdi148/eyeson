@@ -4,6 +4,19 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 1.5s infinite;
+}
+
 .fade-on-scroll {
   opacity: 0;
   transform: translateY(10px);

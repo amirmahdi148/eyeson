@@ -1,10 +1,7 @@
-import {
+import React, {
   memo,
-  useCallback,
-  useEffect,
   useLayoutEffect,
   useRef,
-  useState,
 } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -178,7 +175,7 @@ export const OrbitSystem = memo(function OrbitSystem({
                 end: "bottom 15%",
                 scrub: 0.5, // Add slight delay instead of 0 for smoother feel
                 fastScrollEnd: true,
-                onUpdate: (self) => {
+                onUpdate: (_self) => {
                   // Force GPU acceleration
                   if (iconEl.style.willChange !== "transform") {
                     iconEl.style.willChange = "transform";

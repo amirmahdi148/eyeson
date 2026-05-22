@@ -2,12 +2,11 @@ const HomeBackground = () => {
   return (
     <>
       <svg
-        width="1440"
-        height="3017"
         viewBox="0 0 1440 3017"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="absolute pointer-events-none top-0 w-full"
+        className="absolute pointer-events-none top-0 left-0 w-full h-full"
+        preserveAspectRatio="xMidYMin slice"
       >
         <g filter="url(#filter0_f_273_2)">
           <path

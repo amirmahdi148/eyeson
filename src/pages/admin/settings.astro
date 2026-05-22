@@ -1,0 +1,13 @@
+---
+import AdminBaseLayout from "../../layouts/AdminLayout.astro";
+import AdminLayout from "@/islands/Admin/AdminLayout";
+import SettingsPanel from "@/islands/Admin/SettingsPanel";
+import AdminGuard from "@/islands/Admin/AdminGuard";
+---
+<AdminBaseLayout>
+  <AdminGuard client:only="react">
+    <AdminLayout client:load>
+      <SettingsPanel client:load />
+    </AdminLayout>
+  </AdminGuard>
+</AdminBaseLayout>

@@ -111,7 +111,7 @@ const features = [
             </div>
 
             {/* افکت نوری ملایم در هاور */}
-            <div class="pointer-events-none absolute inset-x-0 -bottom-10 z-0 h-32 bg-gradient-to-t from-[#42D1D1]/10 to-transparent opacity-0 transition-opacity duration-500 blur-2xl group-hover:opacity-100" />
+            <div class="pointer-events-none absolute inset-x-0 -bottom-10 z-0 h-32 bg-linear-to-t from-[#42D1D1]/10 to-transparent opacity-0 transition-opacity duration-500 blur-2xl group-hover:opacity-100" />
 
             <div class="relative z-10 flex h-full flex-col">
               {/* آیکون مینیمال شده */}
@@ -150,7 +150,7 @@ const features = [
       data-feature-dots
     >
       {
-        features.map((feature, index) => (
+        features.map((_feature, index) => (
           <button
             type="button"
             class={`feature-dot h-2 w-2 rounded-full transition-all duration-300 ${index === 0 ? "is-active" : ""}`}

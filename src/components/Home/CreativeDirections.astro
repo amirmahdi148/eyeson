@@ -16,13 +16,12 @@ const {
   titleLine2 = "powerful creative directions",
   description = "Our team specializes in shaping your thoughts into clear, strategic concepts that actually move people. From brainstorming narrative styles to defining visual worlds, we craft ideas that become the foundation of strong motion design, animation, and product-focused storytelling.",
   buttonText = "See our work",
-  buttonLink = "#work",
   imageUrl = "/home/home-frame.webp",
 } = Astro.props;
 ---
 
 <section class="relative w-full overflow-hidden">
-  <div class="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-8">
+  <div class="relative z-10 mx-auto max-w-300 px-6 lg:px-8">
     <div
       class="flex flex-col lg:flex-row items-center gap-6 lg:gap-8 xl:gap-12"
     >
@@ -32,9 +31,9 @@ const {
       <div
         class="w-full lg:w-[55%] flex justify-center lg:justify-start order-1 lg:order-1 mx-auto reveal-on-scroll fade-right"
       >
-        <div class="relative w-full max-w-[500px] group">
+        <div class="relative w-full max-w-125 group">
           <div
-            class="relative z-10 w-full transform-gpu transition-all duration-700 ease-out group-hover:scale-[1.03] group-hover:-translate-y-2 min-h-[300px] sm:min-h-[450px] flex items-center justify-center mx-auto"
+            class="relative z-10 w-full transform-gpu transition-all duration-700 ease-out group-hover:scale-[1.03] group-hover:-translate-y-2 min-h-75 sm:min-h-112.5 flex items-center justify-center mx-auto"
           >
             <SmartImage
               src={imageUrl}
@@ -57,7 +56,7 @@ const {
         >
           <span class="block text-white mb-1">{titleLine1}</span>
           <span
-            class="block bg-gradient-to-r from-[#29C4A9] to-[#128a8a] bg-clip-text text-transparent"
+            class="block bg-linear-to-r from-[#29C4A9] to-[#128a8a] bg-clip-text text-transparent"
           >
             {titleLine2}
           </span>
@@ -73,7 +72,7 @@ const {
         <div class="relative group/btn w-full sm:w-auto">
           {/* افکت بلور (Glow) پشت دکمه */}
           <div
-            class="absolute -inset-1 rounded-full bg-gradient-to-r from-[#29C4A9] to-[#128a8a] opacity-0 blur-lg transition-opacity duration-500 group-hover/btn:opacity-40"
+            class="absolute -inset-1 rounded-full bg-linear-to-r from-[#29C4A9] to-[#128a8a] opacity-0 blur-lg transition-opacity duration-500 group-hover/btn:opacity-40"
           >
           </div>
 

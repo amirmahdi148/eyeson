@@ -61,12 +61,8 @@ export const VideoHeader = ({
   imageClassName = "object-contain w-full h-auto",
   imageDivClassName = "",
   imageWrapperClassName = "",
-
-  primaryBtnText = "View Our Work",
-  secondaryBtnText = "Get Pricing",
-
-  primaryBtnUrl = "#work",
-  secondaryBtnUrl = "#pricing",
+                              secondaryBtnText = "Get Pricing",
+                              secondaryBtnUrl = "#pricing",
 
   animationType = "slide",
 
@@ -80,12 +76,6 @@ export const VideoHeader = ({
   beforeHighlightClassName = "",
   afterHighlightClassName = "",
   descriptionClassName = "",
-
-  primaryBtnClassName = "",
-  secondaryBtnClassName = "",
-
-  primaryBtnWrapperClassName = "",
-  secondaryBtnWrapperClassName = "",
 
   showBackground = false,
   backgroundClassName = "",
@@ -135,23 +125,6 @@ export const VideoHeader = ({
             transition: { duration: 0.3, ease: "easeOut" },
           },
         };
-
-  const ctaVariants: Variants = isNone
-    ? {}
-    : isFade
-      ? {
-          hidden: { opacity: 0 },
-          show: { opacity: 1, transition: { duration: 0.2 } },
-        }
-      : {
-          hidden: { opacity: 0, y: 6 },
-          show: {
-            opacity: 1,
-            y: 0,
-            transition: { duration: 0.25, ease: "easeOut" },
-          },
-        };
-
   const rightVariants: Variants = isNone
     ? {}
     : isFade
@@ -180,7 +153,7 @@ export const VideoHeader = ({
         <div className={`absolute inset-0 -z-10 ${backgroundClassName}`} />
       )}
 
-      <div className="mx-auto w-full max-w-[1200px]">
+      <div className="mx-auto w-full max-w-300">
         <div
           /* 
             در دسکتاپ (lg) به صورت flex-row در میاد، 
@@ -262,7 +235,7 @@ export const VideoHeader = ({
 
             {!isBranding && imageUrl && (
               <div
-                className={`relative w-full max-w-[450px] sm:max-w-[550px] lg:max-w-[650px] xl:max-w-[700px] transform-gpu will-change-transform transition-transform duration-300 ease-out ${
+                className={`relative w-full max-w-112.5 sm:max-w-137.5 lg:max-w-162.5 xl:max-w-175 transform-gpu will-change-transform transition-transform duration-300 ease-out ${
                   enableImageHover ? "hover:scale-[1.03]" : ""
                 } ${imageWrapperClassName}`}
               >

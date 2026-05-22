@@ -1,5 +1,5 @@
 ---
-import CaseStudyHero from "./CaseStudyHero.astro";
+import CaseStudyHero from "../../islands/Case/CaseStudyHero";
 import CaseStudyTabsSection from "../../islands/Case/CaseStudyTabsSection";
 import VisualProofSection from "../../islands/Case/VisualProofSection";
 import CaseStudiesSection from "../../islands/CaseStudiesSection";
@@ -9,14 +9,7 @@ import CaseBackground from "../../islands/Case/CaseBackground";
 
 <div class="flex flex-col gap-3 justify-center items-between">
   <CaseBackground client:load />
-  <CaseStudyHero
-    tools={[
-      { name: "Blender", iconUrl: "/case/blender.webp" },
-      { name: "Illustrator", iconUrl: "/case/ai.webp" },
-      { name: "Photoshop", iconUrl: "/case/ps.webp" },
-      { name: "After Effects", iconUrl: "/case/ae.webp" },
-    ]}
-  />
+  <CaseStudyHero client:load />
   <VisualProofSection client:load />
   <CaseStudyTabsSection client:load />
   <CaseStudiesSection client:load />

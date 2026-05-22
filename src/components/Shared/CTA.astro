@@ -19,15 +19,15 @@ import { SmartImage } from "../../utils/SmartImage";
 
     <!-- overlay -->
     <div
-      class="absolute inset-0 bg-gradient-to-r from-[#0B1F2A]/90 to-[#00A9BD]/25"
+      class="absolute inset-0 bg-linear-to-r from-[#0B1F2A]/90 to-[#00A9BD]/25"
     >
     </div>
 
     <!-- محتوا -->
     <div
-      class="relative flex min-h-[200px] flex-col justify-center gap-5 px-5 py-8 text-center
-                  sm:min-h-[230px] sm:gap-6 sm:px-10 sm:py-10 sm:text-left
-                  lg:min-h-[260px] lg:flex-row lg:items-center lg:justify-between lg:px-14"
+      class="relative flex min-h-50 flex-col justify-center gap-5 px-5 py-8 text-center
+                  sm:min-h-57.5 sm:gap-6 sm:px-10 sm:py-10 sm:text-left
+                  lg:min-h-65 lg:flex-row lg:items-center lg:justify-between lg:px-14"
     >
       <!-- متن + دکمه -->
       <div class="w-full max-w-xl text-white mx-auto lg:mx-0">
@@ -47,8 +47,8 @@ import { SmartImage } from "../../utils/SmartImage";
           Tell us what you're building — we'll bring it to life with motion.
         </p>
         <button
-          class="mt-5 w-full max-w-[240px] mx-auto block cursor-pointer rounded-xl
-                         bg-gradient-to-r from-[#46B6A0] to-[#00A9BD]
+          class="mt-5 w-full max-w-60 mx-auto block cursor-pointer rounded-xl
+                         bg-linear-to-r from-[#46B6A0] to-[#00A9BD]
                          px-5 py-2.5 text-xs font-medium text-white
                          shadow-[0_12px_30px_-10px_#00A9BD] transition
                          sm:mt-6 sm:mx-0 sm:w-auto sm:px-6 sm:py-3 sm:text-sm
@@ -60,9 +60,9 @@ import { SmartImage } from "../../utils/SmartImage";
 
       <!-- تصویر سمت راست -->
       <div
-        class="relative hidden h-32 w-full max-w-[240px] self-end
-                    sm:block sm:h-44 sm:max-w-[300px]
-                    lg:h-[210px] lg:max-w-[380px]"
+        class="relative hidden h-32 w-full max-w-60 self-end
+                    sm:block sm:h-44 sm:max-w-75
+                    lg:h-52.5 lg:max-w-95"
       >
         <SmartImage
           src="/Branding/group-section.webp"
