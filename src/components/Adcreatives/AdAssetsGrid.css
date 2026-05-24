@@ -88,7 +88,7 @@
 }
 
 .ad-card:hover {
-  transform: translateY(-5px);
+
   border-color: rgba(50, 201, 180, 0.4);
 }
 

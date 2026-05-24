@@ -1,5 +1,6 @@
 import { motion, type Variants } from "framer-motion";
 import { SmartImage } from "../../utils/SmartImage.tsx";
+import PrimaryButton from "@/components/Shared/PrimaryButton.tsx";
 
 export const WhatIsBranding = () => {
   const containerVariants: Variants = {
@@ -76,13 +77,11 @@ export const WhatIsBranding = () => {
           </p>
 
           <div className="self-start">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="relative group px-6 py-3 sm:px-7 sm:py-3.5 lg:px-8 2xl:px-9 2xl:py-4 cursor-pointer rounded-full bg-linear-to-r from-[#1AD1BC] to-[#0989A5] text-white text-sm sm:text-base 2xl:text-lg font-semibold shadow-[0_0_20px_rgba(0,169,189,0.5)] transition-all"
-            >
-              See our work
-            </motion.button>
+            <PrimaryButton
+              text="Learn More"
+              width="15rem"
+              href="#"
+            />
           </div>
         </motion.div>
       </motion.div>
