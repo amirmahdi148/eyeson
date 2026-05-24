@@ -1,0 +1,43 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { BlogHero } from "../../islands/Blogs/BlogHero";
+
+export const prerender = false;
+
+const API_URL = "http://localhost:1337/api/posts";
+
+const { slug } = Astro.params;
+
+let postData = null;
+let blocks = [];
+
+try {
+  const res = await fetch(`${API_URL}?filters[slug][$eq]=${slug}&populate=*`);
+  const json = await res.json();
+  const post = json.data?.[0];
+  if (post) {
+    postData = post;
+    blocks = post.content || [];
+  }
+} catch {
+  postData = null;
+}
+---
+
+<BaseLayout title={postData?.title || "Blog Post"}>
+  {
+    postData ? (
+      <BlogHero
+        client:load
+        title={postData.title}
+        category={postData.category}
+        date={postData.publishedAt}
+        blocks={blocks}
+      />
+    ) : (
+      <div class="flex min-h-screen items-center justify-center text-white">
+        <p>Post not found.</p>
+      </div>
+    )
+  }
+</BaseLayout>

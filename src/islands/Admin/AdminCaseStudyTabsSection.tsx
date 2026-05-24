@@ -1,15 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
-import { Edit2, Save, X, Loader2 } from "lucide-react";
+import { Edit2, Save, X, Loader2, Plus } from "lucide-react";
 import { httpService } from "@/utils/httpService.ts";
 
-export type TabKey =
-  | "client"
-  | "industry"
-  | "service"
-  | "platforms"
-  | "primaryGoal"
-  | "ourRole"
-  | "startingPoint";
+export type TabKey = string;
 
 export type TabItem = {
   key: TabKey;
@@ -38,11 +31,25 @@ export default function AdminCaseStudyTabsSection() {
   const [editValue, setEditValue] = useState("");
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
+  const [isAdding, setIsAdding] = useState(false);
+  const [newSection, setNewSection] = useState({ label: "Client", title: "", text: "" });
+  const [projectUuid, setProjectUuid] = useState<string>("");
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const queryUuid = params.get("project") || "";
+    if (queryUuid) setProjectUuid(queryUuid);
+
     const fetchData = async () => {
       try {
-        const texts = await httpService.get<any[]>(`/project/texts?slug=${SLUG}`);
+        const [details, texts] = await Promise.all([
+          httpService.get<any>(`/project/details?slug=${SLUG}`),
+          httpService.get<any[]>(`/project/texts?slug=${SLUG}`),
+        ]);
+        console.log("[AdminCaseStudyTabsSection] /project/details response:", JSON.stringify(details));
+        const uuid = details?.projectUUID || queryUuid;
+        console.log("[AdminCaseStudyTabsSection] resolved uuid:", uuid);
+        if (uuid) setProjectUuid(uuid);
         const mapped = texts.map((t) => ({
           key: t.section.replace(/\s+/g, "").toLowerCase(),
           label: t.section,
@@ -63,7 +70,7 @@ export default function AdminCaseStudyTabsSection() {
   );
 
   useEffect(() => {
-    if (editField) return;
+    if (editField || isAdding) return;
     let i = 0;
     setDisplayedText("");
     const timer = window.setInterval(() => {
@@ -72,7 +79,7 @@ export default function AdminCaseStudyTabsSection() {
       if (i >= active.text.length) window.clearInterval(timer);
     }, 18);
     return () => window.clearInterval(timer);
-  }, [activeTab, active.text, editField]);
+  }, [activeTab, active.text, editField, isAdding]);
 
   const startEdit = (field: string, value: string) => {
     setEditField(field);
@@ -86,22 +93,48 @@ export default function AdminCaseStudyTabsSection() {
     setSaveError(null);
   };
 
+  const effectiveProject = () => projectUuid || SLUG;
+
   const saveEdit = async () => {
     if (!editField || !editValue.trim()) return;
     setSaving(true);
     setSaveError(null);
     try {
       if (editField === "title") {
-        await httpService.put(`/project/texts?slug=${SLUG}`, { title: editValue, section: active.label });
+        const payload = { projectUUID: effectiveProject(), section: active.label, title: editValue };
+        console.log("[saveEdit] PATCH /project/add payload:", JSON.stringify(payload));
+        await httpService.patch(`/project/add`, payload);
         setEditField(null);
         setEditValue("");
         window.location.reload();
       } else if (editField === "text") {
-        await httpService.put(`/project/texts?slug=${SLUG}`, { description: editValue, section: active.label });
+        const payload = { projectUUID: effectiveProject(), section: active.label, description: editValue };
+        console.log("[saveEdit] PATCH /project/add payload:", JSON.stringify(payload));
+        await httpService.patch(`/project/add`, payload);
         setEditField(null);
         setEditValue("");
         window.location.reload();
       }
+    } catch (err) {
+      setSaveError(err instanceof Error ? err.message : String(err));
+      setSaving(false);
+    }
+  };
+
+  const addSection = async () => {
+    if (!newSection.label || !newSection.title || !newSection.text) return;
+    setSaving(true);
+    setSaveError(null);
+    try {
+      await httpService.post(`/project/add`, {
+        projectUUID: effectiveProject(),
+        section: newSection.label,
+        title: newSection.title,
+        description: newSection.text,
+      });
+      setIsAdding(false);
+      setNewSection({ label: "Client", title: "", text: "" });
+      window.location.reload();
     } catch (err) {
       setSaveError(err instanceof Error ? err.message : String(err));
       setSaving(false);
@@ -166,14 +199,14 @@ export default function AdminCaseStudyTabsSection() {
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="mb-4 flex flex-wrap items-center justify-center gap-4 sm:gap-7">
           {tabs.map((tab) => {
-            const isActive = tab.key === activeTab;
+            const isActive = tab.key === activeTab && !isAdding;
             return (
               <button
                 key={tab.key}
                 type="button"
-                onMouseEnter={() => setActiveTab(tab.key)}
-                onFocus={() => setActiveTab(tab.key)}
-                onClick={() => setActiveTab(tab.key)}
+                onMouseEnter={() => { if (!isAdding) setActiveTab(tab.key); }}
+                onFocus={() => { if (!isAdding) setActiveTab(tab.key); }}
+                onClick={() => { setIsAdding(false); setActiveTab(tab.key); }}
                 className={[
                   "relative shrink-0 text-sm font-medium transition-colors duration-200 sm:text-[15px] whitespace-nowrap",
                   isActive ? "text-cyan-300" : "text-white/35 hover:text-white/60",
@@ -186,36 +219,120 @@ export default function AdminCaseStudyTabsSection() {
               </button>
             );
           })}
+          
+          <button
+            onClick={() => setIsAdding(true)}
+            className={[
+              "relative shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all text-sm font-medium border whitespace-nowrap",
+              isAdding 
+                ? "bg-cyan-400 text-black border-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.4)]" 
+                : "bg-cyan-400/10 text-cyan-300 border-cyan-400/20 hover:bg-cyan-400/20"
+            ].join(" ")}
+          >
+            <Plus className="h-4 w-4" />
+            Add New
+          </button>
         </div>
-        <div className="rounded-[26px] border border-white/5 bg-[#07181d]/95 px-5 py-7 shadow-[0_20px_60px_rgba(0,0,0,0.35)] sm:px-7 sm:py-8 lg:px-8 lg:py-9">
-          {/* Title */}
-          <div className="mb-4">
-            {editField === "title" ? (
-              <InlineInput value={editValue} />
-            ) : (
-              <div className="flex items-start gap-1">
-                <h2 className="text-[28px] font-black leading-tight tracking-tight text-white sm:text-[32px]">
-                  {active.title}
-                </h2>
-                <EditBtn onClick={() => startEdit("title", active.title)} />
-              </div>
-            )}
+
+        {isAdding ? (
+          <div className="rounded-[26px] border border-cyan-400/30 bg-[#07181d]/95 px-5 py-7 shadow-[0_20px_60px_rgba(0,0,0,0.35)] sm:px-7 sm:py-8 lg:px-8 lg:py-9">
+             <div className="flex justify-between items-center mb-6">
+                <h3 className="text-xl font-bold text-cyan-300">Add New Text Section</h3>
+                <button onClick={() => setIsAdding(false)} className="text-white/40 hover:text-white transition-colors">
+                  <X className="h-5 w-5" />
+                </button>
+             </div>
+             
+             <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-xs font-medium text-white/50 mb-1.5 uppercase tracking-wider">Section Label (Tab Name)</label>
+                    <select
+                      value={newSection.label}
+                      onChange={e => setNewSection({...newSection, label: e.target.value})}
+                      className="w-full p-2.5 rounded-lg bg-white/10 border border-white/20 text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400/50"
+                      autoFocus
+                    >
+                      <option value="Client" className="bg-gray-800">Client</option>
+                      <option value="Industry" className="bg-gray-800">Industry</option>
+                      <option value="Service" className="bg-gray-800">Service</option>
+                      <option value="Platforms" className="bg-gray-800">Platforms</option>
+                      <option value="Primary Goal" className="bg-gray-800">Primary Goal</option>
+                      <option value="Our Role" className="bg-gray-800">Our Role</option>
+                      <option value="Starting Point" className="bg-gray-800">Starting Point</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-white/50 mb-1.5 uppercase tracking-wider">Title</label>
+                    <input 
+                      type="text" 
+                      value={newSection.title}
+                      onChange={e => setNewSection({...newSection, title: e.target.value})}
+                      placeholder="e.g. Modern Tech Stack"
+                      className="w-full p-2.5 rounded-lg bg-white/10 border border-white/20 text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400/50"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-white/50 mb-1.5 uppercase tracking-wider">Description</label>
+                  <textarea 
+                    value={newSection.text}
+                    onChange={e => setNewSection({...newSection, text: e.target.value})}
+                    placeholder="Describe this section..."
+                    rows={4}
+                    className="w-full p-2.5 rounded-lg bg-white/10 border border-white/20 text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400/50 resize-none"
+                  />
+                </div>
+                
+                <div className="flex gap-3 pt-2">
+                  <button 
+                    onClick={addSection}
+                    disabled={saving || !newSection.label || !newSection.title || !newSection.text}
+                    className="flex-1 py-3 rounded-xl bg-cyan-400 text-black font-bold hover:bg-cyan-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2"
+                  >
+                    {saving ? <Loader2 className="h-5 w-5 animate-spin" /> : <Save className="h-5 w-5" />}
+                    Save Section
+                  </button>
+                  <button 
+                    onClick={() => setIsAdding(false)}
+                    className="px-6 py-3 rounded-xl bg-white/10 text-white font-medium hover:bg-white/20 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                </div>
+             </div>
           </div>
-          {/* Text */}
-          <div>
-            {editField === "text" ? (
-              <InlineInput value={editValue} multiline />
-            ) : (
-              <div className="flex items-start gap-1">
-                <p className="max-w-5xl text-[15px] leading-7 text-white/80 sm:text-base">
-                  {displayedText}
-                  <span className="ml-0.5 inline-block h-[1em] w-[2px] translate-y-[2px] bg-cyan-300 align-middle animate-pulse" />
-                </p>
-                <EditBtn onClick={() => startEdit("text", active.text)} />
-              </div>
-            )}
+        ) : (
+          <div className="rounded-[26px] border border-white/5 bg-[#07181d]/95 px-5 py-7 shadow-[0_20px_60px_rgba(0,0,0,0.35)] sm:px-7 sm:py-8 lg:px-8 lg:py-9">
+            {/* Title */}
+            <div className="mb-4">
+              {editField === "title" ? (
+                <InlineInput value={editValue} />
+              ) : (
+                <div className="flex items-start gap-1">
+                  <h2 className="text-[28px] font-black leading-tight tracking-tight text-white sm:text-[32px]">
+                    {active.title}
+                  </h2>
+                  <EditBtn onClick={() => startEdit("title", active.title)} />
+                </div>
+              )}
+            </div>
+            {/* Text */}
+            <div>
+              {editField === "text" ? (
+                <InlineInput value={editValue} multiline />
+              ) : (
+                <div className="flex items-start gap-1">
+                  <p className="max-w-5xl text-[15px] leading-7 text-white/80 sm:text-base">
+                    {displayedText}
+                    <span className="ml-0.5 inline-block h-[1em] w-[2px] translate-y-[2px] bg-cyan-300 align-middle animate-pulse" />
+                  </p>
+                  <EditBtn onClick={() => startEdit("text", active.text)} />
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );

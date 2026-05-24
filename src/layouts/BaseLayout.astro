@@ -2,13 +2,51 @@
 import Header from "../islands/Shared/MegaMenu.tsx";
 import Footer from "../components/Shared/Footer.astro";
 import "../styles/global.css";
+
+export interface Props {
+  title?: string;
+  description?: string;
+  canonicalUrl?: string;
+  ogImage?: string;
+  ogType?: string;
+  robots?: string;
+  lang?: string;
+}
+
+const {
+  title = "EyesOn Agency — Creative Digital Agency",
+  description = "EyesOn Agency is a creative digital agency specializing in branding, UI/UX, motion graphics, video production, and web development.",
+  canonicalUrl,
+  ogImage = "/preview.webp",
+  ogType = "website",
+  robots,
+  lang = "en",
+} = Astro.props;
 ---
 
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>EyesOn Agency</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#000E17" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+    {robots && <meta name="robots" content={robots} />}
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
   </head>
 
   <body class="bg-[#000E17] text-white overflow-x-hidden" transition:animate="fade">

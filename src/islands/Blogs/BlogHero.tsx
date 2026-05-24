@@ -1,4 +1,5 @@
 import { SmartImage } from "@/utils/SmartImage.tsx";
+import { BlocksRenderer, type BlocksContent } from "@strapi/blocks-react-renderer";
 
 type BlogSection = {
   id?: string;
@@ -22,7 +23,12 @@ type BlogPost = {
   introCopy?: string;
 };
 
-
+interface BlogHeroProps {
+  title?: string;
+  category?: string;
+  date?: string;
+  blocks?: BlocksContent;
+}
 
 const examplePost: BlogPost = {
   title: "How Video Content Drives Growth",
@@ -144,8 +150,7 @@ const CalculatorWidget = () => {
 
 const sharePost = (platform: "copy" | "linkedin" | "twitter"): void => {
   const url = typeof window !== "undefined" ? window.location.href : "";
-  const title = examplePost.title || "Check this out";
-  const text = encodeURIComponent(title);
+  const text = encodeURIComponent(document.title);
 
   const links: Record<"twitter" | "linkedin" | "copy", string> = {
     twitter: `https://twitter.com/intent/tweet?url=${url}&text=${text}`,
@@ -155,20 +160,26 @@ const sharePost = (platform: "copy" | "linkedin" | "twitter"): void => {
 
   if (platform === "copy") {
     navigator.clipboard.writeText(url).then(r => r);
-    alert("Link copied! 📋");
+    alert("Link copied!");
   } else {
     window.open(links[platform], "_blank", "width=600,height=400");
   }
 };
 
-export const BlogHero = () => {
+export const BlogHero = ({ title: propTitle, category: propCategory, date: propDate, blocks }: BlogHeroProps) => {
   const data = examplePost;
-  const title = data.title ?? "How Video Content Drives Growth";
-  const category = data.category ?? "Video Production / Strategy";
+  const title = propTitle ?? data.title ?? "How Video Content Drives Growth";
+  const category = propCategory ?? data.category ?? "Video Production / Strategy";
   const excerpt =
       data.excerpt ??
       "Stories, strategies, and experiments from inside the agency. Built to inspire better decisions.";
-  const date = data.date ?? "January 12, 2025";
+  const date = propDate
+      ? new Date(propDate).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })
+      : (data.date ?? "January 12, 2025");
   const readTime = data.readTime ?? "8 min read";
   const author = data.author ?? "Eyeson Studio";
   const subtitle = data.subtitle ?? "A Practical Guide for Growing Brands";
@@ -259,54 +270,87 @@ export const BlogHero = () => {
 
         <section className="relative mx-auto w-full max-w-350 px-6 py-10 sm:px-8 lg:px-12 lg:py-16">
           <div className="rounded-[2rem] border border-white/5 bg-[#071b24]/92 p-6 shadow-[0_0_70px_rgba(0,169,189,0.08)] backdrop-blur-md sm:p-8 lg:p-12">
-            <div className="mb-8 flex flex-wrap gap-5 text-sm text-white/55">
-              {articleSections.map((section: BlogSection, index: number) => {
-                const sectionId = section.id ?? `section-${index + 1}`;
-                return (
-                    <a
-                        key={sectionId}
-                        href={`#${sectionId}`}
-                        className="transition hover:text-[#25d9e0]"
-                    >
-                      {section.title}
-                    </a>
-                );
-              })}
-            </div>
-
             <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start">
-              <article className="space-y-14">
-                {articleSections.map((section: BlogSection, index: number) => {
-                  const points: string[] = section.points ?? section.bullets ?? [];
-                  const sectionId = section.id ?? `section-${index + 1}`;
+              <article className="prose prose-invert max-w-none">
+                {blocks ? (
+                  <BlocksRenderer
+                    content={blocks}
+                    blocks={{
+                      paragraph: ({ children }) => (
+                        <p className="text-[15px] leading-8 text-white/75 sm:text-[16px]">{children}</p>
+                      ),
+                      heading: ({ children, level }) => {
+                        const Tag = `h${level}` as keyof JSX.IntrinsicElements;
+                        const sizes = {
+                          1: "text-3xl sm:text-[2.15rem]",
+                          2: "text-2xl sm:text-[1.75rem]",
+                          3: "text-xl sm:text-[1.5rem]",
+                        };
+                        return (
+                          <Tag className={`mt-10 mb-4 font-semibold tracking-tight text-white ${sizes[level as keyof typeof sizes] || "text-lg"}`}>
+                            {children}
+                          </Tag>
+                        );
+                      },
+                      list: ({ children, format }) => (
+                        format === "ordered" ? (
+                          <ol className="mt-4 space-y-2 text-[15px] leading-8 text-white/72 sm:text-[16px] list-decimal pl-6">{children}</ol>
+                        ) : (
+                          <ul className="mt-4 space-y-2 text-[15px] leading-8 text-white/72 sm:text-[16px] list-disc pl-6">{children}</ul>
+                        )
+                      ),
+                      quote: ({ children }) => (
+                        <blockquote className="mt-6 border-l-4 border-[#25d9e0] bg-white/5 pl-4 py-3 pr-4 rounded-r-lg text-white/80 italic">
+                          {children}
+                        </blockquote>
+                      ),
+                      code: ({ children }) => (
+                        <pre className="mt-4 rounded-xl bg-[#0d1f2a] p-4 text-sm text-[#25d9e0] overflow-x-auto border border-white/10">
+                          <code>{children}</code>
+                        </pre>
+                      ),
+                      link: ({ children, url }) => (
+                        <a href={url} target="_blank" rel="noopener noreferrer" className="text-[#25d9e0] underline hover:text-white transition-colors">
+                          {children}
+                        </a>
+                      ),
+                    }}
+                  />
+                ) : (
+                  <div className="space-y-14">
+                    {articleSections.map((section: BlogSection, index: number) => {
+                      const points: string[] = section.points ?? section.bullets ?? [];
+                      const sectionId = section.id ?? `section-${index + 1}`;
 
-                  return (
-                      <section
-                          key={sectionId}
-                          id={sectionId}
-                          className="scroll-mt-24"
-                      >
-                        <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-[2.15rem]">
-                          {index + 1}. {section.title}
-                        </h2>
-                        {section.intro && (
-                            <p className="mt-5 max-w-4xl text-[15px] leading-8 text-white/75 sm:text-[16px]">
-                              {section.intro}
-                            </p>
-                        )}
-                        {points.length > 0 && (
-                            <ul className="mt-5 space-y-2.5 text-[15px] leading-8 text-white/72 sm:text-[16px]">
-                              {points.map((point, idx) => (
-                                  <li key={idx} className="flex gap-3">
-                                    <span className="mt-2.75 h-1.5 w-1.5 shrink-0 rounded-full bg-[#25d9e0]" />
-                                    <span className="block">{point}</span>
-                                  </li>
-                              ))}
-                            </ul>
-                        )}
-                      </section>
-                  );
-                })}
+                      return (
+                          <section
+                              key={sectionId}
+                              id={sectionId}
+                              className="scroll-mt-24"
+                          >
+                            <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-[2.15rem]">
+                              {index + 1}. {section.title}
+                            </h2>
+                            {section.intro && (
+                                <p className="mt-5 max-w-4xl text-[15px] leading-8 text-white/75 sm:text-[16px]">
+                                  {section.intro}
+                                </p>
+                            )}
+                            {points.length > 0 && (
+                                <ul className="mt-5 space-y-2.5 text-[15px] leading-8 text-white/72 sm:text-[16px]">
+                                  {points.map((point, idx) => (
+                                      <li key={idx} className="flex gap-3">
+                                        <span className="mt-2.75 h-1.5 w-1.5 shrink-0 rounded-full bg-[#25d9e0]" />
+                                        <span className="block">{point}</span>
+                                      </li>
+                                  ))}
+                                </ul>
+                            )}
+                          </section>
+                      );
+                    })}
+                  </div>
+                )}
               </article>
 
               <aside className="lg:sticky lg:top-28">

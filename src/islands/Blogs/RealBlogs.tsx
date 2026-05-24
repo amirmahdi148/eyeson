@@ -1,7 +1,6 @@
 
 import { useMemo, useState, useEffect } from "react";
 import {SmartImage} from "../../utils/SmartImage.tsx";
-import {getPostSlug} from "@/lib/posts.ts";
 
 const API_URL = "http://localhost:1337/api/posts";
 interface StrapiPost {
@@ -157,7 +156,7 @@ export const RealBlogs = () => {
                 className="relative z-10 mx-auto mt-8 grid w-full max-w-7xl grid-cols-1 justify-items-center gap-4 px-4 pb-14 sm:grid-cols-2 sm:gap-6 sm:px-6 md:grid-cols-3 md:gap-8 md:px-8 xl:gap-10 xl:px-10">
                 {paginatedPosts.map((post) => (
                     <a
-                        href={`/blog/${getPostSlug(post.title)}`}
+                        href={`/blog/${post.slug}`}
                         key={post.id}
                         className="group flex min-h-70 h-full overflow-y-hidden w-full cursor-pointer flex-col overflow-hidden rounded-2xl border-[0.5px] border-[#00A9BD] bg-linear-to-r from-[#0B1F2A]  to-[#003A43] shadow-[0px_6px_22px_0px_#00000060] backdrop-blur-sm transition-transform duration-200 hover:-translate-y-1 hover:border-[#00A9BD]/60 sm:max-w-90"
                     >
@@ -265,7 +264,7 @@ export const RealBlogs = () => {
             <section className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-16 sm:px-6 md:px-8 xl:px-10">
                 <div className="relative overflow-hidden rounded-3xl border border-[#00A9BD]/40 shadow-[0px_0px_30px_0px_#00A9BD40]">
                     <SmartImage
-                        src="/blogs/Story-Back.png"
+                        src="/blogs/Story-Back.webp"
                         alt=""
                         fill
                         className="object-cover"
@@ -288,7 +287,7 @@ export const RealBlogs = () => {
 
                         <div className="relative hidden h-35 w-full max-w-70 self-end sm:block sm:h-45 sm:max-w-85 lg:h-52.5 lg:max-w-105">
                             <SmartImage
-                                src="/blogs/People-ChatGPT.png"
+                                src="/blogs/People-ChatGPT.webp"
                                 alt="People discussing creative ideas"
                                 width={700}
                                 height={700}
