@@ -72,7 +72,7 @@ export default function ProcessScrollSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const gridContainerRef = useRef<HTMLDivElement>(null);
   const pinRef = useRef<HTMLDivElement>(null);
-  const parallaxImgRef = useRef<HTMLImageElement>(null);
+  const parallaxImgRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
@@ -224,27 +224,22 @@ export default function ProcessScrollSection() {
             ))}
           </div>
 
-          {/* ===== Pinned Parallax (فقط دسکتاپ) ===== */}
-          {/* توی موبایل این بخش مخفیه چون اسکرول‌جک و پین شدن تو گوشی تجربه خوبی نمیده */}
+          {/* ===== Pinned Parallax (Desktop Only) ===== */}
           <div className="hidden lg:block relative h-full">
             <div
               ref={pinRef}
               className="w-full h-[600px] flex items-center justify-center will-change-transform"
             >
-              <div className="absolute inset-0 rounded-full transform scale-75 pointer-events-none" />
-
-              <div className="relative w-full h-full rounded-[40px]">
-                <img
-                  ref={parallaxImgRef}
-                  src="/home/process.webp"
-                  alt="Process Visualization"
-                  className="w-full h-full object-contain scale-75 will-change-transform drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
-                />
-              </div>
-
-              <div className="absolute -right-8 top-1/4 bg-[#0f172a]/90 p-3 rounded-xl border border-white/10 shadow-xl max-w-[150px] z-10">
-                <div className="text-sm text-white font-semibold">
-                  Process focus
+              <div className="relative w-full h-full">
+                <div ref={parallaxImgRef} className="absolute inset-0 will-change-transform">
+                  <img src="/svg-parts/home/backline.svg" alt="" className="absolute inset-0 w-full h-full object-contain" style={{ zIndex: 1 }} />
+                  <img src="/svg-parts/home/main.svg" alt="Process Visualization" className="absolute inset-0 w-full h-full object-contain" style={{ zIndex: 2 }} />
+                  <img src="/svg-parts/home/3.svg" alt="" className="absolute inset-0 w-full h-full object-contain" style={{ zIndex: 3 }} />
+                  <img src="/svg-parts/home/4.svg" alt="" className="absolute inset-0 w-full h-full object-contain" style={{ zIndex: 4 }} />
+                  <img src="/svg-parts/home/5.svg" alt="" className="absolute inset-0 w-full h-full object-contain" style={{ zIndex: 5 }} />
+                  <img src="/svg-parts/home/6.svg" alt="" className="absolute inset-0 w-full h-full object-contain" style={{ zIndex: 6 }} />
+                  <img src="/svg-parts/home/7.svg" alt="" className="absolute inset-0 w-full h-full object-contain" style={{ zIndex: 7 }} />
+                  <img src="/svg-parts/home/8.svg" alt="" className="absolute inset-0 w-full h-full object-contain" style={{ zIndex: 8 }} />
                 </div>
               </div>
             </div>

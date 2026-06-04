@@ -1,19 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, Search, Filter, ArrowUpRight, Clock, CheckCircle2, AlertCircle } from "lucide-react";
+import { Mail, Search, ArrowUpRight, Clock, CheckCircle2, AlertCircle, XCircle, Loader2 } from "lucide-react";
+import { dashboardService } from "@/services/dashboardService.ts";
 
-const sampleRequests = [
-  { id: 101, title: "New hero video", client: "Client A", status: "Pending", date: "2 hours ago", priority: "High" },
-  { id: 102, title: "Revisions to banner", client: "Client B", status: "Completed", date: "1 day ago", priority: "Medium" },
-  { id: 103, title: "Add subtitles", client: "Client C", status: "In Progress", date: "3 days ago", priority: "Low" },
-  { id: 104, title: "Logo redesign", client: "Client D", status: "Pending", date: "5 hours ago", priority: "High" },
-  { id: 105, title: "Social media assets", client: "Client E", status: "Completed", date: "1 week ago", priority: "Medium" },
-];
+type RequestItem = {
+  title: string;
+  from: string;
+  createdAt: string;
+  status: string;
+  priority: string;
+};
 
 const statusConfig: Record<string, { color: string; icon: React.ReactNode }> = {
   Pending: { color: "bg-yellow-500/20 text-yellow-300 border-yellow-500/30", icon: <AlertCircle size={14} /> },
   Completed: { color: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30", icon: <CheckCircle2 size={14} /> },
   "In Progress": { color: "bg-cyan-500/20 text-cyan-300 border-cyan-500/30", icon: <Clock size={14} /> },
+  Failed: { color: "bg-red-500/20 text-red-300 border-red-500/30", icon: <XCircle size={14} /> },
 };
 
 const priorityColors: Record<string, string> = {
@@ -23,16 +25,58 @@ const priorityColors: Record<string, string> = {
 };
 
 export default function RequestsList() {
+  const [allRequests, setAllRequests] = useState<RequestItem[]>([]);
+  const [totalCount, setTotalCount] = useState(0);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterStatus, setFilterStatus] = useState("All");
+  const sentinelRef = useRef<HTMLDivElement>(null);
 
-  const filteredRequests = sampleRequests.filter((r) => {
-    const matchesSearch = r.title.toLowerCase().includes(searchQuery.toLowerCase()) || r.client.toLowerCase().includes(searchQuery.toLowerCase());
+  const fetchRequests = useCallback(async (p: number, append: boolean) => {
+    if (loading) return;
+    setLoading(true);
+    try {
+      const data = await dashboardService.getAllRequests(p, 10);
+      setAllRequests(prev => append ? [...prev, ...data.requests] : data.requests);
+      setTotalCount(data.totalCount);
+      setTotalPages(data.totalPages);
+      setPage(data.page);
+    } catch (err) {
+      console.error("[RequestsList] Failed to load requests", err);
+    } finally {
+      setLoading(false);
+    }
+  }, [loading]);
+
+  useEffect(() => {
+    setAllRequests([]);
+    setPage(1);
+    fetchRequests(1, false);
+  }, [searchQuery, filterStatus]);
+
+  useEffect(() => {
+    if (!sentinelRef.current) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && page < totalPages && !loading) {
+          fetchRequests(page + 1, true);
+        }
+      },
+      { rootMargin: "200px" }
+    );
+    observer.observe(sentinelRef.current);
+    return () => observer.disconnect();
+  }, [page, totalPages, loading, fetchRequests]);
+
+  const filteredRequests = allRequests.filter((r) => {
+    const matchesSearch = r.title.toLowerCase().includes(searchQuery.toLowerCase()) || r.from.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesFilter = filterStatus === "All" || r.status === filterStatus;
     return matchesSearch && matchesFilter;
   });
 
-  const statuses = ["All", "Pending", "In Progress", "Completed"];
+  const statuses = ["All", "Pending", "In Progress", "Completed", "Failed"];
 
   return (
     <div className="space-y-6">
@@ -40,7 +84,7 @@ export default function RequestsList() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h2 className="text-xl font-bold text-white">Requests</h2>
-          <p className="text-sm text-white/50 mt-0.5">{sampleRequests.length} total requests</p>
+          <p className="text-sm text-white/50 mt-0.5">{totalCount} total requests</p>
         </div>
       </div>
 
@@ -82,7 +126,7 @@ export default function RequestsList() {
             const status = statusConfig[r.status] || statusConfig.Pending;
             return (
               <motion.div
-                key={r.id}
+                key={`${r.title}-${i}`}
                 layout
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -97,9 +141,9 @@ export default function RequestsList() {
                   <div className="min-w-0">
                     <div className="font-medium text-white truncate">{r.title}</div>
                     <div className="text-sm text-white/40 flex items-center gap-2 mt-0.5">
-                      <span>From: {r.client}</span>
+                      <span>From: {r.from}</span>
                       <span className="w-1 h-1 rounded-full bg-white/20" />
-                      <span>{r.date}</span>
+                      <span>{r.createdAt}</span>
                     </div>
                   </div>
                 </div>
@@ -130,6 +174,19 @@ export default function RequestsList() {
             <Mail className="h-10 w-10 text-white/20 mx-auto mb-3" />
             <p className="text-white/40 text-sm">No requests found</p>
           </div>
+        )}
+      </div>
+
+      {/* Infinite scroll sentinel */}
+      <div ref={sentinelRef} className="flex justify-center py-6">
+        {loading && (
+          <div className="flex items-center gap-2 text-sm text-white/40">
+            <Loader2 size={16} className="animate-spin" />
+            Loading more...
+          </div>
+        )}
+        {!loading && page >= totalPages && allRequests.length > 0 && (
+          <p className="text-sm text-white/30">All requests loaded</p>
         )}
       </div>
     </div>

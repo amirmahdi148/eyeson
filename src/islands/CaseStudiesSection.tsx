@@ -1,78 +1,60 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-// تغییر ۱: جایگزینی EffectFade با EffectCreative برای انیمیشن خفن‌تر
 import {
   Navigation,
   Autoplay,
   EffectCreative,
   Pagination,
 } from "swiper/modules";
-// تغییر ۲: اضافه کردن type Variants برای رفع ارور تایپ‌اسکریپت
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { dashboardService } from "@/services/dashboardService.ts";
 
 import "swiper/css";
 import "swiper/css/navigation";
-import "swiper/css/effect-creative"; // تغییر استایل افکت
+import "swiper/css/effect-creative";
 import "swiper/css/pagination";
 
+type ProjectItem = {
+  cover: string;
+  title: string;
+  slug: string;
+};
+
+const STATIC_CONTENT = {
+  challenge:
+    "The product had powerful features, but users struggled to understand its value within the first few seconds. High bounce rate and low onboarding completion were limiting growth.",
+  solution:
+    "We designed a concise explainer video with animated UI flows, clear visual hierarchy, and focused storytelling to guide users through the product's core benefits.",
+  stats: [
+    { label: "+42% viewer retention" },
+    { label: "+31% onboarding completion" },
+  ],
+  resultText: "Faster user understanding and reduced support requests",
+};
+
 export default function CaseStudiesSection() {
-  const shouldReduceMotion = useReducedMotion();
+  const [projects, setProjects] = useState<ProjectItem[] | null>(null);
 
-  const caseStudies = [
-    {
-      id: 1,
-      category: "SaaS Product Explainer",
-      title: "The Challenge",
-      challenge:
-        "The product had powerful features, but users struggled to understand its value within the first few seconds. High bounce rate and low onboarding completion were limiting growth.",
-      solutionTitle: "Our Motion Solution",
-      solution:
-        "We designed a concise explainer video with animated UI flows, clear visual hierarchy, and focused storytelling to guide users through the product's core benefits.",
-      stats: [
-        { label: "+42% viewer retention" },
-        { label: "+31% onboarding completion" },
-      ],
-      resultText: "Faster user understanding and reduced support requests",
-      image: "/home/frame-special.webp",
-    },
-    {
-      id: 2,
-      category: "Brand Awareness Campaign",
-      title: "The Challenge",
-      challenge:
-        "The brand needed to stand out in a crowded market. Traditional ads were not engaging enough and failed to capture the audience's attention quickly.",
-      solutionTitle: "Our Motion Solution",
-      solution:
-        "We created a high-energy kinetic typography video with bold colors and fast-paced transitions to instantly grab attention and convey the brand message.",
-      stats: [{ label: "3x higher engagement" }, { label: "2.5M+ views" }],
-      resultText: "Significant increase in brand recall and social shares",
-      image: "/home/frame-special.webp",
-    },
-  ];
-
-  // رفع ارور: اضافه کردن : Variants
-  const fadeUpVariant: Variants = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 40 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
-    },
+  const data = async () => {
+    try {
+      const data = await dashboardService.getAllProjects();
+      setProjects(data.projects);
+    } catch (err) {
+      console.error("[CaseStudiesSection] Failed to load projects", err);
+      setProjects([]);
+    }
   };
+
+  useEffect(() => {
+    data();
+  }, []);
 
   return (
     <section className="relative overflow-hidden py-16 md:py-24">
       <div className="relative z-10 mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
-        {/* هدر بخش - با انیمیشن اسکرول */}
-        <motion.div
-          variants={fadeUpVariant}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="mb-10 md:mb-14 text-center will-change-transform"
-        >
+        {/* هدر بخش */}
+        <div className="mb-10 md:mb-14 text-center">
           <p className="mb-3 text-[10px] md:text-xs font-bold uppercase tracking-[0.25em] text-cyan-400/80">
             Customer Stories
           </p>
@@ -89,17 +71,48 @@ export default function CaseStudiesSection() {
               and perform stronger.
             </span>
           </p>
-        </motion.div>
+        </div>
 
-        {/* بدنه اصلی اسلایدر - با انیمیشن اسکرول */}
-        <motion.div
-          variants={fadeUpVariant}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ delay: 0.2 }}
-          className="relative will-change-transform"
-        >
+        {/* بدنه اصلی اسلایدر */}
+        <div className="relative">
+          {!projects ? (
+            <div className="grid grid-cols-1 lg:grid-cols-12 rounded-[24px] md:rounded-[32px] border border-[#1a5660]/50 bg-[#071922]/80 backdrop-blur-2xl overflow-hidden min-h-[400px] sm:min-h-[500px]">
+              <div className="order-2 lg:order-1 lg:col-span-7 flex flex-col justify-center p-5 sm:p-8 md:p-10 lg:p-12 border-t lg:border-t-0 lg:border-r border-white/10">
+                <div className="h-7 w-3/4 rounded-lg bg-white/5 animate-pulse mb-6" />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                  <div className="rounded-[18px] bg-white/5 p-4 md:p-5">
+                    <div className="h-4 w-24 rounded bg-white/10 animate-pulse mb-3" />
+                    <div className="space-y-2">
+                      <div className="h-3 w-full rounded bg-white/5 animate-pulse" />
+                      <div className="h-3 w-5/6 rounded bg-white/5 animate-pulse" />
+                      <div className="h-3 w-4/6 rounded bg-white/5 animate-pulse" />
+                    </div>
+                  </div>
+                  <div className="rounded-[18px] bg-white/5 p-4 md:p-5">
+                    <div className="h-4 w-28 rounded bg-white/10 animate-pulse mb-3" />
+                    <div className="space-y-2">
+                      <div className="h-3 w-full rounded bg-white/5 animate-pulse" />
+                      <div className="h-3 w-5/6 rounded bg-white/5 animate-pulse" />
+                      <div className="h-3 w-3/6 rounded bg-white/5 animate-pulse" />
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div className="h-4 w-20 rounded bg-white/10 animate-pulse mb-3" />
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    <div className="h-6 w-28 rounded-full bg-white/5 animate-pulse" />
+                    <div className="h-6 w-32 rounded-full bg-white/5 animate-pulse" />
+                  </div>
+                  <div className="h-8 w-52 rounded-full bg-white/5 animate-pulse mb-4" />
+                  <div className="h-11 w-48 rounded-full bg-white/5 animate-pulse" />
+                </div>
+              </div>
+              <div className="order-1 lg:order-2 lg:col-span-5 relative h-[250px] sm:h-[320px] md:h-[400px] lg:h-full w-full overflow-hidden bg-white/[0.02]">
+                <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-white/[0.01] animate-pulse" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#071922] via-[#071922]/20 to-transparent" />
+              </div>
+            </div>
+          ) : (
           <Swiper
             modules={[Navigation, Autoplay, EffectCreative, Pagination]}
             effect="creative"
@@ -129,31 +142,36 @@ export default function CaseStudiesSection() {
             autoplay={{ delay: 6000, disableOnInteraction: false }}
             className="rounded-[24px] md:rounded-[32px] border border-[#1a5660]/50 bg-[#071922]/80 backdrop-blur-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
           >
-            {caseStudies.map((study) => (
-              <SwiperSlide key={study.id}>
+            {projects.map((project) => {
+              const coverSrc = project.cover?.startsWith("http")
+                ? project.cover
+                : `${import.meta.env.PUBLIC_API_URL}${project.cover}`;
+
+              return (
+              <SwiperSlide key={project.slug}>
                 <div className="grid h-full grid-cols-1 lg:grid-cols-12">
                   {/* بخش محتوا (متن‌ها) */}
                   <div className="order-2 lg:order-1 lg:col-span-7 flex flex-col justify-center p-5 sm:p-8 md:p-10 lg:p-12 border-t lg:border-t-0 lg:border-r border-white/10 min-h-0">
                     <h3 className="mb-6 text-2xl sm:text-3xl lg:text-[34px] font-extrabold text-white leading-tight tracking-tight">
-                      {study.category}
+                      {project.title}
                     </h3>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                       <div className="rounded-[18px] border border-cyan-400/20 bg-cyan-500/5 p-4 md:p-5 transition-colors hover:bg-cyan-500/10">
                         <h4 className="mb-2 text-sm font-bold text-cyan-300">
-                          {study.title}
+                          The Challenge
                         </h4>
                         <p className="text-xs sm:text-sm leading-[1.7] text-white/65">
-                          {study.challenge}
+                          {STATIC_CONTENT.challenge}
                         </p>
                       </div>
 
                       <div className="rounded-[18px] border border-teal-400/20 bg-teal-500/5 p-4 md:p-5 transition-colors hover:bg-teal-500/10">
                         <h4 className="mb-2 text-sm font-bold text-teal-300">
-                          {study.solutionTitle}
+                          Our Motion Solution
                         </h4>
                         <p className="text-xs sm:text-sm leading-[1.7] text-white/65">
-                          {study.solution}
+                          {STATIC_CONTENT.solution}
                         </p>
                       </div>
                     </div>
@@ -164,7 +182,7 @@ export default function CaseStudiesSection() {
                       </h4>
 
                       <div className="flex flex-wrap gap-2 mb-4">
-                        {study.stats.map((stat, idx) => (
+                        {STATIC_CONTENT.stats.map((stat, idx) => (
                           <span
                             key={idx}
                             className="rounded-full border border-cyan-400/20 bg-[#0a262e] px-4 py-1.5 text-[12px] font-medium text-cyan-100/90 shadow-inner"
@@ -175,16 +193,19 @@ export default function CaseStudiesSection() {
                       </div>
 
                       <div className="mb-6 inline-flex w-full sm:w-auto rounded-xl sm:rounded-full border border-cyan-400/15 bg-[#081e24] px-4 py-2.5 text-center text-[12px] sm:text-[13px] text-white/80">
-                        ✨ {study.resultText}
+                        ✨ {STATIC_CONTENT.resultText}
                       </div>
 
                       <div className="mt-2">
-                        <button className="group relative w-full sm:w-auto overflow-hidden rounded-full bg-gradient-to-r from-cyan-500 to-teal-400 px-8 py-3.5 text-sm font-bold text-white shadow-[0_0_20px_rgba(34,211,238,0.3)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(34,211,238,0.5)] active:scale-[0.98]">
+                        <a
+                          href={`/case/${project.slug}`}
+                          className="group relative inline-flex w-full sm:w-auto overflow-hidden rounded-full bg-gradient-to-r from-cyan-500 to-teal-400 px-8 py-3.5 text-sm font-bold text-white shadow-[0_0_20px_rgba(34,211,238,0.3)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(34,211,238,0.5)] active:scale-[0.98]"
+                        >
                           <span className="relative z-10">
                             See Full Case Study
                           </span>
                           <div className="absolute inset-0 z-0 bg-gradient-to-r from-teal-400 to-cyan-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
-                        </button>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -192,8 +213,8 @@ export default function CaseStudiesSection() {
                   {/* بخش تصویر */}
                   <div className="order-1 lg:order-2 lg:col-span-5 relative h-[250px] sm:h-[320px] md:h-[400px] lg:h-full w-full overflow-hidden border-b lg:border-b-0 border-white/10">
                     <img
-                      src={study.image}
-                      alt={study.category}
+                      src={coverSrc}
+                      alt={project.title}
                       loading="lazy"
                       className="absolute inset-0 h-full w-full object-cover transform-gpu transition-transform duration-[10s] hover:scale-110"
                     />
@@ -201,8 +222,10 @@ export default function CaseStudiesSection() {
                   </div>
                 </div>
               </SwiperSlide>
-            ))}
+              );
+            })}
           </Swiper>
+          )}
 
           {/* دکمه‌های اسلایدر */}
           <button className="swiper-button-prev-case group absolute -left-5 top-1/2 z-20 hidden lg:flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-[#071922]/90 text-white shadow-lg backdrop-blur-md transition-all hover:border-cyan-400/50 hover:bg-[#0a262e] hover:text-cyan-400 active:scale-95">
@@ -239,7 +262,7 @@ export default function CaseStudiesSection() {
 
           {/* پگینیشن واقعی */}
           <div className="custom-swiper-pagination mt-6 flex justify-center gap-2.5"></div>
-        </motion.div>
+        </div>
       </div>
 
       <style

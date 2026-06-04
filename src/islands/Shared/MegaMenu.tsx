@@ -216,7 +216,7 @@ export const MobileMenu = ({ open, onClose }: MobileMenuProps) => {
 
                 {/* CTA Buttons Sticky at Bottom */}
                 <div className="mt-auto grid grid-cols-2 gap-3 p-4 border-t border-white/5 bg-[#020915]">
-                    <button className="rounded-full border border-[#3AAFC8]/45 bg-[#041827] px-3 py-3 text-sm font-semibold text-white">Book a call</button>
+                    <button onClick={() => window.location.href = "/contact"} className="rounded-full border border-[#3AAFC8]/45 bg-[#041827] px-3 py-3 text-sm font-semibold text-white cursor-pointer">Book a call</button>
                     <button className="rounded-full bg-gradient-to-r from-[#00A9BD] to-[#1D553A] px-3 py-3 text-sm font-semibold text-white">Free sample</button>
                 </div>
             </div>

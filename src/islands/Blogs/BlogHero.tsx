@@ -1,4 +1,3 @@
-import { SmartImage } from "@/utils/SmartImage.tsx";
 import { BlocksRenderer, type BlocksContent } from "@strapi/blocks-react-renderer";
 
 type BlogSection = {
@@ -9,56 +8,30 @@ type BlogSection = {
   points?: string[];
 };
 
-type BlogPost = {
-  title?: string;
-  category?: string;
-  excerpt?: string;
-  date?: string;
-  readTime?: string;
-  author?: string;
-  image?: string;
-  intro?: string;
-  subtitle?: string;
-  sections?: BlogSection[];
-  introCopy?: string;
-};
-
 interface BlogHeroProps {
   title?: string;
   category?: string;
   date?: string;
+  readTime?: string;
+  image?: string | null;
   blocks?: BlocksContent;
 }
 
-const examplePost: BlogPost = {
-  title: "How Video Content Drives Growth",
-  category: "Video Production / Strategy",
-  excerpt:
-      "Stories, strategies, and experiments from inside the agency. Built to inspire better decisions.",
-  date: "January 12, 2025",
-  readTime: "8 min read",
-  author: "Eyeson Studio",
-  subtitle: "A Practical Guide for Growing Brands",
-  image:
-      "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1200&q=80",
-  introCopy:
-      "Any company that needs constant video content can benefit from this subscription.",
-  sections: [
-    {
-      id: "key-takeaways",
-      title: "Key takeaways",
-      bullets: [
-        "A video production subscription gives you continuous access to a creative team.",
-        "No more repeated onboarding cycles.",
-        "Flexible vs in-house teams.",
-      ],
-    },
-  ],
-};
+const exampleSections: BlogSection[] = [
+  {
+    id: "key-takeaways",
+    title: "Key takeaways",
+    bullets: [
+      "A video production subscription gives you continuous access to a creative team.",
+      "No more repeated onboarding cycles.",
+      "Flexible vs in-house teams.",
+    ],
+  },
+];
 
 const CalculatorWidget = () => {
   const handleCalculate = () => {
-    alert("Calculator triggered! 🎬");
+    window.location.href = "/pricing";
   };
 
   const buttons: Array<{ label: string }> = [
@@ -83,8 +56,6 @@ const CalculatorWidget = () => {
   return (
       <div className="space-y-4 rounded-[1.8rem] bg-[#091725] p-5 shadow-[0_0_45px_rgba(0,0,0,0.28)]">
         <div className="pointer-events-none absolute -top-4 -right-2 h-16 w-16 rounded-2xl border border-white/5 bg-[#0e1217]" />
-        <div className="pointer-events-none absolute -bottom-4 -left-2 h-14 w-20 rounded-2xl border border-white/5 bg-[#0e1217]" />
-        <div className="pointer-events-none absolute -bottom-4 left-13 h-14 w-20 rounded-2xl border border-white/5 bg-[#0e1217]" />
 
         <span className="pointer-events-none absolute -top-6 -left-3 text-3xl text-[#6ee7b7]">
         ✦
@@ -150,7 +121,7 @@ const CalculatorWidget = () => {
 
 const sharePost = (platform: "copy" | "linkedin" | "twitter"): void => {
   const url = typeof window !== "undefined" ? window.location.href : "";
-  const text = encodeURIComponent(document.title);
+  const text = encodeURIComponent(typeof document !== "undefined" ? document.title : "");
 
   const links: Record<"twitter" | "linkedin" | "copy", string> = {
     twitter: `https://twitter.com/intent/tweet?url=${url}&text=${text}`,
@@ -160,58 +131,28 @@ const sharePost = (platform: "copy" | "linkedin" | "twitter"): void => {
 
   if (platform === "copy") {
     navigator.clipboard.writeText(url).then(r => r);
-    alert("Link copied!");
   } else {
     window.open(links[platform], "_blank", "width=600,height=400");
   }
 };
 
-export const BlogHero = ({ title: propTitle, category: propCategory, date: propDate, blocks }: BlogHeroProps) => {
-  const data = examplePost;
-  const title = propTitle ?? data.title ?? "How Video Content Drives Growth";
-  const category = propCategory ?? data.category ?? "Video Production / Strategy";
-  const excerpt =
-      data.excerpt ??
-      "Stories, strategies, and experiments from inside the agency. Built to inspire better decisions.";
+export const BlogHero = ({ title: propTitle, category: propCategory, date: propDate, readTime: propReadTime, image: coverImage, blocks }: BlogHeroProps) => {
+  const title = propTitle ?? "Blog Post";
+  const category = propCategory ?? "";
   const date = propDate
       ? new Date(propDate).toLocaleDateString("en-US", {
           year: "numeric",
           month: "long",
           day: "numeric",
         })
-      : (data.date ?? "January 12, 2025");
-  const readTime = data.readTime ?? "8 min read";
-  const author = data.author ?? "Eyeson Studio";
-  const subtitle = data.subtitle ?? "A Practical Guide for Growing Brands";
-  const image =
-      data.image ??
-      "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1200&q=80";
+      : "";
 
-  const articleSections = data.sections ?? [
-    {
-      id: "key-takeaways",
-      title: "Key takeaways",
-      bullets: [
-        "A video production subscription gives you continuous access to a dedicated creative team for a fixed monthly cost.",
-        "It eliminates repeated briefing, pricing, and onboarding cycles.",
-        "Compared to in-house teams, subscriptions offer flexibility without long-term contracts.",
-        "The right subscription depends on content volume, speed, and team workflow.",
-      ],
-    },
-  ];
-
-  const introCopy: string =
-      data.introCopy ??
-      "Any company that needs constant video content can benefit from this subscription. Here's what we've noticed:";
+  const articleSections = exampleSections;
 
   return (
       <>
-        <section className="relative overflow-hidden bg-[#02131C] text-white">
-          <div className="pointer-events-none absolute inset-0">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(0,169,189,0.18),transparent_28%),radial-gradient(circle_at_80%_28%,rgba(0,169,189,0.18),transparent_26%),radial-gradient(circle_at_50%_115%,rgba(0,169,189,0.2),transparent_34%)]" />
-            <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.15),rgba(0,0,0,0.4))]" />
-            <div className="absolute inset-0 opacity-35 bg-[radial-gradient(rgba(255,255,255,0.45)_1px,transparent_1px)] bg-size-[115px_115px]" />
-          </div>
+        <section className="relative overflow-hidden  text-white">
+
 
           <div className="relative mx-auto flex min-h-svh w-full max-w-350 items-center px-6 py-24 sm:px-8 lg:px-12">
             <div className="grid w-full items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
@@ -222,16 +163,19 @@ export const BlogHero = ({ title: propTitle, category: propCategory, date: propD
                 <h1 className="max-w-3xl text-4xl font-semibold leading-[1.05] text-[#2fd1cf] sm:text-5xl lg:text-6xl">
                   {title}
                 </h1>
-                <div className="mt-2 max-w-3xl text-4xl font-semibold leading-[1.05] text-white sm:text-5xl lg:text-6xl">
-                  {subtitle}
-                </div>
-                <p className="mt-6 max-w-3xl text-base leading-8 text-white/75 sm:text-lg">
-                  {introCopy}
-                </p>
-                <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-sm text-white/75 sm:text-base">
-                  <span>by {author}</span>
-                  <span>{date}</span>
-                  <span>{readTime}</span>
+
+                <div className="mt-6 max-w-3xl text-base leading-8 text-white/75 sm:text-lg">
+                  <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                    {date && <span>{date}</span>}
+                    <span className="hidden sm:inline text-white/40">·</span>
+                    <span>By Eyeson Studio</span>
+                    {propReadTime && (
+                      <>
+                        <span className="text-white/40">·</span>
+                        <span>{propReadTime}</span>
+                      </>
+                    )}
+                  </span>
                 </div>
               </div>
 
@@ -239,26 +183,72 @@ export const BlogHero = ({ title: propTitle, category: propCategory, date: propD
                 <div className="absolute -inset-8 rounded-[2.5rem] bg-[#00A9BD]/25 blur-3xl" />
                 <div className="relative overflow-hidden rounded-[2rem] border border-[#62e8f1]/20 bg-[#102530]/75 shadow-[0_0_70px_rgba(0,169,189,0.32)] backdrop-blur-md">
                   <div className="relative aspect-[1.02/1] w-full">
-                    <SmartImage
-                        src={image}
+                    {coverImage ? (
+                      <img
+                        src={coverImage}
                         alt={title}
-                        fill
-                        className="object-cover opacity-80"
-                    />
+                        className="absolute inset-0 h-full w-full object-cover opacity-80"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 overflow-hidden bg-[#02131C]">
+                        <style>{`
+                          @keyframes ai-float { 0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; } 50% { transform: translateY(-6px) scale(1.04); opacity: 0.7; } }
+                          @keyframes ai-core { 0%, 100% { transform: scale(1); opacity: 0.4; box-shadow: 0 0 15px rgba(0,169,189,0.1); } 50% { transform: scale(1.15); opacity: 0.9; box-shadow: 0 0 45px rgba(0,169,189,0.4); } }
+                          @keyframes data-stream { 0% { transform: translateX(-100%); opacity: 0; } 15% { opacity: 0.8; } 85% { opacity: 0.8; } 100% { transform: translateX(400%); opacity: 0; } }
+                          @keyframes data-stream-v { 0% { transform: translateY(-100%); opacity: 0; } 15% { opacity: 0.6; } 85% { opacity: 0.6; } 100% { transform: translateY(400%); opacity: 0; } }
+                          @keyframes node-pulse { 0%, 100% { opacity: 0.15; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.5); } }
+                          @keyframes orbit { to { transform: rotate(360deg); } }
+                          @keyframes orbit-rev { to { transform: rotate(-360deg); } }
+                          @keyframes sweep { 0% { transform: translateX(-200%); } 100% { transform: translateX(500%); } }
+                          @keyframes particle-drift { 0% { transform: translate(0, 0); opacity: 0; } 20% { opacity: 0.5; } 80% { opacity: 0.5; } 100% { transform: translate(60px, -80px); opacity: 0; } }
+                          @keyframes particle-drift-2 { 0% { transform: translate(0, 0); opacity: 0; } 20% { opacity: 0.4; } 80% { opacity: 0.4; } 100% { transform: translate(-70px, 60px); opacity: 0; } }
+                          @keyframes particle-drift-3 { 0% { transform: translate(0, 0); opacity: 0; } 20% { opacity: 0.35; } 80% { opacity: 0.35; } 100% { transform: translate(80px, 40px); opacity: 0; } }
+                        `}</style>
+                        <div className="absolute inset-0 opacity-25" style={{ backgroundImage: `radial-gradient(circle at 1px 1px, rgba(0,169,189,0.25) 1px, transparent 0)`, backgroundSize: '22px 22px', animation: 'ai-float 5s ease-in-out infinite', willChange: 'transform, opacity' }} />
+                        <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(0,169,189,0.08)_0%,transparent_40%,rgba(45,212,191,0.04)_100%)]" />
+                        <div className="absolute inset-0 grid place-items-center">
+                          <div className="h-64 w-72 rounded-full border border-[#00A9BD]/8" style={{ animation: 'orbit 40s linear infinite', willChange: 'transform' }} />
+                          <div className="h-52 w-60 rounded-full border-2 border-dashed border-[#00A9BD]/12" style={{ animation: 'orbit-rev 30s linear infinite', willChange: 'transform' }} />
+                          <div className="h-40 w-48 rounded-full border border-[#00A9BD]/15" style={{ animation: 'orbit 22s linear infinite', willChange: 'transform' }} />
+                          <div className="h-32 w-36 rounded-full border-2 border-dashed border-[#2dd4bf]/18" style={{ animation: 'orbit-rev 16s linear infinite', willChange: 'transform' }} />
+                          <div className="h-24 w-28 rounded-full border border-[#00A9BD]/20" style={{ animation: 'orbit 12s linear infinite', willChange: 'transform' }} />
+                          <div className="h-16 w-20 rounded-full border-2 border-dashed border-[#2dd4bf]/22" style={{ animation: 'orbit-rev 9s linear infinite', willChange: 'transform' }} />
+                          <div className="h-12 w-12 rounded-full border-2 border-[#00A9BD]/30" style={{ animation: 'ai-core 3s ease-in-out infinite', willChange: 'transform, opacity, box-shadow' }} />
+                          <div className="h-8 w-8 rounded-lg border border-[#00A9BD]/40 bg-[#00A9BD]/10 backdrop-blur-[2px]" style={{ animation: 'ai-core 2.5s ease-in-out infinite 0.3s', willChange: 'transform, opacity, box-shadow' }} />
+                          <div className="h-3 w-3 rounded-full bg-[#00A9BD]/60" style={{ animation: 'node-pulse 2s ease-in-out infinite', willChange: 'transform, opacity' }} />
+                          <div className="absolute h-2.5 w-2.5 rounded-full bg-[#00A9BD]/50 shadow-[0_0_10px_rgba(0,169,189,0.6)]" style={{ animation: 'orbit 9s linear infinite', marginTop: '-72px', transformOrigin: 'center' }} />
+                          <div className="absolute h-2 w-2 rounded-full bg-[#2dd4bf]/50 shadow-[0_0_8px_rgba(45,212,191,0.5)]" style={{ animation: 'orbit-rev 8s linear infinite', marginTop: '72px', transformOrigin: 'center' }} />
+                          <div className="absolute h-2 w-2 rounded-full bg-[#00A9BD]/60 shadow-[0_0_8px_rgba(0,169,189,0.5)]" style={{ animation: 'orbit 7s linear infinite', marginLeft: '-60px', transformOrigin: 'center' }} />
+                          <div className="absolute h-1.5 w-1.5 rounded-full bg-[#2dd4bf]/60 shadow-[0_0_6px_rgba(45,212,191,0.5)]" style={{ animation: 'orbit-rev 6s linear infinite', marginLeft: '60px', transformOrigin: 'center' }} />
+                          <div className="absolute h-1.5 w-1.5 rounded-full bg-[#00A9BD]/40" style={{ animation: 'orbit 10s linear infinite', marginTop: '-48px', marginLeft: '48px', transformOrigin: 'center' }} />
+                          <div className="absolute h-1.5 w-1.5 rounded-full bg-[#2dd4bf]/40" style={{ animation: 'orbit-rev 11s linear infinite', marginTop: '48px', marginLeft: '-48px', transformOrigin: 'center' }} />
+                          <div className="absolute h-2 w-2 rounded-full bg-[#00A9BD]/45 shadow-[0_0_6px_rgba(0,169,189,0.4)]" style={{ animation: 'orbit-rev 5s linear infinite', marginTop: '-34px', marginLeft: '34px', transformOrigin: 'center' }} />
+                          <div className="absolute h-1.5 w-1.5 rounded-full bg-[#2dd4bf]/45 shadow-[0_0_5px_rgba(45,212,191,0.35)]" style={{ animation: 'orbit 5.5s linear infinite', marginTop: '34px', marginLeft: '-34px', transformOrigin: 'center' }} />
+                          <div className="absolute h-1 w-1 rounded-full bg-[#00A9BD]/50" style={{ animation: 'particle-drift 4s ease-in-out infinite', top: '30%', left: '20%', willChange: 'transform, opacity' }} />
+                          <div className="absolute h-1 w-1 rounded-full bg-[#2dd4bf]/50" style={{ animation: 'particle-drift-2 5s ease-in-out infinite 1s', top: '60%', left: '70%', willChange: 'transform, opacity' }} />
+                          <div className="absolute h-0.5 w-0.5 rounded-full bg-[#00A9BD]/60" style={{ animation: 'particle-drift-3 4.5s ease-in-out infinite 2s', top: '70%', left: '30%', willChange: 'transform, opacity' }} />
+                          <div className="absolute h-1 w-1 rounded-full bg-[#2dd4bf]/40" style={{ animation: 'particle-drift 3.5s ease-in-out infinite 0.5s', top: '40%', left: '75%', willChange: 'transform, opacity' }} />
+                          <div className="absolute h-0.5 w-0.5 rounded-full bg-[#00A9BD]/55" style={{ animation: 'particle-drift-2 6s ease-in-out infinite 3s', top: '25%', left: '60%', willChange: 'transform, opacity' }} />
+                          <div className="absolute h-1 w-1 rounded-full bg-[#2dd4bf]/45" style={{ animation: 'particle-drift-3 4s ease-in-out infinite 1.5s', top: '80%', left: '45%', willChange: 'transform, opacity' }} />
+                        </div>
+                        <div className="absolute left-[10%] right-[10%] top-[12%] h-px bg-gradient-to-r from-transparent via-[#00A9BD]/35 to-transparent" style={{ animation: 'data-stream 2.8s ease-in-out infinite 0.2s', willChange: 'transform' }} />
+                        <div className="absolute left-[8%] right-[8%] top-[35%] h-px bg-gradient-to-r from-transparent via-[#2dd4bf]/20 to-transparent" style={{ animation: 'data-stream 3.5s ease-in-out infinite 0.6s', willChange: 'transform' }} />
+                        <div className="absolute left-[5%] right-[5%] top-[55%] h-px bg-gradient-to-r from-transparent via-[#00A9BD]/25 to-transparent" style={{ animation: 'data-stream 4s ease-in-out infinite 1s', willChange: 'transform' }} />
+                        <div className="absolute left-[12%] right-[12%] top-[78%] h-px bg-gradient-to-r from-transparent via-[#2dd4bf]/20 to-transparent" style={{ animation: 'data-stream 3s ease-in-out infinite 1.5s', willChange: 'transform' }} />
+                        <div className="absolute left-[30%] right-[30%] top-[92%] h-px bg-gradient-to-r from-transparent via-[#00A9BD]/15 to-transparent" style={{ animation: 'data-stream 4.5s ease-in-out infinite 0.3s', willChange: 'transform' }} />
+                        <div className="absolute inset-y-0 left-[10%] w-px bg-gradient-to-b from-transparent via-[#00A9BD]/18 to-transparent" style={{ animation: 'data-stream-v 3.5s ease-in-out infinite 0.4s', willChange: 'transform' }} />
+                        <div className="absolute inset-y-0 left-[30%] w-px bg-gradient-to-b from-transparent via-[#2dd4bf]/12 to-transparent" style={{ animation: 'data-stream-v 4s ease-in-out infinite 1.2s', willChange: 'transform' }} />
+                        <div className="absolute inset-y-0 left-[50%] w-px bg-gradient-to-b from-transparent via-[#00A9BD]/15 to-transparent" style={{ animation: 'data-stream-v 3s ease-in-out infinite 0.8s', willChange: 'transform' }} />
+                        <div className="absolute inset-y-0 left-[70%] w-px bg-gradient-to-b from-transparent via-[#2dd4bf]/12 to-transparent" style={{ animation: 'data-stream-v 4.2s ease-in-out infinite 1.8s', willChange: 'transform' }} />
+                        <div className="absolute inset-y-0 right-[10%] w-px bg-gradient-to-b from-transparent via-[#00A9BD]/18 to-transparent" style={{ animation: 'data-stream-v 3.8s ease-in-out infinite 0.5s', willChange: 'transform' }} />
+                        <div className="absolute inset-x-[15%] top-0 h-px bg-gradient-to-r from-transparent via-[#00A9BD]/45 to-transparent" />
+                        <div className="absolute inset-x-[15%] bottom-0 h-px bg-gradient-to-r from-transparent via-[#00A9BD]/45 to-transparent" />
+                        <div className="absolute left-[15%] top-0 h-full w-px bg-gradient-to-b from-transparent via-[#00A9BD]/25 to-transparent" />
+                        <div className="absolute right-[15%] top-0 h-full w-px bg-gradient-to-b from-transparent via-[#00A9BD]/25 to-transparent" />
+                        <div className="absolute top-0 h-0.5 w-1/3 bg-gradient-to-r from-transparent via-[#00A9BD]/60 to-transparent blur-sm" style={{ animation: 'sweep 2s ease-in-out infinite', willChange: 'transform' }} />
+                      </div>
+                    )}
                     <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.4),rgba(255,255,255,0.08))]" />
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(255,255,255,0.22),transparent_35%)]" />
-
-                    <div className="absolute left-1/2 top-1/2 w-[88%] -translate-x-1/2 -translate-y-1/2 rounded-3xl border border-white/12 bg-white/10 px-5 py-6 text-center backdrop-blur-md">
-                      <p className="text-xs font-medium tracking-[0.24em] text-white/70">
-                        FEATURED STORY
-                      </p>
-                      <h2 className="mt-3 text-2xl font-semibold leading-tight text-white sm:text-3xl">
-                        {title}
-                      </h2>
-                      <p className="mt-2 text-sm leading-6 text-white/80">
-                        {excerpt}
-                      </p>
-                    </div>
                   </div>
 
                   <div className="absolute inset-x-0 bottom-0 h-24 bg-[linear-gradient(to_top,rgba(0,169,189,0.24),transparent)]" />
@@ -354,7 +344,7 @@ export const BlogHero = ({ title: propTitle, category: propCategory, date: propD
               </article>
 
               <aside className="lg:sticky lg:top-28">
-                <div className="space-y-4 rounded-[1.8rem] bg-[#091725] p-5 shadow-[0_0_45px_rgba(0,0,0,0.28)]">
+      <div className="relative space-y-4 rounded-[1.8rem] bg-[#091725] p-5 shadow-[0_0_45px_rgba(0,0,0,0.28)]">
                   <p className="text-center text-sm text-white/60">
                     Share This Post
                   </p>

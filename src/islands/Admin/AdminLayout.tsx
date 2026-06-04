@@ -1,31 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   LayoutDashboard,
   FolderOpen,
   Mail,
+  Send,
   Settings,
+  Tag,
   Menu,
   X,
   ChevronRight,
   LogOut,
   User
 } from "lucide-react";
+import { httpService } from "@/utils/httpService.ts";
+import NotificationBell from "@/islands/Admin/NotificationBell";
 
 const navItems = [
   { href: "/admin", icon: LayoutDashboard, label: "Dashboard" },
   { href: "/admin/projects", icon: FolderOpen, label: "Projects" },
   { href: "/admin/requests", icon: Mail, label: "Requests" },
+  { href: "/admin/emails", icon: Send, label: "Emails" },
+  { href: "/admin/project-types", icon: Tag, label: "Project Types" },
   { href: "/admin/case", icon: LayoutDashboard, label: "Case Editor" },
   { href: "/admin/settings", icon: Settings, label: "Settings" },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [user, setUser] = useState<{ name?: string; email?: string; avatar?: string } | null>(null);
   const [currentPath, setCurrentPath] = useState(() => {
     if (typeof window !== "undefined") return window.location.pathname;
     return "/admin";
   });
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const data: any = await httpService.get("/auth/me", { timeout: 5000 });
+        setUser({ name: data?.name || data?.username, email: data?.email, avatar: data?.avatar });
+      } catch {
+        setUser(null);
+      }
+    })();
+  }, []);
 
   const isActive = (href: string) => {
     if (href === "/admin") return currentPath === "/admin" || currentPath === "/admin/";
@@ -38,7 +56,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   };
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,#062428,#001219)] text-white flex flex-col lg:flex-row overflow-hidden">
+    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,#062428,#001219)] text-white">
       {/* Mobile overlay */}
       <AnimatePresence>
         {sidebarOpen && (
@@ -57,7 +75,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <motion.aside
         animate={{ x: sidebarOpen || typeof window !== "undefined" && window.innerWidth >= 1024 ? 0 : -256 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className="fixed lg:relative top-0 left-0 h-screen lg:h-auto z-50 lg:z-auto flex flex-col w-64 bg-[#021617]/95 lg:bg-[#021617]/60 backdrop-blur-xl border-r border-white/5 shrink-0"
+        className="fixed top-0 left-0 h-screen z-50 flex flex-col w-64 bg-[#021617]/95 lg:bg-[#021617]/60 backdrop-blur-xl border-r border-white/5"
       >
         {/* Logo */}
         <div className="flex items-center justify-between p-5 border-b border-white/5">
@@ -105,12 +123,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         {/* User section */}
         <div className="p-4 border-t border-white/5">
           <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-white/5 border border-white/5">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#00E6D7]/30 to-[#12ACB5]/30 flex items-center justify-center">
-              <User size={14} />
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#00E6D7]/30 to-[#12ACB5]/30 flex items-center justify-center overflow-hidden shrink-0">
+              {user?.avatar ? (
+                <img src={user.avatar} alt={user.name || "User"} className="w-full h-full object-cover" />
+              ) : (
+                <User size={14} />
+              )}
             </div>
             <div className="flex-1 min-w-0">
-              <div className="text-sm font-medium truncate">Admin</div>
-              <div className="text-xs text-white/40 truncate">admin@eyeson.io</div>
+              <div className="text-sm font-medium truncate">{user?.name || "Admin"}</div>
+              <div className="text-xs text-white/40 truncate">{user?.email || "admin@eyeson.io"}</div>
             </div>
             <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} onClick={handleLogout} className="text-white/40 hover:text-red-400 transition-colors cursor-pointer" title="Logout">
               <LogOut size={16} />
@@ -120,7 +142,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </motion.aside>
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+      <div className="lg:ml-64 flex flex-col min-h-screen">
         {/* Top bar */}
         <header className="sticky top-0 z-30 flex items-center gap-4 px-4 sm:px-6 lg:px-8 py-4 bg-[#021617]/60 backdrop-blur-xl border-b border-white/5">
           <motion.button
@@ -136,6 +158,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               {navItems.find((item) => isActive(item.href))?.label || "Admin"}
             </h1>
           </div>
+          <NotificationBell />
         </header>
 
         {/* Page content */}

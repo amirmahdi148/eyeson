@@ -1,15 +1,55 @@
 import { useState } from "react";
 import { DayPicker } from "react-day-picker";
+import { httpService } from "@/utils/httpService.ts";
 
 const durations = ["15 min", "30 min", "1 hour"];
 const timeSlots = ["4:00 pm", "4:30 pm", "5:00 pm", "5:30 pm"];
 const budgetRanges = ["< $10k", "$10k - $25k", "$25k - $50k", "$50k +"];
+const projectTypes = [
+  "2D/3D animation",
+  "Motion Design",
+  "Video Production",
+  "Brand Strategy",
+  "UI/UX Design",
+  "Other",
+];
 
 export const ContactBookingSection = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [projectType, setProjectType] = useState("2D/3D animation");
+  const [projectDetails, setProjectDetails] = useState("");
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
   const [selectedDuration, setSelectedDuration] = useState("15 min");
   const [selectedTime, setSelectedTime] = useState("4:00 pm");
   const [selectedBudget, setSelectedBudget] = useState("< $10k");
+  const [showProjectTypes, setShowProjectTypes] = useState(false);
+
+  const handleConfirmBooking = () => {
+    const formData = {
+      firstName,
+      lastName,
+      email,
+      phone,
+      companyName,
+      projectType,
+      budget: selectedBudget,
+      projectDetails,
+      date: selectedDate?.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      }),
+      duration: selectedDuration,
+      time: selectedTime,
+    };
+    console.log("=== Booking Confirmed ===");
+    console.log(JSON.stringify(formData, null, 2));
+    httpService.post("/contact", formData).catch((err) => console.error("Failed to submit booking:", err));
+  };
 
   return (
       <section className="mx-auto w-full max-w-6xl px-4 pb-20 pt-12 sm:px-6 font-sans tracking-tight">
@@ -39,32 +79,82 @@ export const ContactBookingSection = () => {
             <div className="grid gap-6 sm:grid-cols-2">
               <div className="space-y-2">
                 <label className="text-sm font-medium text-white/90">First Name</label>
-                <input className="h-12 w-full rounded-xl border border-white/10 bg-[#0a232e]/50 px-4 text-sm text-white outline-none focus:border-[#1DAFD3]/50" placeholder="Jane" />
+                <input
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    className="h-12 w-full rounded-xl border border-white/10 bg-[#0a232e]/50 px-4 text-sm text-white outline-none focus:border-[#1DAFD3]/50"
+                    placeholder="Jane"
+                />
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium text-white/90">Last Name</label>
-                <input className="h-12 w-full rounded-xl border border-white/10 bg-[#0a232e]/50 px-4 text-sm text-white outline-none focus:border-[#1DAFD3]/50" placeholder="Georgian" />
+                <input
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    className="h-12 w-full rounded-xl border border-white/10 bg-[#0a232e]/50 px-4 text-sm text-white outline-none focus:border-[#1DAFD3]/50"
+                    placeholder="Georgian"
+                />
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium text-white/90">Email</label>
-                <input className="h-12 w-full rounded-xl border border-white/10 bg-[#0a232e]/50 px-4 text-sm text-white outline-none focus:border-[#1DAFD3]/50" placeholder="Example@gmail.com" />
+                <input
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="h-12 w-full rounded-xl border border-white/10 bg-[#0a232e]/50 px-4 text-sm text-white outline-none focus:border-[#1DAFD3]/50"
+                    placeholder="Example@gmail.com"
+                />
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium text-white/90">Phone (Optional)</label>
-                <input className="h-12 w-full rounded-xl border border-white/10 bg-[#0a232e]/50 px-4 text-sm text-white outline-none focus:border-[#1DAFD3]/50" placeholder="+097243763446" />
+                <input
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    className="h-12 w-full rounded-xl border border-white/10 bg-[#0a232e]/50 px-4 text-sm text-white outline-none focus:border-[#1DAFD3]/50"
+                    placeholder="+097243763446"
+                />
               </div>
             </div>
 
             <div className="mt-6 space-y-2">
               <label className="text-sm font-medium text-white/90">Company Name</label>
-              <input className="h-12 w-full rounded-xl border border-white/10 bg-[#0a232e]/50 px-4 text-sm text-white outline-none" placeholder="Your company.." />
+              <input
+                  value={companyName}
+                  onChange={(e) => setCompanyName(e.target.value)}
+                  className="h-12 w-full rounded-xl border border-white/10 bg-[#0a232e]/50 px-4 text-sm text-white outline-none"
+                  placeholder="Your company.."
+              />
             </div>
 
             <div className="mt-6 space-y-2">
               <label className="text-sm font-medium text-white/90">Project Type</label>
-              <div className="relative cursor-pointer h-12 w-full rounded-xl border border-white/10 bg-[#0a232e]/50 px-4 text-sm text-white/60 flex items-center justify-between">
-                <span>2D/3D animation</span>
-                <span className="text-white/30 text-lg">⌄</span>
+              <div className="relative">
+                <div
+                    onClick={() => setShowProjectTypes(!showProjectTypes)}
+                    className="relative cursor-pointer h-12 w-full rounded-xl border border-white/10 bg-[#0a232e]/50 px-4 text-sm text-white flex items-center justify-between"
+                >
+                  <span>{projectType}</span>
+                  <span className="text-white/30 text-lg">⌄</span>
+                </div>
+                {showProjectTypes && (
+                    <div className="absolute z-20 mt-1 w-full rounded-xl border border-white/10 bg-[#0a232e] p-1 shadow-2xl">
+                      {projectTypes.map((type) => (
+                          <div
+                              key={type}
+                              onClick={() => {
+                                setProjectType(type);
+                                setShowProjectTypes(false);
+                              }}
+                              className={`cursor-pointer rounded-lg px-3 py-2.5 text-sm transition-colors ${
+                                  projectType === type
+                                      ? "bg-[#1DAFD3]/20 text-white"
+                                      : "text-white/60 hover:bg-white/5 hover:text-white"
+                              }`}
+                          >
+                            {type}
+                          </div>
+                      ))}
+                    </div>
+                )}
               </div>
             </div>
 
@@ -90,14 +180,12 @@ export const ContactBookingSection = () => {
             <div className="mt-6 space-y-2">
               <label className="text-sm font-medium text-white/90">Project Details</label>
               <textarea
+                  value={projectDetails}
+                  onChange={(e) => setProjectDetails(e.target.value)}
                   className="min-h-32 w-full rounded-xl border border-white/10 bg-[#0a232e]/50 px-4 py-4 text-sm text-white outline-none"
                   placeholder="Tell us about your project..."
               />
             </div>
-
-            <button className="group mt-8 flex h-14 w-full items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-[#4BCDBB] to-[#1DAFD3] text-[15px] font-bold text-white shadow-lg shadow-[#1DAFD3]/20 transition-transform hover:scale-[1.01] active:scale-[0.99]">
-              <span className="text-xl">✦</span> Get Sample
-            </button>
           </div>
 
           {/* Right Scheduler Card */}
@@ -108,14 +196,14 @@ export const ContactBookingSection = () => {
                 <DayPicker
                     mode="single"
                     selected={selectedDate}
-                    month={selectedDate}
                     onSelect={setSelectedDate}
+                    disabled={{ before: new Date() }}
                     className="mx-auto"
                     classNames={{
                       month_caption: "hidden",
 
                       weekday: "text-white/40 font-medium text-xs uppercase pb-4",
-                      day_button: "h-10 w-10 text-sm text-white/70 hover:bg-white/10 rounded-lg transition-colors",
+                      day_button: "h-10 w-10 text-sm text-white/70 hover:bg-white/10 rounded-lg transition-colors disabled:opacity-20 disabled:cursor-not-allowed",
                       selected: "!bg-[#1DAFD3] !text-white font-bold",
                       today: "text-[#1DAFD3] font-bold underline underline-offset-4",
                       outside: "opacity-20"
@@ -165,7 +253,10 @@ export const ContactBookingSection = () => {
         </div>
 
         <div className="mt-12 flex justify-center">
-          <button className="h-14 w-full max-w-xl rounded-2xl bg-gradient-to-r from-[#4BCDBB] to-[#1DAFD3] text-base font-bold text-white shadow-xl transition-all hover:brightness-110 active:scale-95">
+          <button
+              onClick={handleConfirmBooking}
+              className="h-14 w-full max-w-xl rounded-2xl bg-gradient-to-r from-[#4BCDBB] to-[#1DAFD3] text-base font-bold text-white shadow-xl transition-all hover:brightness-110 active:scale-95"
+          >
             Confirm Booking
           </button>
         </div>

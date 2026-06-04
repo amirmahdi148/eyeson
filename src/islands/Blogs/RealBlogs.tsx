@@ -10,6 +10,7 @@ interface StrapiPost {
     slug: string;
     category: string;
     publishedAt: string;
+    cover?: { url: string } | null;
 }
 
 interface Post {
@@ -39,22 +40,29 @@ export const RealBlogs = () => {
     const pageSize = 12;
 
     useEffect(() => {
-        fetch(API_URL)
+        fetch(`${API_URL}?populate=*`)
             .then((res) => res.json())
             .then((data) => {
-                const mapped: Post[] = data.data.map((post: StrapiPost) => ({
-                    id: post.id,
-                    title: post.title,
-                    slug: post.slug,
-                    category: post.category || "Video Production",
-                    excerpt: "Read more about this topic...",
-                    date: new Date(post.publishedAt).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                    }),
-                    image: "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1000&q=80",
-                }));
+                const mapped: Post[] = data.data.map((post: StrapiPost) => {
+                    const coverUrl = post.cover?.url
+                        ? post.cover.url.startsWith("http")
+                            ? post.cover.url
+                            : `http://localhost:1337${post.cover.url}`
+                        : "";
+                    return {
+                        id: post.id,
+                        title: post.title,
+                        slug: post.slug,
+                        category: post.category || "Video Production",
+                        excerpt: "Read more about this topic...",
+                        date: new Date(post.publishedAt).toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                        }),
+                        image: coverUrl,
+                    };
+                });
                 setPosts(mapped);
                 setLoading(false);
             })
@@ -135,6 +143,14 @@ export const RealBlogs = () => {
     }
 
     return (
+        <>
+            <style>{`
+              @keyframes card-ai-float { 0%, 100% { transform: translateY(0) scale(1); opacity: 0.25; } 50% { transform: translateY(-4px) scale(1.03); opacity: 0.55; } }
+              @keyframes card-ai-core { 0%, 100% { transform: scale(1); opacity: 0.3; } 50% { transform: scale(1.12); opacity: 0.7; } }
+              @keyframes card-orbit { to { transform: rotate(360deg); } }
+              @keyframes card-orbit-rev { to { transform: rotate(-360deg); } }
+              @keyframes card-node-pulse { 0%, 100% { opacity: 0.1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.4); } }
+            `}</style>
         <div
             className="relative min-h-712.5 overflow-x-hidden lg:min-h-587.5 overflow-y-hidden"
             data-category-count={categories.length}
@@ -162,10 +178,20 @@ export const RealBlogs = () => {
                     >
                         <div className="relative h-40 w-full overflow-hidden">
                             {imageErrors[post.id] || !post.image ? (
-                                <div className="flex h-full w-full items-center justify-center bg-[#0B1F2A]">
-                                    <svg className="h-12 w-12 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                    </svg>
+                                <div className="absolute inset-0 overflow-hidden bg-[#02131C]">
+                                    <div className="absolute inset-0 opacity-15" style={{ backgroundImage: `radial-gradient(circle at 1px 1px, rgba(0,169,189,0.2) 1px, transparent 0)`, backgroundSize: '14px 14px', animation: 'card-ai-float 5s ease-in-out infinite', willChange: 'transform, opacity' }} />
+                                    <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(0,169,189,0.04)_0%,transparent_50%)]" />
+                                    <div className="absolute inset-0 grid place-items-center">
+                                        <div className="h-16 w-16 rounded-full border border-[#00A9BD]/10" style={{ animation: 'card-orbit 25s linear infinite', willChange: 'transform' }} />
+                                        <div className="h-11 w-11 rounded-full border border-dashed border-[#00A9BD]/15" style={{ animation: 'card-orbit-rev 18s linear infinite', willChange: 'transform' }} />
+                                        <div className="h-8 w-8 rounded-full border border-[#00A9BD]/20" style={{ animation: 'card-ai-core 3s ease-in-out infinite', willChange: 'transform, opacity' }} />
+                                        <div className="h-4 w-4 rounded-md border border-[#00A9BD]/30 bg-[#00A9BD]/10" style={{ animation: 'card-ai-core 2.5s ease-in-out infinite 0.3s', willChange: 'transform, opacity' }} />
+                                        <div className="h-1.5 w-1.5 rounded-full bg-[#00A9BD]/60" style={{ animation: 'card-node-pulse 2s ease-in-out infinite', willChange: 'transform, opacity' }} />
+                                        <div className="absolute h-1.5 w-1.5 rounded-full bg-[#00A9BD]/50 shadow-[0_0_4px_rgba(0,169,189,0.4)]" style={{ animation: 'card-orbit 6s linear infinite', marginTop: '-28px', transformOrigin: 'center' }} />
+                                        <div className="absolute h-1 w-1 rounded-full bg-[#2dd4bf]/50 shadow-[0_0_3px_rgba(45,212,191,0.3)]" style={{ animation: 'card-orbit-rev 5s linear infinite', marginTop: '28px', transformOrigin: 'center' }} />
+                                        <div className="absolute h-1 w-1 rounded-full bg-[#00A9BD]/60 shadow-[0_0_3px_rgba(0,169,189,0.3)]" style={{ animation: 'card-orbit 4.5s linear infinite', marginLeft: '-22px', transformOrigin: 'center' }} />
+                                        <div className="absolute h-0.5 w-0.5 rounded-full bg-[#2dd4bf]/60" style={{ animation: 'card-orbit-rev 3.5s linear infinite', marginLeft: '22px', transformOrigin: 'center' }} />
+                                    </div>
                                 </div>
                             ) : (
                                 <img
@@ -300,5 +326,6 @@ export const RealBlogs = () => {
 
 
         </div>
+        </>
     );
 };

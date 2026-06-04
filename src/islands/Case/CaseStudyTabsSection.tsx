@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, memo } from "react";
+import {memo, useEffect, useMemo, useState} from "react";
 
 // Types for tab data
 export type TabKey =
@@ -16,8 +16,6 @@ export type TabItem = {
   title: string;
   text: string;
 };
-
-const SLUG = "skylines-989762e9";
 
 // Default static tabs – used when no data is supplied by the parent
 const DEFAULT_TABS: TabItem[] = [
@@ -72,18 +70,27 @@ const DEFAULT_TABS: TabItem[] = [
   },
 ];
 
+type Props = {
+  slug?: string;
+};
+
 // Component – fetches data from API on mount, falls back to defaults
-function CaseStudyTabsSection() {
+function CaseStudyTabsSection({ slug }: Props) {
   const [tabs, setTabs] = useState<TabItem[]>(DEFAULT_TABS);
+  const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<TabKey>("industry");
   const [displayedText, setDisplayedText] = useState("");
 
   useEffect(() => {
+    if (!slug) {
+      setLoading(false);
+      return;
+    }
     const fetchData = async () => {
       try {
         const API_URL = import.meta.env.PUBLIC_API_URL;
         const response = await fetch(
-          `${API_URL}/project/texts?slug=${SLUG}`,
+          `${API_URL}/project/texts?slug=${slug}`,
           { credentials: "include" }
         );
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -97,10 +104,12 @@ function CaseStudyTabsSection() {
         if (mapped.length > 0) setTabs(mapped);
       } catch (err) {
         console.warn("[CaseStudyTabsSection] Using fallback tabs:", err);
+      } finally {
+        setLoading(false);
       }
     };
     fetchData();
-  }, []);
+  }, [slug]);
 
   const active = useMemo(
     () => tabs.find((tab) => tab.key === activeTab) ?? tabs[0],
@@ -122,6 +131,22 @@ function CaseStudyTabsSection() {
   return (
     <section className="relative overflow-hidden lg:py-40">
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        {loading ? (
+          <div className="rounded-[26px] border border-white/5 bg-[#07181d]/95 px-5 py-7 shadow-[0_20px_60px_rgba(0,0,0,0.35)] sm:px-7 sm:py-8 lg:px-8 lg:py-9">
+            <div className="flex flex-wrap items-center gap-6 sm:gap-10 mb-8">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <div key={i} className="h-4 w-16 rounded bg-white/10 animate-pulse" />
+              ))}
+            </div>
+            <div className="h-8 w-1/3 rounded-lg bg-white/10 animate-pulse mb-4" />
+            <div className="space-y-3">
+              <div className="h-4 w-full rounded bg-white/5 animate-pulse" />
+              <div className="h-4 w-5/6 rounded bg-white/5 animate-pulse" />
+              <div className="h-4 w-4/6 rounded bg-white/5 animate-pulse" />
+            </div>
+          </div>
+        ) : (
+        <>
         <div className="mb-4 flex flex-wrap items-center justify-evenly overflow-x-auto pb-2 sm:gap-7">
           {tabs.map((tab) => {
             const isActive = tab.key === activeTab;
@@ -154,6 +179,8 @@ function CaseStudyTabsSection() {
             <span className="ml-0.5 inline-block h-[1em] w-[2px] translate-y-[2px] bg-cyan-300 align-middle animate-pulse" />
           </p>
         </div>
+        </>
+        )}
       </div>
     </section>
   );

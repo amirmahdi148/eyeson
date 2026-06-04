@@ -11,8 +11,6 @@ interface CaseData {
   projectTimeline?: string;
 }
 
-const SLUG = "skylines-989762e9";
-
 const DEFAULT_DATA: CaseData = {
   title: "CryptoZen",
   description: "CryptoZen is a crypto education brand aiming to make blockchain simple, engaging, and actionable. Our mission was to help them scale their content and grow their audience across Instagram, TikTok, and YouTube, with a focus on driving VIP membership conversions through high-retention, short-form video.",
@@ -27,7 +25,12 @@ const DEFAULT_DATA: CaseData = {
   avatar: "/case/hero-case.webp",
 };
 
-export default function AdminCaseStudyHero() {
+type Props = {
+  slug?: string;
+};
+
+export default function AdminCaseStudyHero({ slug: propSlug }: Props) {
+  const slug = propSlug || "skylines-989762e9";
   const [data, setData] = useState<CaseData>(DEFAULT_DATA);
   const [loading, setLoading] = useState(true);
   const [editField, setEditField] = useState<string | null>(null);
@@ -38,7 +41,7 @@ export default function AdminCaseStudyHero() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await httpService.get<CaseData>(`/project/details?slug=${SLUG}`);
+        const res = await httpService.get<CaseData>(`/project/details?slug=${slug}`);
         setData((prev) => ({ ...prev, ...res }));
       } catch (err) {
         console.warn("[AdminCaseStudyHero] Using fallback data:", err);
@@ -72,7 +75,7 @@ export default function AdminCaseStudyHero() {
     setSaveError(null);
     try {
       if (editField === "title" || editField === "description" || editField === "projectType" || editField === "projectTimeline") {
-        await httpService.put(`/project/details?slug=${SLUG}`, { [editField]: editValue });
+        await httpService.put(`/project/details?slug=${slug}`, { [editField]: editValue });
         setData(prev => ({ ...prev, [editField]: editValue }));
       } else if (editField === "tools") {
         const toolNames = editValue.split(",").map(n => n.trim()).filter(Boolean);
@@ -83,10 +86,10 @@ export default function AdminCaseStudyHero() {
             iconUrl: existing?.iconUrl || `/case/${name.toLowerCase().replace(/\s+/g, '')}.webp`
           };
         });
-        await httpService.put(`/project/details?slug=${SLUG}`, { tools: newTools });
+        await httpService.put(`/project/details?slug=${slug}`, { tools: newTools });
         setData(prev => ({ ...prev, tools: newTools }));
       } else if (editField === "avatar") {
-        await httpService.put(`/project/details?slug=${SLUG}`, { avatar: editValue });
+        await httpService.put(`/project/details?slug=${slug}`, { avatar: editValue });
         setData(prev => ({ ...prev, avatar: editValue }));
       }
       setEditField(null);

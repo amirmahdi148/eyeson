@@ -63,121 +63,9 @@ import SecondaryButton from "./SecondaryButton";
         </div>
       </div>
 
-      <!-- === ستون راست: ماشین حساب پهن‌تر با دکمه‌های مربعی بزرگ === -->
-      <div
-        class="relative flex items-center justify-center pt-12 lg:justify-end lg:pt-0"
-      >
-        <div
-          class="cv-float relative z-10 w-full max-w-85 sm:max-w-95"
-        >
-          <div class="relative w-full flex justify-center">
-            <!-- decorative squares -->
-            <div
-              class="pointer-events-none absolute -top-5 -right-2.5 sm:-top-7.5 sm:-right-5 z-0 h-20 w-20 sm:h-24 sm:w-24 rounded-2xl border border-white/5 bg-[#0e1217]"
-            >
-            </div>
-            <div
-              class="pointer-events-none absolute -bottom-5 -left-2.5 sm:-bottom-7.5 sm:-left-5 z-0 h-16 w-24 sm:h-20 sm:w-28 rounded-2xl border border-white/5 bg-[#0e1217]"
-            >
-            </div>
-            <div
-              class="pointer-events-none absolute -bottom-5 left-15 sm:-bottom-7.5 sm:left-20 z-0 h-16 w-24 sm:h-20 sm:w-28 rounded-2xl border border-white/5 bg-[#0e1217]"
-            >
-            </div>
-            <div
-              class="pointer-events-none absolute -right-2.5 -bottom-5 sm:-right-5 sm:-bottom-7.5 z-0 h-16 w-20 sm:h-20 sm:w-24 rounded-2xl border border-white/5 bg-[#0e1217]"
-            >
-            </div>
-
-            <!-- stars -->
-            <span
-              class="pointer-events-none absolute -top-8 -left-4 sm:-top-12 sm:-left-8 animate-cv-star text-4xl sm:text-5xl text-[#6ee7b7] [animation-delay:0ms]"
-              >✦</span
-            >
-            <span
-              class="pointer-events-none absolute -top-4 left-4 sm:-top-6 sm:left-6 animate-cv-star text-2xl sm:text-3xl text-[#6ee7b7] [animation-delay:700ms]"
-              >✦</span
-            >
-            <span
-              class="pointer-events-none absolute top-1/2 -left-8 sm:-left-12 animate-cv-star text-2xl sm:text-3xl text-[#a7f3d0] opacity-60 [animation-delay:500ms]"
-              >✦</span
-            >
-            <span
-              class="pointer-events-none absolute top-1/3 -right-6 sm:-right-10 animate-cv-star text-2xl sm:text-3xl text-[#a7f3d0] opacity-60 [animation-delay:300ms]"
-              >✦</span
-            >
-            <span
-              class="pointer-events-none absolute -bottom-8 right-0 sm:-bottom-10 animate-cv-star text-3xl sm:text-4xl text-[#a7f3d0] opacity-80 [animation-delay:1000ms]"
-              >✦</span
-            >
-
-            <!-- Calculator Box (عرض بیشتر شد) -->
-            <div
-              id="cost-video-calc"
-              class="relative z-10 w-full rounded-[32px] sm:rounded-[40px] border-[3px] border-[#006B77] bg-[#020617] p-5 sm:p-6 shadow-[0_0_50px_rgba(0,107,119,0.3)]"
-            >
-              <!-- صفحه نمایش -->
-              <div
-                class="relative mb-5 sm:mb-6 flex h-17.5 sm:h-21 items-center justify-between overflow-hidden rounded-2xl sm:rounded-[20px] border border-white/10 bg-[#333b4d] px-5 sm:px-6 shadow-inner"
-              >
-                <div
-                  data-calc-display
-                  class="font-sans text-3xl sm:text-4xl font-bold tracking-wide text-white"
-                >
-                  $0
-                </div>
-                <div class="text-white opacity-90">
-                  <svg
-                    class="h-7 w-7 sm:h-9 sm:w-9"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
-                    ></path>
-                    <circle cx="12" cy="12" r="3"></circle>
-                    <path d="M12 9v.01"></path>
-                  </svg>
-                </div>
-              </div>
-
-              <!-- گرید دکمه‌ها (دکمه‌های مربعی با aspect-square) -->
-              <div class="grid grid-cols-4 gap-3 sm:gap-4">
-                {
-                  [
-                    "7",
-                    "8",
-                    "9",
-                    "-",
-                    "4",
-                    "5",
-                    "6",
-                    "+",
-                    "1",
-                    "2",
-                    "3",
-                    "0",
-                    ".",
-                    "=",
-                    "C",
-                    "*",
-                  ].map((key) => (
-                    <div
-                      data-calc-key={key}
-                      class="cv-key flex aspect-square w-full cursor-default items-center justify-center rounded-[14px] sm:rounded-[18px] border-b-4 border-[#4b5563] bg-[#2a3441] text-xl sm:text-2xl font-bold text-[#f3f4f6] shadow-sm transition-all duration-150 ease-out"
-                    >
-                      {key}
-                    </div>
-                  ))
-                }
-              </div>
-            </div>
-          </div>
-        </div>
+      <!-- === ستون راست: SVG Calculator === -->
+      <div class="relative flex items-center justify-center pt-12 lg:justify-end lg:pt-0">
+        <img src="/Shared/cal/calcu.svg" alt="Calculator" class="w-full max-w-2xl sm:max-w-4xl h-auto" />
       </div>
     </div>
   </div>
@@ -195,141 +83,17 @@ import SecondaryButton from "./SecondaryButton";
     }
   }
 
-  @keyframes cv-float {
-    0%,
-    100% {
-      transform: translate3d(0, 0, 0);
-    }
-    50% {
-      transform: translate3d(0, -10px, 0);
-    }
-  }
-
-  @keyframes cv-star {
-    0%,
-    100% {
-      opacity: 0.45;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 1;
-      transform: scale(1.12);
-    }
-  }
-
-  @keyframes cv-orb {
-    0%,
-    100% {
-      opacity: 0.85;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 1;
-      transform: scale(1.06);
-    }
-  }
-
   .animate-cv-card-in {
     animation: cv-card-in 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     opacity: 0;
   }
 
-  .cv-float {
-    animation: cv-float 5s ease-in-out infinite;
-    will-change: transform;
-  }
-
-  .animate-cv-star {
-    animation: cv-star 2.4s ease-in-out infinite;
-  }
-
-  .animate-cv-orb {
-    animation: cv-orb 14s ease-in-out infinite;
-  }
-
-  /* استایل دکمه‌های کی‌پد که فشرده میشن */
-  .cv-key.is-pressed {
-    transform: translateY(2px) scale(0.95);
-    background-color: #005a63 !important;
-    border-bottom-width: 0 !important;
-    border-top-width: 4px !important;
-    border-top-color: transparent !important;
-  }
-
   @media (prefers-reduced-motion: reduce) {
-    .animate-cv-card-in,
-    .cv-float,
-    .animate-cv-star,
-    .animate-cv-orb {
-      animation: none !important;
-    }
     .animate-cv-card-in {
+      animation: none !important;
       opacity: 1;
     }
   }
 </style>
 
-<script is:inline>
-  (function () {
-    function getKeyEls(root, ch) {
-      return Array.from(root.querySelectorAll(".cv-key")).filter(function (el) {
-        return el.getAttribute("data-calc-key") === ch;
-      });
-    }
 
-    function setPressed(root, ch) {
-      root.querySelectorAll(".cv-key").forEach(function (el) {
-        el.classList.remove("is-pressed");
-      });
-      if (!ch) return;
-      getKeyEls(root, ch).forEach(function (el) {
-        el.classList.add("is-pressed");
-      });
-    }
-
-    function sleep(ms) {
-      return new Promise(function (r) {
-        setTimeout(r, ms);
-      });
-    }
-
-    function runCalcLoop(root, displayEl) {
-      async function tick() {
-        while (true) {
-          let text = "";
-          displayEl.textContent = text ? text : "$0";
-          await sleep(1000);
-
-          for (let i = 0; i < 5; i++) {
-            const c = "12345"[i];
-            setPressed(root, c);
-            text += c;
-            displayEl.textContent = text;
-            await sleep(150);
-            setPressed(root, null);
-            await sleep(300);
-          }
-
-          await sleep(500);
-          displayEl.textContent = "$12345";
-          setPressed(root, null);
-          await sleep(4000);
-        }
-      }
-      tick();
-    }
-
-    function init() {
-      const root = document.getElementById("cost-video-calc");
-      const displayEl = root && root.querySelector("[data-calc-display]");
-      if (!root || !displayEl) return;
-      runCalcLoop(root, displayEl);
-    }
-
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", init);
-    } else {
-      init();
-    }
-  })();
-</script>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_12" data-name="Layer 12" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1287.26 921.06">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#radial-gradient-2);
+        opacity: .7;
+      }
+
+      .cls-2 {
+        fill: #00e4fc;
+      }
+
+      .cls-3 {
+        opacity: .46;
+      }
+
+      .cls-4 {
+        fill: #e3e3e3;
+        font-family: Roboto-Regular, Roboto;
+        font-size: 24px;
+      }
+
+      .cls-5 {
+        fill: url(#radial-gradient);
+      }
+
+      .cls-6 {
+        fill: #00a9bc;
+      }
+    </style>
+    <radialGradient id="radial-gradient" cx="327.65" cy="-131.35" fx="327.65" fy="-131.35" r="383.03" gradientTransform="translate(211.5) scale(1.14 1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#011f26"/>
+      <stop offset=".47" stop-color="#021a25"/>
+      <stop offset=".97" stop-color="#070e24"/>
+      <stop offset="1" stop-color="#080d24"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient-2" cx="170.83" cy="92.01" fx="170.83" fy="92.01" r="319.33" gradientTransform="translate(211.5) scale(1.14 1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#00a9bc"/>
+      <stop offset="0" stop-color="#00a8bb" stop-opacity="1"/>
+      <stop offset=".11" stop-color="#008a99" stop-opacity=".73"/>
+      <stop offset=".22" stop-color="#00707c" stop-opacity=".51"/>
+      <stop offset=".33" stop-color="#005a65" stop-opacity=".33"/>
+      <stop offset=".44" stop-color="#004a52" stop-opacity=".18"/>
+      <stop offset=".56" stop-color="#003e45" stop-opacity=".08"/>
+      <stop offset=".67" stop-color="#00373d" stop-opacity=".02"/>
+      <stop offset=".8" stop-color="#00353b" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <g>
+    <rect class="cls-5" x="425.96" y="126.44" width="246.91" height="61.37" rx="30.68" ry="30.68"/>
+    <g class="cls-3">
+      <path class="cls-2" d="M642.19,187.81c-32.81.06-154.38.27-185.01.33-5.92.02-11.91-1.47-16.93-4.68-13.09-7.91-18.36-25.18-11.98-39.07,3.63-8.2,10.95-14.6,19.55-17.14,2.86-.87,5.85-1.21,8.83-1.3l140.96.25,35.24.06,8.81.02c5.89,0,11.83,1.5,16.81,4.71,25.99,16.83,14.76,56.26-16.28,56.83h0ZM642.19,187.81c15.82.11,29.8-12.89,30.5-28.76,1.12-14.03-8.74-27.82-22.38-31.32-4.79-1.55-12.43-1.03-17.47-1.1-22.51.05-150.83.26-176.2.31-11.66-.07-22.88,7.1-27.58,17.8-9.09,20.22,5.96,43,28.12,42.74,29.89.05,152.94.27,185.01.33h0Z"/>
+    </g>
+    <rect class="cls-1" x="425.96" y="126.44" width="246.91" height="61.37" rx="30.68" ry="30.68"/>
+  </g>
+  <text class="cls-4" transform="translate(484.76 166.22)"><tspan x="0" y="0">Motion Graphic</tspan></text>
+  <g>
+    <path d="M445,157.84c-.65.18-1.32-.21-1.5-.86-.18-.65.21-1.32.86-1.5,3.97-1.08,6.89-.38,9.17,1.84,1.2,1.16,2.18,2.74,3.03,4.7.74-4.01,2.01-6.75,3.8-8.62,1.51-1.58,3.34-2.5,5.49-3.01.31-2.05,2.09-3.62,4.22-3.62,2.36,0,4.28,1.91,4.28,4.28s-1.91,4.28-4.28,4.28c-1.73,0-3.21-1.02-3.89-2.5-1.61.42-2.97,1.13-4.06,2.27-2.1,2.18-3.36,6.03-3.74,12.53,0,.54-.36,1.02-.91,1.17-.65.17-1.32-.21-1.5-.86-1.1-4.1-2.37-7.13-4.14-8.85-1.62-1.58-3.79-2.05-6.82-1.23h0Z"/>
+    <path class="cls-6" d="M445,157.84c-.65.18-1.32-.21-1.5-.86-.18-.65.21-1.32.86-1.5,3.97-1.08,6.89-.38,9.17,1.84,1.2,1.16,2.18,2.74,3.03,4.7.74-4.01,2.01-6.75,3.8-8.62,1.51-1.58,3.34-2.5,5.49-3.01.31-2.05,2.09-3.62,4.22-3.62,2.36,0,4.28,1.91,4.28,4.28s-1.91,4.28-4.28,4.28c-1.73,0-3.21-1.02-3.89-2.5-1.61.42-2.97,1.13-4.06,2.27-2.1,2.18-3.36,6.03-3.74,12.53,0,.54-.36,1.02-.91,1.17-.65.17-1.32-.21-1.5-.86-1.1-4.1-2.37-7.13-4.14-8.85-1.62-1.58-3.79-2.05-6.82-1.23h0Z"/>
+  </g>
+</svg>

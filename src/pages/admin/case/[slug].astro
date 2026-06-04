@@ -1,0 +1,16 @@
+---
+export const prerender = false;
+import AdminBaseLayout from "../../../layouts/AdminLayout.astro";
+import AdminLayout from "@/islands/Admin/AdminLayout";
+import AdminCaseMain from "@/components/Case/AdminCaseMain.astro";
+import AdminGuard from "@/islands/Admin/AdminGuard";
+
+const { slug } = Astro.params;
+---
+<AdminBaseLayout>
+  <AdminGuard client:only="react">
+    <AdminLayout client:load>
+      <AdminCaseMain slug={slug} />
+    </AdminLayout>
+  </AdminGuard>
+</AdminBaseLayout>

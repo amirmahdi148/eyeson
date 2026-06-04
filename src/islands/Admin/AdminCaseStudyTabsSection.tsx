@@ -11,8 +11,6 @@ export type TabItem = {
   text: string;
 };
 
-const SLUG = "skylines-989762e9";
-
 const DEFAULT_TABS: TabItem[] = [
   { key: "client", label: "Client", title: "CryptoZen", text: "CryptoZen is a crypto education brand focused on making blockchain content simple, engaging, and actionable." },
   { key: "industry", label: "Industry", title: "Crypto Education", text: "The industry needed short-form storytelling that could explain a complex topic without losing momentum." },
@@ -23,7 +21,12 @@ const DEFAULT_TABS: TabItem[] = [
   { key: "startingPoint", label: "Starting Point", title: "Content Audit & Brief", text: "We started by reviewing the existing content style." },
 ];
 
-export default function AdminCaseStudyTabsSection() {
+type Props = {
+  slug?: string;
+};
+
+export default function AdminCaseStudyTabsSection({ slug: propSlug }: Props) {
+  const slug = propSlug || "skylines-989762e9";
   const [tabs, setTabs] = useState<TabItem[]>(DEFAULT_TABS);
   const [activeTab, setActiveTab] = useState<TabKey>("industry");
   const [displayedText, setDisplayedText] = useState("");
@@ -43,8 +46,8 @@ export default function AdminCaseStudyTabsSection() {
     const fetchData = async () => {
       try {
         const [details, texts] = await Promise.all([
-          httpService.get<any>(`/project/details?slug=${SLUG}`),
-          httpService.get<any[]>(`/project/texts?slug=${SLUG}`),
+          httpService.get<any>(`/project/details?slug=${slug}`),
+          httpService.get<any[]>(`/project/texts?slug=${slug}`),
         ]);
         console.log("[AdminCaseStudyTabsSection] /project/details response:", JSON.stringify(details));
         const uuid = details?.projectUUID || queryUuid;
@@ -93,7 +96,7 @@ export default function AdminCaseStudyTabsSection() {
     setSaveError(null);
   };
 
-  const effectiveProject = () => projectUuid || SLUG;
+  const effectiveProject = () => projectUuid || slug;
 
   const saveEdit = async () => {
     if (!editField || !editValue.trim()) return;

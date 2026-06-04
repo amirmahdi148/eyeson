@@ -96,6 +96,7 @@ export const Hero = () => {
                         animate="visible"
                     >
                         <div className="flex gap-10">
+
                             <button className="border-3 outline-0 border-[#00A9BD] text-white rounded-[36px] py-2 px-4 sm:py-4 sm:px-14 bg-linear-to-r from-[#00A9BD] to-[#1D553A] cursor-pointer shadow-[0px_2px_25px_#00A9BD] text-sm sm:text-xl  font-bold ">
                                 Start a Project
                             </button>

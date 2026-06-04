@@ -157,7 +157,7 @@ export default function VideoPackagesSection() {
                   {pack.featured ? (
                     <ul className="mt-6 space-y-3 text-sm text-[#d6e4ea]">
                       {pack.includes.map((item) => (
-                        <li>
+                        <li key={item}>
                           <span className="text-[#35e4d8] leading-none">✓</span>
                           <span>{item}</span>
                         </li>
@@ -265,7 +265,7 @@ export default function VideoPackagesSection() {
               {pack.featured ? (
                 <ul className="mt-6 space-y-3 text-sm text-[#d6e4ea]">
                   {pack.includes.map((item) => (
-                    <li>
+                    <li key={item}>
                       <span className="text-[#35e4d8] leading-none">✓</span>
                       <span>{item}</span>
                     </li>

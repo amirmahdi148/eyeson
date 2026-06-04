@@ -1,0 +1,11 @@
+---
+export const prerender = false;
+import BaseLayout from "../../layouts/BaseLayout.astro"
+import CaseMain from "../../components/Case/CaseMain.astro"
+
+const { slug } = Astro.params;
+---
+
+<BaseLayout>
+  <CaseMain slug={slug} />
+</BaseLayout>

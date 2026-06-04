@@ -1,15 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Eye, Users, Plus, Search, Grid3X3, List, ArrowUpRight } from "lucide-react";
+import { Eye, Users, Plus, Search, Grid3X3, List, ArrowUpRight, Pencil } from "lucide-react";
+import { dashboardService } from "@/services/dashboardService.ts";
 
-const initialProjects = [
-  { id: "1", title: "Branding Refresh", views: 1240, owner: "Alice", status: "Active", updated: "2 days ago" },
-  { id: "2", title: "Landing Page Redesign", views: 890, owner: "Bob", status: "Active", updated: "5 days ago" },
-  { id: "3", title: "Ad Campaign Assets", views: 430, owner: "Carol", status: "Draft", updated: "1 week ago" },
-  { id: "4", title: "Social Media Kit", views: 2100, owner: "David", status: "Active", updated: "3 days ago" },
-  { id: "5", title: "Product Demo Video", views: 560, owner: "Eve", status: "Review", updated: "1 day ago" },
-  { id: "6", title: "Email Templates", views: 340, owner: "Frank", status: "Draft", updated: "2 weeks ago" },
-];
+type ApiProject = {
+  cover: string;
+  title: string;
+  slug: string;
+  ownerName: string;
+  updatedAt: string;
+  views: number;
+};
+
+type ProjectItem = {
+  slug: string;
+  title: string;
+  views: number;
+  owner: string;
+  updated: string;
+  cover: string;
+};
 
 const statusColors: Record<string, string> = {
   Active: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
@@ -18,7 +28,7 @@ const statusColors: Record<string, string> = {
 };
 
 export default function ProjectsList() {
-  const [projects, setProjects] = useState(initialProjects);
+  const [projects, setProjects] = useState<ProjectItem[]>([]);
   const [showNew, setShowNew] = useState(false);
   const [projectname, setProjectname] = useState("");
   const [projectcategory, setProjectcategory] = useState("Video");
@@ -27,6 +37,26 @@ export default function ProjectsList() {
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const categories = ["Video", "Industry", "Animation", "Design"];
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await dashboardService.getAllProjects();
+        setProjects(
+          data.projects.map((p: ApiProject) => ({
+            slug: p.slug,
+            title: p.title,
+            views: p.views,
+            owner: p.ownerName,
+            updated: p.updatedAt,
+            cover: p.cover,
+          }))
+        );
+      } catch (err) {
+        console.error("Failed to load projects", err);
+      }
+    })();
+  }, []);
 
   const filteredProjects = projects.filter((p) =>
     p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -124,7 +154,7 @@ export default function ProjectsList() {
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((p, i) => (
               <motion.div
-                key={p.id}
+                key={p.slug}
                 layout
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -133,11 +163,22 @@ export default function ProjectsList() {
                 className="group rounded-2xl border border-white/5 bg-white/[0.03] backdrop-blur-xl p-5 hover:border-white/10 transition-all"
               >
                 <div className="flex items-start justify-between mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00E6D7]/20 to-[#12ACB5]/10 flex items-center justify-center">
-                    <span className="text-sm font-bold text-[#00E6D7]">{p.title.charAt(0)}</span>
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00E6D7]/20 to-[#12ACB5]/10 flex items-center justify-center shrink-0 overflow-hidden">
+                    {p.cover ? (
+                      <img
+                        src={p.cover.startsWith("http") ? p.cover : `${import.meta.env.PUBLIC_API_URL}${p.cover}`}
+                        alt={p.title}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.currentTarget.style.display = "none";
+                          e.currentTarget.nextElementSibling?.classList.remove("hidden");
+                        }}
+                      />
+                    ) : null}
+                    <span className={`text-sm font-bold text-[#00E6D7] ${p.cover ? "hidden" : ""}`}>{p.title.charAt(0)}</span>
                   </div>
-                  <span className={`px-2.5 py-1 rounded-full text-xs font-medium border ${statusColors[p.status] || "bg-white/10 text-white/50 border-white/10"}`}>
-                    {p.status}
+                  <span className="px-2.5 py-1 rounded-full text-xs font-medium border bg-emerald-500/20 text-emerald-300 border-emerald-500/30">
+                    Active
                   </span>
                 </div>
                 <h3 className="font-semibold text-white mb-1 group-hover:text-[#00E6D7] transition-colors">{p.title}</h3>
@@ -147,12 +188,20 @@ export default function ProjectsList() {
                     <span className="flex items-center gap-1.5"><Eye size={14} /> {p.views.toLocaleString()}</span>
                     <span className="flex items-center gap-1.5"><Users size={14} /> {p.owner}</span>
                   </div>
-                  <a
-                    href={`/admin/project/${p.id}`}
-                    className="flex items-center gap-1 text-sm text-[#00E6D7] hover:text-[#00E6D7]/80 transition-colors cursor-pointer"
-                  >
-                    Open <ArrowUpRight size={14} />
-                  </a>
+                  <div className="flex items-center gap-2">
+                    <a
+                      href={`/case/${p.slug}`}
+                      className="flex items-center gap-1 text-sm text-white/50 hover:text-white/80 transition-colors cursor-pointer"
+                    >
+                      Open <ArrowUpRight size={14} />
+                    </a>
+                    <a
+                      href={`/admin/case/${p.slug}`}
+                      className="flex items-center gap-1 text-sm text-[#00E6D7] hover:text-[#00E6D7]/80 transition-colors cursor-pointer"
+                    >
+                      <Pencil size={14} />
+                    </a>
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -163,7 +212,7 @@ export default function ProjectsList() {
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((p, i) => (
               <motion.div
-                key={p.id}
+                key={p.slug}
                 layout
                 initial={{ opacity: 0, x: -8 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -172,8 +221,19 @@ export default function ProjectsList() {
                 className="flex items-center justify-between p-4 hover:bg-white/[0.02] transition-colors"
               >
                 <div className="flex items-center gap-4 min-w-0">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00E6D7]/20 to-[#12ACB5]/10 flex items-center justify-center shrink-0">
-                    <span className="text-sm font-bold text-[#00E6D7]">{p.title.charAt(0)}</span>
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00E6D7]/20 to-[#12ACB5]/10 flex items-center justify-center shrink-0 overflow-hidden">
+                    {p.cover ? (
+                      <img
+                        src={p.cover.startsWith("http") ? p.cover : `${import.meta.env.PUBLIC_API_URL}${p.cover}`}
+                        alt={p.title}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.currentTarget.style.display = "none";
+                          e.currentTarget.nextElementSibling?.classList.remove("hidden");
+                        }}
+                      />
+                    ) : null}
+                    <span className={`text-sm font-bold text-[#00E6D7] ${p.cover ? "hidden" : ""}`}>{p.title.charAt(0)}</span>
                   </div>
                   <div className="min-w-0">
                     <div className="font-medium text-white truncate">{p.title}</div>
@@ -185,19 +245,29 @@ export default function ProjectsList() {
                   </div>
                 </div>
                 <div className="flex items-center gap-4 shrink-0 ml-4">
-                  <span className={`hidden sm:inline-flex px-2.5 py-1 rounded-full text-xs font-medium border ${statusColors[p.status] || "bg-white/10 text-white/50 border-white/10"}`}>
-                    {p.status}
+                  <span className="hidden sm:inline-flex px-2.5 py-1 rounded-full text-xs font-medium border bg-emerald-500/20 text-emerald-300 border-emerald-500/30">
+                    Active
                   </span>
                   <div className="hidden md:flex items-center gap-1.5 text-sm text-white/50">
                     <Eye size={14} />
                     <span>{p.views.toLocaleString()}</span>
                   </div>
-                  <a
-                    href={`/admin/project/${p.id}`}
-                    className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#00E6D7] to-[#12ACB5] text-black text-sm font-medium hover:opacity-90 transition-opacity cursor-pointer"
+                  <motion.a
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    href={`/case/${p.slug}`}
+                    className="px-3 py-1.5 rounded-lg bg-white/10 text-white text-sm font-medium hover:bg-white/20 transition-colors cursor-pointer"
                   >
                     Open
-                  </a>
+                  </motion.a>
+                  <motion.a
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    href={`/admin/case/${p.slug}`}
+                    className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#00E6D7] to-[#12ACB5] text-black text-sm font-medium hover:opacity-90 transition-opacity cursor-pointer"
+                  >
+                    Edit
+                  </motion.a>
                 </div>
               </motion.div>
             ))}

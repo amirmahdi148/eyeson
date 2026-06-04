@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_12" data-name="Layer 12" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1287.26 921.06">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #e3e3e3;
+        font-family: Roboto-Regular, Roboto;
+        font-size: 24px;
+      }
+
+      .cls-2 {
+        fill: #00a9bc;
+      }
+
+      .cls-3 {
+        fill: url(#radial-gradient);
+        filter: url(#drop-shadow-25);
+        stroke: #00e4fc;
+        stroke-miterlimit: 10;
+      }
+    </style>
+    <radialGradient id="radial-gradient" cx="706.5" cy="146.94" fx="706.5" fy="146.94" r="383.03" gradientTransform="translate(211.5) scale(1.14 1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#011f26"/>
+      <stop offset=".47" stop-color="#021a25"/>
+      <stop offset=".97" stop-color="#070e24"/>
+      <stop offset="1" stop-color="#080d24"/>
+    </radialGradient>
+    <filter id="drop-shadow-25" x="798.67" y="364.18" width="367.44" height="182.4" filterUnits="userSpaceOnUse">
+      <feOffset dx="0" dy="20"/>
+      <feGaussianBlur result="blur" stdDeviation="20"/>
+      <feFlood flood-color="#000" flood-opacity=".5"/>
+      <feComposite in2="blur" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <rect class="cls-3" x="859.08" y="404.73" width="246.91" height="61.37" rx="30.68" ry="30.68"/>
+  <text class="cls-1" transform="translate(923.13 442.61)"><tspan x="0" y="0">Process Focus</tspan></text>
+  <path class="cls-2" d="M893.35,415.92c-.06.01-.13.03-.19.05-.7.16-1.19.78-1.17,1.5v1.59c-7.88.71-14.16,7-14.88,14.88h-1.73c-.82.04-1.47.74-1.43,1.57.04.82.74,1.47,1.57,1.43h1.59c.71,7.88,7,14.16,14.88,14.88v1.59c0,.54.27,1.04.74,1.32.47.27,1.04.27,1.51,0,.47-.27.75-.78.74-1.32v-1.59c7.88-.71,14.16-7,14.88-14.88h1.59c.54,0,1.04-.27,1.32-.74.27-.47.27-1.04,0-1.51-.27-.47-.78-.75-1.32-.74h-1.59c-.71-7.88-7-14.16-14.88-14.88v-1.59c.02-.43-.16-.85-.47-1.14-.32-.3-.74-.44-1.17-.4ZM891.99,423.55v1.4c0,.54.27,1.04.74,1.32.47.27,1.04.27,1.51,0,.47-.27.75-.78.74-1.32v-1.4c5.43.67,9.71,4.96,10.39,10.39h-1.54c-.82.04-1.47.74-1.43,1.57s.74,1.47,1.57,1.43h1.4c-.67,5.43-4.96,9.71-10.39,10.39v-1.4c.01-.46-.19-.9-.55-1.19-.35-.29-.82-.4-1.27-.3-.7.16-1.19.78-1.17,1.5v1.4c-5.43-.67-9.71-4.96-10.39-10.39h1.4c.54,0,1.04-.27,1.32-.74.27-.47.27-1.04,0-1.51-.27-.47-.78-.75-1.32-.74h-1.4c.67-5.43,4.96-9.71,10.39-10.39Z"/>
+</svg>

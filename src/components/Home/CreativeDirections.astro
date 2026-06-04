@@ -16,7 +16,7 @@ const {
   titleLine2 = "powerful creative directions",
   description = "Our team specializes in shaping your thoughts into clear, strategic concepts that actually move people. From brainstorming narrative styles to defining visual worlds, we craft ideas that become the foundation of strong motion design, animation, and product-focused storytelling.",
   buttonText = "See our work",
-  imageUrl = "/home/home-frame.webp",
+  imageUrl = "/home/new-svgs/after-hero.svg",
 } = Astro.props;
 ---
 
@@ -29,16 +29,16 @@ const {
       {/* Image Section (با کلاس‌های انیمیشن اسکرول) */}
       {/* ========================================== */}
       <div
-        class="w-full lg:w-[55%] flex justify-center lg:justify-start order-1 lg:order-1 mx-auto reveal-on-scroll fade-right"
+        class="w-full lg:w-[60%] flex justify-center lg:justify-start order-1 lg:order-1 mx-auto reveal-on-scroll fade-right"
       >
-        <div class="relative w-full max-w-125 group">
+        <div class="relative w-full group">
           <div
-            class="relative z-10 w-full transform-gpu transition-all duration-700 ease-out group-hover:scale-[1.03] group-hover:-translate-y-2 min-h-75 sm:min-h-112.5 flex items-center justify-center mx-auto"
+            class="relative z-10 w-full h-full transform-gpu transition-all duration-700 ease-out group-hover:scale-[1.03] group-hover:-translate-y-2 flex items-center justify-center mx-auto"
           >
             <SmartImage
               src={imageUrl}
               alt="Creative Directions Concept"
-              className="w-full h-auto object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]  transition-all duration-700"
+              className="w-full h-full object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)] transition-all duration-700"
               loading="lazy"
             />
           </div>

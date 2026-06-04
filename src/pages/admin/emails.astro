@@ -1,0 +1,14 @@
+---
+export const prerender = true;
+import AdminBaseLayout from "../../layouts/AdminLayout.astro";
+import AdminLayout from "@/islands/Admin/AdminLayout";
+import EmailsManager from "@/islands/Admin/EmailsManager";
+import AdminGuard from "@/islands/Admin/AdminGuard";
+---
+<AdminBaseLayout>
+  <AdminGuard client:only="react">
+    <AdminLayout client:load>
+      <EmailsManager client:load />
+    </AdminLayout>
+  </AdminGuard>
+</AdminBaseLayout>

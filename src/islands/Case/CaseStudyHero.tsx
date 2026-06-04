@@ -25,17 +25,22 @@ const DEFAULT_DATA: CaseData = {
   avatar: "/case/hero-case.webp",
 };
 
-export default function CaseStudyHero() {
+type Props = {
+  slug?: string;
+};
+
+export default function CaseStudyHero({ slug }: Props) {
   const [data, setData] = useState<CaseData>(DEFAULT_DATA);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!slug) return;
     const fetchData = async () => {
       try {
         const API_URL = import.meta.env.PUBLIC_API_URL;
         const response = await fetch(
-          `${API_URL}/project/details?slug=skylines-989762e9`,
+          `${API_URL}/project/details?slug=${slug}`,
           { credentials: "include" }
         );
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -49,7 +54,7 @@ export default function CaseStudyHero() {
       }
     };
     fetchData();
-  }, []);
+  }, [slug]);
 
   const {
     title = DEFAULT_DATA.title,

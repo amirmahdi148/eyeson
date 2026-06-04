@@ -14,13 +14,14 @@ export default function VideoEditingSection() {
       <motion.div
         whileHover={{ scale: 1.03 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="relative order-2 h-[230px] w-full max-w-[330px] cursor-pointer overflow-hidden rounded-2xl shadow-lg md:h-96 md:max-w-none md:rounded-xl lg:order-1 lg:h-[600px] lg:w-1/2"
+        className="relative order-2 w-full max-w-[500px] cursor-pointer overflow-hidden rounded-2xl shadow-lg lg:order-1 lg:w-1/2"
+        style={{ aspectRatio: "1250 / 841" }}
       >
         <SmartImage
-          src="/videoEditing.webp"
+          src="/video-pieces/under-hero.svg"
           alt="Video Editing"
           fill
-          className="w-full h-full object-cover"
+          className="object-contain"
           priority
         />
       </motion.div>

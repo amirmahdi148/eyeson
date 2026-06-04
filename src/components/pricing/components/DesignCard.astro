@@ -66,15 +66,88 @@ const data = [
       </div>
 
       <div class="flex items-center justify-center lg:justify-end">
-        <div class="relative w-full max-w-[560px]">
-          <SmartImage
-            src="/pricing/card.webp"
-            width={900}
-            height={600}
-            client:visible
-          />
+        <div class="relative w-full max-w-170" style="aspect-ratio: 1200/800">
+          <div class="absolute inset-0 z-1 animate-felash-entry [animation-delay:1000ms]">
+            <SmartImage src="/pricing/svg/Felash-1.svg" client:visible />
+          </div>
+          <div class="absolute inset-0 z-1 animate-felash-entry [animation-delay:1100ms]">
+            <SmartImage src="/pricing/svg/Felash-2.svg" client:visible />
+          </div>
+          <div class="absolute inset-0 z-1 animate-felash-entry [animation-delay:1200ms]">
+            <SmartImage src="/pricing/svg/Felash-3.svg" client:visible />
+          </div>
+          <div class="absolute inset-0 z-2 animate-design-entry [animation-delay:1400ms]">
+            <SmartImage src="/pricing/svg/1.svg" client:visible />
+          </div>
+          <div class="absolute inset-0 z-3 animate-design-entry [animation-delay:1500ms]">
+            <SmartImage src="/pricing/svg/2.svg" client:visible />
+          </div>
+          <div class="absolute inset-0 z-4 animate-design-entry [animation-delay:1600ms]">
+            <SmartImage src="/pricing/svg/3.svg" client:visible />
+          </div>
+          <div class="absolute inset-0 z-5 animate-design-entry [animation-delay:1700ms]">
+            <SmartImage src="/pricing/svg/4.svg" client:visible />
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<style>
+  @keyframes design-entry {
+    0% {
+      opacity: 0;
+      transform: translateY(24px) scale(0.92);
+      filter: blur(4px);
+    }
+    60% {
+      opacity: 1;
+      transform: translateY(-4px) scale(1.01);
+      filter: blur(0);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+  }
+
+  .animate-design-entry {
+    animation: design-entry 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    opacity: 0;
+    will-change: transform, opacity, filter;
+  }
+
+  .animate-felash-entry {
+    animation: felash-entry 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+
+  @keyframes felash-entry {
+    0% {
+      opacity: 0;
+      transform: translateX(-40px) scale(0.7);
+    }
+    50% {
+      opacity: 1;
+      transform: translateX(6px) scale(1.04);
+    }
+    75% {
+      transform: translateX(-3px) scale(0.98);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-design-entry,
+    .animate-felash-entry {
+      animation: none;
+      opacity: 1;
+    }
+  }
+</style>

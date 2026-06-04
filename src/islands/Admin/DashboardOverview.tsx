@@ -13,33 +13,85 @@ import {
   ArrowUpRight,
   ArrowDownRight
 } from "lucide-react";
-
-const quickStats = [
-  { label: "Projects", value: 42, change: "+12%", up: true, icon: Layers },
-  { label: "Total Views", value: 1234, change: "+8%", up: true, icon: Eye },
-  { label: "Requests", value: 56, change: "-3%", up: false, icon: FileText },
-  { label: "Completed", value: 38, change: "+15%", up: true, icon: CheckCircle },
-];
-
-const recentProjects = [
-  { id: 1, title: "Branding Refresh", owner: "Alice", updated: "2 days ago", views: 1240 },
-  { id: 2, title: "Landing Page Redesign", owner: "Bob", updated: "5 days ago", views: 890 },
-  { id: 3, title: "Ad Campaign Assets", owner: "Carol", updated: "1 week ago", views: 430 },
-];
-
-const recentRequests = [
-  { id: 101, title: "New hero video", from: "Client A", status: "Pending" },
-  { id: 102, title: "Extra revisions", from: "Client B", status: "Completed" },
-  { id: 103, title: "Add subtitles", from: "Client C", status: "In Progress" },
-];
+import { dashboardService } from "@/services/dashboardService.ts";
 
 const itemTransition = { type: "spring" as const, stiffness: 120, damping: 18 };
 
+type LatestProject = {
+  cover: string;
+  title: string;
+  slug: string;
+  ownerName: string;
+  updatedAt: string;
+  views: number;
+};
+
 export default function DashboardOverview() {
+  const [stats, setStats] = useState({
+    totalViews: 0,
+    requestsTotal: 0,
+    requestsCompleted: 0,
+    requestsToday: 0,
+    requestsYesterday: 0,
+    requestsPercentage: 0,
+    completedToday: 0,
+    completedYesterday: 0,
+    completedPercentage: 0,
+    projectsCount: 0,
+  });
+  const [latestProjects, setLatestProjects] = useState<LatestProject[]>([]);
+  const [latestRequests, setLatestRequests] = useState<{ title: string; from: string; status: string }[]>([]);
   const [uptime] = useState("12 days 4 hrs");
   const [activeUsers] = useState(128);
   const [cpu] = useState(26);
   const [dbConnections] = useState(8);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const [views, reqCount, reqCompleted, latest, latestReqs] = await Promise.all([
+          dashboardService.getTotalViews(),
+          dashboardService.getRequestsCount(),
+          dashboardService.getRequestsCompleted(),
+          dashboardService.getLatestProjects(),
+          dashboardService.getLatestRequests(),
+        ]);
+        setStats({
+          totalViews: views.totalViews,
+          requestsTotal: reqCount.total,
+          requestsCompleted: reqCompleted.completed,
+          requestsToday: reqCount.todayCount,
+          requestsYesterday: reqCount.yesterdayCount,
+          requestsPercentage: reqCount.percentage,
+          completedToday: reqCompleted.todayCount,
+          completedYesterday: reqCompleted.yesterdayCount,
+          completedPercentage: reqCompleted.percentage,
+          projectsCount: latest.totalCount,
+        });
+        setLatestProjects(latest.projects);
+        setLatestRequests(latestReqs);
+      } catch (err) {
+        console.error("Failed to load dashboard data", err);
+      }
+    })();
+  }, []);
+
+  const reqUp = stats.requestsToday >= stats.requestsYesterday;
+  const reqChange = stats.requestsYesterday > stats.requestsToday
+    ? `-${stats.requestsPercentage}%`
+    : `+${stats.requestsPercentage}%`;
+
+  const compUp = stats.completedToday >= stats.completedYesterday;
+  const compChange = stats.completedYesterday > stats.completedToday
+    ? `-${stats.completedPercentage}%`
+    : `+${stats.completedPercentage}%`;
+
+  const quickStats = [
+    { label: "Projects", value: stats.projectsCount, change: "+0%", up: true, icon: Layers },
+    { label: "Total Views", value: stats.totalViews, change: "+0%", up: true, icon: Eye },
+    { label: "Requests", value: stats.requestsTotal, change: reqChange, up: reqUp, icon: FileText },
+    { label: "Completed", value: stats.requestsCompleted, change: compChange, up: compUp, icon: CheckCircle },
+  ];
 
   const statusColors: Record<string, string> = {
     Pending: "bg-yellow-500/20 text-yellow-300 border-yellow-500/30",
@@ -90,24 +142,35 @@ export default function DashboardOverview() {
             </motion.a>
           </div>
           <div className="divide-y divide-white/5">
-            {recentProjects.map((p, i) => (
+            {latestProjects.map((p, i) => (
               <motion.div
-                key={p.id}
+                key={p.title}
                 initial={{ opacity: 0, x: -8 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ ...itemTransition, delay: i * 0.05 }}
                 className="flex items-center justify-between p-5 hover:bg-white/[0.02] transition-colors"
               >
                 <div className="flex items-center gap-4 min-w-0">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00E6D7]/20 to-[#12ACB5]/10 flex items-center justify-center shrink-0">
-                    <span className="text-sm font-bold text-[#00E6D7]">{p.title.charAt(0)}</span>
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00E6D7]/20 to-[#12ACB5]/10 flex items-center justify-center shrink-0 overflow-hidden">
+                    {p.cover ? (
+                      <img
+                        src={p.cover.startsWith("http") ? p.cover : `${import.meta.env.PUBLIC_API_URL}${p.cover}`}
+                        alt={p.title}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.currentTarget.style.display = "none";
+                          e.currentTarget.nextElementSibling?.classList.remove("hidden");
+                        }}
+                      />
+                    ) : null}
+                    <span className={`text-sm font-bold text-[#00E6D7] ${p.cover ? "hidden" : ""}`}>{p.title.charAt(0)}</span>
                   </div>
                   <div className="min-w-0">
                     <div className="font-medium text-white truncate">{p.title}</div>
                     <div className="text-sm text-white/40 flex items-center gap-2">
-                      <span>{p.owner}</span>
+                      <span>{p.ownerName}</span>
                       <span className="w-1 h-1 rounded-full bg-white/20" />
-                      <span>{p.updated}</span>
+                      <span>{p.updatedAt}</span>
                     </div>
                   </div>
                 </div>
@@ -119,10 +182,18 @@ export default function DashboardOverview() {
                   <motion.a
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    href={`/admin/project/${p.id}`}
-                    className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#00E6D7] to-[#12ACB5] text-black text-sm font-medium hover:opacity-90 transition-opacity cursor-pointer"
+                    href={`/case/${p.slug}`}
+                    className="px-3 py-1.5 rounded-lg bg-white/10 text-white text-sm font-medium hover:bg-white/20 transition-colors cursor-pointer"
                   >
                     Open
+                  </motion.a>
+                  <motion.a
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    href={`/admin/case/${p.slug}`}
+                    className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#00E6D7] to-[#12ACB5] text-black text-sm font-medium hover:opacity-90 transition-opacity cursor-pointer"
+                  >
+                    Edit
                   </motion.a>
                 </div>
               </motion.div>
@@ -141,9 +212,9 @@ export default function DashboardOverview() {
               </motion.a>
             </div>
             <div className="divide-y divide-white/5">
-              {recentRequests.map((r, i) => (
+              {latestRequests.map((r, i) => (
                 <motion.div
-                  key={r.id}
+                  key={`${r.title}-${i}`}
                   initial={{ opacity: 0, x: 8 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ ...itemTransition, delay: i * 0.05 }}

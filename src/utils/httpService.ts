@@ -27,16 +27,10 @@ axiosInstance.interceptors.request.use(
     }
 );
 
-// Response interceptor - Handle 401 errors
+// Response interceptor - Handle 401 errors (redirect only, never wipe token from localStorage)
 axiosInstance.interceptors.response.use(
     (response) => response,
     (error) => {
-        // Handle 401 errors (token expired/invalid)
-        if (error.response?.status === 401 && typeof window !== 'undefined') {
-            localStorage.removeItem('accessToken');
-            // Optionally redirect to login
-            // window.location.href = '/login';
-        }
         return Promise.reject(error);
     }
 );
