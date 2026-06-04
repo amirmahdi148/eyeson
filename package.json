@@ -12,6 +12,7 @@
     "@astrojs/check": "^0.9.9",
     "@astrojs/language-server": "2.15.5",
     "@astrojs/node": "^10.0.6",
+    "@astrojs/vercel": "^10.0.8",
     "@fontsource-variable/geist": "^5.2.8",
     "@lucide/astro": "^1.8.0",
     "@splinetool/react-spline": "^4.1.0",

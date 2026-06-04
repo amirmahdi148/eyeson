@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_13" data-name="Layer 13" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1020.62 595.95">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#radial-gradient);
+      }
+    </style>
+    <radialGradient id="radial-gradient" cx="210.78" cy="120.29" fx="210.78" fy="120.29" r="59.79" gradientUnits="userSpaceOnUse">
+      <stop offset=".22" stop-color="#05dcf0"/>
+      <stop offset=".25" stop-color="#05d6ea"/>
+      <stop offset=".77" stop-color="#0c687b"/>
+      <stop offset="1" stop-color="#103d4f"/>
+    </radialGradient>
+  </defs>
+  <path class="cls-1" d="M240.31,127.9c-7.87,0-11.51-2.42-11.51-2.42h-2.42s-3.63,2.42-11.51,2.42l-1.21,1.21v12.11c0,11.51,13.93,15.75,13.93,15.75,0,0,13.93-4.24,13.93-15.75v-12.11l-1.21-1.21ZM235.42,136.82l-8.92,8.92c-.22.22-.52.35-.84.35s-.61-.12-.83-.35l-4.07-4.07c-.46-.46-.46-1.21,0-1.67.46-.46,1.21-.46,1.67,0l3.24,3.24,8.08-8.08c.46-.46,1.21-.46,1.67,0,.46.46.46,1.21,0,1.67Z"/>
+</svg>
