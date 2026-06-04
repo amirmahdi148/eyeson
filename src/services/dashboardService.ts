@@ -143,6 +143,27 @@ type AllRequestsResponse = {
 
 // --- Email Types ---
 
+export type EmailRequest = {
+  id: string;
+  uuid: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  companyName: string;
+  projectType: string;
+  budget: string;
+  projectDetails: string;
+  date: string;
+  duration: string;
+  time: string;
+  title: string;
+  from: string;
+  createdAt: string;
+  status: string;
+  priority: string;
+};
+
 export type GetRequestsForEmailParams = {
     page?: number;
     limit?: number;

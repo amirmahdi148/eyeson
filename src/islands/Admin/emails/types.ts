@@ -1,4 +1,5 @@
-import type { EmailRequest, EmailLogItem } from "../../../services/dashboardService";
+import type { EmailRequest, EmailLogItem } from "@/services/dashboardService.ts";
+import React from "react";
 
 export type { EmailRequest, EmailLogItem };
 
@@ -21,9 +22,6 @@ export const priorityColors: Record<string, string> = {
   Medium: "text-yellow-400",
   Low: "text-white/40",
 };
-
-export type ViewMode = "list" | "grid" | "compact";
-
 export type FilterStatus = (typeof statuses)[number];
 
 export type FilterPriority = (typeof priorities)[number];
