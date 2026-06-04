@@ -23,8 +23,10 @@ const {
   lang = "en",
 } = Astro.props;
 
-const absoluteOgImage = ogImage?.startsWith("http") ? ogImage : new URL(ogImage, Astro.url).href;
-const resolvedCanonical = canonicalUrl ?? Astro.url.href;
+const deploymentHost = process.env.VERCEL_URL || Astro.url.host;
+const origin = `${Astro.url.protocol}//${deploymentHost}`;
+const absoluteOgImage = ogImage?.startsWith("http") ? ogImage : new URL(ogImage, origin).href;
+const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
 ---
 
 <html lang={lang}>
