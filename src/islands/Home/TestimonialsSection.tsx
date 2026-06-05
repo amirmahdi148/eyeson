@@ -45,58 +45,72 @@ export default function TestimonialsSection() {
   const testimonials = [
     {
       id: 1,
-      name: "Emma R.",
-      role: "Brand Manager, Nova Studio",
+      name: "Crypto Elites",
+      role: "Crypto Education Brand",
       avatar: "/home/Hero/clients/1.webp",
-      text: "We needed a quick turnaround, and they delivered exceptional quality ahead of schedule. Truly professional team.",
+      text: "We needed crypto content that looked more professional without making the message\n" +
+          "harder to understand. EyesOn helped us turn the ideas into clean animations that felt easy\n" +
+          "to watch, and one of the videos passed 500K+ views.",
       stars: 5,
     },
     {
       id: 2,
-      name: "David L.",
-      role: "Creative Director, Pixel Inc.",
+      name: "Cryptosity",
+      role: "Crypto Media & Education",
       avatar: "/home/Hero/clients/2.webp",
-      text: "We needed a quick turnaround, and they delivered exceptional quality ahead of schedule. Truly professional team.",
+      text: "Our content already had strong ideas, but the editing needed to feel cleaner and more\n" +
+          "engaging. EyesOn improved the pacing, structure, captions, and overall look, which made\n" +
+          "the videos much easier to watch on social media.",
       stars: 4,
     },
     {
       id: 3,
-      name: "Sarah M.",
-      role: "Marketing Lead, TechFlow",
+      name: "Predictefy",
+      role: "Prediction Market Platform",
       avatar: "/home/Hero/clients/3.webp",
-      text: "We needed a quick turnaround, and they delivered exceptional quality ahead of schedule. Truly professional team.",
+      text: "For our launch video, we needed something that could explain the product quickly and\n" +
+          "still feel exciting. EyesOn understood the concept fast, shaped the story, and delivered a\n" +
+          "video that felt polished, modern, and clear.",
       stars: 5,
     },
     {
       id: 4,
-      name: "James K.",
-      role: "CEO, StartupX",
+      name: "Kraken Team",
+      role: "Crypto Exchange Team",
       avatar: "/home/Hero/clients/4.webp",
-      text: "Their understanding of our brand voice was spot on. The final product exceeded our expectations in every way.",
+      text: "EyesOn helped us with video editing and made the process simple from start to finish. The\n" +
+          "edits were clean, the pacing felt professional, and the final videos matched the quality we\n" +
+          "wanted for our brand.",
       stars: 5,
     },
     {
       id: 5,
-      name: "Olivia P.",
-      role: "Product Owner, Appify",
+      name: "Remora",
+      role: "RWA Crypto Brand",
       avatar: "/home/Hero/clients/1.webp",
-      text: "From concept to execution, everything was handled with precision. A fantastic partner for our creative strategy.",
+      text: "We worked with EyesOn on animations for our Instagram and social media content. They\n" +
+          "helped make the visuals feel more dynamic and polished, while still keeping the content\n" +
+          "simple enough for people to understand quickly.",
       stars: 5,
     },
     {
       id: 6,
-      name: "Michael B.",
-      role: "Founder, NextGen",
+      name: "Hey Anon",
+      role: "Web3 / AI Brand",
       avatar: "/home/Hero/clients/2.webp",
-      text: "Innovative, reliable, and incredibly talented. They brought our vision to life better than we could have imagined.",
+      text: "We had ideas that were not always easy to explain visually. EyesOn helped turn them into\n" +
+          "content that felt clearer, smoother, and more engaging, especially with the editing flow and\n" +
+          "motion details.",
       stars: 4,
     },
     {
       id: 7,
-      name: "Jessica T.",
-      role: "Art Director, Visionary",
+      name: "Nexo",
+      role: "Digital Assets Platform",
       avatar: "/home/Hero/clients/3.webp",
-      text: "A seamless workflow and stunning results. I look forward to working with them on future projects.",
+      text: "The team brought a strong level of polish to our video content. The editing felt clean, the\n" +
+          "motion details were subtle but effective, and the final result looked aligned with the\n" +
+          "standard we needed.",
       stars: 5,
     },
   ];
@@ -158,18 +172,19 @@ export default function TestimonialsSection() {
                 className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-[#21AFAF] to-transparent rounded-full"
               />
             </span>{" "}
-            say about
+            say after
             <br />
-            working with us
+            working with EyesOn
           </motion.h2>
 
           <motion.p
             variants={itemVariants}
             className="text-gray-400 text-xs max-w-3xl mx-auto leading-relaxed"
           >
-            We collaborate with teams of every size, from startups to global
-            brands. Most clients come to us for motion and product-focused
-            visuals that support their marketing efforts.
+            We collaborate with ambitious teams around the world, from early stage startups and
+            online brands to established global companies. Every project is built around clear
+            communication, strong creative execution, and making sure our clients feel confident in
+            both the process and the final result.
           </motion.p>
         </motion.div>
 

@@ -18,10 +18,12 @@ import {buildOrbitIcon} from "@/lib/orbitIcons.ts";
 import LogoCaro from "../Shared/LogoCaro.astro";
 
 export const content: ContentConfig = {
-  headingHighlight: "Award-level",
-  headingMain: "Motion & UI Design",
-  headingSecondLine: "crafted every year",
-  subheading: "Our team brings years of experience producing high-impact visuals for brands of all sizes. We turn complex ideas into clear, compelling stories through animation, product design and motion-driven content.",
+  headingHighlight: "Global Level",
+  headingMain: "Motion & Design",
+  headingSecondLine: "without the slow process or high costs",
+  subheading: " Backed by years of creative experience, our team delivers polished animations, UI visuals,\n" +
+      "product content, and edited videos with the speed of a lean studio, without the delays or\n" +
+      "costs of building in-house.",
   buttons: [
     { label: "See our work", link: "/work", className: "bg-linear-to-r from-[#00CFE8] to-[#0D8F79]" },
     { label: "Play showreels", link: "/showreels" },
@@ -75,24 +77,28 @@ const orbits: OrbitConfig[] = [
   <WorkflowSection
       cards={[
         {
-          title: "Free sample",
+          title: "Creative Discovery",
           description:
-              "Experience our work before committing. We start every project with a free sample so you can see our style, quality and process firsthand. It helps you confirm we're the right fit before anything moves forward.",
-          buttonText: "Try our service for free",
+              "We start by understanding your brand, goals, audience, and project needs, so the direction\n" +
+              "is clear before any design, editing, or animation begins.",
+          buttonText: "Start the Process",
           imageUrl: "./home/frame1.webp",
         },
         {
-          title: "Planning & collaboration",
+          title: "Planning & Creative Direction",
           description:
-              "Here we work with you to develop a clear storyboard and a detailed production plan tailored to your video. This stage keeps everyone aligned and ensures the concept is solid before production begins.",
-          buttonText: "Project planning",
+              "We shape the message, structure, visual style, and production plan. This keeps every video,\n" +
+              "animation, or design asset aligned before execution starts.",
+          buttonText: "Plan Your Project",
           imageUrl: "./home/frame2.webp",
         },
         {
-          title: "Final delivery",
+          title: "Production & Final Delivery",
           description:
-              "When the storyboard is approved, we begin full production. Throughout the process, we stay in touch to make sure the final video matches your expectations and delivers exactly what your brand needs.",
-          buttonText: "Swift & easy access",
+              "Once the direction is approved, we move into production, keep you updated, apply\n" +
+              "feedback, and deliver polished final files ready for launch, social media, ads, or your\n" +
+              "website.",
+          buttonText: "Get Final Files",
           imageUrl: "./home/frame3.webp",
         },
       ]}

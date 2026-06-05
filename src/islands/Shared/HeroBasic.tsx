@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { SmartImage } from "../../utils/SmartImage.tsx";
 
 type Props = {
+  SmallLabel?: string | null;
   BeforeHighlight?: string;
   Highlight?: string;
   AfterHighlight?: string;
@@ -49,6 +50,7 @@ type Props = {
 };
 
 export const HeroBasic = ({
+  SmallLabel,
   BeforeHighlight = "Premium",
   Highlight = "2D & 3D Animations",
   AfterHighlight = "",
@@ -188,6 +190,11 @@ export const HeroBasic = ({
           <div
             className={`mx-auto flex max-w-lg flex-col items-center text-center md:mx-0 md:items-start md:text-left ${textContainerClassName}`}
           >
+            {SmallLabel && (
+              <p className="mb-3 text-xs tracking-[0.2em] text-[#c2d3dc]">
+                {SmallLabel}
+              </p>
+            )}
             <h1
               className={`text-[22px] md:text-[35px] font-black leading-tight ${headingClassName}`}
             >
@@ -275,6 +282,18 @@ export const HeroBasic = ({
               variants: textVariants,
             })}
           >
+            {SmallLabel && (
+              <motion.p
+                className="mb-3 text-xs tracking-[0.2em] text-[#c2d3dc]"
+                {...(!isNone && {
+                  initial: "hidden",
+                  animate: "show",
+                  variants: itemVariants,
+                })}
+              >
+                {SmallLabel}
+              </motion.p>
+            )}
             <motion.h1
               className={`text-[22px] md:text-[35px] font-black leading-tight ${headingClassName}`}
               {...(!isNone && {

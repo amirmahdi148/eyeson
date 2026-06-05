@@ -44,17 +44,18 @@ export default function ContactUs() {
             className="text-white space-y-4 sm:space-y-6 w-full max-w-2xl lg:max-w-none"
           >
             <p className="text-[11px] sm:text-sm tracking-widest text-cyan-400 font-semibold uppercase">
-              Contact Us
+              CONTACT US
             </p>
 
             <h2 className="text-[28px] font-bold leading-[1.15] sm:text-3xl md:text-4xl lg:text-5xl">
-              Bring your ideas to life with motion that actually makes a
-              difference.
+              Let’s Build Something
+              People Actually Watch.
             </h2>
 
             <p className="text-white/60 text-sm sm:text-base lg:text-lg max-w-[45ch] mx-auto lg:mx-0">
-              Reach out and get your free custom motion sample crafted just for
-              your brand.
+              Tell us what you want to create, a launch video, explainer, social content, animation,
+              editing, or design asset. We will review your project and suggest the best direction,
+              timeline, and pricing option.
             </p>
           </motion.div>
 
@@ -96,11 +97,11 @@ export default function ContactUs() {
             {/* Email & Phone */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               <Input label="Email" type="email" />
-              <Input label="Phone" type="tel" />
+              <Input label="Telegram or Whatsapp" type="tel" />
             </div>
 
             <Input label="Company Name" />
-            <Input label="Project Type" />
+            <Select label="Project Type" options={["Product Launch Video", "Explainer Video", "Motion Graphics", "Talking Head Editing", "Short Form Social Content", "Video Ads", "2D or 3D Animation", "UI or Graphic Design", "Brand Identity", "Ongoing Monthly Content", "Other"]} />
 
             {/* Budget */}
             <div className="space-y-3 pt-2">
@@ -109,7 +110,7 @@ export default function ContactUs() {
               </label>
               {/* 🔴 موبایل: justify-center تا دکمه‌ها وسط باشن و از لبه بیرون نزنن */}
               <div className="flex flex-wrap gap-2 sm:gap-3 justify-center sm:justify-start">
-                {["< $10k", "$10k - $25k", "$25k - $50k", "> $50k"].map(
+                {["Under $500", "$500 to $1,500", "$1,500 to $3,000", "$3,000 to $7,500", "$7,500+"].map(
                   (budget) => (
                     <motion.button
                       key={budget}
@@ -139,16 +140,18 @@ export default function ContactUs() {
             {/* Message */}
             <div className="flex flex-col gap-2 pt-2">
               <label className="text-xs sm:text-sm text-gray-400 font-medium ml-1">
-                Project Detail
+                Tell us about your project
               </label>
               <motion.textarea
                 rows={4}
+                placeholder="What do you want to create, what is your goal, and do you have any references, deadline, or
+style in mind?"
                 whileFocus={{
                   scale: 1.01,
                   boxShadow: "0px 0px 25px rgba(34,211,238,0.15)",
                 }}
                 className="bg-[#040e14]/50 border border-white/10 rounded-xl px-4 py-3 text-sm
-                           sm:text-base focus:outline-none focus:border-cyan-400/50 focus:bg-white/5
+                            focus:outline-none focus:border-cyan-400/50 focus:bg-white/5
                            transition-all duration-300 resize-none w-full"
               />
             </div>
@@ -167,7 +170,7 @@ export default function ContactUs() {
                            py-3.5 text-[15px]
                            sm:py-4 sm:text-base shadow-[0_0_20px_rgba(34,211,238,0.2)]"
               >
-                Get Free Sample
+                Send Project Request
               </motion.button>
             </div>
           </form>
@@ -178,6 +181,32 @@ export default function ContactUs() {
 }
 
 /* ===== Reusable Input ===== */
+/* ===== Reusable Select ===== */
+function Select({ label, options }: { label: string; options: string[] }) {
+  return (
+    <div className="flex flex-col gap-1.5 sm:gap-2">
+      <label className="text-xs sm:text-sm text-gray-400 font-medium ml-1">
+        {label}
+      </label>
+      <select
+        className="bg-[#040e14]/50 border border-white/10 rounded-xl
+                   px-4 py-3 text-sm sm:text-base w-full
+                   focus:outline-none focus:border-cyan-400/50 focus:bg-white/5
+                   transition-all duration-300 text-white"
+      >
+        <option value="" disabled selected className="text-gray-400">
+          Select {label}
+        </option>
+        {options.map((opt) => (
+          <option key={opt} value={opt} className="text-white bg-[#040e14]">
+            {opt}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+}
+
 function Input({ label, type = "text" }: { label: string; type?: string }) {
   return (
     <div className="flex flex-col gap-1.5 sm:gap-2">

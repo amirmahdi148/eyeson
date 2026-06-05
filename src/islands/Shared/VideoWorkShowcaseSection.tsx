@@ -99,9 +99,11 @@ type VideoWorkShowcaseSectionProps = {
 
 export default function VideoWorkShowcaseSection({
   eyebrow = "OUR WORK",
-  title = "Elevate your brand through",
-  highlight = "Video editing",
-  description = "Captivate your audience and outshine competitors with polished, story-driven editing. From product walkthroughs to social promos, each frame works harder for your message.",
+  title = "Videos That Make People",
+  highlight = "Stop Scrolling.",
+  description = "Explore motion graphics, launch videos, explainers, social content, animations, and edits\n" +
+      "crafted to capture attention fast, keep viewers engaged, and turn your message into\n" +
+      "something people actually want to watch.",
   firstRow = defaultFirstRow,
   secondRow = defaultSecondRow,
   sectionClassName = "",

@@ -9,19 +9,22 @@ const items = [
   {
     title: "3D Product Visuals",
     description:
-      "High-end 3D renders and animations that showcase products with depth and realism.",
+      "High-end 3D renders and animations designed to showcase products with cinematic\n" +
+        "lighting, depth, realism, and premium visual presentation.",
     image: "/hero-card/5.webp",
   },
   {
     title: "2D Motion Design",
     description:
-      "Clean, modern motion for social reels, websites, and digital campaigns.",
+      "Modern motion graphics and animated visuals for websites, SaaS products, presentations,\n" +
+        "digital campaigns, explainers, and branded storytelling.",
     image: "/hero-card/8.webp",
   },
   {
-    title: "Minimal Animated Posts",
+    title: "Animated Social Media Content",
     description:
-      "Lightweight motion for premium social presence and brand consistency.",
+      "Short-form animated content built for Instagram, TikTok, Reels, Shorts, YouTube, ads, and\n" +
+        "modern social media campaigns focused on engagement and brand growth.",
     image: "/hero-card/6.webp",
   },
 ];
@@ -50,7 +53,11 @@ function ArrowButton({ direction }: { direction: "left" | "right" }) {
   );
 }
 
-export default function IndustriesServeSection() {
+export default function IndustriesServeSection({
+  smallLabel = "ANIMATION SERVICES",
+}: {
+  smallLabel?: string;
+}) {
   return (
     <section className="relative w-full overflow-hidden px-6 pb-24 pt-10 lg:px-16">
       <div className="absolute inset-0 w-full! bg-cover bg-no-repeat pointer-events-none overflow-hidden bg">
@@ -61,17 +68,20 @@ export default function IndustriesServeSection() {
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-xs uppercase tracking-[0.18em] text-white/60">
-            Industries we serve
+            {smallLabel}
           </p>
           <h2 className="mt-3 text-4xl font-extrabold leading-tight text-white md:text-5xl">
-            <span className="text-cyan-300">2D &amp; 3D</span> Animated Visuals
-            Designed
+            <span className="text-cyan-300">2D &amp; 3D</span> Animation
+
             <br />
-            for Modern Brands
+
+            Built for Modern Digital Content
           </h2>
           <p className="mt-5 text-sm leading-7 text-white/65 md:text-base">
-            We create high-quality animated visuals that help brands communicate
-            ideas, showcase products, and stand out in crowded digital spaces.
+            From cinematic 3D visuals and product animations to motion graphics and animated
+            social media content, we create visuals designed to help brands communicate more
+            clearly, attract attention faster, and build a stronger digital presence across modern
+            platforms.
           </p>
         </div>
 

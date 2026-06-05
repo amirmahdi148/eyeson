@@ -76,30 +76,36 @@ const icons = {
 const workflowItems: WorkflowItem[] = [
   {
     id: 1,
-    title: "Concept & planning",
+    title: "Concept & Creative Planning",
     description:
-      "We start by understanding your goals, audience, and use case. From messaging to visual style, we define a clear direction that guides the entire animation process.",
+      "We begin by understanding your brand, goals, audience, and message to define the visual\n" +
+        "direction, storytelling approach, animation style, and overall creative vision behind the\n" +
+        "project.",
     icon: icons.concept,
   },
   {
     id: 2,
-    title: "Design, modeling & styling",
+    title: "Design, Modeling & Visual Systems",
     description:
-      "Our team builds design systems, scenes, and 3D assets with a consistent visual language. This gives your brand a premium, unified look across every deliverable.",
+      "Scenes, assets, environments, motion systems, and visual elements are developed with a\n" +
+        "consistent design language to create a more premium and unified final result.",
     icon: icons.design,
   },
   {
     id: 3,
-    title: "Animation & motion building",
+    title: "Animation & Motion Development",
     description:
-      "We animate each sequence with intentional pacing and timing so your message feels clear, dynamic, and easy to follow.",
+      "Motion, transitions, camera movement, timing, and scene interactions are carefully\n" +
+        "animated to create smoother storytelling, stronger pacing, and more engaging visual flow.",
     icon: icons.animation,
   },
   {
     id: 4,
-    title: "Lighting, polish & compositing",
+    title: "Lighting, Polish & Final Compositing",
     description:
-      "From lighting passes to final compositing, we refine every frame to elevate realism, clarity, and emotional impact.",
+      "Lighting, textures, sound integration, visual polish, color work, and compositing are refined\n" +
+        "in the final stage to deliver cinematic-quality animations optimized for websites, ads,\n" +
+        "social media, SaaS products, and modern campaigns.",
     icon: icons.lighting,
   },
 ];
@@ -118,15 +124,16 @@ export default function AnimationWorkflowSection() {
             OUR WORKFLOW
           </p>
           <h2 className="text-3xl sm:text-4xl md:text-[44px] font-extrabold leading-[1.15] text-white mb-6 ">
-            <span className="text-[#55D2B9]">2D & 3D animation</span>
+            A Structured <br />
+            <span className="text-[#55D2B9]">2D & 3D Animation</span>
             <br />
-            production process
+            Production Workflow
           </h2>
           <p className="text-[13px] sm:text-sm leading-[1.8] text-white/60">
-            2D and 3D animation require precision, planning, and a clear
-            creative vision. Our production process is designed to stay
-            efficient without sacrificing quality — delivering polished visuals
-            that look premium, feel intentional, and perform across platforms.
+            Strong animation requires more than visuals alone. Behind every polished scene is a
+            production system built around planning, creative direction, motion design, and attention
+            to detail. Our workflow is designed to keep projects efficient, visually consistent, and
+            aligned with modern digital platforms from concept to final delivery.
           </p>
 
           {/* عکس دسکتاپ (بدون بک‌گراند باکس، مستقیما عکس) */}

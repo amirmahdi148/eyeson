@@ -3,14 +3,19 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
 
+type VolumePricing = {
+  threshold: string;
+  discount: string;
+};
+
 type Pack = {
   id: number;
   name: string;
-  videos: string;
-  price: string;
   subtitle: string;
+  price: string;
   includes: string[];
-  bestFor: string[];
+  bestFor: string;
+  volumePricing: VolumePricing[] | string;
   cta: string;
   featured?: boolean;
   highlight?: string;
@@ -19,81 +24,83 @@ type Pack = {
 const packs: Pack[] = [
   {
     id: 1,
-    name: "Starter Editing Pack",
-    videos: "10 Edited Videos",
-    price: "€350",
-    subtitle: "/Starting at",
+    name: "Clean Edit & Social Content",
+    subtitle: "Professional editing for creators and brands",
+    price: "Starting from $120/min",
     includes: [
+      "Professional video editing",
       "Hook optimization",
-      "Subtitles & captions",
-      "Color correction & grading",
-      "Clean cuts & pacing",
+      "Captions & subtitles",
+      "Sound design & pacing",
+      "Platform-ready exports",
+      "Clean social media editing",
     ],
-    bestFor: ["Creators", "Personal brands", "Testing content"],
-    cta: "Order Now",
+    bestFor: "Talking head videos · Podcasts · Reels · Shorts · Creator content",
+    volumePricing: [
+      { threshold: "20+ videos", discount: "15% OFF" },
+      { threshold: "30+ videos", discount: "25% OFF" },
+    ],
+    cta: "Book a Call",
   },
   {
     id: 2,
-    name: "Growth Editing Pack",
-    videos: "Show how your product works - step by step.",
-    price: "€650",
-    subtitle: "/Starting at",
+    name: "Motion Graphic Editing",
+    subtitle: "For branded and higher-impact content",
+    price: "Starting from $180/min",
     includes: [
-      "Advanced hook optimization",
-      "Subtitles & captions",
-      "Color grading + style consistency",
-      "B-roll integration",
+      "Motion typography",
+      "Motion graphics & overlays",
+      "Advanced pacing",
+      "Dynamic transitions",
+      "Brand-consistent visuals",
+      "Music & sound effects",
     ],
-    bestFor: [],
-    cta: "Order Now",
+    bestFor: "Educational content · Brand storytelling · Product highlights · Marketing content",
+    volumePricing: [
+      { threshold: "20+ videos", discount: "15% OFF" },
+      { threshold: "30+ videos", discount: "25% OFF" },
+    ],
+    cta: "Book a Call",
     featured: true,
     highlight: "Most Popular",
   },
   {
     id: 3,
-    name: "Creator Pro Pack",
-    videos: "30 Edited Videos / Month",
-    price: "€950",
-    subtitle: "/Starting at",
+    name: "Advanced Custom Animations",
+    subtitle: "For premium campaigns and high-end content",
+    price: "Starting from $240/min",
     includes: [
-      "Performance-focused hooks",
-      "Premium subtitles & captions",
-      "Advanced color grading",
-      "B-roll & dynamic pacing",
+      "Custom frame design",
+      "Advanced animation systems",
+      "Cinematic motion polish",
+      "High storytelling depth",
+      "Premium visual direction",
+      "Complex editing workflows",
     ],
-    bestFor: ["Full-time creators", "Content-heavy brands"],
-    cta: "Get Started",
+    bestFor: "Product explainers · Creative campaigns · SaaS launches · High-impact social content",
+    volumePricing: "Custom discounts available for ongoing projects",
+    cta: "Book a Call",
   },
 ];
 
 export default function VideoPackagesSection() {
   const [activeMobileSlide, setActiveMobileSlide] = useState(1);
 
-    return (
-        
+  return (
     <section className="overflow-x-hidden px-4 pb-20 pt-14 sm:px-6 lg:px-20 lg:pb-24">
       <div className="mx-auto w-full max-w-7xl">
-        <div className="mx-auto w-full max-w-3xl text-center md:hidden">
-          <h2 className="text-3xl font-bold leading-[1.08] sm:text-[40px]">
-            <span className="text-[#2fcfca]">Flexible Motion Packages</span>
-            <br />
-            <span className="text-white">Every motion project is different.</span>
-          </h2>
-          <p className="mt-5 text-sm leading-7 text-[#c4d6de]">
-            That&apos;s why we offer flexible engagement models designed to fit
-            your goals, scope, and stage of growth.
+        <div className="mx-auto w-full max-w-3xl text-center">
+          <p className="mb-3 text-xs tracking-[0.2em] text-[#c2d3dc]">
+            FLEXIBLE PRICING
           </p>
-        </div>
-
-        <div className="mx-auto hidden w-full max-w-4xl text-center md:block">
-          <h2 className="text-4xl font-bold leading-tight md:text-6xl">
-            <span className="text-[#2fcfca]">Flexible Video Editing Packages</span>
-            <br />
-            <span className="text-white">Every motion project is different.</span>
+          <h2 className="text-3xl font-bold leading-tight text-white md:text-5xl">
+            Video Editing Packages Built Around Your Content Volume
           </h2>
-          <p className="mt-5 text-sm leading-7 text-[#c4d6de] md:text-base">
-            Every content strategy is different. That&apos;s why we offer flexible
-            editing packages designed to fit your volume, goals, and growth stage.
+          <p className="mt-4 text-sm leading-7 text-[#c3d4de] md:text-base">
+            Different content needs different editing styles, production depth, and turnaround speed. From simple talking head videos to advanced motion-heavy edits and product explainers, our pricing is designed to stay flexible while scaling with your content needs.
+          </p>
+          <p className="mt-3 text-sm leading-7 text-[#c3d4de] md:text-base">
+            Most projects usually start from 4+ videos. For brands producing higher content volume, we offer discounted monthly workflows and long-term editing support.
           </p>
         </div>
 
@@ -136,62 +143,57 @@ export default function VideoPackagesSection() {
                     </div>
                   ) : null}
 
-                  <h3 className="bg-linear-to-r from-[#46B6A0] to-[#00A9BD] bg-clip-text text-[30px] font-bold leading-none text-transparent sm:text-[34px]">
-                    {pack.name}
+                  <h3 className="text-[30px] font-bold leading-none text-white sm:text-[34px]">
+                    {pack.id === 1 ? (
+                      <>Clean Edit & <span className="text-[#12d6d8]">Social Content</span></>
+                    ) : pack.id === 2 ? (
+                      <><span className="text-[#12d6d8]">Motion Graphic</span> Editing</>
+                    ) : (
+                      <><span className="text-[#12d6d8]">Advanced Custom</span> Animations</>
+                    )}
                   </h3>
-                  <p className="mt-2 text-lg text-[#d5e3e8]">{pack.videos}</p>
+                  <p className="mt-1 text-sm text-[#d5e3e8]">{pack.subtitle}</p>
 
-                  <div className="mt-4 flex items-end gap-2">
-                    <span className="text-4xl font-extrabold text-white sm:text-5xl">
+                  <div className="mt-4">
+                    <span className="text-2xl font-extrabold text-white sm:text-3xl">
                       {pack.price}
                     </span>
-                    <span className="pb-2 text-sm text-[#d5e3e8]">{pack.subtitle}</span>
                   </div>
 
-                  {pack.featured ? (
-                    <div className="mt-4 inline-flex rounded-full bg-[#174050] px-4 py-1 text-sm text-[#e7fcff]">
-                      Better ROI than one-off videos
-                    </div>
-                  ) : null}
-
-                  {pack.featured ? (
-                    <ul className="mt-6 space-y-3 text-sm text-[#d6e4ea]">
+                  <div className="mt-5 rounded-2xl bg-[#FFFFFF0D] p-4">
+                    <p className="text-lg font-bold text-white">Includes</p>
+                    <ul className="mt-3 space-y-2 text-sm text-[#d6e4ea]">
                       {pack.includes.map((item) => (
-                        <li key={item}>
-                          <span className="text-[#35e4d8] leading-none">✓</span>
+                        <li key={item} className="flex items-center gap-2">
+                          <span className="text-[#35e4d8]">•</span>
                           <span>{item}</span>
                         </li>
                       ))}
                     </ul>
-                  ) : (
-                    <div className="mt-5 rounded-2xl bg-[#FFFFFF0D] p-4">
-                      <p className="text-xl font-bold text-white">Includes:</p>
-                      <ul className="mt-3 space-y-2 text-sm text-[#d6e4ea]">
-                        {pack.includes.map((item) => (
-                          <li key={item} className="flex items-center gap-2">
-                            <span className="text-[#35e4d8]">•</span>
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                  </div>
 
-                  {pack.bestFor.length > 0 ? (
-                    <div className="mt-5">
-                      <p className="text-lg font-semibold text-white">Best for:</p>
-                      <div className="mt-2 flex flex-wrap gap-2">
-                        {pack.bestFor.map((tag) => (
-                          <span
-                            key={tag}
-                            className="rounded-full border border-[#2f6e81] bg-[#0B1F2A99] px-3 py-1 text-xs text-[#d2e2e9]"
-                          >
-                            {tag}
-                          </span>
+                  <div className="mt-4">
+                    <p className="text-sm font-semibold text-white">Best For</p>
+                    <p className="mt-1 text-xs leading-5 text-[#d2e2e9]">
+                      {pack.bestFor}
+                    </p>
+                  </div>
+
+                  <div className="mt-4 rounded-2xl bg-[#FFFFFF0D] p-3">
+                    <p className="text-xs font-semibold text-white">Volume Pricing</p>
+                    {Array.isArray(pack.volumePricing) ? (
+                      <div className="mt-2 space-y-1">
+                        {pack.volumePricing.map((vp) => (
+                          <div key={vp.threshold} className="flex items-center justify-between text-xs text-[#d2e2e9]">
+                            <span>{vp.threshold}</span>
+                            <span className="text-[#35e4d8] font-semibold">{vp.discount}</span>
+                          </div>
                         ))}
                       </div>
-                    </div>
-                  ) : null}
+                    ) : (
+                      <p className="mt-1 text-xs text-[#d2e2e9]">{pack.volumePricing}</p>
+                    )}
+                  </div>
 
                   <div className="flex items-center justify-center">
                     <button
@@ -201,7 +203,7 @@ export default function VideoPackagesSection() {
                           : "border-[#46B6A0] border-[0.3px] bg-[#0B1F2A] rounded-xl"
                       }`}
                     >
-                      {pack.featured ? "Get Motion Pack" : pack.cta}
+                      {pack.cta}
                     </button>
                   </div>
                 </article>
@@ -221,13 +223,13 @@ export default function VideoPackagesSection() {
           ))}
         </div>
 
-        <div className="mt-12 hidden h-[610px] w-full items-end justify-center gap-6 md:flex">
+        <div className="mt-12 hidden h-auto w-full items-stretch justify-center gap-6 md:flex">
           {packs.map((pack) => (
             <article
               key={pack.id}
-              className={`relative flex flex-col justify-between rounded-3xl px-5 pb-[16px] pt-10 ${
+              className={`relative flex flex-col justify-between rounded-3xl px-5 pb-6 pt-10 ${
                 pack.featured
-                  ? "pt-12 border-3 border-[#1F5046] h-full w-[500px] shadow-[0_0_22px_rgba(53,207,202,0.35)]"
+                  ? "pt-12 border-3 border-[#1F5046] w-[500px] shadow-[0_0_22px_rgba(53,207,202,0.35)]"
                   : "border border-[#144e62] bg-linear-to-b from-[#0B1F2A] to-[#15393E] w-[400px]"
               }`}
               style={
@@ -246,64 +248,59 @@ export default function VideoPackagesSection() {
                 </div>
               ) : null}
 
-              <h3 className="bg-linear-to-r from-[#46B6A0] to-[#00A9BD] bg-clip-text text-3xl font-bold text-transparent">
-                {pack.name}
+              <h3 className="text-3xl font-bold text-white">
+                {pack.id === 1 ? (
+                  <>Clean Edit & <span className="text-[#12d6d8]">Social Content</span></>
+                ) : pack.id === 2 ? (
+                  <><span className="text-[#12d6d8]">Motion Graphic</span> Editing</>
+                ) : (
+                  <><span className="text-[#12d6d8]">Advanced Custom</span> Animations</>
+                )}
               </h3>
-              <p className="mt-2 text-xl text-[#d5e3e8]">{pack.videos}</p>
+              <p className="mt-1 text-sm text-[#d5e3e8]">{pack.subtitle}</p>
 
-              <div className="mt-4 flex items-end gap-2">
-                <span className="text-4xl font-extrabold text-white">{pack.price}</span>
-                <span className="pb-1 text-sm text-[#d5e3e8]">{pack.subtitle}</span>
+              <div className="mt-4">
+                <span className="text-2xl font-extrabold text-white">{pack.price}</span>
               </div>
 
-              {pack.featured ? (
-                <div className="mt-4 inline-flex rounded-full bg-[#174050] px-4 py-1 text-sm text-[#e7fcff]">
-                  Better ROI than one-off videos
-                </div>
-              ) : null}
-
-              {pack.featured ? (
-                <ul className="mt-6 space-y-3 text-sm text-[#d6e4ea]">
+              <div className="mt-5 rounded-2xl bg-[#FFFFFF0D] p-4">
+                <p className="text-lg font-bold text-white">Includes</p>
+                <ul className="mt-3 space-y-2 text-sm text-[#d6e4ea]">
                   {pack.includes.map((item) => (
-                    <li key={item}>
-                      <span className="text-[#35e4d8] leading-none">✓</span>
+                    <li key={item} className="flex items-center gap-2">
+                      <span className="text-[#35e4d8]">•</span>
                       <span>{item}</span>
                     </li>
                   ))}
                 </ul>
-              ) : (
-                <div className="mt-5 rounded-2xl bg-[#FFFFFF0D] p-4">
-                  <p className="text-3xl font-bold text-white">Includes:</p>
-                  <ul className="mt-3 space-y-2 text-sm text-[#d6e4ea]">
-                    {pack.includes.map((item) => (
-                      <li key={item} className="flex items-center gap-2">
-                        <span className="text-[#35e4d8]">•</span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+              </div>
 
-              {pack.bestFor.length > 0 ? (
-                <div className="mt-5">
-                  <p className="text-2xl font-semibold text-white">Best for:</p>
-                  <div className="mt-2 flex flex-wrap gap-2">
-                    {pack.bestFor.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full border border-[#2f6e81] bg-[#0B1F2A99] px-3 py-1 text-xs text-[#d2e2e9]"
-                      >
-                        {tag}
-                      </span>
+              <div className="mt-4">
+                <p className="text-sm font-semibold text-white">Best For</p>
+                <p className="mt-1 text-xs leading-5 text-[#d2e2e9]">
+                  {pack.bestFor}
+                </p>
+              </div>
+
+              <div className="mt-4 rounded-2xl bg-[#FFFFFF0D] p-3">
+                <p className="text-xs font-semibold text-white">Volume Pricing</p>
+                {Array.isArray(pack.volumePricing) ? (
+                  <div className="mt-2 space-y-1">
+                    {pack.volumePricing.map((vp) => (
+                      <div key={vp.threshold} className="flex items-center justify-between text-xs text-[#d2e2e9]">
+                        <span>{vp.threshold}</span>
+                        <span className="text-[#35e4d8] font-semibold">{vp.discount}</span>
+                      </div>
                     ))}
                   </div>
-                </div>
-              ) : null}
+                ) : (
+                  <p className="mt-1 text-xs text-[#d2e2e9]">{pack.volumePricing}</p>
+                )}
+              </div>
 
               <div className="flex items-center justify-center">
                 <button
-                  className={`mt-6 w-[131px] border px-4 py-2 text-sm font-semibold text-white transition cursor-pointer ${
+                  className={`mt-6 w-[160px] border px-4 py-2 text-sm font-semibold text-white transition cursor-pointer ${
                     pack.featured
                       ? "border-[#61f4e8] bg-linear-to-l from-[#033D4D] to-[#2F907F] shadow-[0_0_19px_#46B6A080] rounded-[90px]"
                       : "border-[#46B6A0] border-[0.3px] bg-[#0B1F2A] rounded-xl"
@@ -314,6 +311,12 @@ export default function VideoPackagesSection() {
               </div>
             </article>
           ))}
+        </div>
+
+        <div className="mx-auto mt-16 max-w-3xl text-center">
+          <p className="text-sm leading-7 text-[#c3d4de] md:text-base">
+            Need ongoing editing support or high-volume content production? We also offer custom monthly workflows for creators, startups, SaaS teams, podcasts, agencies, and modern media brands.
+          </p>
         </div>
       </div>
     </section>

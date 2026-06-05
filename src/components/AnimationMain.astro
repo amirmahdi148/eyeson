@@ -18,15 +18,60 @@ import AnimationNeedsBlock from "../islands/animations/AnimationNeedsBlock";
 
 <div class="animations-page-mobile relative w-full overflow-x-hidden">
   <!-- Defer non-critical JS to keep the Hero entry animation smooth on first paint -->
-  <StarBackground client:idle />
+
   <AnimationBackground />
 
   <AnimationsHero client:load />
   <LogoCaro />
   <MediaFrameHero client:idle />
   <FeaturesSection
-    title="Excellence in stress-free"
-    highlight="2D/3D Animation Production"
+    title="A Professional Animation Workflow"
+    badgeText="WHY BRANDS WORK WITH EYESON"
+    features={[
+      {
+        title: "Strong Creative Portfolio",
+        description: "Our portfolio includes 2D animation, 3D visuals, motion design, product animations, social\n" +
+            "campaigns, and branded content created for modern startups, SaaS companies, and\n" +
+            "digital brands.",
+        id: 1,
+      },
+      {
+        title: "Clear Production Workflow",
+        description: "From concept development and storyboarding to animation, revisions, and final delivery,\n" +
+            "every project follows a structured workflow designed to keep production smooth and\n" +
+            "organized.",
+        id: 2,
+      },
+      {
+        title: "Flexible Pricing & Production Scope",
+        description: "Every animation project is different. Pricing scales based on style, complexity, duration,\n" +
+            "creative direction, and production depth, allowing flexible workflows for different project\n" +
+            "sizes.",
+        id: 3,
+      },
+      {
+        title: "High-End Visual Quality",
+        description: "We focus on composition, motion, lighting, color, transitions, timing, and animation polish\n" +
+            "to create visuals that feel more cinematic, modern, and visually memorable.",
+        id: 4,
+      },
+      {
+        title: "Built for Modern Digital Platforms",
+        description: "Our animations are designed for websites, ads, launch campaigns, social media,\n" +
+            "presentations, SaaS products, YouTube, Instagram, TikTok, and other modern digital\n" +
+            "platforms.",
+        id: 5,
+      },
+      {
+        title: "Reliable Communication & Delivery",
+        description: "Clear updates, organized feedback rounds, structured timelines, and consistent\n" +
+            "communication help projects move efficiently from first concept to final export.",
+        id: 6,
+      },
+
+    ]}
+    highlight="Built for Modern Brands"
+
     description="Years of refining our animation workflow allow us to deliver smooth, predictable, and stress-free projects. We make collaboration easy, timelines clear, and results consistently high-quality."
   />
 
@@ -45,14 +90,91 @@ import AnimationNeedsBlock from "../islands/animations/AnimationNeedsBlock";
     <VideoWorkShowcaseSection
       client:visible
       eyebrow="OUR WORK"
-      title="Elevate your brand through"
-      highlight="2D & 3D ANIMATION"
-      description="Captivate your audience and stand out from the competition with high-quality 2D and 3D animations designed to communicate clearly and leave a lasting impression."
+      title="Bring Your Brand to Life"
+      highlight="Through 2D & 3D Animation"
+      description="From cinematic 3D visuals and motion graphics to animated social media content, product
+      animations, and branded storytelling, our work is designed to help modern brands capture
+      attention, communicate more clearly, and create a stronger digital presence.
+      Every project is built around visual quality, motion, storytelling, and platform-focused
+      execution across websites, ads, presentations, social media, SaaS products, and modern
+      marketing campaigns."
     />
     <AnimationStyleComparisonSection client:visible />
     <CaseStudiesSection client:visible />
     <CostVideo />
-    <QandASection />
+    <QandASection
+      questions={[
+        {
+          id: 1,
+          q: "What's the difference between 2D and 3D animation?",
+          a: "2D animation focuses on illustrated visuals, motion graphics, and stylized storytelling,\n" +
+            "while 3D animation adds realistic depth, lighting, textures, and cinematic movement. The\n" +
+            "best choice depends on your goals, budget, brand style, and project complexity.",
+        },
+        {
+          id: 2,
+          q: "What animation services do you offer?",
+          a: "We create 2D animations, 3D product visuals, motion graphics, SaaS explainers, launch\n" +
+            "videos, animated ads, UI animations, social media content, promotional campaigns, and\n" +
+            "branded storytelling for modern digital platforms.",
+        },
+        {
+          id: 3,
+          q: "Do you only work with large companies?",
+          a: "No. We work with startups, SaaS companies, creators, agencies, AI products, personal\n" +
+            "brands, and growing businesses that want stronger visual content and premium digital\n" +
+            "presence.",
+        },
+        {
+          id: 4,
+          q: "Can animations be optimized for social media platforms?",
+          a: "Yes. Our animations are optimized for YouTube, Instagram, TikTok, Reels, Shorts, websites,\n" +
+            "launch campaigns, digital ads, and other modern platforms with attention to pacing,\n" +
+            "engagement, formatting, and viewer experience.",
+        },
+        {
+          id: 5,
+          q: "How long does an animation project usually take?",
+          a: "Timelines depend on animation style, project duration, revisions, visual complexity, and\n" +
+            "production scope. Simpler projects move faster, while advanced 3D visuals and cinematic\n" +
+            "animations naturally require more production time.",
+        },
+        {
+          id: 6,
+          q: "What does your production workflow look like?",
+          a: "Our workflow typically moves through creative direction, storyboarding, visual\n" +
+            "development, animation production, refinement, sound integration, and final delivery while\n" +
+            "keeping communication and feedback organized throughout the project.",
+        },
+        {
+          id: 7,
+          q: "How does pricing work?",
+          a: "Pricing depends on animation complexity, duration, visual style, turnaround speed, and\n" +
+            "production depth. Smaller projects usually start from shorter deliverables, while larger\n" +
+            "campaigns and ongoing production workflows are quoted based on scope.",
+        },
+        {
+          id: 8,
+          q: "Can you help if I don't fully know what I want yet?",
+          a: "Absolutely. Many clients come to us with only a rough idea. We help shape the creative\n" +
+            "direction, animation style, storytelling approach, and overall visual strategy based on your\n" +
+            "goals and audience.",
+        },
+        {
+          id: 9,
+          q: "Do you offer revisions during production?",
+          a: "Yes. Feedback and revisions are part of the workflow to make sure the final animation\n" +
+            "aligns with your vision, branding, and overall project goals.",
+        },
+        {
+          id: 10,
+          q: "What makes EyesOn Studio different?",
+          a: "We focus on combining strong visual quality, modern motion design, storytelling, platform-\n" +
+            "focused execution, and organized production workflows to create animations that feel\n" +
+            "more premium, engaging, and memorable online.",
+        },
+      ]}
+    />
     <ContactUs client:visible />
   </section>
 </div>

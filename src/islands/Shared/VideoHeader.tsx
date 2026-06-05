@@ -173,6 +173,10 @@ export const VideoHeader = ({
               animate: "show",
             })}
           >
+            <h2 className="tracking-[0.2em] text-white/60 text-[10px] md:text-[15px]">
+              VIDEO EDITING · TALKING HEAD EDITING · SHORT FORM CONTENT · YOUTUBE & SOCIAL
+              MEDIA VIDEOS
+            </h2>
             <motion.h1
               className={`text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-extrabold leading-[1.15] tracking-tight ${headingClassName}`}
               {...(!isNone && { variants: itemVariants })}

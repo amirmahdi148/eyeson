@@ -6,10 +6,10 @@ import Section4 from "../FooterElements/Section4.astro";
 
 // lucide (client side)
 import {
-  PhoneCall,
   Mail,
   Instagram,
   Send,
+  MessageCircle,
   Play,
   Copyright,
 } from "lucide-react";
@@ -54,29 +54,21 @@ import {
         <!-- Contact (وسط‌چین شده برای موبایل) -->
         <div class="flex flex-col items-center gap-3 text-sm text-white/90">
           <div class="flex items-center gap-3">
-            <PhoneCall client:load className="text-[#00A9BD] h-4 w-4" />
-            <span>+0123456789</span>
+            <Send client:load className="text-[#00A9BD] h-4 w-4" />
+            <span>@parhamfardian</span>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <MessageCircle client:load className="text-[#00A9BD] h-4 w-4" />
+            <span>+98 937 416 2476</span>
           </div>
 
           <div class="flex items-center gap-3">
             <Mail client:load className="text-[#00A9BD] h-4 w-4" />
-            <span>eyeson.agency@gmail.com</span>
+            <span>hello@eyeson.agency</span>
           </div>
 
-          <div class="flex items-center gap-3">
-            <Instagram client:load className="text-[#00A9BD] h-4 w-4" />
-            <span>@eyeson</span>
-          </div>
 
-          <div class="flex items-center gap-3">
-            <Send client:load className="text-[#00A9BD] h-4 w-4" />
-            <span>eyeson.agency</span>
-          </div>
-
-          <div class="flex items-center gap-3">
-            <Play client:load className="text-[#00A9BD] h-4 w-4" />
-            <span>eyeson.agency</span>
-          </div>
         </div>
 
         <!-- Copyright (وسط‌چین شده برای موبایل) -->

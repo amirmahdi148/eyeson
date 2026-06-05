@@ -1,6 +1,6 @@
 ---
 
-import { ArrowRightIcon,  Phone, Youtube , Instagram } from "lucide-react";
+import { ArrowRightIcon, Send, MessageCircle, Youtube , Instagram } from "lucide-react";
 ---
 
 <div class="flex flex-col md:flex-col gap-8 md:gap-10 max-w-xs md:max-w-sm">
@@ -48,10 +48,16 @@ import { ArrowRightIcon,  Phone, Youtube , Instagram } from "lucide-react";
                 className="text-white cursor-pointer hover:text-red-500 transition-colors duration-300"
         />
 
-        <Phone
+        <Send
                 client:load
                 size={36}
-                className="text-white cursor-pointer hover:text-[#46B6A0] transition-colors duration-300"
+                className="text-white cursor-pointer hover:text-[#0088cc] transition-colors duration-300"
+        />
+
+        <MessageCircle
+                client:load
+                size={36}
+                className="text-white cursor-pointer hover:text-[#25D366] transition-colors duration-300"
         />
 
         <Instagram

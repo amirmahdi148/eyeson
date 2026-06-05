@@ -33,23 +33,22 @@ export default function ApproachTimelineSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden px-6 pb-28 pt-14 lg:px-20 flex justify-center items-center"
+      className="relative overflow-hidden px-6 pb-16 pt-10 lg:px-20 flex justify-center items-center"
     >
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto max-w-3xl text-center">
+          <p className="mb-3 text-xs tracking-[0.2em] text-[#c2d3dc]">
+            OUR PROCESS
+          </p>
           <h2 className="text-3xl font-bold leading-tight text-white md:text-5xl">
-            Our approach to <span className="text-[#12d6d8]">video editing</span>{" "}
-            projects
+            A Simple Workflow Built for Fast, Modern Content
           </h2>
           <p className="mt-4 text-sm leading-7 text-[#c3d4de] md:text-base">
-            We shape every edit with a clear process that aligns your goals,
-            audience, and message. From first idea to final export, each step
-            ensures your video becomes sharper, more engaging, and ready to
-            perform.
+            We keep the editing process clear, fast, and organized, from raw footage to fully polished content optimized for modern social media platforms.
           </p>
         </div>
 
-        <div className="relative mx-auto mt-14 max-w-5xl">
+        <div className="relative mx-auto mt-10 max-w-5xl">
           {/* Lines behind everything */}
           <div className="absolute bottom-0 left-5 top-0 -translate-x-1/2 md:left-10">
             <div className="h-full w-[2px] bg-[#FFFFFF0D]" />
@@ -61,21 +60,21 @@ export default function ApproachTimelineSection() {
           </div>
 
           {/* Cards with circles */}
-          <div className="space-y-6 md:space-y-10">
+          <div className="space-y-0">
             {steps.map((step, index) => (
               <div key={step} className="flex items-center gap-6 md:gap-12">
                 {/* Numbered circle on the line */}
                 <div className="relative flex w-10 shrink-0 items-start justify-center pt-1 md:w-20 md:pt-2">
                   <div className="relative flex h-12 w-12 items-center justify-center md:h-14 md:w-14">
                     <div className="absolute inset-0 flex items-center justify-center rounded-full border-[0.5px] border-[#FFFFFF33] bg-[#032635] text-base font-bold text-[#FFFFFF66] md:text-xl">
-                      {step}
+                      {`0${step}`}
                     </div>
 
                     <motion.div
                       style={{ opacity: active[index] }}
                       className="absolute inset-0 flex items-center justify-center rounded-full border-[0.5px] border-[#46B59E] bg-[#032635] text-base font-bold text-[#FFFFFF66] shadow-[0_0_14px_rgba(83,226,202,0.45)] md:text-xl"
                     >
-                      {step}
+                      {`0${step}`}
                     </motion.div>
                   </div>
                 </div>
@@ -88,7 +87,7 @@ export default function ApproachTimelineSection() {
                   <img
                     src={`/video-pieces/svg/${step}.svg`}
                     alt={`Step ${step}'s svg`}
-                    className="h-auto w-full max-w-lg"
+                    className="h-auto w-full"
                   />
                 </motion.div>
               </div>

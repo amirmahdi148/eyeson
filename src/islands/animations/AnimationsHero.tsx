@@ -1,4 +1,4 @@
-"use client";
+
 
 import { PlayableMediaFrame } from "./PlayableMediaFrame";
 import { HeroBasic } from "../Shared/HeroBasic.tsx";
@@ -15,17 +15,21 @@ export const AnimationsHero = () => {
       <HeroBasic
         BeforeHighlight="Premium"
         Highlight="2D & 3D Animations"
-        AfterHighlight="Built to Elevate Brands"
-        Description="High-impact animated visuals designed to differentiate your brand, enhance perception, and capture attention across digital platforms."
+        AfterHighlight="Built for Modern Brands"
+        Description="High-impact animation and motion design for SaaS companies, AI products, startups, ads,
+launch campaigns, and modern brands that want stronger visual identity, clearer
+storytelling, and a more memorable online presence."
         imageUrl="/animation-section/Edited.webp"
         animationType="slide"
+        SmallLabel="2D ANIMATION · 3D ANIMATION · MOTION DESIGN · VISUAL STORYTELLING"
         enableImageHover={true}
         primaryBtnClassName="text-white"
         primaryBtnText="View Our Work"
+
         secondaryBtnText="Get Pricing"
-        primaryBtnUrl="#work"
+        primaryBtnUrl="/portfolio"
         imageWrapperClassName="w-[calc(100vw - 300px)] md:w-110"
-        secondaryBtnUrl="#pricing"
+        secondaryBtnUrl="/pricing"
       />
     </>
   );
@@ -34,6 +38,9 @@ export const AnimationsHero = () => {
 export const MediaFrameHero = () => {
   return (
     <div className="mx-auto w-full max-w-[1400px] px-4 sm:px-6 md:px-10 lg:px-16 py-16 md:py-24 text-white overflow-hidden">
+      <p className="mb-8 text-center text-xs tracking-[0.2em] text-[#c2d3dc]">
+        WHY ANIMATION MATTERS
+      </p>
       <div className="flex flex-col lg:flex-row items-center gap-10 md:gap-14 lg:gap-20">
         
         {/* ========================================== */}
@@ -55,26 +62,29 @@ export const MediaFrameHero = () => {
         {/* ========================================== */}
         <div className="order-2 flex w-full flex-col items-center text-center lg:w-1/2 lg:items-start lg:text-left">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[50px] font-extrabold leading-[1.15] tracking-tight">
-            What is{" "}
-            <span className="bg-gradient-to-r from-[#22d3ee] to-[#22B0B0] bg-clip-text text-transparent">
-              2D &amp; 3D animation
+            Animation Helps Brands {" "}
+            <span className="bg-linear-to-r from-[#22d3ee] to-[#22B0B0] bg-clip-text text-transparent">
+              Look More Premium, Modern, and Memorable
             </span>{" "}
             <br className="hidden lg:block" />
-            and why your brand needs it
+
           </h2>
 
           <div className="mt-6 flex flex-col gap-4 max-w-xl text-[14px] sm:text-base md:text-lg leading-[1.7] text-white/60 font-light">
             <p>
-              2D animation focuses on clean design, fluid movement, and clear
-              storytelling. It’s perfect for explainer videos, brand identity,
-              and UI interactions where clarity is key. Meanwhile, 3D adds
-              depth, texture, and realism—ideal for product showcases, immersive
-              environments, and high-end visual campaigns.
+              Strong animation does more than make content look visually impressive. It helps brands
+              communicate ideas faster, simplify complex products, create stronger first impressions,
+              and build a more recognizable digital presence.
+              From product launches and ads to social media content, UI visuals, brand campaigns, and
+              storytelling, animation helps businesses stand out in crowded digital environments and
+              makes the overall brand experience feel more polished and intentional.
+
             </p>
             <p>
-              Together, they help brands break through the noise, simplifying
-              complex ideas while creating visually stunning assets that stick
-              in the user’s memory long after they scroll past.
+              2D animation brings clarity, style, and visual communication.
+              3D animation adds depth, motion, realism, and cinematic presence.
+              Together, they help brands create content that feels more engaging, professional, and
+              difficult to ignore online.
             </p>
           </div>
 
@@ -83,10 +93,10 @@ export const MediaFrameHero = () => {
           {/* ========================================== */}
           <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row w-full sm:w-auto items-center gap-3 sm:gap-4 lg:gap-5">
             <div className="w-full sm:w-[15rem] lg:w-auto">
-              <PrimaryButton text="Get Ad Creatives" width="100%" />
+              <PrimaryButton text="View Our Work" width="100%" href="/portfolio" />
             </div>
             <div className="w-full sm:w-[15rem] lg:w-auto">
-              <SecondaryButton text="See our work" width="100%" />
+              <SecondaryButton text="Get Pricing" width="100%" href="/pricing" />
             </div>
           </div>
 

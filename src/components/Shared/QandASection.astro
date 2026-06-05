@@ -1,35 +1,167 @@
 ---
 import { SmartImage } from "../../utils/SmartImage";
 
-const questions = [
+type QAItem = {
+  id: number;
+  q: string;
+  a: string;
+};
+
+type QAOverride = {
+  id: number;
+  q?: string | null;
+  a?: string | null;
+};
+
+type Props = {
+  questions?: QAOverride[];
+  title1?: string;
+  title2?: string;
+  description?: string;
+  imageSrc?: string;
+  imageAlt?: string;
+};
+
+const DEFAULT_QUESTIONS: QAItem[] = [
   {
     id: 1,
-    q: "What is motion graphics?",
-    a: "Motion graphics is the art of animating graphic elements to tell stories, explain ideas, or bring branding to life. It includes animated logos, kinetic typography, and visuals used in ads, explainers, and social content.",
+    q: "What does EyesOn Studio create?",
+    a: "EyesOn Studio creates premium motion graphics, product launch videos, SaaS explainers,\n" +
+        "AI product videos, short-form social content, talking head edits, animations, UI visuals, ad\n" +
+        "creatives, and brand design assets for modern brands.",
   },
   {
     id: 2,
-    q: "Why is visual content important for my business?",
-    a: "Visual content is crucial because it captures attention, conveys messages quickly, and enhances brand recognition.",
+    q: "Who do you usually work with?",
+    a: "We work with startups, SaaS companies, AI brands, crypto and fintech teams, agencies,\n" +
+        "founders, creators, and growing businesses that need high-quality visual content without\n" +
+        "building a full creative team in-house.",
   },
   {
     id: 3,
-    q: "What services do you offer?",
-    a: "We offer logo animations, explainer videos, social media graphics, and more.",
+    q: "Do you work with SaaS, AI, and tech companies?",
+    a: "Yes. SaaS, AI, apps, crypto, fintech, and tech brands are a strong fit for us because we\n" +
+        "specialize in turning complex products into visuals people understand quickly. We help\n" +
+        "explain dashboards, features, workflows, product benefits, and technical ideas in a simple,\n" +
+        "premium, and engaging way.",
   },
   {
     id: 4,
-    q: "What is your production process?",
-    a: "We go from concept → design → animation → delivery with full collaboration.",
+    q: "Can you help with the script and concept?",
+    a: "Yes. You do not need to come with a perfect script or clear idea. We can help shape the\n" +
+        "concept, structure the message, improve the story flow, write or refine the script, suggest\n" +
+        "visual directions, and turn your rough idea into a clear production plan before we start\n" +
+        "creating.",
   },
   {
     id: 5,
-    q: "What if I don't know exactly what I want?",
-    a: "That’s completely fine. We help shape the direction, define the message, and guide you through the process.",
+    q: "Can you create product explainer videos?",
+    a: "Yes. We create product explainers that show what your product does, why it matters, and\n" +
+        "how it helps the audience. Depending on the project, this can include scripting, storyboard\n" +
+        "direction, UI visuals, motion graphics, product walkthroughs, voiceover planning, and final\n" +
+        "animation.",
   },
+  {
+    id: 6,
+    q: "What makes a good product explainer video?",
+    a: "A good explainer does not just describe features. It makes the product feel useful fast. We\n" +
+        "focus on the problem, the core value, the product flow, the visual clarity, and the reason\n" +
+        "someone should care, so viewers can understand the offer without feeling overwhelmed.",
+  },
+  {
+    id: 7,
+    q: "Can you create launch videos for products or features?",
+    a: "Yes. We create launch videos for new products, SaaS tools, apps, features, campaigns, and\n" +
+        "updates. The goal is to make the launch feel exciting, clear, and premium, while giving your\n" +
+        "audience a fast reason to understand, trust, and explore what you are offering.",
+  },
+  {
+    id: 8,
+    q: "Do you edit talking head videos?",
+    a: "Yes. We edit founder videos, podcasts, educational content, YouTube videos, Reels,\n" +
+        "Shorts, TikToks, and personal brand content. We improve pacing, structure, captions, cuts,\n" +
+        "sound, motion elements, and overall watchability, so the video feels sharper and keeps\n" +
+        "attention longer.",
+  },
+  {
+    id: 9,
+    q: "Can you make viral social media content?",
+    a: "We create content with viral principles in mind, but we do not fake-guarantee virality. We\n" +
+        "study the hook, pacing, topic angle, visual rhythm, captions, retention points, emotional\n" +
+        "payoff, and platform style to give each video a much stronger chance of being watched,\n" +
+        "shared, and remembered.",
+  },
+  {
+    id: 10,
+    q: "What is your creative process?",
+    a: "Our process usually includes discovery, creative direction, production, feedback, revisions,\n" +
+        "and final delivery. We keep the workflow clear and organized, so you always know what\n" +
+        "stage the project is in and what comes next.",
+  },
+  {
+    id: 11,
+    q: "How long does the process take?",
+    a: "It depends on the simplicity, length, style, and complexity of the project. Simple edits or\n" +
+        "smaller visuals can take around 2 to 3 days, while product launch videos, explainers,\n" +
+        "campaigns, or detailed animations can take a few weeks. After we understand the scope,\n" +
+        "we give you a realistic timeline before starting",
+  },
+  {
+    id: 12,
+    q: "Do you offer revisions?",
+    a: "Yes. Revisions are part of the process. After the first version, you can share feedback, and\n" +
+        "we refine the work to better match your message, brand, pacing, and visual direction. The\n" +
+        "number of revision rounds depends on the project scope, but our goal is always to make\n" +
+        "the final result feel right.",
+  },
+  {
+    id: 13,
+    q: "Do you accept different pricing models?",
+    a: "Yes. Depending on the project, we can work with fixed project pricing, package pricing,\n" +
+        "monthly retainers, or ongoing creative support. Some clients need one launch video, while\n" +
+        "others need consistent editing, motion graphics, ads, and social content every month. We\n" +
+        "recommend the model that fits your workload and goals best.",
+  },
+  {
+    id: 14,
+    q: "Can you support ongoing monthly content?",
+    a: "Yes. We can work as your ongoing creative team for video editing, social media content,\n" +
+        "motion graphics, product visuals, ad creatives, and launch assets. This is useful for brands\n" +
+        "that need consistent high-quality creative output without hiring a full in-house team.",
+  },
+  {
+    id: 15,
+    q: "How do we start?",
+    a: "You can start in the way that is easiest for you, submit a project request on our\n" +
+        "website, email us, message us on Telegram, or book a quick call. Once we receive your\n" +
+        "details, we review your goals, understand the project scope, suggest the best creative\n" +
+        "direction, and give you a clear next step based on your timeline, budget, and the type\n" +
+        "of content you need.",
+  },
+
 ];
 
-const QAImg = "/Shared/qa/qanda.svg";
+const defaultQAById = (id: number): QAItem | undefined =>
+  DEFAULT_QUESTIONS.find((q) => q.id === id);
+
+const {
+  questions: questionOverrides = DEFAULT_QUESTIONS,
+  title1 = "Your Questions",
+  title2 = "Answered",
+  description = "Everything you need to know before starting a video, animation, or design project with\n" +
+    "EyesOn Studio.",
+  imageSrc = "/Shared/qa/qanda.svg",
+  imageAlt = "Questions and answers illustration",
+} = Astro.props as Props;
+
+const questions: QAItem[] = questionOverrides.map((override) => {
+  const def = defaultQAById(override.id);
+  return {
+    id: override.id,
+    q: override.q ?? def?.q ?? "",
+    a: override.a ?? def?.a ?? "",
+  };
+});
 ---
 
 <section class="relative overflow-hidden px-4 py-16 text-white sm:px-6 md:px-10 md:py-24">
@@ -39,19 +171,19 @@ const QAImg = "/Shared/qa/qanda.svg";
     <div class="space-y-6 sm:space-y-8 flex flex-col items-center text-center lg:items-start lg:text-left">
       <div class="w-full qa-reveal fade-up">
         <h2 class="text-3xl font-extrabold leading-tight sm:text-4xl md:text-5xl">
-          <span class="block">Your Questions</span>
-          <span class="block text-[#39d0c3] drop-shadow-[0_0_15px_rgba(57,208,195,0.4)]">Answered</span>
+          <span class="block">{title1}</span>
+          <span class="block text-[#39d0c3] drop-shadow-[0_0_15px_rgba(57,208,195,0.4)]">{title2}</span>
         </h2>
         <p class="mt-4 sm:mt-5 max-w-md text-[15px] leading-7 text-white/70 md:text-base mx-auto lg:mx-0 font-light">
-          Find answers to common questions about Eyeson and our services.
+          {description}
         </p>
       </div>
 
       {/* تصویر سمت چپ */}
       <div class="qa-reveal fade-up delay-100 w-full max-w-[280px] sm:max-w-[340px]">
         <SmartImage
-            src={QAImg}
-            alt="Questions and answers illustration"
+            src={imageSrc}
+            alt={imageAlt}
             width={1200}
             height={1200}
             className="select-none object-contain opacity-95 drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)] transform-gpu transition-all duration-700 ease-out hover:scale-105 hover:-translate-y-2"

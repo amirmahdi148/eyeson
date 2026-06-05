@@ -1,4 +1,4 @@
-"use client";
+
 
 import React, { useRef, useState } from "react";
 import {
@@ -93,15 +93,16 @@ export default function HeroHome() {
           animate="visible"
           className="order-2 lg:order-1 w-full lg:w-[45%] xl:w-[48%] flex flex-col justify-center items-center lg:items-start text-center lg:text-start"
         >
+          <h2 className=" tracking-[0.2rem] text-white/60 text-[1px] md:text-[12px]">Product Launch Videos · Explainers · Social Media Content</h2>
           <motion.h1
             variants={itemVariants}
             className="text-2xl font-extrabold leading-[1.15] tracking-tight sm:text-3xl lg:text-[2.2rem]"
           >
             <span className="block bg-gradient-to-r from-[#31d1a6] to-[#25aeb2] bg-clip-text text-transparent pb-1">
-              Smart video, animation & design
+              Premium Motion Design, Animation & Editing Studio
             </span>
             <span className="mt-2 block text-white drop-shadow-md">
-              Built to Make Brands Unmissable.
+              Make Your Brand Impossible to Ignore.
             </span>
           </motion.h1>
 
@@ -109,8 +110,8 @@ export default function HeroHome() {
             variants={itemVariants}
             className="mt-5 max-w-md text-[14px] leading-[1.7] text-white/60 sm:text-[15px] lg:text-base font-light"
           >
-            We create high-impact visuals, motion, and content systems that help
-            brands grow, convert, and stand out.
+            EyesOn Studio helps brands turn ideas, products, and messages into premium videos,motion graphics, product launch videos, explainers, social media content, and high quality
+            video editing built to capture attention, explain faster, and make people remember you.
           </motion.p>
 
           <motion.div
@@ -118,14 +119,14 @@ export default function HeroHome() {
             className="mt-8 flex flex-row gap-3 w-full justify-center lg:justify-start"
           >
             <PrimaryButton text="Get Started" width="auto" />
-            <SecondaryButton text="Get Pricing" width="auto" />
+            <SecondaryButton text="View Pricing" width="auto" />
           </motion.div>
 
           <motion.p
             variants={itemVariants}
             className="mt-6 text-xs text-white/40 uppercase tracking-wider font-medium"
           >
-            Trusted by fast-growing brands & creative teams.
+            Trusted by brands, founders, and creative teams across 25+ countries.
           </motion.p>
         </motion.div>
 
@@ -386,17 +387,17 @@ export default function HeroHome() {
               ))}
             </div>
             <p className="text-sm md:text-base font-medium">
-              500+ Happy Clients
+              80+ Happy Clients
             </p>
           </div>
           <div className="h-12 w-[1px] bg-white/10" />
           <div className="flex items-baseline gap-2">
-            <span className="text-xl font-bold">1000+</span>
+            <span className="text-xl font-bold">1200+</span>
             <span className="text-sm text-gray-400">Projects Delivered</span>
           </div>
           <div className="h-12 w-[1px] bg-white/10" />
           <div className="flex items-baseline gap-2">
-            <span className="text-xl font-bold">15+</span>
+            <span className="text-xl font-bold">25+</span>
             <span className="text-sm text-gray-400">Countries Served</span>
           </div>
         </div>

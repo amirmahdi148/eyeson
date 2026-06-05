@@ -8,30 +8,30 @@ import { SmartImage } from "../../utils/SmartImage.tsx";
 const includedCards = [
   {
     id: 1,
-    title: "Subtitles & Captions",
+    title: "Captions Built for Social Platforms",
     description:
-      "Clean, readable subtitles designed for sound-off viewing. Optimized for retention and accessibility.",
+      "Most people watch social content without sound first. We design captions for readability, mobile viewing, retention, and smoother content consumption across modern platforms.",
     icon: ClosedCaption,
   },
   {
     id: 2,
-    title: "Color Correction & Grading",
+    title: "Visual Polish & Color Finishing",
     description:
-      "Balanced, cinematic color that enhances mood and maintains brand consistency.",
+      "Color, lighting, contrast, and visual cleanup help content feel sharper, cleaner, and more professional without making it feel over-edited or distracting.",
     icon: Palette,
   },
   {
     id: 3,
-    title: "B-Roll Integration",
+    title: "Motion, B-Roll & Visual Rhythm",
     description:
-      "Smart b-roll cuts that add context, energy, and visual clarity to your story.",
+      "Strategic motion, b-roll, zooms, overlays, and scene pacing help the content feel more dynamic, easier to follow, and visually engaging from start to finish.",
     icon: Scissors,
   },
   {
     id: 4,
-    title: "Sound Design",
+    title: "Audio & Viewing Experience",
     description:
-      "Music, transitions, and audio polish that elevate pacing and emotional impact.",
+      "Bad audio instantly weakens content. We clean distractions, balance sound, and shape the audio experience to make videos feel smoother, clearer, and easier to watch.",
     icon: AudioWaveformIcon,
   },
 ];
@@ -45,22 +45,33 @@ export default function WhatsIncludedSection() {
     <section className="px-6 pb-24 pt-8 lg:px-20">
       <div className="mx-auto max-w-7xl">
         <div className="mb-10 text-center">
-          <h2 className="text-4xl font-extrabold text-white md:text-5xl">
-            WHAT&apos;S INCLUDED
-          </h2>
-          <p className="mt-3 text-sm text-[#c2d3dc] md:text-base">
-            Every edit is optimized for performance.
+          <p className="mb-3 text-xs tracking-[0.2em] text-[#c2d3dc]">
+            THE DIFFERENCE IS IN THE DETAILS
           </p>
+          <h2 className="text-4xl font-extrabold text-white md:text-5xl">
+            Why Some Videos Feel
+            <br />
+            Better Than Others
+          </h2>
         </div>
 
         <div className="grid gap-5 lg:grid-cols-2">
-          <article className="rounded-2xl ] bg-[#0B1F2A] p-4">
+          <article className="rounded-2xl bg-[#0B1F2A] p-4">
             <h3 className="text-3xl font-bold bg-linear-to-r from-[#46B6A0] to-[#00A9BD] bg-clip-text text-transparent">
-              Hook Optimization
+              Hook & Attention Optimization
             </h3>
             <p className="mt-2 text-sm leading-7 text-[#c4d6df]">
-              We craft the first seconds to stop the scroll and keep viewers
-              watching. Your message lands instantly.
+              The first seconds matter the most. We improve hooks, pacing, cuts,
+              structure, and visual timing to make content feel more immediate,
+              engaging, and harder to scroll past.
+            </p>
+
+            <p className="mt-4 text-sm leading-7 text-[#c4d6df]/80">
+              Modern editing is more than cutting clips together. The pacing,
+              hook, captions, motion, sound, visual rhythm, and structure all
+              shape how professional, engaging, and memorable the content feels
+              online. The difference between content people skip and content
+              people stay for usually comes down to these details.
             </p>
 
             <div className="relative mt-4 h-[360px] overflow-hidden rounded-xl shadow-[0_0_15px_#00A9BDB2]">

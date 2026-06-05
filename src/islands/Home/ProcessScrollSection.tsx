@@ -21,10 +21,12 @@ const PROCESS_STEPS = [
         <path d="M9 3v18M15 3v18M3 9h18M3 15h18" />
       </svg>
     ),
-    title: "Concept & Brief",
+    title: "Discover & Define",
     description:
-      "We start by understanding your vision. You share your goals, style, and references — we shape a creative direction that fits your brand.",
-    tags: ["Discovery", "Moodboard", "Creative Brief"],
+      "We learn about your brand, goals, audience, references, and the message you want to\n" +
+        "communicate. Then we turn everything into a clear creative direction before production\n" +
+        "starts.",
+    tags: ["Discovery", "References", "Creative Direction"],
   },
   {
     id: 2,
@@ -41,9 +43,10 @@ const PROCESS_STEPS = [
         <circle cx="12" cy="12" r="3" />
       </svg>
     ),
-    title: "Design & Production",
+    title: "Design & Produce",
     description:
-      "Our team brings ideas to motion. We design visuals, craft motion graphics, or edit your video with precision and storytelling in mind.",
+      "Our team creates the visuals, motion, animation, or edits based on the approved direction,\n" +
+        "with a focus on style, pacing, clarity, and strong execution.",
     tags: ["Design", "Animation", "Editing"],
   },
   {
@@ -61,10 +64,11 @@ const PROCESS_STEPS = [
         <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
       </svg>
     ),
-    title: "Review & Delivery",
+    title: "Refine & Deliver",
     description:
-      "You review, request adjustments, and approve the final version. Once perfected, we deliver your files — ready to impress and perform.",
-    tags: ["Feedback", "Finalization", "Delivery"],
+      "You review the work, share feedback, and we polish the final version until it feels ready.\n" +
+        "Then we deliver the final files prepared for launch, ads, social media, or your website.",
+    tags: ["Feedback", "Final Polish", "Delivery"],
   },
 ];
 
@@ -170,13 +174,13 @@ export default function ProcessScrollSection() {
             Our Creative Process
           </p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-4 sm:mb-6 leading-[1.15] tracking-tight">
-            From idea to impact — here&rsquo;s how your project comes to life.
+            From Idea to Results,
+            How We Bring Your Project to Life
           </h2>
           <p className="text-gray-400 text-sm sm:text-base lg:text-lg leading-relaxed max-w-xl">
-            Every project starts with understanding the story behind it — the
-            message, the audience, and the vision. We explore ideas, study
-            visual trends, and craft experiences that don&rsquo;t just look
-            beautiful, but communicate meaning and move people.
+            Every strong project needs a clear path. We guide your idea through strategy, creative
+            direction, production, feedback, and final delivery, so the process feels smooth and the
+            final result is ready to perform.
           </p>
         </div>
 

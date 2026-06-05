@@ -9,28 +9,35 @@ import {
 const rows = [
   {
     variable: "Best for",
-    twoD: "Explaining ideas, abstract concepts, and clear messaging",
-    threeD: "Showcasing products, materials, mechanics, and physical details",
+    twoD: "Explainers, educational content, ads, social media campaigns, SaaS storytelling, and\n" +
+        "clean brand communication",
+    threeD: "Product showcases, launch campaigns, premium visuals, realistic demonstrations,\n" +
+        "cinematic branding, and immersive digital experiences",
   },
   {
     variable: "Visual style",
-    twoD: "Flat, illustrated, and graphic-driven visuals",
-    threeD: "Realistic depth with lifelike, dimensional visuals",
+    twoD: "Clean, illustrated, stylized, and graphic-driven visuals with strong flexibility for branding\n" +
+        "and storytelling",
+    threeD: "Realistic depth, lighting, textures, cinematic motion, and more immersive visual\n" +
+        "presentation",
   },
   {
-    variable: "Cost & time",
-    twoD: "Faster production and more cost-effective",
-    threeD: "Higher production cost and longer timelines",
+    variable: "Production & Cost",
+    twoD: "Faster production workflow and generally more cost-efficient for ongoing content and\n" +
+        "marketing campaigns",
+    threeD: "Higher production complexity with more advanced rendering, modeling, lighting, and\n" +
+        "animation workflows",
   },
   {
-    variable: "Look & feel",
-    twoD: "Consistent, clean visual style across all scenes",
-    threeD: "More immersive, cinematic, and premium-looking",
+    variable: "Brand Feel",
+    twoD: "Modern, clean, creative, and visually consistent across digital platforms",
+    threeD: "Premium, cinematic, high-end, and visually impressive with stronger realism and depth",
   },
   {
-    variable: "Use cases",
-    twoD: "Explainers, social content, ads, brand communication",
-    threeD: "Product launches, demos, hero visuals, high-end branding",
+    variable: "Common Use Cases",
+    twoD: "Explainer videos, motion graphics, social media content, UI animations, ads, and educational visuals",
+    threeD: "Product launches, product renders, hero visuals, tech demos, cinematic ads, and high-end\n" +
+        "promotional campaigns",
   },
 ];
 
@@ -50,17 +57,19 @@ export default function AnimationStyleComparisonSection() {
         {/* === Header === */}
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-[10px] uppercase tracking-[0.18em] text-white/60 sm:text-xs">
-            Style Comparison
+            STYLE COMPARISON
           </p>
           <h2 className="mt-2 text-3xl font-extrabold leading-tight text-white sm:mt-3 md:text-4xl lg:text-5xl">
-            <span className="text-cyan-300">2D vs 3D</span>
+            <span className="text-cyan-300">2D vs 3D Animation</span>
             <br />
-            So which one should you choose?
+            Which One Fits Your Brand Best?
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-[13px] leading-relaxed text-white/65 sm:mt-5 sm:text-sm md:text-base md:leading-7">
-            If you're deciding between 2D and 3D animation, you're not alone.
-            Both styles are powerful. This comparison helps you quickly
-            understand which option fits your goals, message, and budget best.
+            Both 2D and 3D animation are powerful creative tools, but they solve different problems.
+            The right choice depends on your goals, visual style, message, audience, production
+            scope, and overall brand positioning.
+            This comparison helps you quickly understand which animation style better fits your
+            content, product, and marketing needs.
           </p>
         </div>
 

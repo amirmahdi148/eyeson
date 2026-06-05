@@ -11,14 +11,15 @@ type InfoCard = {
 };
 
 type BusinessNeedsSectionProps = {
-  titleLine1?: string;
-  titleHighlight?: string;
-  introText?: string;
-  featureTitle?: string;
-  featureDescription?: string;
-  primaryButtonLabel?: string;
-  secondaryButtonLabel?: string;
-  mainPicture?: string;
+  label?: string;
+  beforeHighlight?: string;
+  highlight?: string;
+  afterHighlight?: string;
+  body?: string;
+  mainTitle?: string;
+  mainBody?: string;
+  primaryBtnText?: string;
+  secondaryBtnText?: string;
   panelOverlayClassName?: string;
   rightSection?: ReactNode;
   cards?: InfoCard[];
@@ -49,13 +50,15 @@ const defaultInfoCards: InfoCard[] = [
 ];
 
 export default function BusinessNeedsSection({
-  titleLine1 = "Why your business needs",
-  titleHighlight = "video editing?",
-  introText = "Professional video editing transforms raw footage into content that communicates with clarity and impact. It improves how audiences consume your message and helps every second work harder.",
-  featureTitle = "Boost sales & interactivity",
-  featureDescription = "High-quality editing helps your audience understand your product faster, trust your message sooner, and take action with less friction.",
-  primaryButtonLabel = "Get a free sample",
-  secondaryButtonLabel = "See our work",
+  label = "WHY VIDEO EDITING MATTERS",
+  beforeHighlight = "Why your business needs",
+  highlight = "video editing?",
+  afterHighlight = "",
+  body = "Professional video editing transforms raw footage into content that communicates with clarity and impact. It improves how audiences consume your message and helps every second work harder.",
+  mainTitle = "Boost sales & interactivity",
+  mainBody = "High-quality editing helps your audience understand your product faster, trust your message sooner, and take action with less friction.",
+  primaryBtnText = "Get a free sample",
+  secondaryBtnText = "See our work",
   panelOverlayClassName = "bg-[linear-gradient(140deg,rgba(5,33,54,0.82)_10%,rgba(2,21,35,0.85)_70%)]",
   rightSection,
   cards = defaultInfoCards,
@@ -105,13 +108,17 @@ export default function BusinessNeedsSection({
     <section className="relative w-full overflow-hidden px-4 pb-20 pt-8 sm:px-6 lg:px-24 lg:pb-28 ">
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto  max-w-3xl text-center ">
+          <p className="text-[11px] sm:text-sm tracking-widest text-white/60 font-semibold uppercase">
+            {label}
+          </p>
           <h2 className="text-3xl font-extrabold text-white md:text-5xl">
-            {titleLine1}
+            {beforeHighlight}
             <br />
-            <span className="text-[#12d4d1]">{titleHighlight}</span>
+            <span className="text-[#12d4d1]">{highlight}</span>
+            {afterHighlight && <>{afterHighlight}</>}
           </h2>
           <p className="mt-5 text-sm leading-7 text-[#c4d5df] md:text-base">
-            {introText}
+            {body}
           </p>
         </div>
 
@@ -133,15 +140,15 @@ export default function BusinessNeedsSection({
           <div className="relative z-10 grid items-center gap-7 lg:grid-cols-2">
             <div className="order-2 lg:order-1">
               <h3 className="text-[42px] leading-[1.05] font-bold text-white md:text-4xl">
-                {featureTitle}
+                {mainTitle}
               </h3>
               <p className="mt-4 text-lg leading-8 text-[#d2e1e8] md:text-base md:leading-7">
-                {featureDescription}
+                {mainBody}
               </p>
 
               <div className="mt-7 flex flex-nowrap gap-3 md:flex-wrap md:gap-4">
                 <button className="rounded-full border-4 cursor-pointer border-[#00A9BD] bg-linear-to-r from-[#00A9BD] to-[#1D553A] px-6 py-2 text-[12px] md:text-[17px] font-semibold text-white shadow-[0_0_22px_rgba(14,224,208,0.55)] md:px-7 md:text-sm">
-                  {primaryButtonLabel}
+                  {primaryBtnText}
                 </button>
                 <div className="relative inline-flex rounded-full p-1">
                   <div
@@ -152,7 +159,7 @@ export default function BusinessNeedsSection({
                     type="button"
                     className="relative z-10 cursor-pointer rounded-full bg-linear-to-r from-[#00061D] to-[#0B1F2A] px-8  text-[12px] md:text-[17px] font-semibold text-white shadow-[0_0_24px_rgba(34,211,238,0.25)] md:px-10 md:text-base"
                   >
-                    {secondaryButtonLabel}
+                    {secondaryBtnText}
                   </button>
                 </div>
               </div>

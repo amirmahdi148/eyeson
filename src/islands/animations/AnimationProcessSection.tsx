@@ -2,21 +2,27 @@
 
 const steps = [
   {
-    title: "Concept & Direction",
+    title: "Concept & Creative Direction",
     description:
-      "We start by understanding your brand, goals, and audience. Together, we define the visual style, animation approach, and creative direction that best fits your message.",
+      "We start by understanding your brand, audience, goals, and message to define the visual \n" +
+        "style, animation direction, mood, storytelling approach, and overall creative vision behind\n" +
+        "the project.",
     image: "/hero-card/11.webp",
   },
   {
-    title: "Review & Refine",
+    title: "Visual Development & Refinement",
     description:
-      "You receive initial visuals and motion previews early in the process. We refine the animation based on your feedback until every detail feels polished and aligned.",
+      "Storyboards, motion previews, scene concepts, and visual explorations are developed\n" +
+        "early to refine pacing, composition, transitions, and overall creative execution before full\n" +
+        "production begins.",
     image: "/hero-card/10.webp",
   },
   {
-    title: "Collaborative Production",
+    title: "Animation Production & Delivery",
     description:
-      "We collaborate with you throughout production to ensure consistency and quality. From 2D motion details to 3D depth and realism, we stay aligned as your visuals evolve into final assets.",
+      "From animation and motion design to rendering, sound integration, compositing, and final\n" +
+        "exports, every stage is optimized to deliver polished visuals built for websites, ads, social\n" +
+        "media, SaaS products, and modern digital campaigns.",
     image: "/hero-card/8.webp",
   },
 ];
@@ -26,16 +32,17 @@ export default function AnimationProcessSection() {
     <section className="relative w-full overflow-hidden px-6 pb-24 pt-12 lg:px-16">
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-xs text-white/60">Our Process</p>
+          <p className="text-xs text-white/60">OUR APPROACH</p>
           <h2 className="mt-3 text-4xl font-extrabold leading-tight text-white md:text-5xl">
-            CREATING YOUR PERFECT
+            How We Bring
             <br />
-            <span className="text-cyan-300">2D &amp; 3D ANIMATION</span>
+            <span className="text-cyan-300">2D &amp; 3D Ideas</span>  to Life
           </h2>
           <p className="mt-5 text-sm leading-7 text-white/65 md:text-base">
-            From concept to final delivery, our streamlined process ensures
-            every 2D and 3D animation is crafted with precision, clarity, and
-            maximum visual impact.
+            Every animation project follows a carefully structured creative workflow focused on strong
+            storytelling, polished visuals, and smooth collaboration. From early concepts to final
+            renders, each stage is designed to keep production organized, visually aligned, and built for
+            modern digital platforms.
           </p>
         </div>
 
