@@ -22,6 +22,10 @@ type MediaGridProps = {
   selectedCategory: string;
   onSelectCategory: (category: string) => void;
   pageSize?: number;
+  page?: number;
+  totalPages?: number;
+  onPageChange?: (page: number) => void;
+  isLoading?: boolean;
 };
 
 // همون دکمه پلی که خودت نوشته بودی
@@ -52,6 +56,10 @@ export const MediaGrid = ({
   selectedCategory,
   onSelectCategory,
   pageSize = 9,
+  page: externalPage,
+  totalPages: externalTotalPages,
+  onPageChange,
+  isLoading = false,
 }: MediaGridProps) => {
   const [isMobile, setIsMobile] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -68,14 +76,16 @@ export const MediaGrid = ({
   }, []);
 
   const effectivePageSize = isMobile ? 5 : pageSize;
-  const [page, setPage] = useState<number>(1);
-  const totalPages = Math.max(1, Math.ceil(items.length / effectivePageSize));
+  const [internalPage, setInternalPage] = useState<number>(1);
+  
+  const page = externalPage ?? internalPage;
+  const totalPages = externalTotalPages ?? Math.max(1, Math.ceil(items.length / effectivePageSize));
   const pageStartIndex = (page - 1) * effectivePageSize;
 
-  const paginatedItems = useMemo(
-    () => items.slice(pageStartIndex, pageStartIndex + effectivePageSize),
-    [items, pageStartIndex, effectivePageSize]
-  );
+  const paginatedItems = useMemo(() => {
+    if (externalPage !== undefined) return items; // Backend already paginated
+    return items.slice(pageStartIndex, pageStartIndex + effectivePageSize);
+  }, [items, pageStartIndex, effectivePageSize, externalPage]);
 
   const placeholderCount = Math.max(0, effectivePageSize - paginatedItems.length);
   const placeholderText = selectedCategory === "All"
@@ -84,11 +94,20 @@ export const MediaGrid = ({
 
   const goToPage = (p: number) => {
     if (p < 1 || p > totalPages) return;
-    setPage(p);
+    if (onPageChange) {
+      onPageChange(p);
+    } else {
+      setInternalPage(p);
+    }
   };
 
-  useEffect(() => setPage(1), [items, mediaType, effectivePageSize]);
-  useEffect(() => { if (page > totalPages) setPage(totalPages); }, [page, totalPages]);
+  useEffect(() => {
+    if (externalPage === undefined) setInternalPage(1);
+  }, [items, mediaType, effectivePageSize, externalPage]);
+  
+  useEffect(() => { 
+    if (externalPage === undefined && internalPage > totalPages) setInternalPage(totalPages); 
+  }, [internalPage, totalPages, externalPage]);
 
   // وقتی روی دکمه پلی کلیک شد
   const handlePlayClick = (item: MediaItem) => {
@@ -123,9 +142,13 @@ export const MediaGrid = ({
 
         {/* GRID */}
         <div className="relative z-10 mx-auto mt-6 grid w-full max-w-7xl grid-cols-1 gap-4 px-4 pb-10 sm:grid-cols-2 lg:grid-cols-3">
-          {paginatedItems.map((item, idx) => (
+          {isLoading ? (
+             <div className="col-span-full flex justify-center py-12">
+               <div className="w-8 h-8 border-4 border-[#00E6D7] border-t-transparent rounded-full animate-spin"></div>
+             </div>
+          ) : paginatedItems.map((item, idx) => (
             <div
-              key={`${item.id}-${pageStartIndex + idx}`}
+              key={`${item.id}-${idx}`}
               className="group relative aspect-[16/10] w-full overflow-hidden rounded-[24px] border border-cyan-300/20 bg-gradient-to-r from-[#0B1F2A] to-[#003A43] shadow-lg cursor-pointer"
               onClick={() => handlePlayClick(item)} // با کلیک روی کل باکس هم باز بشه
             >
@@ -147,7 +170,7 @@ export const MediaGrid = ({
           ))}
 
           {/* Placeholders */}
-          {Array.from({ length: placeholderCount }).map((_, idx) => (
+          {!isLoading && Array.from({ length: placeholderCount }).map((_, idx) => (
             <div
               key={`placeholder-${pageStartIndex + idx}`}
               className="flex aspect-[16/10] w-full items-center justify-center rounded-[24px] border border-dashed border-[#1E5265] bg-[#071B2A]/70 px-4 text-center text-sm text-white/65"
@@ -200,6 +223,8 @@ export const MediaGrid = ({
         <VideoShowreelModal 
           isOpen={isModalOpen} 
           onClose={() => setIsModalOpen(false)} 
+          videoList={items.filter(v => v.playable)}
+          initialVideo={selectedVideo}
         />
       )}
     </>

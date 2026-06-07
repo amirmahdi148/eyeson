@@ -12,39 +12,7 @@ type VideoCategory = {
   price?: string;
 };
 
-// لینک‌های تست (با لینک‌های mp4 خودت جایگزین کن)
-const videoList: VideoCategory[] = [
-  {
-    id: "product",
-    title: "Product",
-    thumbnail: "/case/hero-case.webp",
-    videoUrl: "/home/mov_bbb.webm",
-    views: "1%",
-  },
-  {
-    id: "ui-animation",
-    title: "UI animation",
-    thumbnail: "/case/hero-case.webp",
-    videoUrl: "/home/mov_bbb.webm",
-    views: "12K",
-    price: "$4,903.00",
-  },
-  {
-    id: "explainer",
-    title: "Explainer",
-    thumbnail: "/case/hero-case.webp",
-    videoUrl: "/home/mov_bbb.webm",
-    views: "598.7K",
-  },
-  {
-    id: "brand",
-    title: "Brand",
-    thumbnail: "/case/hero-case.webp",
-    videoUrl: "/home/mov_bbb.webm",
-    views: "598.7K",
-    price: "$6.96",
-  },
-];
+// We will use dynamic video list passed as props
 
 const formatTime = (time: number) => {
   if (isNaN(time)) return "00:00";
@@ -56,14 +24,23 @@ const formatTime = (time: number) => {
 type Props = {
   isOpen: boolean;
   onClose: () => void;
+  videoList: any[];
+  initialVideo: any;
 };
 
-export const VideoShowreelModal = ({ isOpen, onClose }: Props) => {
+export const VideoShowreelModal = ({ isOpen, onClose, videoList, initialVideo }: Props) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const hideControlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const [activeVideo, setActiveVideo] = useState<VideoCategory>(videoList[0]);
+  const [activeVideo, setActiveVideo] = useState<any>(initialVideo || videoList[0] || {});
+  
+  useEffect(() => {
+    if (initialVideo) {
+      setActiveVideo(initialVideo);
+    }
+  }, [initialVideo]);
+
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
@@ -245,23 +222,23 @@ export const VideoShowreelModal = ({ isOpen, onClose }: Props) => {
                                 : "scale-95 opacity-60 hover:opacity-100 hover:scale-100 ring-1 ring-white/10 hover:ring-white/30 z-0"
                             }`}
                           >
-                            <img src={video.thumbnail} alt={video.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
-                            
-                            {/* تگ Now Playing برای ویدیوی فعال */}
-                            {isActive && (
-                              <div className="absolute top-2 left-2 bg-[#00A9BD] text-white text-[8px] sm:text-[10px] font-bold px-2 py-0.5 rounded animate-pulse shadow-md">
-                                PLAYING
-                              </div>
-                            )}
+                              <img src={video.thumbnail || video.src} alt={video.title || "Video"} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+                              
+                              {/* تگ Now Playing برای ویدیوی فعال */}
+                              {isActive && (
+                                <div className="absolute top-2 left-2 bg-[#00A9BD] text-white text-[8px] sm:text-[10px] font-bold px-2 py-0.5 rounded animate-pulse shadow-md">
+                                  PLAYING
+                                </div>
+                              )}
 
-                            <div className="absolute bottom-2 left-2.5">
-                              <span className={`inline-block rounded-md px-2 py-1 text-[10px] sm:text-xs font-semibold backdrop-blur-md transition-colors ${
-                                isActive ? "bg-transparent text-white" : "bg-white/20 text-white/90 group-hover:bg-[#00A9BD]/80 group-hover:text-white"
-                              }`}>
-                                {video.title}
-                              </span>
-                            </div>
+                              <div className="absolute bottom-2 left-2.5">
+                                <span className={`inline-block rounded-md px-2 py-1 text-[10px] sm:text-xs font-semibold backdrop-blur-md transition-colors ${
+                                  isActive ? "bg-transparent text-white" : "bg-white/20 text-white/90 group-hover:bg-[#00A9BD]/80 group-hover:text-white"
+                                }`}>
+                                  {video.title}
+                                </span>
+                              </div>
                           </button>
                         );
                       })}

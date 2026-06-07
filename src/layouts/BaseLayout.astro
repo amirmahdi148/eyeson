@@ -13,9 +13,21 @@ export interface Props {
   lang?: string;
 }
 
+const defaultTitle = () => {
+  // Derive a human readable title from the pathname, e.g. "/about" => "About — EyesOn Agency"
+  const path = Astro.url.pathname.replace(/^\//, "").replace(/\/\.*/, "");
+  if (!path) return "EyesOn Agency — Creative Digital Agency";
+  const parts = path.split("/").map(p => p.charAt(0).toUpperCase() + p.slice(1));
+  return `${parts.join(" ")} — EyesOn Agency`;
+};
+
+const computedTitle = title ?? defaultTitle();
+const computedDescription = description ?? "EyesOn Studio: Premium Animations & Video Editing services.";
+
+
 const {
-  title = "EyesOn Agency — Creative Digital Agency",
-  description = "EyesOn Studio: Premium Animations & Video Editing",
+  title = computedTitle,
+  description = computedDescription,
   canonicalUrl,
   ogImage = "/og/image.jpg",
   ogType = "website",

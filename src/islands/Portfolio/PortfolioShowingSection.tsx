@@ -1,74 +1,82 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Tabs } from "./Tabs.tsx";
 import { MediaGrid } from "../Shared/PostComp.tsx";
+import { httpService } from "@/utils/httpService.ts";
 
 type PortfolioKey = "Video" | "Animation" | "Industries";
 
-type PortfolioItem = {
-  id: string;
-  src: string;
-  playable: boolean;
-  category: string;
+const typeMapping: Record<PortfolioKey, string> = {
+  Video: "Video types",
+  Animation: "Animation Style",
+  Industries: "Industries",
 };
 
-const buildItems = (prefix: PortfolioKey, category: string, count: number) =>
-  Array.from({ length: count }, (_, idx) => ({
-    id: `${prefix}-${category}-${idx + 1}`,
-    src: "/video-pieces/person.webp",
-    playable: true,
-    category,
-  }));
-
-const portfolioItems: Record<PortfolioKey, PortfolioItem[]> = {
-  Video: [
-    ...buildItems("Video", "All", 1),
-    ...buildItems("Video", "Social media", 4),
-    ...buildItems("Video", "Training video", 4),
-    ...buildItems("Video", "Corporate video", 4),
-    ...buildItems("Video", "Product video", 4),
-    ...buildItems("Video", "Sizzle reel", 3),
-    ...buildItems("Video", "Explainer video", 3),
-  ],
-  Animation: [
-    ...buildItems("Animation", "All", 1),
-    ...buildItems("Animation", "2D Animation", 5),
-    ...buildItems("Animation", "3D Animation", 5),
-    ...buildItems("Animation", "Lottie Animation", 5),
-    ...buildItems("Animation", "UI Animation", 4),
-  ],
-  Industries: [
-    ...buildItems("Industries", "All", 1),
-    ...buildItems("Industries", "SaaS", 4),
-    ...buildItems("Industries", "Healthcare", 4),
-    ...buildItems("Industries", "Ecommerce", 4),
-    ...buildItems("Industries", "Finance", 4),
-  ],
+const TYPE_CATEGORIES: Record<string, string[]> = {
+  "Video types": ["Social media", "Training video", "Corporate video", "Product video", "Sizzle reel", "Explainer video"],
+  "Animation Style": ["2D Animation", "3D Animation", "Lottie Animation", "UI Animation"],
+  "Industries": ["SaaS Healthcare", "Ecommerce", "Finance"]
 };
 
 export const PortfolioShowingSection = () => {
   const [type, setType] = useState<PortfolioKey>("Video");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  
+  const [items, setItems] = useState<any[]>([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const limit = 9;
 
-  const allItemsByType = useMemo(() => portfolioItems[type], [type]);
   const categories = useMemo(() => {
-    const unique = Array.from(
-      new Set(allItemsByType.map((item) => item.category).filter((c) => c !== "All")),
-    );
-    return ["All", ...unique];
-  }, [allItemsByType]);
-
-  const items = useMemo(() => {
-    if (selectedCategory === "All") {
-      return allItemsByType.filter((item) => item.category !== "All");
-    }
-    return allItemsByType.filter((item) => item.category === selectedCategory);
-  }, [allItemsByType, selectedCategory]);
+    const backendType = typeMapping[type];
+    return ["All", ...(TYPE_CATEGORIES[backendType] || [])];
+  }, [type]);
 
   const handleTypeChange = (nextType: PortfolioKey) => {
     setType(nextType);
     setSelectedCategory("All");
+    setPage(1);
   };
+
+  const handleCategoryChange = (cat: string) => {
+    setSelectedCategory(cat);
+    setPage(1);
+  };
+
+  useEffect(() => {
+    const fetchPortfolios = async () => {
+      setLoading(true);
+      try {
+        const backendType = typeMapping[type];
+        const payload: any = { type: backendType };
+        if (selectedCategory !== "All") {
+          payload.category = selectedCategory;
+        }
+        
+        const res: any = await httpService.post(`/portfolio/list?page=${page}&limit=${limit}`, payload);
+        
+        const mappedItems = res.videos.map((v: any) => ({
+           id: v.id,
+           src: v.cover ? (v.cover.startsWith('http') ? v.cover : `${import.meta.env.PUBLIC_API_URL}${v.cover}`) : '/video-pieces/person.webp', // fallback image
+           videoUrl: v.video ? (v.video.startsWith('http') ? v.video : `${import.meta.env.PUBLIC_API_URL}${v.video}`) : '',
+           playable: !!v.video,
+           category: v.category,
+           title: `${v.type} - ${v.category}`
+        }));
+        
+        setItems(mappedItems);
+        setTotalPages(res.meta.totalPages || 1);
+      } catch (err) {
+        console.error("Failed to fetch portfolios", err);
+        setItems([]);
+        setTotalPages(1);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPortfolios();
+  }, [type, selectedCategory, page]);
 
   return (
     <motion.section
@@ -97,11 +105,15 @@ export const PortfolioShowingSection = () => {
       <div className="w-full">
         <MediaGrid
           mediaType={type}
-          pageSize={9}
+          pageSize={limit}
           items={items}
           categories={categories}
           selectedCategory={selectedCategory}
-          onSelectCategory={setSelectedCategory}
+          onSelectCategory={handleCategoryChange}
+          page={page}
+          totalPages={totalPages}
+          onPageChange={setPage}
+          isLoading={loading}
         />
       </div>
     </motion.section>

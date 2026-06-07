@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { DayPicker } from "react-day-picker";
+import { motion, AnimatePresence } from "framer-motion";
+import { AlertCircle, CheckCircle2 } from "lucide-react";
 import { httpService } from "@/utils/httpService.ts";
 
 const durations = ["15 min", "30 min", "1 hour"];
@@ -28,7 +30,18 @@ export const ContactBookingSection = () => {
   const [selectedBudget, setSelectedBudget] = useState("< $10k");
   const [showProjectTypes, setShowProjectTypes] = useState(false);
 
-  const handleConfirmBooking = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState<{ type: 'idle' | 'success' | 'error', message: string }>({ type: 'idle', message: '' });
+
+  const handleConfirmBooking = async () => {
+    if (!firstName || !email) {
+      setStatus({ type: 'error', message: 'First name and email are required.' });
+      return;
+    }
+
+    setIsSubmitting(true);
+    setStatus({ type: 'idle', message: '' });
+
     const formData = {
       firstName,
       lastName,
@@ -46,9 +59,24 @@ export const ContactBookingSection = () => {
       duration: selectedDuration,
       time: selectedTime,
     };
-    console.log("=== Booking Confirmed ===");
-    console.log(JSON.stringify(formData, null, 2));
-    httpService.post("/contact", formData).catch((err) => console.error("Failed to submit booking:", err));
+    
+    try {
+      await httpService.post("/contact", formData);
+      setStatus({ type: 'success', message: 'Booking confirmed! We will be in touch soon.' });
+      
+      // Optional: Clear form
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPhone("");
+      setCompanyName("");
+      setProjectDetails("");
+    } catch (err: any) {
+      console.error("Failed to submit booking:", err);
+      setStatus({ type: 'error', message: err.response?.data?.message || 'Failed to submit booking. Please try again.' });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -72,6 +100,25 @@ export const ContactBookingSection = () => {
             your goals and deliver the perfect solution.
           </p>
         </div>
+
+        {/* Status Messages */}
+        <AnimatePresence mode="wait">
+          {status.type !== 'idle' && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className={`max-w-3xl mx-auto mb-8 p-4 rounded-xl flex items-center gap-3 border ${
+                status.type === 'success' 
+                  ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' 
+                  : 'bg-red-500/10 border-red-500/20 text-red-400'
+              }`}
+            >
+              {status.type === 'success' ? <CheckCircle2 size={20} /> : <AlertCircle size={20} />}
+              <p className="text-sm font-medium">{status.message}</p>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <div className="mt-8 grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
           {/* Left Form Card */}
@@ -255,9 +302,17 @@ export const ContactBookingSection = () => {
         <div className="mt-12 flex justify-center">
           <button
               onClick={handleConfirmBooking}
-              className="h-14 w-full max-w-xl rounded-2xl bg-gradient-to-r from-[#4BCDBB] to-[#1DAFD3] text-base font-bold text-white shadow-xl transition-all hover:brightness-110 active:scale-95"
+              disabled={isSubmitting}
+              className="h-14 w-full max-w-xl flex items-center justify-center rounded-2xl bg-gradient-to-r from-[#4BCDBB] to-[#1DAFD3] text-base font-bold text-white shadow-xl transition-all hover:brightness-110 active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
           >
-            Confirm Booking
+            {isSubmitting ? (
+               <>
+                 <div className="w-5 h-5 mr-3 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                 Confirming...
+               </>
+            ) : (
+               "Confirm Booking"
+            )}
           </button>
         </div>
       </section>

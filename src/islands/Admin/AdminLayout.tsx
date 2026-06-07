@@ -11,10 +11,12 @@ import {
   X,
   ChevronRight,
   LogOut,
-  User
+  User,
+  Image
 } from "lucide-react";
 import { httpService } from "@/utils/httpService.ts";
 import NotificationBell from "@/islands/Admin/NotificationBell";
+import UpcomingRequests from "@/islands/Admin/UpcomingRequests";
 
 const navItems = [
   { href: "/admin", icon: LayoutDashboard, label: "Dashboard" },
@@ -22,6 +24,7 @@ const navItems = [
   { href: "/admin/requests", icon: Mail, label: "Requests" },
   { href: "/admin/emails", icon: Send, label: "Emails" },
   { href: "/admin/project-types", icon: Tag, label: "Project Types" },
+  { href: "/admin/portfolios", icon: Image, label: "Portfolios" },
   { href: "/admin/case", icon: LayoutDashboard, label: "Case Editor" },
   { href: "/admin/settings", icon: Settings, label: "Settings" },
 ];
@@ -158,7 +161,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               {navItems.find((item) => isActive(item.href))?.label || "Admin"}
             </h1>
           </div>
-          <NotificationBell />
+          <div className="flex items-center gap-1 sm:gap-2">
+            <UpcomingRequests />
+            <NotificationBell />
+          </div>
         </header>
 
         {/* Page content */}

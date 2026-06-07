@@ -4,6 +4,7 @@ import { Mail, Search, ArrowUpRight, Clock, CheckCircle2, AlertCircle, XCircle, 
 import { dashboardService } from "@/services/dashboardService.ts";
 
 type RequestItem = {
+  id: string;
   title: string;
   from: string;
   createdAt: string;
@@ -157,7 +158,7 @@ export default function RequestsList() {
                     {r.priority}
                   </span>
                   <a
-                    href="#"
+                    href={`/admin/requests/${r.id || 'demo'}`}
                     className="flex items-center gap-1 text-sm text-[#00E6D7] hover:text-[#00E6D7]/80 transition-colors"
                   >
                     <span className="hidden sm:inline">View</span>

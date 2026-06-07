@@ -47,7 +47,7 @@ export default function TestimonialsSection() {
       id: 1,
       name: "Crypto Elites",
       role: "Crypto Education Brand",
-      avatar: "/home/Hero/clients/1.webp",
+      avatar: "/customers/crypto-elites.jpeg",
       text: "We needed crypto content that looked more professional without making the message\n" +
           "harder to understand. EyesOn helped us turn the ideas into clean animations that felt easy\n" +
           "to watch, and one of the videos passed 500K+ views.",
@@ -57,7 +57,7 @@ export default function TestimonialsSection() {
       id: 2,
       name: "Cryptosity",
       role: "Crypto Media & Education",
-      avatar: "/home/Hero/clients/2.webp",
+      avatar: "/customers/cryptosisty.jpeg",
       text: "Our content already had strong ideas, but the editing needed to feel cleaner and more\n" +
           "engaging. EyesOn improved the pacing, structure, captions, and overall look, which made\n" +
           "the videos much easier to watch on social media.",
@@ -67,7 +67,7 @@ export default function TestimonialsSection() {
       id: 3,
       name: "Predictefy",
       role: "Prediction Market Platform",
-      avatar: "/home/Hero/clients/3.webp",
+      avatar: "/customers/predctfy.jpeg",
       text: "For our launch video, we needed something that could explain the product quickly and\n" +
           "still feel exciting. EyesOn understood the concept fast, shaped the story, and delivered a\n" +
           "video that felt polished, modern, and clear.",
@@ -77,7 +77,7 @@ export default function TestimonialsSection() {
       id: 4,
       name: "Kraken Team",
       role: "Crypto Exchange Team",
-      avatar: "/home/Hero/clients/4.webp",
+      avatar: "/customers/kraken.jpeg",
       text: "EyesOn helped us with video editing and made the process simple from start to finish. The\n" +
           "edits were clean, the pacing felt professional, and the final videos matched the quality we\n" +
           "wanted for our brand.",
@@ -87,7 +87,7 @@ export default function TestimonialsSection() {
       id: 5,
       name: "Remora",
       role: "RWA Crypto Brand",
-      avatar: "/home/Hero/clients/1.webp",
+      avatar: "/customers/remora.jpeg",
       text: "We worked with EyesOn on animations for our Instagram and social media content. They\n" +
           "helped make the visuals feel more dynamic and polished, while still keeping the content\n" +
           "simple enough for people to understand quickly.",
@@ -97,7 +97,7 @@ export default function TestimonialsSection() {
       id: 6,
       name: "Hey Anon",
       role: "Web3 / AI Brand",
-      avatar: "/home/Hero/clients/2.webp",
+      avatar: "/customers/hey-anon.jpeg",
       text: "We had ideas that were not always easy to explain visually. EyesOn helped turn them into\n" +
           "content that felt clearer, smoother, and more engaging, especially with the editing flow and\n" +
           "motion details.",
@@ -107,7 +107,7 @@ export default function TestimonialsSection() {
       id: 7,
       name: "Nexo",
       role: "Digital Assets Platform",
-      avatar: "/home/Hero/clients/3.webp",
+      avatar: "/customers/nexo.png",
       text: "The team brought a strong level of polish to our video content. The editing felt clean, the\n" +
           "motion details were subtle but effective, and the final result looked aligned with the\n" +
           "standard we needed.",
