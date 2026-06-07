@@ -37,7 +37,7 @@ const DEFAULT_FEATURES: FeatureItem[] = [
       "Send us your footage and we will create a free 15-second sample edit so you can preview\n" +
         "the pacing, structure, and editing style before committing to a full project.",
     path: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
-    bgImage: "/Branding/cardbrand.webp",
+    bgImage: "/Shared/Features/1.png",
   },
   {
     id: 2,
@@ -46,7 +46,7 @@ const DEFAULT_FEATURES: FeatureItem[] = [
       "We edit with platform behavior in mind, stronger hooks, tighter pacing, cleaner structure,\n" +
         "and better visual flow designed for YouTube, Instagram, TikTok, Reels, Shorts, and X.",
     path: "M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z",
-    bgImage: "/Branding/cardbrand.webp",
+    bgImage: "/Shared/Features/1.png",
   },
   {
     id: 3,
@@ -55,7 +55,7 @@ const DEFAULT_FEATURES: FeatureItem[] = [
       "We study pacing, hooks, visual rhythm, captions, emotional payoff, and viewer behavior to\n" +
         "create content that feels more engaging, more watchable, and more likely to be shared.",
     path: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
-    bgImage: "/Branding/cardbrand.webp",
+    bgImage: "/Shared/Features/1.png",
   },
   {
     id: 4,
@@ -64,7 +64,7 @@ const DEFAULT_FEATURES: FeatureItem[] = [
       "From one-off videos to ongoing monthly content pipelines, our workflow is built to support\n" +
         "creators and brands that need consistent output without sacrificing quality.",
     path: "M13 10V3L4 14h7v7l9-11h-7z",
-    bgImage: "/Branding/cardbrand.webp",
+    bgImage: "/Shared/Features/1.png",
   },
   {
     id: 5,
@@ -73,7 +73,7 @@ const DEFAULT_FEATURES: FeatureItem[] = [
       "No confusing revisions or disappearing freelancers. Every project follows a structured\n" +
         "workflow with organized feedback, updates, and reliable delivery timelines.",
     path: "M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01",
-    bgImage: "/Branding/cardbrand.webp",
+    bgImage: "/Shared/Features/1.png",
   },
   {
     id: 6,
@@ -82,7 +82,7 @@ const DEFAULT_FEATURES: FeatureItem[] = [
       "We work with creators, startups, SaaS teams, and modern brands across 25+ countries,\n" +
         "delivering content designed for today's fast-moving digital platforms.",
     path: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z",
-    bgImage: "/Branding/cardbrand.webp",
+    bgImage: "/Shared/Features/1.png",
   },
 ];
 
@@ -114,7 +114,7 @@ const features: FeatureItem[] = featureOverrides.map((override) => {
 ---
 
 <section
-  class="relative w-full overflow-hidden px-6 py-20 font-sans lg:px-16"
+  class="relative w-full overflow-visible px-6 py-20 font-sans lg:px-16"
   data-features-section
 >
   <p class="text-[11px] sm:text-sm tracking-widest text-white/60 font-semibold uppercase text-center w-full mb-6">
@@ -146,49 +146,42 @@ const features: FeatureItem[] = featureOverrides.map((override) => {
     </div>
 
     <div
-      class="feature-track grid w-full grid-cols-1 gap-5 md:gap-6 lg:grid-cols-3"
+      class="feature-track grid w-full grid-cols-1 gap-10 md:gap-14 lg:grid-cols-3"
       data-feature-track
     >
       {
         features.map((feature, index) => (
           <article
-            class="feature-card group relative min-h-70 overflow-hidden rounded-[24px] border border-white/5 bg-[#0A1A2A]/20 p-6 md:p-8 transition-all duration-300 hover:border-white/10 hover:bg-[#0A1A2A]/40 md:backdrop-blur-lg"
+            class="feature-card group relative min-h-70 overflow-visible rounded-[24px] border border-white/5 bg-[#0A1A2A]/20 p-6 md:p-8 transition-all duration-300 hover:border-white/10 hover:bg-[#0A1A2A]/40 md:backdrop-blur-lg"
             data-feature-card-index={index}
           >
-            <div
-              class="absolute inset-0 z-0 bg-cover bg-center mix-blend-overlay transition-opacity duration-500"
-              style={`background-image: url(${feature.bgImage})`}
+            <img
+              src={`/Shared/Features/${feature.id}.svg`}
+              alt=""
+              class="absolute left-1/2 -top-23 z-20 h-60 w-60 -translate-x-1/2 transition-transform duration-300 group-hover:scale-105"
+              aria-hidden="true"
             />
+            <div class="flex justify-end items-center flex-col">
+              <div
+                  class="absolute inset-0 z-0 bg-cover bg-center mix-blend-overlay transition-opacity duration-500 rounded-2xl"
+                  style={`background-image: url(${feature.bgImage})`}
+              />
 
-            {/* افکت نوری ملایم در هاور */}
-            <div class="pointer-events-none absolute inset-x-0 -bottom-10 z-0 h-32 bg-linear-to-t from-[#42D1D1]/10 to-transparent opacity-0 transition-opacity duration-500 blur-2xl group-hover:opacity-100" />
+              {/* افکت نوری ملایم در هاور */}
+              <div class="pointer-events-none absolute inset-x-0 -bottom-10 z-0 h-32 bg-linear-to-t from-[#42D1D1]/10 to-transparent opacity-0 transition-opacity duration-500 blur-2xl group-hover:opacity-100" />
 
-            <div class="relative z-10 flex h-full flex-col">
-              {/* آیکون مینیمال شده */}
-              <div class="mb-8 flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 shadow-sm transition-transform duration-300 group-hover:scale-105 group-hover:border-[#42D1D1]/30">
-                <svg
-                  class="h-5 w-5 text-white group-hover:text-[#42D1D1] transition-colors duration-300"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.5"
-                    d={feature.path}
-                  />
-                </svg>
+              <div class="relative z-10 flex h-full flex-col items-center justify-center text-center top-7">
+                {/* آیکون مینیمال شده */}
+
+
+                {/* متون مینیمال شده */}
+                <h3 class="mb-3 text-[19px] font-semibold tracking-wide text-white/95">
+                  {feature.title}
+                </h3>
+                <p class="text-[14px] leading-[1.8] font-light text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
+                  {feature.description}
+                </p>
               </div>
-
-              {/* متون مینیمال شده */}
-              <h3 class="mb-3 text-[19px] font-semibold tracking-wide text-white/95">
-                {feature.title}
-              </h3>
-              <p class="text-[14px] leading-[1.8] font-light text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
-                {feature.description}
-              </p>
             </div>
           </article>
         ))
@@ -219,9 +212,11 @@ const features: FeatureItem[] = featureOverrides.map((override) => {
     .feature-track {
       display: flex;
       overflow-x: auto;
+      overflow-y: visible;
       scroll-snap-type: x mandatory;
       -ms-overflow-style: none;
       scrollbar-width: none;
+      padding-top: 100px;
       padding-bottom: 1rem; /* برای جا باز کردن سایه‌ی کارت‌ها */
     }
 

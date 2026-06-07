@@ -186,7 +186,7 @@ export default function ProcessScrollSection() {
 
         <div
           ref={gridContainerRef}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 relative items-start"
+          className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-10 lg:gap-16 relative items-start"
         >
           {/* 🔴 فاصله‌ی عمودی بین کارت‌ها در موبایل کمتر شد (space-y-12) */}
           <div className="space-y-10 sm:space-y-16 lg:space-y-32 lg:pb-32">
@@ -232,7 +232,7 @@ export default function ProcessScrollSection() {
           <div className="hidden lg:block relative h-full">
             <div
               ref={pinRef}
-              className="w-full h-[600px] flex items-center justify-center will-change-transform"
+              className="w-full h-[750px] flex items-center justify-center will-change-transform"
             >
               <div className="relative w-full h-full">
                 <div ref={parallaxImgRef} className="absolute inset-0 will-change-transform">

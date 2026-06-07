@@ -10,6 +10,97 @@ import { ServicesSection } from "../islands/branding/ServicesSection.tsx";
 import { AssetsGallerySection } from "../islands/branding/AssetsGallerySection.tsx";
 import { WhyBrandingSection } from "../islands/branding/WhyBrandingSection";
 import CTA from "./Shared/CTA.astro";
+
+const qas = [
+  {
+    id : 1,
+    q : "What is branding and visual identity?",
+    a : "Branding and visual identity define how your business looks, feels, and communicates. It\n" +
+        "includes your logo, colors, typography, imagery, and design system working together to\n" +
+        "create a consistent and recognizable brand."
+  },
+  {
+    id : 2,
+    q : "What's included in a branding project?",
+    a : "Depending on your needs, branding projects can include logo design, brand strategy, color\n" +
+        "systems, typography, visual assets, brand guidelines, social media assets, and marketing\n" +
+        "materials."
+  },
+  {
+    id : 3,
+    q : "Why is branding important for my business?",
+    a : "Strong branding helps build trust, improve recognition, differentiate you from competitors,\n" +
+        "and create a consistent experience across every customer touchpoint."
+  },
+  {
+    id : 4,
+    q : "Do I need more than just a logo?",
+    a : "Yes. A logo is only one part of your brand identity. A complete brand system ensures\n" +
+        "consistency across your website, social media, products, presentations, and marketing\n" +
+        "materials."
+  },
+  {
+    id : 5,
+    q : "How long does a branding project take?",
+    a : "Timelines vary depending on scope, but most branding projects take between 2–6 weeks\n" +
+        "from discovery to final delivery."
+  },
+  {
+    id : 6,
+    q : "Will I receive source files and brand guidelines?",
+    a : "Absolutely. You'll receive all final logo files, source files, and brand guidelines to ensure\n" +
+        "your identity can be used consistently across future projects."
+  },
+  {
+    id : 7,
+    q : "Can you redesign an existing brand?",
+    a : "Yes. We help businesses refresh outdated identities, improve consistency, modernize\n" +
+        "visual systems, and strengthen brand perception while preserving existing brand equity\n" +
+        "when needed."
+  }
+]
+
+const features = [
+  {
+    id : 1,
+    title : "Strategic Brand Foundations",
+    description : "Every visual identity starts with understanding your positioning, audience, and goals.",
+    bgImage : "/Shared/Features/1.png",
+  },
+  {
+    id : 2,
+    title : "Distinctive Brand Identity",
+    description : "Logos, colors, typography, and visual systems designed to help your brand stand out.",
+    bgImage : "/Shared/Features/1.png",
+  },
+  {
+    id : 3,
+    title : "Scalable Design Systems",
+    description : "Consistent brand assets and guidelines that grow with your business.",
+    bgImage : "/Shared/Features/1.png",
+  },
+  {
+    id : 4,
+    title : "Consistent Across Every Touchpoint",
+    description : "Maintain a unified look and feel across websites, social media, products, and marketing\n" +
+        "materials.",
+    bgImage : "/Shared/Features/1.png",
+  },
+  {
+    id : 5,
+    title : "Professional & Memorable",
+    description : "Build stronger first impressions and increase brand recognition through thoughtful design.",
+    bgImage : "/Shared/Features/1.png",
+  },
+  {
+    id : 6,
+    title : "Collaborative Process",
+    description : "Clear communication, structured feedback, and a streamlined workflow from concept to\n" +
+        "final delivery.",
+    bgImage : "/Shared/Features/1.png",
+  },
+
+]
 ---
 
 <div class="relative overflow-x-clip">
@@ -18,14 +109,16 @@ import CTA from "./Shared/CTA.astro";
   <LogoCaro />
   <WhatIsBranding client:load />
   <FeaturesSection
-    title="Excellence in stress-free"
-    highlight="Branding & Visual Identity"
-    description="We don't treat branding as decoration. We design clear, scalable brand systems that reduce confusion, build trust, and grow with your business — without unnecessary complexity or stress."
+    title="Why Brands Choose "
+    highlight="EyesOn"
+    description="We create brand identities that are memorable, scalable, and built to support long term
+business growth."
+    features={features}
   />
   <ServicesSection client:load />
   <AssetsGallerySection client:load />
   <WhyBrandingSection client:load />
-  <QandASection />
+  <QandASection questions={qas}/>
   <ContactUs client:load />
   <CTA  />
 </div>

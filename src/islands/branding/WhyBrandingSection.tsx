@@ -23,7 +23,7 @@ export const WhyBrandingSection = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.05 }}
-        className="max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-5"
+        className="max-w-350 mx-auto flex flex-col lg:flex-row gap-5"
       >
         {/* ===== ستون چپ: تیتر + ۲ کارت افقی ===== */}
         <div className="flex flex-col gap-5 lg:w-[42%]">
@@ -33,7 +33,7 @@ export const WhyBrandingSection = () => {
               WHY <span className="text-[#1ECFBC]">BRANDING</span> MATTERS
             </h2>
             <p className="text-gray-300 text-base font-light mt-2 sm:text-lg md:text-xl text-center lg:text-left">
-              The Value Behind a Strong Brand
+              The Business Value of a Strong Brand
             </p>
           </motion.div>
 
@@ -56,13 +56,12 @@ export const WhyBrandingSection = () => {
               style={{ width: "58%" }}
             >
               <h3 className="text-base font-bold text-white leading-snug mb-2 sm:text-lg lg:mb-3">
-                Builds Instant Trust &<br />
+                Builds Trust &<br />
                 Credibility
               </h3>
               <p className="text-gray-400 text-xs leading-relaxed sm:text-sm">
-                First impressions happen fast. A strong visual identity signals
-                professionalism, confidence, and reliability from the first
-                interaction.
+                Professional branding creates stronger first impressions and helps customers feel
+                confident choosing your business.
               </p>
             </div>
           </motion.div>
@@ -78,12 +77,11 @@ export const WhyBrandingSection = () => {
               style={{ width: "58%" }}
             >
               <h3 className="text-base font-bold text-white leading-snug mb-2 sm:text-lg lg:mb-3">
-                Recognizable &<br />
-                Memorable
+                Increases Brand Recognition
               </h3>
               <p className="text-gray-400 text-xs leading-relaxed sm:text-sm">
-                Consistent visuals help your brand stand out and stay
-                top-of-mind — even in crowded markets.
+                Consistent visual identity makes your brand easier to remember across every platform and
+                customer touchpoint.
               </p>
             </div>
             <div className="relative shrink-0" style={{ width: "42%" }}>
@@ -104,13 +102,11 @@ export const WhyBrandingSection = () => {
         >
           <div className="p-5 sm:p-6 lg:p-7 shrink-0">
             <h3 className="text-xl font-bold text-white leading-tight mb-3 sm:text-2xl lg:mb-4">
-              Consistency Across
-              <br />
-              Product & Marketing
+              Creates Consistency Across Every Channel
             </h3>
             <p className="text-gray-400 text-sm leading-relaxed lg:text-[15px]">
-              A unified brand system ensures your product, website, content, and
-              ads all speak the same visual language.
+              A unified brand system keeps your website, social media, products, and marketing aligned
+              under one visual identity.
             </p>
           </div>
 
@@ -140,13 +136,11 @@ export const WhyBrandingSection = () => {
 
           <div className="p-5 sm:p-6 lg:p-7 shrink-0">
             <h3 className="text-lg font-bold text-white leading-tight mb-2 sm:text-xl lg:mb-3">
-              Better Performing
-              <br />
-              Content & Ads
+              Differentiates You From Competitors
             </h3>
             <p className="text-gray-400 text-sm leading-relaxed lg:text-[15px]">
-              Clear, recognizable branding improves recall, engagement, and
-              overall campaign performance.
+              Distinctive branding helps your business stand out in crowded markets and communicate
+              what makes you unique.
             </p>
           </div>
         </motion.div>

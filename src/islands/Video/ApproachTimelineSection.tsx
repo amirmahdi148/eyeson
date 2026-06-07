@@ -41,10 +41,13 @@ export default function ApproachTimelineSection() {
             OUR PROCESS
           </p>
           <h2 className="text-3xl font-bold leading-tight text-white md:text-5xl">
-            A Simple Workflow Built for Fast, Modern Content
+            Our Approach to
+            High Performing Ad Creatives
           </h2>
           <p className="mt-4 text-sm leading-7 text-[#c3d4de] md:text-base">
-            We keep the editing process clear, fast, and organized, from raw footage to fully polished content optimized for modern social media platforms.
+            We don’t just design visuals and hope they work. Every ad creative is built through a clear
+            process focused on hooks, message clarity, platform behavior, visual impact, and
+            conversion.
           </p>
         </div>
 
@@ -65,7 +68,7 @@ export default function ApproachTimelineSection() {
               <div key={step} className="flex items-center gap-6 md:gap-12">
                 {/* Numbered circle on the line */}
                 <div className="relative flex w-10 shrink-0 items-start justify-center pt-1 md:w-20 md:pt-2">
-                  <div className="relative flex h-12 w-12 items-center justify-center md:h-14 md:w-14">
+                  <div className="relative top-4 flex h-12 w-12 items-center justify-center md:h-14 md:w-14">
                     <div className="absolute inset-0 flex items-center justify-center rounded-full border-[0.5px] border-[#FFFFFF33] bg-[#032635] text-base font-bold text-[#FFFFFF66] md:text-xl">
                       {`0${step}`}
                     </div>

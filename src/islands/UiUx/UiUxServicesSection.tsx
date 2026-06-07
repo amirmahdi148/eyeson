@@ -6,42 +6,43 @@ const services = [
     id: 1,
     title: "Web UI Design",
     description:
-      "Craft visually sharp, responsive web interfaces that elevate user experience and create meaningful engagement across every device.",
+      "Modern websites and landing pages designed for clarity, usability, and conversion.",
     imageUrl: "/uiux/card1.webp",
   },
   {
     id: 2,
     title: "Mobile App UI Design",
     description:
-      "Design intuitive and visually compelling mobile app interfaces built for seamless interaction on both iOS and Android platforms.",
+      "Intuitive mobile experiences designed for iOS and Android applications.",
     imageUrl: "/uiux/card2.webp",
   },
   {
     id: 3,
     title: "Dashboard UI Design",
     description:
-      "Develop clean, data-focused dashboards that simplify complexity and support smarter, faster decision-making for modern digital products.",
+      "Data driven interfaces that simplify workflows and improve decision making.",
     imageUrl: "/uiux/card3.webp",
   },
   {
     id: 4,
-    title: "UI Style Guide Creation",
+    title: "Design Systems",
     description:
-      "Build scalable design systems and component libraries that keep your product consistent, cohesive, and ready to grow without losing its visual identity.",
+      "Scalable design systems and reusable components built for consistency and growth.",
     imageUrl: "/uiux/card4.webp",
   },
   {
     id: 5,
-    title: "Prototype Development",
+    title: "Interactive Prototypes",
     description:
-      "Create interactive prototypes using Figma for simple flows and Protopie for advanced interactions, helping you validate ideas and optimize user journeys before development begins.",
+      "Clickable prototypes that help validate ideas, user flows, and product experiences before\n" +
+        "development.",
     imageUrl: "/uiux/card5.webp",
   },
   {
     id: 6,
     title: "UI Redesign & Optimization",
     description:
-      "Upgrade existing interfaces to improve usability, accessibility, and overall performance, resulting in higher engagement and better business outcomes.",
+      "Improve existing products with better usability, navigation, accessibility, and visual design.",
     imageUrl: "/uiux/card6.webp",
   },
 ];
@@ -53,12 +54,10 @@ export default function UiUxServicesSection() {
         {/* هدر بخش */}
         <div className="mx-auto max-w-3xl text-center mb-16 lg:mb-20">
           <h2 className="text-[36px] font-black tracking-tight text-[#32c9b4] sm:text-[44px] lg:text-[50px]">
-            UI/UX design
+            UI/UX Design Services
           </h2>
           <p className="mt-5 text-[15px] leading-relaxed text-gray-300 sm:text-[16px] lg:text-[17px]">
-            Explore powerful short-form video formats designed to highlight your
-            product, boost engagement, and connect with your audience across
-            every platform.
+            Design solutions for websites, SaaS products, mobile applications, and digital platforms.
           </p>
         </div>
 

@@ -2,6 +2,7 @@ import PrimaryButton from "@/components/Shared/PrimaryButton";
 import SecondaryButton from "@/components/Shared/SecondaryButton";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
+
 type InfoCard = {
   id: number;
   title: string;
@@ -27,34 +28,38 @@ type UiUxNeedProps = {
 const defaultInfoCards: InfoCard[] = [
   {
     id: 1,
-    title: "Promote brand individuality",
+    title: "Improve User Experience",
     description:
-      "Professional editing shapes your content into a style that feels uniquely yours. From pacing to color and transitions, consistent editing builds a recognizable identity.",
-    image: "/animation-section/short-form.webp",
+      "Intuitive interfaces help users navigate your product with confidence and accomplish tasks\n" +
+        "faster.",
+    image: "/Shared/sharing/first-left.svg",
   },
   {
     id: 2,
-    title: "Stand out from competitors",
+    title: "Build Trust & Credibility",
     description:
-      "Clean, well-structured edits naturally separate you from noise. Strong storytelling and polished visuals make your videos feel more professional and memorable.",
-    image: "/animation-section/motion.webp",
+      "Professional design creates stronger first impressions and increases confidence in your\n" +
+        "product and brand.",
+    image: "/Shared/sharing/first-right.svg",
   },
   {
     id: 3,
-    title: "Create shareable & reusable assets",
+    title: "Simplify Complex Products",
     description:
-      "Great edits can be repurposed across social platforms and campaigns. This gives your team more content options without starting from scratch each time.",
-    image: "/animation-section/video.webp",
+      "Clear layouts, user flows, and information architecture make even advanced platforms\n" +
+        "easier to understand and use.",
+    image: "/Shared/sharing/first-right.svg",
   },
 ];
 
 export default function UiUxNeed({
   titleLine1 = "Why",
-  titleHighlight = "UI/UX",
-  introText = "Why UI/UX Is a Business Decision — Not Just Design",
-  featureTitle = "Boost sales & interactivity",
-  featureDescription = "High-quality editing helps your audience understand your product faster, trust your message sooner, and take action with less friction.",
-  primaryButtonLabel = "Get a free sample",
+  titleHighlight = "UI/UX Matters",
+  introText = "Good design helps users understand, trust, and engage with your product more effectively.",
+  featureTitle = "Increase Conversions & User Engagement",
+  featureDescription = "Great UI/UX removes friction from the user journey, making it easier for visitors to explore\n" +
+      "your product, complete actions, and become loyal users.",
+  primaryButtonLabel = "Request UI/UX Proposal",
   secondaryButtonLabel = "See our work",
   panelOverlayClassName = "bg-[linear-gradient(140deg,rgba(5,33,54,0.82)_10%,rgba(2,21,35,0.85)_70%)]",
   rightSection,
@@ -116,7 +121,7 @@ export default function UiUxNeed({
             aria-hidden
           />
 
-          <div className="relative z-10 grid items-center gap-7 lg:grid-cols-2">
+          <div className="relative z-10 grid items-center gap-7 lg:grid-cols-2 justify-between">
             <div className="order-2 lg:order-1">
               <h3 className="text-[42px] leading-[1.05] font-bold text-white md:text-4xl">
                 {featureTitle}
@@ -137,25 +142,9 @@ export default function UiUxNeed({
               </div>
             </div>
 
-            <div className="order-1 lg:order-2">
+            <div className="order-1 lg:order-2 lg:pl-30">
               {rightSection ?? (
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="rounded-2xl border border-[#0ea2b6] bg-[#083148]/80 p-4">
-                    <div className="mb-2 h-5 w-16 rounded-full bg-[#17d6d8]/30" />
-                    <div className="h-20 rounded-xl bg-[linear-gradient(145deg,#11acc2,#095273)]" />
-                  </div>
-                  <div className="rounded-2xl border border-[#0ea2b6] bg-[#0a3652]/80 p-4">
-                    <div className="mb-2 ml-auto h-5 w-20 rounded-full bg-[#17d6d8]/30" />
-                    <div className="h-20 rounded-xl bg-[linear-gradient(145deg,#19c8d7,#0a617d)]" />
-                  </div>
-                  <div className="col-span-2 rounded-2xl border border-[#0e90a8] bg-[#06283f]/80 p-4">
-                    <div className="mb-3 flex justify-between text-[10px] uppercase tracking-wider text-[#8ecad9]">
-                      <span>Aug</span>
-                      <span>Sep</span>
-                    </div>
-                    <div className="h-12 rounded-xl bg-[#0c4561]" />
-                  </div>
-                </div>
+                  <img src="/Shared/sharing/main-right.svg" alt="Right Section SVG"/>
               )}
             </div>
           </div>

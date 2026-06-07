@@ -14,6 +14,48 @@ import UiUxPricingSlider from "../../islands/UiUx/UiUxPricingSlider";
 import UiUxAppSlider from "../../islands/UiUx/UiUxAppSlider";
 import { SplineScene } from "@/islands/About/SplineAboutPage";
 import PrimaryButton from "../Shared/PrimaryButton";
+
+const features = [
+  {
+    id : 1,
+    title : "User First Approach",
+    description : "Every design decision is made with real users in mind, creating experiences that feel\n" +
+        "natural and easy to navigate.",
+    bgImage : "/Shared/Features/1.png"
+  },
+  {
+    id : 2,
+    title : "SaaS & Product Focused",
+    description : "From startups to growing platforms, we design interfaces tailored for modern SaaS and\n" +
+        "digital products.",
+    bgImage : "/Shared/Features/1.png"
+  },
+  {
+    id : 3,
+    title : "Built for Scalability",
+    description : "Design systems and interfaces structured to grow with your product and team.",
+    bgImage : "/Shared/Features/1.png"
+  },
+  {
+    id : 4,
+    title : "Conversion Focused",
+    description : "Landing pages and user flows designed to guide visitors toward meaningful actions.",
+    bgImage : "/Shared/Features/1.png"
+  },
+  {
+    id : 5,
+    title : "Clean & Intuitive Design",
+    description : "Modern interfaces that simplify complex information and improve usability."
+  },
+  {
+    id : 6,
+    title : "Collaborative Process",
+    description : "Transparent communication, structured feedback, and a streamlined workflow from\n" +
+        "concept to delivery.",
+    bgImage : "/Shared/Features/1.png"
+  },
+]
+
 ---
 
 <div class="flex flex-col gap-3 justify-center items-between">
@@ -25,11 +67,7 @@ import PrimaryButton from "../Shared/PrimaryButton";
     <div
       class="mx-auto flex w-full max-w-7xl flex-col items-center gap-8 px-4 sm:px-6 lg:flex-row lg:justify-between lg:gap-12 lg:px-8"
     >
-      {/* ========================================== */}
-      {
-        /* بخش ربات سه‌بعدی - در موبایل بالا (order-1) و در دسکتاپ سمت راست (order-2) */
-      }
-      {/* ========================================== */}
+
       <div
         class="order-1 lg:order-2 relative flex w-full items-center justify-center h-87.5 sm:h-112.5 lg:h-137.5 lg:w-[55%] xl:w-[60%]"
       >
@@ -40,9 +78,7 @@ import PrimaryButton from "../Shared/PrimaryButton";
         />
       </div>
 
-      {/* ========================================== */}
-      {/* بخش متنی - در موبایل پایین (order-2) و در دسکتاپ سمت چپ (order-1) */}
-      {/* ========================================== */}
+
       <div
         class="order-2 lg:order-1 relative z-10 flex w-full flex-col items-center text-center lg:w-[45%] xl:w-[40%] lg:items-start lg:text-left gap-6 lg:gap-8"
       >
@@ -55,14 +91,12 @@ import PrimaryButton from "../Shared/PrimaryButton";
           <p
             class="mt-4 sm:mt-6 text-[14px] sm:text-base lg:text-lg leading-relaxed text-neutral-300 max-w-lg mx-auto lg:mx-0 font-light"
           >
-            UI/UX design shapes how users experience your product—from the first
-            impression to the final interaction. It’s the process of creating
-            interfaces that look clean, feel intuitive, and guide users
-            effortlessly through every step. Good design removes friction,
-            clarifies information, and makes complex tasks feel simple. Whether
-            you’re building a website, SaaS platform, or mobile app, thoughtful
-            UI/UX helps your audience understand your product faster and enjoy
-            using it more.
+            UI/UX design is the process of designing the interface and user experience of a digital
+            product. It focuses on how your website, app, or platform looks, feels, and functions for the
+            people using it.
+            Good UI/UX makes navigation intuitive, information easy to understand, and every
+            interaction seamless. Whether it's a website, landing page, SaaS platform, or mobile app,
+            great design helps users accomplish their goals faster and with less friction.
           </p>
         </div>
 
@@ -73,9 +107,11 @@ import PrimaryButton from "../Shared/PrimaryButton";
   </section>
 
   <FeaturesSection
-    title="Excellence in stress-free"
+    title="Why Teams Choose EyesOn for"
     highlight="UI/UX design"
-    description="We’ve spent years polishing our creative workflow to make short-form video production smooth, fast, and predictable. No chaos, no endless revisions, no losing your mind over tiny details. We know working with a creative team can feel risky, especially when you’re worried they “just won’t get your brand.” That’s why our process is built around clarity, communication, and total reliability."
+    description="We combine strategy, usability, and modern design to create digital experiences that look
+great, feel intuitive, and support long term product growth."
+    features={features}
   />
   <UiUxServicesSection client:load />
   <UiUxNeed client:load />

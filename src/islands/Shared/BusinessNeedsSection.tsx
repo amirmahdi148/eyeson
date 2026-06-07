@@ -165,25 +165,9 @@ export default function BusinessNeedsSection({
               </div>
             </div>
 
-            <div className="order-1 lg:order-2">
+            <div className="order-1 lg:order-2 lg:pl-10">
               {rightSection ?? (
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="rounded-2xl border border-[#0ea2b6] bg-[#083148]/80 p-4">
-                    <div className="mb-2 h-5 w-16 rounded-full bg-[#17d6d8]/30" />
-                    <div className="h-20 rounded-xl bg-[linear-gradient(145deg,#11acc2,#095273)]" />
-                  </div>
-                  <div className="rounded-2xl border border-[#0ea2b6] bg-[#0a3652]/80 p-4">
-                    <div className="mb-2 ml-auto h-5 w-20 rounded-full bg-[#17d6d8]/30" />
-                    <div className="h-20 rounded-xl bg-[linear-gradient(145deg,#19c8d7,#0a617d)]" />
-                  </div>
-                  <div className="col-span-2 rounded-2xl border border-[#0e90a8] bg-[#06283f]/80 p-4">
-                    <div className="mb-3 flex justify-between text-[10px] uppercase tracking-wider text-[#8ecad9]">
-                      <span>Aug</span>
-                      <span>Sep</span>
-                    </div>
-                    <div className="h-12 rounded-xl bg-[#0c4561]" />
-                  </div>
-                </div>
+                  <img src="/Shared/sharing/main-right.svg" alt="Right Section SVG"/>
               )}
             </div>
           </div>

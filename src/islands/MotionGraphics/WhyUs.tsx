@@ -23,42 +23,52 @@ interface Card {
 const cardData: Card[] = [
   {
     id: 1,
-    title: "Product Launches",
-    subtitle: "Make your product clear before the first click.",
+    title: "Social Media & Reels",
+    subtitle: "Turn simple ideas into content people actually watch.",
     description:
-      "Motion graphics help introduce new products with clarity and excitement — explaining features, value, and differentiation in seconds.",
+      "Motion graphics make social content feel sharper, faster, and more engaging. From reels\n" +
+        "and shorts to stories, posts, and branded content, motion helps your message stand out in\n" +
+        "feeds where static visuals are easy to ignore.",
     tags: [
-      "New product releases",
-      "Feature announcements",
-      "Go-to-market campaigns",
+      "Instagram Reels",
+      "TikTok",
+      "YouTube Shorts",
+      "X content",
+      "Stories",
     ],
     image: "/motion-graphics/WhyUs/1.webp",
   },
   {
     id: 2,
-    title: "SaaS Onboarding",
-    subtitle: "Turn first-time users into confident users.",
+    title: "Paid Ads & Campaigns",
+    subtitle: "Make the first seconds do more work.",
     description:
-      "Animated UI flows and explainer motion guide users through your product, reduce friction, and improve activation and retention.",
-    tags: ["SaaS platforms", "Web apps & dashboards", "Feature onboarding"],
+      "In paid campaigns, attention is expensive. Motion graphics help create stronger hooks,\n" +
+        "clearer messages, and more memorable visuals, giving your ads a better chance to stop\n" +
+        "the scroll, explain the offer, and drive action.",
+    tags: ["Meta ads", "YouTube ads", "LinkedIn campaigns" , "Product promos" , "Launch ads"],
     image: "/motion-graphics/WhyUs/2.webp",
   },
   {
     id: 3,
-    title: "Website Hero Sections",
-    subtitle: "Explain what you do before users scroll.",
+    title: "SaaS & Product Onboarding",
+    subtitle: "Guide users before confusion slows them down.",
     description:
-      "Hero motion instantly communicates your value proposition, captures attention, and sets a premium tone for your website.",
-    tags: ["Landing pages", "Product websites", "Brand homepages"],
+      "Animated UI flows, product screens, and explainer motion help users understand how your\n" +
+        "product works faster. Motion reduces friction, highlights key actions, and makes the first\n" +
+        "experience feel smoother, clearer, and more premium.",
+    tags: ["SaaS platforms", "Web apps", "Dashboards" , "Feature education" , "App onboarding"],
     image: "/motion-graphics/WhyUs/3.webp",
   },
   {
     id: 4,
-    title: "Paid Ads & Presentations",
-    subtitle: "Stop the scroll. Deliver the message fast.",
+    title: "Launches & Hero Sections",
+    subtitle: "Make your product feel clear, premium, and ready to explore.",
     description:
-      "Short-form motion graphics boost ad performance by simplifying the message and highlighting value within the first seconds.",
-    tags: ["Meta & YouTube ads", "LinkedIn campaigns", "Sales presentations"],
+      "From product launches and feature releases to website hero sections, motion graphics\n" +
+        "help turn key benefits into clear visual moments that create curiosity, explain value, and\n" +
+        "make your brand feel more modern from the first impression.",
+    tags: ["New releases", "Feature announcements", "Product demos" , "Landing pages" , "Hero sections"],
     image: "/motion-graphics/WhyUs/4.webp",
   },
 ];
@@ -172,11 +182,12 @@ export const MotionGraphicsSection: FC = () => {
         >
           <h2 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
             Where <span className="text-[#00E5FF]">Motion Graphics</span>
-            <br /> Performs Best
+            <br /> Create the Most Impact
           </h2>
           <p className="mt-6 text-sm text-slate-400 sm:text-base">
-            Motion graphics adapt to different goals, platforms, and business
-            stages.
+            Motion graphics work best when your content needs to earn attention fast, explain value
+            clearly, and make your brand feel more alive across social media, ads, product
+            experiences, and websites.
             <br className="hidden sm:block" /> Here's where they create the most
             impact.
           </p>

@@ -3,7 +3,10 @@ import PrimaryButton from "../Shared/PrimaryButton";
 import "./AdCreativesSection.css";
 ---
 
-<section class="ad-creatives-section">
+<section class="ad-creatives-section flex items-center justify-center flex-col">
+  <p class="text-[11px] sm:text-sm relative left-0 lg:left-4/9 bottom-7 tracking-widest text-white/60 font-semibold uppercase text-center lg:text-left w-full mb-3">
+    VIRALITY MEETS PERFORMANCE
+  </p>
   <div class="ad-creatives-container">
     {/* ستون سمت چپ: تصویر */}
     <div class="ad-image-column">
@@ -19,31 +22,30 @@ import "./AdCreativesSection.css";
 
     {/* ستون سمت راست: متن و دکمه */}
     <div class="ad-content-column">
+
       <h2 class="ad-title">
-        <span class="title-white">IMPACTFUL & HIGH-CONVERTING</span>
-        <br />
+        <span class="title-white">Viral</span>
+
         <span class="title-teal">Ad Creatives</span>
-        <span class="title-white">that elevate your brand</span>
+        <span class="title-white">Built to Turn Attention Into Action</span>
       </h2>
 
       <div class="ad-description">
         <p>
-          By understanding how each creative fits into your campaign's funnel,
-          we design ads that stop the scroll, deliver your message fast, and
-          drive measurable performance. Every asset is crafted with strategic
-          clarity, bold visuals, and platform-specific optimization to maximize
-          engagement and conversions.
+          Most ads are ignored in seconds. Strong creatives do the opposite, they stop the scroll,
+          create curiosity, deliver the message fast, and guide viewers toward action.
+          At EyesOn Studio, we design ad creatives with a performance mindset, combining viral
+          hooks, bold visuals, clean messaging, and platform-specific structure to help brands
+          increase engagement, clicks, and conversions.
+          The result is creative work that does not just look impressive, it helps your campaigns
+          perform harder.
         </p>
-        <p>
-          Our approach blends creativity with data-driven thinking, helping your
-          brand stand out while reducing wasted ad spend and strengthening
-          long-term campaign results.
-        </p>
+        
       </div>
 
       <div class="ad-action-wrapper">
         <div class="ad-button-glow"></div>
-        <PrimaryButton text="See our work" width="100%" />
+        <PrimaryButton text="See our work" width="100%" href="/portfolio"/>
       </div>
     </div>
   </div>

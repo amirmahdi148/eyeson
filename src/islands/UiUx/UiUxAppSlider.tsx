@@ -28,13 +28,11 @@ export default function UiUxAppSlider() {
     <section className="app-slider-section">
       <div className="app-slider-header">
         <h2 className="app-slider-title">
-          <span className="title-teal">App</span> Design Samples
+          <span className="title-teal">Mobile App </span>Design Portfolio
         </h2>
         <p className="app-slider-subtitle">
-          This isn't a gallery of random screens.
-          <br />
-          Every app you see here is the result of solving a real problem through
-          thoughtful design.
+          Explore a selection of mobile applications designed for usability, engagement, and
+          seamless user experiences
         </p>
       </div>
 

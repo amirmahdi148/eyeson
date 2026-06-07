@@ -18,11 +18,14 @@ import HomeBackground from "@/components/Home/HomeBackground.astro";
   <HomeBackground />
   <HeroBasic
     client:load
-    BeforeHighlight="Turn Complexity Into Clarity With"
-    Highlight="Motion Graphics"
-    Description="From product explainers to brand stories, we create motion graphics that break down complexity, communicate value clearly, and help audiences understand what matters — fast."
+    BeforeHighlight="Motion Graphics That Make"
+    Highlight="Complex Ideas Feel Simple."
+    Description="We create motion graphics that explain products, simplify messages, and turn brand ideas
+into clear, engaging visual stories built for modern digital platforms."
     imageUrl="/motion-graphics/motionG.webp"
     primaryBtnText="Start a Project"
+    primaryBtnUrl="/contact"
+    secondaryBtnUrl="/pricing"
     secondaryBtnText="Get Pricing"
     imageDivClassName="relative lg:!max-w-none lg:w-[140%] lg:-ml-40 lg:mt-0 mt-10 z-0 hidden  lg:block"
     imageWrapperClassName="absolute w-170 h-230 -right-10 top-50"
@@ -43,7 +46,53 @@ import HomeBackground from "@/components/Home/HomeBackground.astro";
   <FeaturesSection
     title="Excellence in stress-free"
     highlight="Motion Graphics Production"
-    description="Years of refining our motion workflow allow us to deliver clear, structured, and stress-free motion graphics projects."
+    description="We make the motion graphics process clear, organized, and easy to manage, from first idea
+to final export, so you get polished visuals without messy communication or production
+stress."
+    features={[
+      {
+        id : 1,
+        title : "Clear Creative Direction",
+        description : "We start every project by understanding your goal, audience, message, and visual style, so\n" +
+            "the animation has a clear purpose before production begins.",
+        bgImage : "/Shared/Features/1.png"
+      },
+      {
+        id : 2,
+        title : "Preview Before Full Production",
+        description : "Before the final animation is built, we align on the direction, pacing, structure, and visual\n" +
+            "approach, helping you avoid confusion, wasted time, and unnecessary revisions.",
+        bgImage : "/Shared/Features/1.png"
+      },
+      {
+        id : 3,
+        title : "Flexible Project Scope",
+        description : "From short motion assets to full explainers, launch visuals, and ongoing content packages,\n" +
+            "our workflow adapts to your timeline, budget, and production needs.",
+        bgImage : "/Shared/Features/1.png"
+      },
+      {
+        id : 4,
+        title : "Fast Turnaround",
+        description : "Motion projects need momentum. We keep the process efficient with clear milestones,\n" +
+            "organized feedback, and focused production timelines without sacrificing quality.",
+        bgImage : "/Shared/Features/1.png"
+      },
+      {
+        id : 5,
+        title : "High Quality Motion Design",
+        description : "We focus on smooth animation, strong composition, clean transitions, visual rhythm,\n" +
+            "sound, and storytelling to make every motion graphic feel polished and professional.",
+        bgImage : "/Shared/Features/1.png"
+      },
+      {
+        id : 6,
+        title : "Reliable Communication",
+        description : "No confusing process or disappearing creatives. You get clear updates, structured\n" +
+            "feedback rounds, and a production flow designed to keep your project moving smoothly.",
+        bgImage : "/Shared/Features/1.png"
+      },
+    ]}
   />
   <WhatWeCreate />
   <BusinessNeedsWrapper client:load />

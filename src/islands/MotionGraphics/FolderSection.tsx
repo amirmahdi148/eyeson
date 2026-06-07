@@ -220,20 +220,25 @@ const MotionSection: React.FC = () => {
           <h1 className="text-2xl md:text-2xl lg:text-4xl font-bold text-white leading-[1.2] lg:leading-[1.1] tracking-tight">
             Where ideas turn into <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-linear-to-r from-teal-400 to-emerald-400">
-              consistent motion experiences
+              Motion Stories People Remember
             </span>
           </h1>
 
           <p className="text-gray-400 text-base md:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0">
-            At Eyeson, motion support isn't just about creating videos. It's
-            about building a reliable motion system that brings clarity,
-            consistency, and momentum to your brand. Instead of starting from
-            scratch with every new asset, you work with a long-term partner.
+            Great motion content is not just about animation. It is about turning your message into a
+            story people can follow, feel, and remember.
+            At EyesOn Studio, we create motion graphics for reels, social media content, brand stories,
+            product messages, and campaigns that need more than static visuals. Every piece is
+            shaped with pacing, visual rhythm, storytelling, and platform behavior in mind, so your
+            content feels engaging from the first second.
           </p>
 
           <p className="text-gray-400 text-sm leading-relaxed max-w-xl opacity-80 mx-auto lg:mx-0">
-            The result is smoother production, stronger storytelling, and motion
-            that your audience instantly recognizes.
+            Instead of posting random visuals, you build a stronger content language, one that helps
+            your brand explain ideas, create emotion, stay recognizable, and show up consistently
+            across modern platforms.
+            The result is clearer storytelling, stronger brand presence, and motion content your
+            audience actually wants to watch.
           </p>
 
           <motion.button
@@ -244,7 +249,7 @@ const MotionSection: React.FC = () => {
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 }}
           >
             <span className="relative z-10 text-teal-400 font-semibold group-hover:text-white transition-colors">
-              Get a free motion sample
+              Start a Motion Project
             </span>
             <div className="absolute inset-0 bg-gradient-to-r from-teal-500 to-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </motion.button>

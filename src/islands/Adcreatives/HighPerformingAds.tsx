@@ -12,28 +12,27 @@ export default function HighPerformingAds() {
         {/* --- ستون سمت چپ: متن و دکمه --- */}
         <div className="hpa-content">
           <h2 className="hpa-title">
-            <span className="title-white">Where ideas turn into</span>
+            <span className="title-white">From Raw Ideas to</span>
             <br />
-            <span className="title-teal">high-performing ad creatives</span>
+            <span className="title-teal">Ad Creatives That Sell</span>
           </h2>
 
           <div className="hpa-description">
             <p>
-              At eyeson, ad creatives aren't just visuals. They're how brands
-              communicate value instantly, spark curiosity, and drive real
-              performance.
+              Most brands have good offers, but weak creative execution makes them easy to ignore.
+              We help turn your product, message, or campaign idea into ad creatives that feel sharp,
+              clear, and built for performance.
             </p>
             <p>
-              We turn your concepts into clean, strategic, and visually bold
-              creatives built for the speed of modern platforms. Every asset is
-              crafted with strong hierarchy, clear messaging, and the kind of
-              impact that makes audiences stop scrolling.
+              From the first visual hook to the final CTA, every detail is
+              designed to capture attention, create interest, and move viewers closer to action.
+              Because in modern advertising, the idea is not enough. The creative has to carry it.
             </p>
           </div>
 
           <div className="hpa-action-wrapper">
             <div className="hpa-button-glow"></div>
-            <PrimaryButton text="Get a free sample" width="auto" />
+            <PrimaryButton text=" Start Your Ad Creative" width="auto" />
           </div>
         </div>
 

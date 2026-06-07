@@ -84,12 +84,17 @@ export default function AdCreativesHero() {
   return (
     <section className="hero-section">
       <div className="hero-container">
-        <div className="hero-header">
+        <div className="hero-header flex items-center justify-center flex-col gap-5">
           <h1 className="hero-title">
-            <span className="title-teal">Ad Creatives</span> Built to Convert,
+            <span className="title-teal">Ad Creatives</span> Built to Go Viral
             <br />
-            Not Just Look Good.
+            and Convert.
           </h1>
+          <p className="w-[80%] text-[12px] md:text-[20px]">
+            We create scroll-stopping ad creatives for brands that want more reach, stronger
+            engagement, and better conversions. Every asset is designed to capture attention fast,
+            communicate value clearly, and turn views into action.
+          </p>
         </div>
 
         <div className="hero-cards-deck">

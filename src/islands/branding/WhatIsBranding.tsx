@@ -36,7 +36,7 @@ export const WhatIsBranding = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
-        className="max-w-7xl 2xl:max-w-[1500px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20 items-center"
+        className="max-w-7xl 2xl:max-w-375 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20 items-center"
       >
         {/* ستون چپ: تصویر */}
         <motion.div variants={imageVariants} className="relative w-full">
@@ -62,25 +62,23 @@ export const WhatIsBranding = () => {
         {/* ستون راست: متن و دکمه */}
         <motion.div variants={textVariants} className="flex flex-col">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] 2xl:text-[50px] font-bold text-white mb-4 sm:mb-5 lg:mb-6 leading-tight tracking-tight">
-            What is branding & visual identity?
+            What is Branding & Visual Identity?
           </h2>
 
           <p className="text-gray-400 text-sm sm:text-base md:text-lg 2xl:text-xl leading-relaxed mb-7 sm:mb-8 lg:mb-10">
-            Branding and visual identity define how your audience sees,
-            remembers, and understands your product at a glance. It's the system
-            of logos, colors, typography, shapes, and visual rules that create a
-            consistent personality across every touchpoint. A strong identity
-            builds recognition, communicates values without saying a word, and
-            makes your brand feel intentional and trustworthy. When your visuals
-            work together with clarity and purpose, your message becomes
-            instantly more memorable.
+            Branding and visual identity define how your business looks, feels, and communicates to
+            the world. It includes your logo, colors, typography, imagery, and design system working
+            together to create a consistent and recognizable brand.
+            A strong visual identity helps customers remember your brand, builds trust, and creates a
+            professional presence across websites, social media, products, marketing materials, and
+            every customer interaction.
           </p>
 
           <div className="self-start">
             <PrimaryButton
-              text="Learn More"
+              text="See Our Work"
               width="15rem"
-              href="#"
+              href="/portfolio"
             />
           </div>
         </motion.div>

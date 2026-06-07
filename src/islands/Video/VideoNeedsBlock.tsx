@@ -1,4 +1,4 @@
-import BusinessNeedsTopRightSvg from "./BusinessNeedsTopRightSvg.tsx";
+
 import BusinessNeedsSection from "../Shared/BusinessNeedsSection.tsx";
 
 export const VideoNeedsBlock = () => {
@@ -46,7 +46,7 @@ content feel easier to watch and more effective across modern platforms."
                     image: "/Shared/sharing/first-right.svg",
                 },
             ]}
-            rightSection={<BusinessNeedsTopRightSvg />}
+
         />
     )
 }

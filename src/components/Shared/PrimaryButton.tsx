@@ -3,14 +3,14 @@
 import { motion } from 'framer-motion';
 
 type PrimaryButtonProps = {
-  text: string;
+  text: string | undefined;
   href?: string;
   width?: string;
   height?: string;
 };
 
 export default function PrimaryButton({
-  text,
+  text = "Get a free sample",
   href = "#",
   width = "auto",
   height = "auto",
@@ -26,8 +26,8 @@ export default function PrimaryButton({
       {/* ========================================== */}
       {/* 1. پس‌زمینه درخشان و بوردر (Glow & Border) */}
       {/* ========================================== */}
-      <div 
-        className="absolute inset-0 rounded-full bg-gradient-to-r from-[#45B6A0] to-[#12ACB5] opacity-80 shadow-[0_0_12px_#00A9BD] transition-all duration-300 ease-out group-hover:opacity-100 group-hover:shadow-[0_0_24px_rgba(69,182,160,0.8)] group-active:shadow-[0_0_8px_#00A9BD]" 
+      <div
+        className="absolute inset-0 rounded-full bg-gradient-to-r from-[#45B6A0] to-[#12ACB5] opacity-80 shadow-[0_0_12px_#00A9BD] transition-all duration-300 ease-out group-hover:opacity-100 group-hover:shadow-[0_0_24px_rgba(69,182,160,0.8)] group-active:shadow-[0_0_8px_#00A9BD]"
       />
 
       {/* ========================================== */}
@@ -41,10 +41,10 @@ export default function PrimaryButton({
         {/* 3. افکت شاین (Glass Shimmer) */}
         {/* این لایه با هاور شدن، از چپ به راست حرکت میکنه */}
         {/* ========================================== */}
-        <div 
-          className="absolute inset-0 -translate-x-[150%] bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-[150%] skew-x-[-20deg]" 
+        <div
+          className="absolute inset-0 -translate-x-[150%] bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-[150%] skew-x-[-20deg]"
         />
-        
+
         {/* متن دکمه */}
         <span className="relative z-20 drop-shadow-md">
           {text}

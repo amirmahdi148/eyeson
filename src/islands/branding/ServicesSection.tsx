@@ -25,17 +25,13 @@ export const ServicesSection = () => {
       {/* ===== هدر ===== */}
       <div className="max-w-4xl mx-auto text-center mb-10 sm:mb-12 lg:mb-16">
         <h2 className="text-2xl font-bold text-white mb-2 leading-tight sm:text-3xl md:text-4xl lg:text-[44px]">
-          Comprehensive <span className="text-[#42D1D1]">brand identity</span>
+          Complete <span className="text-[#42D1D1]">Branding</span>
         </h2>
         <h2 className="text-2xl font-bold text-white mb-4 leading-tight sm:text-3xl md:text-4xl lg:text-[44px] lg:mb-6">
-          & visual system services
+          & Visual Identity Services
         </h2>
         <p className="text-gray-400 text-sm leading-relaxed max-w-2xl mx-auto md:text-base">
-          We don't just design logos.
-          <br className="hidden sm:block" />
-          We build clear, scalable brand systems that stay consistent
-          <br className="hidden sm:block" />
-          across every touchpoint — from product to marketing.
+          Build a distinctive, scalable brand identity that stays consistent across every touchpoint.
         </p>
       </div>
 
@@ -57,15 +53,14 @@ export const ServicesSection = () => {
               Brand Strategy & Positioning
             </h3>
             <p className="text-gray-400 text-sm leading-relaxed mb-5 font-light sm:mb-6">
-              We define your brand's direction, voice, and visual foundation to
-              ensure clarity, relevance, and long-term growth.
+              Define your brand's purpose, audience, positioning, and visual direction.
             </p>
 
             <p className="text-white font-medium mb-2 text-sm sm:mb-3">
               Includes:
             </p>
             <div className="flex flex-wrap gap-2 mb-6 sm:mb-8">
-              {["Brand discovery", "Positioning", "Visual direction"].map(
+              {["Brand Discovery", "Positioning", "Brand Messaging"].map(
                 (tag) => (
                   <span
                     key={tag}
@@ -112,20 +107,17 @@ export const ServicesSection = () => {
                 </svg>
               </div>
               <h3 className="text-lg font-bold text-white leading-tight sm:text-xl">
-                Visual Identity
-                <br />
-                Design
+                Logo & Visual Identity Design
               </h3>
             </div>
             <p className="text-gray-400 text-xs leading-relaxed mb-4 font-light sm:text-sm sm:mb-6">
-              We design logo systems, color palettes, and typography that make
-              your brand recognizable and memorable.
+              Create a recognizable visual identity that reflects your brand and sets you apart.
             </p>
             <p className="text-white font-medium mb-2 text-xs sm:text-sm sm:mb-3">
               Includes:
             </p>
             <div className="flex flex-wrap gap-1.5 sm:gap-2">
-              {["Logo system", "Colors", "Typography", "Visual language"].map(
+              {["Logo Design", "Color Palette", "Typography", "Visual Language"].map(
                 (tag) => (
                   <span
                     key={tag}
@@ -160,20 +152,17 @@ export const ServicesSection = () => {
                 </svg>
               </div>
               <h3 className="text-lg font-bold text-white leading-tight sm:text-xl">
-                Design System
-                <br />
-                Development
+                Brand Assets & Marketing Materials
               </h3>
             </div>
             <p className="text-gray-400 text-xs leading-relaxed mb-4 font-light sm:text-sm sm:mb-6">
-              We create scalable design systems that keep your brand consistent
-              across digital and product experiences.
+              Design the essential assets your brand needs across digital and print channels.
             </p>
             <p className="text-white font-medium mb-2 text-xs sm:text-sm sm:mb-3">
               Includes:
             </p>
             <div className="flex flex-wrap gap-1.5 sm:gap-2">
-              {["UI components", "Spacing", "Reusable elements"].map((tag) => (
+              {["Social Media Assets", "Presentation Design", "Marketing Materials"].map((tag) => (
                 <span
                   key={tag}
                   className={`px-2.5 py-1 rounded-full text-xs text-gray-300 ${tagBg}`}
@@ -212,20 +201,17 @@ export const ServicesSection = () => {
                 </svg>
               </div>
               <h3 className="text-lg font-bold text-white leading-tight sm:text-xl">
-                Digital Brand
-                <br />
-                Assets
+                Design Systems
               </h3>
             </div>
             <p className="text-gray-400 text-xs leading-relaxed mb-4 font-light sm:text-sm sm:mb-6">
-              We design logo systems, color palettes, and typography that make
-              your brand recognizable and memorable.
+              Create scalable visual systems that ensure consistency across products and marketing.
             </p>
             <p className="text-white font-medium mb-2 text-xs sm:text-sm sm:mb-3">
               Includes:
             </p>
             <div className="flex flex-wrap gap-1.5 sm:gap-2">
-              {["Logo system", "Colors", "Typography", "Visual language"].map(
+              {["Reusable Components", "Layout Systems", "Brand Consistency"].map(
                 (tag) => (
                   <span
                     key={tag}
@@ -260,19 +246,17 @@ export const ServicesSection = () => {
                 </svg>
               </div>
               <h3 className="text-lg font-bold text-white leading-tight sm:text-xl">
-                Brand Guidelines &<br />
-                Documentation
+                Brand Guidelines
               </h3>
             </div>
             <p className="text-gray-400 text-xs leading-relaxed mb-4 font-light sm:text-sm sm:mb-6">
-              Clear rules that ensure your brand is used correctly — everywhere,
-              by everyone.
+              Document the rules that keep your brand clear, consistent, and recognizable.
             </p>
             <p className="text-white font-medium mb-2 text-xs sm:text-sm sm:mb-3">
               Includes:
             </p>
             <div className="flex flex-wrap gap-1.5 sm:gap-2">
-              {["Usage rules", "Do's & don'ts", "Brand playbook"].map((tag) => (
+              {["Usage Guidelines", "Do's & Don'ts", "Brand Playbook"].map((tag) => (
                 <span
                   key={tag}
                   className={`px-2.5 py-1 rounded-full text-xs text-gray-300 ${tagBg}`}

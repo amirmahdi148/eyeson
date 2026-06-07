@@ -77,14 +77,14 @@ export default function UiUxHeroSection() {
         {/* ========================================== */}
         <div className="order-2 lg:order-1 flex w-full flex-col items-center text-center lg:items-start lg:text-left lg:w-5/12 z-10">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-black leading-[1.12] tracking-tight text-white lg:text-[54px] xl:text-[60px]">
-            <span className="text-[#32c9b4]">UI/UX Design</span> That Turns
+            <span className="text-[#32c9b4]">UI/UX Design</span> for SaaS & Digital Products
             <br className="hidden sm:block lg:hidden xl:block" />
-            <span className="inline-block mt-1 sm:mt-2 lg:mt-0"> Visitors Into Users</span>
+
           </h1>
 
           <p className="mt-4 sm:mt-6 max-w-lg text-[14px] leading-relaxed text-gray-300 sm:text-[16px] lg:text-[18px] font-light">
-            We design digital experiences that are not just beautiful — but
-            clear, scalable, and conversion-focused.
+            Designing websites, landing pages, and product interfaces that users understand and
+            teams can scale.
           </p>
 
           <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row w-full sm:w-auto items-center justify-center lg:justify-start gap-3 sm:gap-4 lg:gap-5">
