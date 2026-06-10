@@ -8,7 +8,6 @@ import {
   Activity,
   Cpu,
   Database,
-  TrendingUp,
   Clock,
   ArrowUpRight,
   ArrowDownRight

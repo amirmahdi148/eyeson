@@ -11,4 +11,9 @@ export default defineConfig({
   // adapter: node({ mode: 'standalone' }),
   adapter: vercelAdapter(),
   integrations: [react(), svelte(), sitemap()],
+  vite: {
+    build: {
+      chunkSizeWarningLimit: 1000,
+    },
+  },
 });
