@@ -13,11 +13,20 @@ export interface Props {
   lang?: string;
 }
 
+const {
+  title,
+  description,
+  canonicalUrl,
+  ogImage = "/og/image.jpg",
+  ogType = "website",
+  robots,
+  lang = "en",
+} = Astro.props as Props;
+
 const defaultTitle = () => {
-  // Derive a human readable title from the pathname, e.g. "/about" => "About — EyesOn Agency"
-  const path = Astro.url.pathname.replace(/^\//, "").replace(/\/\.*/, "");
+  const path = Astro.url.pathname.replace(/^\//, "").replace(/\/$/, "");
   if (!path) return "EyesOn Agency — Creative Digital Agency";
-  const parts = path.split("/").map(p => p.charAt(0).toUpperCase() + p.slice(1));
+  const parts = path.split("/").map((p) => p.charAt(0).toUpperCase() + p.slice(1));
   return `${parts.join(" ")} — EyesOn Agency`;
 };
 
@@ -25,15 +34,8 @@ const computedTitle = title ?? defaultTitle();
 const computedDescription = description ?? "EyesOn Studio: Premium Animations & Video Editing services.";
 
 
-const {
-  title = computedTitle,
-  description = computedDescription,
-  canonicalUrl,
-  ogImage = "/og/image.jpg",
-  ogType = "website",
-  robots,
-  lang = "en",
-} = Astro.props;
+const finalTitle = title ?? computedTitle;
+const finalDescription = description ?? computedDescription;
 
 const deploymentHost = process.env.VERCEL_URL || Astro.url.host;
 const origin = `${Astro.url.protocol}//${deploymentHost}`;
@@ -46,8 +48,8 @@ const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>{title}</title>
-    <meta name="description" content={description} />
+    <title>{finalTitle}</title>
+    <meta name="description" content={finalDescription} />
     <meta name="theme-color" content="#000E17" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
@@ -55,55 +57,80 @@ const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
     {robots && <meta name="robots" content={robots} />}
 
     <meta property="og:type" content={ogType} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:title" content={finalTitle} />
+    <meta property="og:description" content={finalDescription} />
     <meta property="og:image" content={absoluteOgImage} />
     <meta property="og:url" content={resolvedCanonical} />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:title" content={finalTitle} />
+    <meta name="twitter:description" content={finalDescription} />
     <meta name="twitter:image" content={absoluteOgImage} />
   </head>
 
-  <body class="bg-[#000E17] text-white overflow-x-hidden" transition:animate="fade">
-    <Header client:load />
+  <body class="bg-[#000E17] text-white" transition:animate="fade">
+    <div id="lenis-wrapper">
+      <div id="lenis-content" class="overflow-x-hidden">
+        <Header client:load />
 
-    {/* اضافه شدن pt-24 lg:pt-32 برای جلوگیری از رفتن محتوا به زیر هدر */}
-    <main class="min-w-0 overflow-x-hidden pt-8 lg:pt-10">
-      <slot />
-    </main>
+        {/* اضافه شدن pt-24 lg:pt-32 برای جلوگیری از رفتن محتوا به زیر هدر */}
+        <main class="min-w-0 pt-8 lg:pt-10">
+          <slot />
+        </main>
 
-    <Footer />
+        <Footer />
+      </div>
+    </div>
 
     {/* ========================================== */}
-    {/* 1. کدهای جاوااسکریپت Lenis */}
+    {/* 1. کدهای جاوااسکریپت Lenis - نسخه بهینه */}
     {/* ========================================== */}
     <script>
       import Lenis from 'lenis';
 
+      const WHEEL_MULTIPLIER = 0.5;
+      const TOUCH_MULTIPLIER = 1.0;
+      const DURATION = 0.7;
+
       let lenis: Lenis;
+      let rafId = 0;
+
+      function easeOutQuart(t: number): number {
+        return 1 - (1 - t) * (1 - t) * (1 - t) * (1 - t);
+      }
 
       function initSmoothScrolling() {
         if (lenis) lenis.destroy();
+        if (rafId) cancelAnimationFrame(rafId);
+
+        const wrapper = document.getElementById('lenis-wrapper')!;
+        const content = document.getElementById('lenis-content')!;
 
         lenis = new Lenis({
-          duration: 1.2,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          wrapper,
+          content,
+          duration: DURATION,
+          easing: easeOutQuart,
           smoothWheel: true,
-          wheelMultiplier: 1,
-          touchMultiplier: 2,
+          wheelMultiplier: WHEEL_MULTIPLIER,
+          touchMultiplier: TOUCH_MULTIPLIER,
+          gestureOrientation: 'vertical',
         });
 
         function raf(time: number) {
           lenis.raf(time);
-          requestAnimationFrame(raf);
+          rafId = requestAnimationFrame(raf);
         }
-        
-        requestAnimationFrame(raf);
+
+        rafId = requestAnimationFrame(raf);
       }
 
-      document.addEventListener('DOMContentLoaded', initSmoothScrolling);
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initSmoothScrolling, { once: true });
+      } else {
+        initSmoothScrolling();
+      }
+
       document.addEventListener('astro:page-load', initSmoothScrolling);
     </script>
 
@@ -113,7 +140,7 @@ const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
     <style is:global>
       /* --- استایل اسکرول‌بار مرورگرهای کرومیوم --- */
       ::-webkit-scrollbar {
-        width: 10px;
+        width: 6px;
       }
 
       ::-webkit-scrollbar-track {
@@ -137,16 +164,26 @@ const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
       }
 
       /* --- استایل‌های ضروری برای عملکرد درست Lenis --- */
-      html.lenis, html.lenis body {
-        height: auto;
+      html.lenis {
+        scroll-behavior: auto;
+      }
+
+      #lenis-wrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 0;
+      }
+
+      #lenis-content {
+        will-change: transform;
       }
 
       .lenis.lenis-smooth {
         scroll-behavior: auto !important;
-      }
-
-      .lenis.lenis-smooth [data-lenis-prevent] {
-        overscroll-behavior: contain;
       }
 
       .lenis.lenis-stopped {

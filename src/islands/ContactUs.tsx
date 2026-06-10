@@ -3,7 +3,7 @@ import { useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import { SmartImage } from "@/utils/SmartImage.tsx";
 
-const contactImg = "/Shared/contact/contact-us.svg";
+const contactImg = "/Shared/contact/a.webp";
 
 export default function ContactUs() {
   const [selectedBudget, setSelectedBudget] = useState<string | null>(null);
@@ -69,11 +69,11 @@ export default function ContactUs() {
             <SmartImage
               src={contactImg}
               alt="Contact Us"
-              width={1200}
+              width={700}
               height={600}
               loading="lazy"
               decoding="async"
-              className="rounded-2xl sm:rounded-3xl w-full h-auto drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)] scale-110 lg:scale-125 transition-transform duration-500"
+              className="rounded-2xl sm:rounded-3xl w-100 h-auto drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]    transition-transform duration-500"
             />
           </motion.div>
         </motion.div>
