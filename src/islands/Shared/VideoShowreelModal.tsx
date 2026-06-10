@@ -24,11 +24,11 @@ const formatTime = (time: number) => {
 type Props = {
   isOpen: boolean;
   onClose: () => void;
-  videoList: any[];
-  initialVideo: any;
+  videoList?: any[];
+  initialVideo?: any;
 };
 
-export const VideoShowreelModal = ({ isOpen, onClose, videoList, initialVideo }: Props) => {
+export const VideoShowreelModal = ({ isOpen, onClose, videoList = [], initialVideo }: Props) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const hideControlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
