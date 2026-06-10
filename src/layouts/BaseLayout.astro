@@ -68,70 +68,57 @@ const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
     <meta name="twitter:image" content={absoluteOgImage} />
   </head>
 
-  <body class="bg-[#000E17] text-white" transition:animate="fade">
-    <div id="lenis-wrapper">
-      <div id="lenis-content" class="overflow-x-hidden">
-        <Header client:load />
+  <body class="bg-[#000E17] text-white overflow-x-hidden" transition:animate="fade">
+    <Header client:load />
 
-        {/* اضافه شدن pt-24 lg:pt-32 برای جلوگیری از رفتن محتوا به زیر هدر */}
-        <main class="min-w-0 pt-8 lg:pt-10">
-          <slot />
-        </main>
+    {/* اضافه شدن pt-24 lg:pt-32 برای جلوگیری از رفتن محتوا به زیر هدر */}
+    <main class="min-w-0 overflow-x-hidden pt-8 lg:pt-10">
+      <slot />
+    </main>
 
-        <Footer />
-      </div>
-    </div>
+    <Footer />
 
     {/* ========================================== */}
-    {/* 1. کدهای جاوااسکریپت Lenis - نسخه بهینه */}
+    {/* 1. کدهای جاوااسکریپت Lenis */}
     {/* ========================================== */}
     <script>
-      import Lenis from 'lenis';
+      const isFirefox = navigator.userAgent.toLowerCase().includes('firefox');
 
-      const WHEEL_MULTIPLIER = 0.5;
-      const TOUCH_MULTIPLIER = 1.0;
-      const DURATION = 0.7;
+      if (!isFirefox) {
+        let lenis: Lenis;
+        let rafId = 0;
 
-      let lenis: Lenis;
-      let rafId = 0;
+        async function initSmoothScrolling() {
+          if (lenis) lenis.destroy();
+          if (rafId) cancelAnimationFrame(rafId);
 
-      function easeOutQuart(t: number): number {
-        return 1 - (1 - t) * (1 - t) * (1 - t) * (1 - t);
-      }
+          const Lenis = (await import('lenis')).default;
 
-      function initSmoothScrolling() {
-        if (lenis) lenis.destroy();
-        if (rafId) cancelAnimationFrame(rafId);
+          lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true,
+            wheelMultiplier: 1,
+            touchMultiplier: 2,
+            gestureOrientation: 'vertical',
+          });
 
-        const wrapper = document.getElementById('lenis-wrapper')!;
-        const content = document.getElementById('lenis-content')!;
+          function raf(time: number) {
+            lenis.raf(time);
+            rafId = requestAnimationFrame(raf);
+          }
 
-        lenis = new Lenis({
-          wrapper,
-          content,
-          duration: DURATION,
-          easing: easeOutQuart,
-          smoothWheel: true,
-          wheelMultiplier: WHEEL_MULTIPLIER,
-          touchMultiplier: TOUCH_MULTIPLIER,
-          gestureOrientation: 'vertical',
-        });
-
-        function raf(time: number) {
-          lenis.raf(time);
           rafId = requestAnimationFrame(raf);
         }
 
-        rafId = requestAnimationFrame(raf);
-      }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', () => initSmoothScrolling(), { once: true });
+        } else {
+          initSmoothScrolling();
+        }
 
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initSmoothScrolling, { once: true });
-      } else {
-        initSmoothScrolling();
+        document.addEventListener('astro:page-load', () => initSmoothScrolling());
       }
-
-      document.addEventListener('astro:page-load', initSmoothScrolling);
     </script>
 
     {/* ========================================== */}
@@ -140,7 +127,7 @@ const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
     <style is:global>
       /* --- استایل اسکرول‌بار مرورگرهای کرومیوم --- */
       ::-webkit-scrollbar {
-        width: 6px;
+        width: 10px;
       }
 
       ::-webkit-scrollbar-track {
@@ -166,20 +153,6 @@ const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
       /* --- استایل‌های ضروری برای عملکرد درست Lenis --- */
       html.lenis {
         scroll-behavior: auto;
-      }
-
-      #lenis-wrapper {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        z-index: 0;
-      }
-
-      #lenis-content {
-        will-change: transform;
       }
 
       .lenis.lenis-smooth {
