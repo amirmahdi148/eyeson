@@ -88,7 +88,7 @@ export default function ApproachTimelineSection() {
                   className="min-w-0 flex-1 overflow-hidden rounded-2xl"
                 >
                   <img
-                    src={`/video-pieces/svg/${step}.svg`}
+                    src={`/adcreatives/svg/multi-layer/${step}.svg`}
                     alt={`Step ${step}'s svg`}
                     className="h-auto w-full"
                   />
