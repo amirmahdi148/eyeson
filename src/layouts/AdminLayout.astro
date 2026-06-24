@@ -1,5 +1,7 @@
 ---
 import "@/styles/global.css";
+
+const { robots = "noindex, nofollow" } = Astro.props;
 ---
 
 <!doctype html>
@@ -7,6 +9,7 @@ import "@/styles/global.css";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content={robots} />
     <title>Admin — EyesON</title>
   </head>
   <body class="bg-[#000E17] text-white overflow-x-hidden">

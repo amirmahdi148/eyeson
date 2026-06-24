@@ -11,6 +11,10 @@ export interface Props {
   ogType?: string;
   robots?: string;
   lang?: string;
+  keywords?: string;
+  datePublished?: string;
+  dateModified?: string;
+  articleSection?: string;
 }
 
 const {
@@ -21,6 +25,10 @@ const {
   ogType = "website",
   robots,
   lang = "en",
+  keywords,
+  datePublished,
+  dateModified,
+  articleSection,
 } = Astro.props as Props;
 
 const defaultTitle = () => {
@@ -41,6 +49,10 @@ const deploymentHost = process.env.VERCEL_URL || Astro.url.host;
 const origin = `${Astro.url.protocol}//${deploymentHost}`;
 const absoluteOgImage = ogImage?.startsWith("http") ? ogImage : new URL(ogImage, origin).href;
 const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
+
+const analyticsEndpoint = `${import.meta.env.PUBLIC_API_URL || 'http://localhost:3000'}/analytics/receive/v1`;
+
+
 ---
 
 <html lang={lang}>
@@ -52,6 +64,7 @@ const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
     <meta name="description" content={finalDescription} />
     <meta name="theme-color" content="#000E17" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/webp" href="/logo.webp" />
 
     <link rel="canonical" href={resolvedCanonical} />
     {robots && <meta name="robots" content={robots} />}
@@ -66,6 +79,29 @@ const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
     <meta name="twitter:title" content={finalTitle} />
     <meta name="twitter:description" content={finalDescription} />
     <meta name="twitter:image" content={absoluteOgImage} />
+    <meta name="twitter:site" content="@eyesonagency" />
+    <meta name="twitter:creator" content="@eyesonagency" />
+
+    {keywords && <meta name="keywords" content={keywords} />}
+    {ogType === "article" && <meta name="author" content="EyesOn Studio" />}
+    <meta name="format-detection" content="telephone=no, email=no" />
+
+    {datePublished && <meta property="article:published_time" content={datePublished} />}
+    {dateModified && <meta property="article:modified_time" content={dateModified} />}
+    {articleSection && <meta property="article:section" content={articleSection} />}
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "EyesOn Agency",
+      "url": "https://eyeson.com",
+      "logo": "https://eyeson.com/og/image.jpg",
+      "description": "Premium Animations & Video Editing services.",
+      "sameAs": [
+        "https://twitter.com/eyesonagency",
+        "https://www.linkedin.com/company/eyesonagency"
+      ]
+    })} />
   </head>
 
   <body class="bg-[#000E17] text-white overflow-x-hidden" transition:animate="fade">
@@ -78,10 +114,10 @@ const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
 
     <Footer />
 
-    {/* ========================================== */}
-    {/* 1. کدهای جاوااسکریپت Lenis */}
-    {/* ========================================== */}
+
     <script>
+      import type Lenis from "lenis";
+
       const isFirefox = navigator.userAgent.toLowerCase().includes('firefox');
 
       if (!isFirefox) {
@@ -121,11 +157,57 @@ const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
       }
     </script>
 
-    {/* ========================================== */}
-    {/* 2. استایل‌های اسکرول‌بار و الزامات Lenis */}
-    {/* ========================================== */}
+    <script is:inline>
+      console.log('[Analytics] script loaded', window.location.pathname);
+
+      var endpoint = '/api/analytics/receive/v1';
+      console.log('[Analytics] endpoint:', endpoint);
+
+      var payload = {
+        event: 'pageview',
+        path: window.location.pathname,
+        userAgent: navigator.userAgent,
+      };
+      var body = JSON.stringify(payload);
+      console.log('[Analytics] sending:', body);
+
+      var sent = navigator.sendBeacon(endpoint, new Blob([body], { type: 'application/json' }));
+      console.log('[Analytics] sendBeacon result:', sent);
+
+      if (!sent) {
+        fetch(endpoint, { method: 'POST', body: body, headers: { 'Content-Type': 'application/json' }, keepalive: true })
+          .then(function(r) { console.log('[Analytics] fetch fallback status:', r.status); })
+          .catch(function(e) { console.log('[Analytics] fetch fallback error:', e.message); });
+      }
+
+      fetch('/api/client-ip')
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          var ip = data.ip || '';
+          var raw = ip + '|' + navigator.userAgent;
+          var hash = 0;
+          for (var i = 0; i < raw.length; i++) {
+            var c = raw.charCodeAt(i);
+            hash = ((hash << 5) - hash) + c;
+            hash |= 0;
+          }
+          var enriched = {
+            event: 'pageview',
+            hash: Math.abs(hash).toString(36),
+            path: window.location.pathname,
+            userAgent: navigator.userAgent,
+          };
+          navigator.sendBeacon(endpoint, new Blob([JSON.stringify(enriched)], { type: 'application/json' }));
+          console.log('[Analytics] enriched sent');
+        })
+        .catch(function(err) {
+          console.log('[Analytics] ip fetch skipped:', err.message);
+        });
+    </script>
+
+
     <style is:global>
-      /* --- استایل اسکرول‌بار مرورگرهای کرومیوم --- */
+      
       ::-webkit-scrollbar {
         width: 10px;
       }

@@ -4,16 +4,21 @@ import { motion, AnimatePresence } from "framer-motion";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
 import { httpService } from "@/utils/httpService.ts";
 
-const durations = ["15 min", "30 min", "1 hour"];
+const durations = ["15 Minutes", "30 Minutes", "60 Minutes"];
 const timeSlots = ["4:00 pm", "4:30 pm", "5:00 pm", "5:30 pm"];
-const budgetRanges = ["< $10k", "$10k - $25k", "$25k - $50k", "$50k +"];
+const budgetRanges = ["Under $1,000", "$1,000 – $3,000", "$3,000 – $10,000", "$10,000+"];
 const projectTypes = [
-  "2D/3D animation",
-  "Motion Design",
-  "Video Production",
-  "Brand Strategy",
-  "UI/UX Design",
-  "Other",
+  "Motion Graphics",
+  "Product Demo",
+  "SaaS Explainer",
+  "Brand Film",
+  "Ad Creatives",
+  "Video Editing",
+    "Graphic Design",
+    "UI/UX Design",
+    "Branding & Visual Identity",
+    "Design Subscription",
+    "Not Sure Yet"
 ];
 
 export const ContactBookingSection = () => {
@@ -85,19 +90,18 @@ export const ContactBookingSection = () => {
         <div className="mx-auto max-w-3xl text-center mb-12">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/20 px-4 py-1.5 text-[10px] font-medium uppercase tracking-widest text-white/80">
             <span className="h-1.5 w-1.5 rounded-full bg-[#1DAFD3]" />
-            Contact
+            START A PROJECT
           </div>
           <h1 className="text-5xl font-semibold leading-tight text-white sm:text-6xl">
-            Let's Build Your Next
+            Let's Talk About
             <br />
             <span className="bg-gradient-to-r from-[#4BCDBB] to-[#1DAFD3] bg-clip-text font-bold text-transparent">
-            Visual Story
+             Your Project
           </span>
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-white/50 sm:text-[15px]">
-            Share your project vision with us and get expert advice on strategy,
-            style, scope, and pricing. A 15–20 minute call that helps us understand
-            your goals and deliver the perfect solution.
+            Tell us about your project, goals, and creative needs. We'll learn more about your vision,
+            answer your questions, and explore how our team can help bring it to life.
           </p>
         </div>
 
@@ -122,7 +126,7 @@ export const ContactBookingSection = () => {
 
         <div className="mt-8 grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
           {/* Left Form Card */}
-          <div className="rounded-[32px] border border-white/10 bg-[#05151d]/80 p-6 sm:p-10 shadow-2xl backdrop-blur-sm">
+          <div className="rounded-[32px] border border-white/10 bg-[#05151d]/80 p-6 sm:p-10 shadow-2xl">
             <div className="grid gap-6 sm:grid-cols-2">
               <div className="space-y-2">
                 <label className="text-sm font-medium text-white/90">First Name</label>
@@ -130,7 +134,7 @@ export const ContactBookingSection = () => {
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
                     className="h-12 w-full rounded-xl border border-white/10 bg-[#0a232e]/50 px-4 text-sm text-white outline-none focus:border-[#1DAFD3]/50"
-                    placeholder="Jane"
+                    placeholder="John"
                 />
               </div>
               <div className="space-y-2">
@@ -139,7 +143,7 @@ export const ContactBookingSection = () => {
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                     className="h-12 w-full rounded-xl border border-white/10 bg-[#0a232e]/50 px-4 text-sm text-white outline-none focus:border-[#1DAFD3]/50"
-                    placeholder="Georgian"
+                    placeholder="Smith"
                 />
               </div>
               <div className="space-y-2">
@@ -148,7 +152,7 @@ export const ContactBookingSection = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="h-12 w-full rounded-xl border border-white/10 bg-[#0a232e]/50 px-4 text-sm text-white outline-none focus:border-[#1DAFD3]/50"
-                    placeholder="Example@gmail.com"
+                    placeholder="john@company.com"
                 />
               </div>
               <div className="space-y-2">
@@ -157,18 +161,18 @@ export const ContactBookingSection = () => {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     className="h-12 w-full rounded-xl border border-white/10 bg-[#0a232e]/50 px-4 text-sm text-white outline-none focus:border-[#1DAFD3]/50"
-                    placeholder="+097243763446"
+                    placeholder="+1 (555) 123-4567"
                 />
               </div>
             </div>
 
             <div className="mt-6 space-y-2">
-              <label className="text-sm font-medium text-white/90">Company Name</label>
+              <label className="text-sm font-medium text-white/90">Company / Brand Name</label>
               <input
                   value={companyName}
                   onChange={(e) => setCompanyName(e.target.value)}
                   className="h-12 w-full rounded-xl border border-white/10 bg-[#0a232e]/50 px-4 text-sm text-white outline-none"
-                  placeholder="Your company.."
+                  placeholder="Your company or brand"
               />
             </div>
 
@@ -230,7 +234,8 @@ export const ContactBookingSection = () => {
                   value={projectDetails}
                   onChange={(e) => setProjectDetails(e.target.value)}
                   className="min-h-32 w-full rounded-xl border border-white/10 bg-[#0a232e]/50 px-4 py-4 text-sm text-white outline-none"
-                  placeholder="Tell us about your project..."
+                  placeholder="Tell us about your goals, timeline, deliverables, and anything else that would help us
+understand your project."
               />
             </div>
           </div>
@@ -308,10 +313,10 @@ export const ContactBookingSection = () => {
             {isSubmitting ? (
                <>
                  <div className="w-5 h-5 mr-3 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                 Confirming...
+                 Booking...
                </>
             ) : (
-               "Confirm Booking"
+               "Book My Call"
             )}
           </button>
         </div>

@@ -1,0 +1,14 @@
+---
+export const prerender = true;
+import AdminBaseLayout from "../../layouts/AdminLayout.astro";
+import AdminLayout from "@/islands/Admin/AdminLayout";
+import EventsAnalytics from "@/islands/Admin/EventsAnalytics";
+import AdminGuard from "@/islands/Admin/AdminGuard";
+---
+<AdminBaseLayout>
+  <AdminGuard client:only="react">
+    <AdminLayout client:load>
+      <EventsAnalytics client:load />
+    </AdminLayout>
+  </AdminGuard>
+</AdminBaseLayout>

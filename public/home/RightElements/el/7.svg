@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_24" data-name="Layer 24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1760.24 1100.23">
+  <defs>
+    <radialGradient id="radial-gradient" cx="279.73" cy="145.5" fx="279.73" fy="145.5" r="122.93" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#071424"/>
+      <stop offset=".64" stop-color="#060f20"/>
+      <stop offset="1" stop-color="#060a1c"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient-2" cx="265.33" cy="167.8" fx="265.33" fy="167.8" r="107.1" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#00a9bc"/>
+      <stop offset=".1" stop-color="#00b6ca" stop-opacity=".77"/>
+      <stop offset=".21" stop-color="#00c4d9" stop-opacity=".54"/>
+      <stop offset=".33" stop-color="#00cfe6" stop-opacity=".34"/>
+      <stop offset=".45" stop-color="#00d8ef" stop-opacity=".19"/>
+      <stop offset=".56" stop-color="#00def6" stop-opacity=".09"/>
+      <stop offset=".68" stop-color="#00e2fa" stop-opacity=".02"/>
+      <stop offset=".8" stop-color="#00e4fc" stop-opacity="0"/>
+      <stop offset="1" stop-color="#59e8c9" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient-3" cx="276.49" cy="180.01" fx="276.49" fy="180.01" r="54.72" gradientUnits="userSpaceOnUse">
+      <stop offset=".22" stop-color="#05dcf0"/>
+      <stop offset=".25" stop-color="#05d6ea"/>
+      <stop offset=".77" stop-color="#0c687b"/>
+      <stop offset="1" stop-color="#103d4f"/>
+    </radialGradient>
+  </defs>
+  <g>
+    <circle cx="297.26" cy="192.47" r="32.3" fill="url(#radial-gradient)"/>
+    <path d="M329.56,192.47c.12,22.95-23.54,38.78-44.72,29.99-26.74-11.22-26.74-48.76,0-59.97,21.19-8.8,44.84,7.04,44.72,29.99h0ZM329.56,192.47c.02-22.83-23.55-38.55-44.6-29.7-26.25,11.07-26.26,48.32,0,59.39,21.05,8.85,44.62-6.87,44.6-29.7h0Z" fill="#00bbcf"/>
+    <circle cx="297.26" cy="192.47" r="32.3" fill="url(#radial-gradient-2)" opacity=".46"/>
+  </g>
+  <path d="M313.17,183.14l-9.47,2.54s0,0,0,0l-2.01.54c-.77.21-1.03,1.17-.46,1.73l1.47,1.47h0s.89.89.89.89l.66.66-4.78,4.78-6.66-6.66c-.61-.61-1.59-.61-2.19,0l-10.09,10.09c-.62.59-.64,1.58-.04,2.19.59.62,1.58.64,2.19.04.02-.01.03-.03.04-.04l8.99-8.99,6.66,6.66c.61.61,1.59.61,2.19,0l5.87-5.87,1.71,1.71s0,0,0,0l1.47,1.47c.56.56,1.52.31,1.73-.46l2.54-9.47h0s.54-2.01.54-2.01c.21-.77-.5-1.47-1.27-1.27Z" fill="url(#radial-gradient-3)"/>
+</svg>

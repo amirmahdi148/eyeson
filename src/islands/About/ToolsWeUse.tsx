@@ -2,23 +2,25 @@
 
 import React, { useRef } from "react";
 import { motion, useInView, type Variants } from "framer-motion";
+import { SmartImage } from "../../utils/SmartImage.tsx";
 
 const tools = [
-  { name: "Figma" },
-  { name: "Adobe XD" },
-  { name: "Sketch" },
-  { name: "Photoshop" },
-  { name: "Illustrator" },
-  { name: "React" },
-  { name: "Next.js" },
-  { name: "Typescript" },
-  { name: "Node.js" },
-  { name: "Tailwind CSS" },
-  { name: "Framer Motion" },
-  { name: "Three.js" },
-  { name: "WebGL" },
-  { name: "Git" },
-  { name: "AWS" },
+  { name: "After Effects", icon: "/icons/about/aftereffect.png" },
+  { name: "Premiere Pro", icon: "/icons/about/premierpro.png" },
+  { name: "Blender", icon: "/icons/about/blender.png" },
+  { name: "Figma", icon: "/icons/about/figma.png" },
+  { name: "Photoshop", icon: "/icons/about/photoshop.png" },
+  { name: "Illustrator", icon: "/icons/about/illustrator.png" },
+  { name: "Miro", icon: "/icons/about/miro.png" },
+  { name: "Cinema 4D", icon: "/icons/about/cinema4d.png" },
+  { name: "DaVinci Resolve", icon: "/icons/about/davinciresolve.png" },
+  { name: "Framer", icon: "/icons/about/framer.png" },
+  { name: "Lottie", icon: "/icons/about/lottie.png" },
+  { name: "ChatGPT", icon: "/icons/about/chatgpt.png" },
+  { name: "ElevenLabs", icon: "/icons/about/elevenlabs.png" },
+  { name: "HeyGen", icon: "/icons/about/heygen.png" },
+  { name: "Higgsfield", icon: "/icons/about/higgsfield.png" },
+  { name: "Midjourney", icon: "/icons/about/midjourney.png" },
 ];
 
 // انیمیشن برای کل کانتینر ابزارها
@@ -101,9 +103,19 @@ export const ToolsComponent = () => {
               whileTap={{ scale: 0.95 }}
               className="group relative cursor-default overflow-hidden rounded-full border border-white/10 bg-[#0A1A2A]/40 backdrop-blur-md px-4 py-2 sm:px-5 sm:py-2.5 md:px-6 md:py-3 shadow-sm transition-all duration-300 hover:border-[#00A9BD]/50 hover:bg-[#00A9BD]/10 hover:shadow-[0_0_20px_rgba(0,169,189,0.2)]"
             >
-              <h3 className="relative z-10 text-[13px] sm:text-[14px] md:text-base font-medium tracking-wide text-gray-300 group-hover:text-white transition-colors duration-300">
-                {tool.name}
-              </h3>
+              <div className="relative z-10 flex items-center gap-2">
+                <SmartImage
+                  src={tool.icon}
+                  alt={tool.name}
+                  width={20}
+                  height={20}
+                  objectFit="contain"
+                  className="h-4 w-4 sm:h-5 sm:w-5"
+                />
+                <h3 className="text-[13px] sm:text-[14px] md:text-base font-medium tracking-wide text-gray-300 group-hover:text-white transition-colors duration-300">
+                  {tool.name}
+                </h3>
+              </div>
             </motion.div>
           ))}
         </motion.div>

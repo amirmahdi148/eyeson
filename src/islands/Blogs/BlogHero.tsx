@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { BlocksRenderer, type BlocksContent } from "@strapi/blocks-react-renderer";
 
 type BlogSection = {
@@ -8,6 +9,13 @@ type BlogSection = {
   points?: string[];
 };
 
+interface RelatedPost {
+  id: number;
+  title: string;
+  slug: string;
+  cover?: { url: string } | null;
+}
+
 interface BlogHeroProps {
   title?: string;
   category?: string;
@@ -15,6 +23,7 @@ interface BlogHeroProps {
   readTime?: string;
   image?: string | null;
   blocks?: BlocksContent;
+  slug?: string;
 }
 
 const exampleSections: BlogSection[] = [
@@ -136,7 +145,7 @@ const sharePost = (platform: "copy" | "linkedin" | "twitter"): void => {
   }
 };
 
-export const BlogHero = ({ title: propTitle, category: propCategory, date: propDate, readTime: propReadTime, image: coverImage, blocks }: BlogHeroProps) => {
+export const BlogHero = ({ title: propTitle, category: propCategory, date: propDate, readTime: propReadTime, image: coverImage, blocks, slug: propSlug }: BlogHeroProps) => {
   const title = propTitle ?? "Blog Post";
   const category = propCategory ?? "";
   const date = propDate
@@ -148,6 +157,21 @@ export const BlogHero = ({ title: propTitle, category: propCategory, date: propD
       : "";
 
   const articleSections = exampleSections;
+  const [relatedPosts, setRelatedPosts] = useState<RelatedPost[]>([]);
+
+  useEffect(() => {
+    if (!propCategory || !propSlug) return;
+    const strapiUrl = import.meta.env.PUBLIC_POST_URL || "http://localhost:1337";
+    const url = `${strapiUrl}/api/posts?filters[category][$eq]=${encodeURIComponent(propCategory)}&filters[slug][$ne]=${encodeURIComponent(propSlug)}&populate=cover&pagination[limit]=3`;
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.data) {
+          setRelatedPosts(data.data);
+        }
+      })
+      .catch(() => {});
+  }, [propCategory, propSlug]);
 
   return (
       <>
@@ -261,6 +285,13 @@ export const BlogHero = ({ title: propTitle, category: propCategory, date: propD
         <section className="relative mx-auto w-full max-w-350 px-6 py-10 sm:px-8 lg:px-12 lg:py-16">
           <div className="rounded-[2rem] border border-white/5 bg-[#071b24]/92 p-6 shadow-[0_0_70px_rgba(0,169,189,0.08)] backdrop-blur-md sm:p-8 lg:p-12">
             <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start">
+              <nav className="mb-6 flex items-center gap-2 text-xs text-white/50">
+                <a href="/" className="hover:text-[#25d9e0] transition-colors">Home</a>
+                <span>/</span>
+                <a href="/blogs" className="hover:text-[#25d9e0] transition-colors">Blog</a>
+                <span>/</span>
+                <span className="text-white/70 truncate max-w-60">{title}</span>
+              </nav>
               <article className="prose prose-invert max-w-none">
                 {blocks ? (
                   <BlocksRenderer
@@ -376,6 +407,48 @@ export const BlogHero = ({ title: propTitle, category: propCategory, date: propD
                 <CalculatorWidget />
               </aside>
             </div>
+
+            {relatedPosts.length > 0 && (
+              <section className="mt-16 border-t border-white/10 pt-10">
+                <h2 className="text-2xl font-semibold text-white mb-8">Related Articles</h2>
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                  {relatedPosts.map((post) => {
+                    const coverSrc = post.cover?.url
+                      ? post.cover.url.startsWith("http")
+                        ? post.cover.url
+                        : `${import.meta.env.PUBLIC_POST_URL || "http://localhost:1337"}${post.cover.url}`
+                      : "";
+                    return (
+                      <a
+                        key={post.id}
+                        href={`/blog/${post.slug}`}
+                        className="group flex flex-col overflow-hidden rounded-2xl border border-[#00A9BD]/30 bg-[#0B1F2A] transition hover:-translate-y-1 hover:border-[#00A9BD]/60"
+                      >
+                        {coverSrc ? (
+                          <div className="aspect-[16/9] overflow-hidden">
+                            <img
+                              src={coverSrc}
+                              alt={post.title}
+                              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                              loading="lazy"
+                            />
+                          </div>
+                        ) : (
+                          <div className="flex aspect-[16/9] items-center justify-center bg-[#02131C]">
+                            <span className="text-4xl text-white/20">✦</span>
+                          </div>
+                        )}
+                        <div className="flex flex-1 flex-col px-4 py-4">
+                          <h3 className="text-sm font-semibold text-white group-hover:text-[#00A9BD] transition-colors">
+                            {post.title}
+                          </h3>
+                        </div>
+                      </a>
+                    );
+                  })}
+                </div>
+              </section>
+            )}
           </div>
         </section>
       </>

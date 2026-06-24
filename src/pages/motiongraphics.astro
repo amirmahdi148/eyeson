@@ -7,6 +7,10 @@ import MotionGMain from "@/components/MotionGraphics/MotionGMain.astro";
 ---
 
 
-<BaseLayout>
+<BaseLayout
+  title="Motion Graphics — EyesOn Agency"
+  description="Motion graphics services by EyesOn Agency — kinetic typography, animated logos, and explainer videos."
+  canonicalUrl={new URL(Astro.url.pathname, 'https://eyeson.com').href}
+>
     <MotionGMain/>
 </BaseLayout>

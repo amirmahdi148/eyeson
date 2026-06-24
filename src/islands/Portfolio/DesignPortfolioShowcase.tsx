@@ -95,7 +95,7 @@ export const DesignPortfolioShowcase = () => {
             Design portfolio
           </h2>
           <p className="mt-3 text-sm leading-6 text-white/70 sm:text-base">
-            Great design is not just pretty visuals.
+            More than aesthetics.
           </p>
         </div>
 

@@ -7,7 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { motion, useInView, type Variants } from "framer-motion";
-import OrbitCircles from "../../../public/Shared/Orbit-Circles.svg";
+import OrbitCircles from "./Orbit-Circles.svg";
 import { useMediaQuery } from "react-responsive";
 import SecondaryButton from "@/components/Shared/SecondaryButton";
 import PrimaryButton from "@/components/Shared/PrimaryButton";

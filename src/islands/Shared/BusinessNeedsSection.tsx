@@ -167,7 +167,7 @@ export default function BusinessNeedsSection({
 
             <div className="order-1 lg:order-2 lg:pl-10">
               {rightSection ?? (
-                  <img src="/Shared/sharing/main-right.svg" alt="Right Section SVG"/>
+                  <img src="/Shared/sharing/main-right.png" alt="Right Section SVG" className="scale-140"/>
               )}
             </div>
           </div>

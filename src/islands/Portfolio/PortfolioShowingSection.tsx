@@ -89,13 +89,14 @@ export const PortfolioShowingSection = () => {
       <div className="w-full max-w-5xl text-center">
         <h4 className="text-xs font-thin tracking-[0.2em] sm:text-sm">OUR WORK</h4>
         <h2 className="bg-linear-to-r from-[#46B6A0] to-[#2EBACA] bg-clip-text text-3xl font-black text-transparent sm:text-4xl md:text-5xl">
-          {type} portfolio
+          Featured Projects & Creative Work
         </h2>
         <p className="mx-auto mt-4 max-w-3xl text-sm font-light leading-7 sm:text-base">
-          Every frame we create carries intent. At eyeson, video is where strategy
-          meets storytelling and design finally comes to life. Whether it is a sleek
-          product reveal, an atmospheric brand film, or a snappy social edit built
-          for speed, we craft videos that hit with clarity and character.
+          Explore a collection of videos, animations, ad creatives, and visual content created for
+          startups, SaaS companies, and modern brands.
+          From SaaS trailers and product explainers to motion graphics, social content, and
+          performance-driven ad creatives, every project is crafted to communicate clearly, capture
+          attention, and leave a lasting impression.
         </p>
         <div className="mt-8 flex flex-col items-center sm:mt-10">
           <Tabs type={type} SetType={handleTypeChange} />

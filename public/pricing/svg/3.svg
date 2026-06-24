@@ -3,159 +3,159 @@
   <defs>
     <style>
       .cls-1 {
-        fill: url(#radial-gradient-2);
+      fill: url(#radial-gradient-2);
       }
 
       .cls-1, .cls-2, .cls-3 {
-        opacity: .7;
+      opacity: .7;
       }
 
       .cls-4 {
-        fill: url(#radial-gradient-18);
+      fill: url(#radial-gradient-18);
       }
 
       .cls-4, .cls-5 {
-        opacity: .46;
+      opacity: .46;
       }
 
       .cls-5 {
-        fill: url(#radial-gradient-10);
+      fill: url(#radial-gradient-10);
       }
 
       .cls-6 {
-        fill: url(#radial-gradient-9);
+      fill: url(#radial-gradient-9);
       }
 
       .cls-7 {
-        mix-blend-mode: color-dodge;
+      mix-blend-mode: color-dodge;
       }
 
       .cls-8 {
-        stroke-width: .5px;
+      stroke-width: .5px;
       }
 
       .cls-8, .cls-9, .cls-3 {
-        fill: none;
+      fill: none;
       }
 
       .cls-8, .cls-3 {
-        stroke: #00bbcf;
-        stroke-miterlimit: 10;
+      stroke: #00bbcf;
+      stroke-miterlimit: 10;
       }
 
       .cls-10 {
-        fill: url(#radial-gradient-14);
+      fill: url(#radial-gradient-14);
       }
 
       .cls-11 {
-        fill: url(#radial-gradient-16);
+      fill: url(#radial-gradient-16);
       }
 
       .cls-12 {
-        fill: url(#radial-gradient-5);
+      fill: url(#radial-gradient-5);
       }
 
       .cls-13 {
-        fill: url(#radial-gradient);
+      fill: url(#radial-gradient);
       }
 
       .cls-14 {
-        fill: url(#radial-gradient-3);
+      fill: url(#radial-gradient-3);
       }
 
       .cls-15 {
-        clip-path: url(#clippath-1);
+      clip-path: url(#clippath-1);
       }
 
       .cls-16 {
-        fill: url(#radial-gradient-20);
+      fill: url(#radial-gradient-20);
       }
 
       .cls-17 {
-        isolation: isolate;
+      isolation: isolate;
       }
 
       .cls-2 {
-        fill: url(#radial-gradient-8);
+      fill: url(#radial-gradient-8);
       }
 
       .cls-18 {
-        fill: url(#radial-gradient-11);
+      fill: url(#radial-gradient-11);
       }
 
       .cls-19 {
-        fill: url(#radial-gradient-4);
+      fill: url(#radial-gradient-4);
       }
 
       .cls-20 {
-        fill: #010000;
+      fill: #010000;
       }
 
       .cls-21 {
-        fill: url(#radial-gradient-12);
+      fill: url(#radial-gradient-12);
       }
 
       .cls-22 {
-        fill: url(#radial-gradient-19);
+      fill: url(#radial-gradient-19);
       }
 
       .cls-23 {
-        fill: #e3e3e3;
-        font-family: Roboto-Bold, Roboto;
-        font-size: 26px;
-        font-weight: 700;
+      fill: #e3e3e3;
+      font-family: Roboto-Bold, Roboto;
+      font-size: 26px;
+      font-weight: 700;
       }
 
       .cls-24 {
-        fill: url(#radial-gradient-15);
+      fill: url(#radial-gradient-15);
       }
 
       .cls-25 {
-        fill: #020101;
+      fill: #020101;
       }
 
       .cls-26 {
-        fill: url(#radial-gradient-6);
+      fill: url(#radial-gradient-6);
       }
 
       .cls-27 {
-        mix-blend-mode: darken;
+      mix-blend-mode: darken;
       }
 
       .cls-28 {
-        fill: url(#radial-gradient-7);
+      fill: url(#radial-gradient-7);
       }
 
       .cls-29 {
-        fill: url(#radial-gradient-17);
+      fill: url(#radial-gradient-17);
       }
 
       .cls-30 {
-        fill: url(#radial-gradient-13);
+      fill: url(#radial-gradient-13);
       }
 
       .cls-31 {
-        opacity: .7;
+      opacity: .7;
       }
 
       @keyframes glow-pulse {
-        0%, 100% { opacity: .46; }
-        50% { opacity: .7; }
+      0%, 100% { opacity: .46; }
+      50% { opacity: .7; }
       }
 
       @keyframes play-pulse {
-        0%, 100% { opacity: .7; transform: scale(1); }
-        50% { opacity: 1; transform: scale(1.05); }
+      0%, 100% { opacity: .7; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
       }
 
       @keyframes dot-float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-2px); }
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-2px); }
       }
 
       @keyframes wave-move {
-        0%, 100% { transform: translateX(0); }
-        50% { transform: translateX(3px); }
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(3px); }
       }
 
       .cls-4, .cls-5 { animation: glow-pulse 3s ease-in-out infinite; }

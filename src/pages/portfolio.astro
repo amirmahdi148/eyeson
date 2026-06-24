@@ -7,6 +7,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 
-<BaseLayout>
+<BaseLayout
+  title="Portfolio — EyesOn Agency"
+  description="View our portfolio of motion graphics, video production, branding, and UI/UX projects."
+  canonicalUrl={new URL(Astro.url.pathname, 'https://eyeson.com').href}
+>
     <PortfolioMain />
 </BaseLayout>

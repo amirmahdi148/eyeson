@@ -68,7 +68,7 @@ export default function ApproachTimelineSection() {
               <div key={step} className="flex items-center gap-6 md:gap-12">
                 {/* Numbered circle on the line */}
                 <div className="relative flex w-10 shrink-0 items-start justify-center pt-1 md:w-20 md:pt-2">
-                  <div className="relative top-4 flex h-12 w-12 items-center justify-center md:h-14 md:w-14">
+                  <div className="relative  flex h-12 w-12 items-center justify-center md:h-14 md:w-14">
                     <div className="absolute inset-0 flex items-center justify-center rounded-full border-[0.5px] border-[#FFFFFF33] bg-[#032635] text-base font-bold text-[#FFFFFF66] md:text-xl">
                       {`0${step}`}
                     </div>

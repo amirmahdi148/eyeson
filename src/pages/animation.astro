@@ -5,6 +5,10 @@ import AnimationMain from "../components/AnimationMain.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout>
+<BaseLayout
+  title="Animation — EyesOn Agency"
+  description="Professional animation services by EyesOn Agency — motion graphics, explainer videos, and animated content."
+  canonicalUrl={new URL(Astro.url.pathname, 'https://eyeson.com').href}
+>
   <AnimationMain />
 </BaseLayout>

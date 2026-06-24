@@ -4,6 +4,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import BrandingMain from "../components/BrandingMain.astro";
 ---
 
-<BaseLayout>
+<BaseLayout
+  title="Branding — EyesOn Agency"
+  description="Branding services by EyesOn Agency — logo design, brand identity, and visual strategy."
+  canonicalUrl={new URL(Astro.url.pathname, 'https://eyeson.com').href}
+>
   <BrandingMain />
 </BaseLayout>

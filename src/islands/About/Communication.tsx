@@ -106,21 +106,17 @@ export const Communication = memo(function Communication() {
               Communication
             </h2>
             <p className="max-w-xl text-[13px] sm:text-[14px] md:text-base lg:text-lg font-light text-gray-200/90 leading-[1.7] md:leading-relaxed">
-              Clear communication is the foundation of our workflow. Every
-              project at eyeson begins with alignment, transparency, and a
-              shared understanding of goals. We keep things simple and efficient
-              through regular check-ins, async updates, and fast feedback loops.
+              Great creative work starts with great communication.
+              We believe the best results come from transparency, alignment, and fast feedback. That's
+              why we keep communication clear, organized, and tailored to the way your team works.
             </p>
           </motion.div>
 
           <motion.div variants={fadeUp} className="w-full">
             <p className="max-w-xl text-[13px] sm:text-[14px] md:text-base lg:text-lg font-light text-gray-400 leading-[1.7] md:leading-relaxed">
-              We’re flexible with how teams prefer to collaborate. Whether it’s
-              video calls, written updates, or a dedicated workspace for ongoing
-              projects, we adapt to whatever keeps the process smooth. If your
-              team needs a private channel for real-time communication, task
-              tracking, or asset sharing, we’re happy to set it up and keep
-              everything running without friction.
+              Whether we're collaborating through Slack, Discord, email, or scheduled calls, our focus
+              remains the same: keeping projects moving efficiently while ensuring everyone stays
+              aligned from start to finish.
             </p>
           </motion.div>
         </motion.div>

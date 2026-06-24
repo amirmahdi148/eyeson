@@ -6,11 +6,13 @@ import vercelAdapter from "@astrojs/vercel";
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://eyeson.com',
+  site: 'https://eyeson.agency',
   output: 'server',
-  // adapter: node({ mode: 'standalone' }),
-  adapter: vercelAdapter(),
-  integrations: [react(), svelte(), sitemap()],
+  adapter: node({ mode: 'standalone' }),
+  // adapter: vercelAdapter(),
+  integrations: [react(), svelte(), sitemap({
+    filter: (page) => !page.startsWith('https://eyeson.agency/admin/') && page !== 'https://eyeson.agency/login/',
+  })],
   vite: {
     build: {
       chunkSizeWarningLimit: 1000,

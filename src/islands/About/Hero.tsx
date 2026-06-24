@@ -74,9 +74,8 @@ export const Hero = () => {
                             animate="visible"
                             className=" font-bold text-xl sm:text-4xl w-75 sm:w-200 text-white "
                         >
-                            <span className="text-[#38B6B3] ">EyesOn</span> isn't just a
-                            creative studio . It's where ideas get sharp edges , smooth curves ,
-                            and a pulse of their own
+                            <span className="text-[#38B6B3] ">EyesOn Studio</span> is a creative studio helping brands communicate through motion, design,
+                            video, and visual storytelling.
                         </motion.h3>
                         <motion.h5
                             variants={fadeInFromDown}
@@ -84,10 +83,11 @@ export const Hero = () => {
                             animate="visible"
                             className="w-75 sm:w-200 text-white"
                         >
-                            We started as a small collective obsessed with turning raw concepts
-                            into striking visuals. Over time, that obsession became a full-scale
-                            design and animation practice trusted by brands that care about
-                            clarity, style, and storytelling.
+                            Our team brings together editors, motion designers, graphic designers, UI/UX designers,
+                            and creative strategists working across different countries, with primary hubs in <b>Tbilisi</b> and {' '}
+                             <b>Dubai</b>.
+                            From product launches and SaaS explainers to brand identities and social content, we help
+                            brands turn ideas into visual experiences people remember.
                         </motion.h5>
                     </div>
                     <motion.div
@@ -98,11 +98,11 @@ export const Hero = () => {
                         <div className="flex gap-10">
 
                             <button className="border-3 outline-0 border-[#00A9BD] text-white rounded-[36px] py-2 px-4 sm:py-4 sm:px-14 bg-linear-to-r from-[#00A9BD] to-[#1D553A] cursor-pointer shadow-[0px_2px_25px_#00A9BD] text-sm sm:text-xl  font-bold ">
-                                Start a Project
+                                Book a Call
                             </button>
 
                             <button className="border-3 outline-0 border-[#00A9BD] text-white rounded-[36px] py-4 px-4 bg-black sm:py-4 sm:px-14  cursor-pointer shadow-[0px_2px_25px_#00A9BD] text-sm sm:text-xl font-bold">
-                                Get a Free Sample
+                                Explore Our Work
                             </button>
                         </div>
                     </motion.div>

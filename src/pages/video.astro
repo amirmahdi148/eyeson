@@ -4,6 +4,10 @@ import VideoMain from "../components/Video/VideoMain.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout>
+<BaseLayout
+  title="Video Production — EyesOn Agency"
+  description="Professional video production services by EyesOn Agency — from concept to final cut."
+  canonicalUrl={new URL(Astro.url.pathname, 'https://eyeson.com').href}
+>
   <VideoMain />
 </BaseLayout>

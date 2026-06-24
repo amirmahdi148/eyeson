@@ -6,6 +6,11 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 
 ---
 
-<BaseLayout>
+<BaseLayout
+  title="Login — EyesOn Agency"
+  description="Log in to your EyesOn Agency account."
+  canonicalUrl={new URL(Astro.url.pathname, 'https://eyeson.com').href}
+  robots="noindex, nofollow"
+>
   <LoginForm client:load />
 </BaseLayout>

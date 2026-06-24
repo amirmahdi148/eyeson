@@ -2,7 +2,8 @@
 import { useMemo, useState, useEffect } from "react";
 import {SmartImage} from "../../utils/SmartImage.tsx";
 
-const API_URL = "http://localhost:1337/api/posts";
+const STRAPI_URL = import.meta.env.PUBLIC_POST_URL || "http://localhost:1337";
+const API_URL = `${STRAPI_URL}/api/posts`;
 interface StrapiPost {
     id: number;
     documentId: string;
@@ -47,7 +48,7 @@ export const RealBlogs = () => {
                     const coverUrl = post.cover?.url
                         ? post.cover.url.startsWith("http")
                             ? post.cover.url
-                            : `http://localhost:1337${post.cover.url}`
+                            : `${STRAPI_URL}${post.cover.url}`
                         : "";
                     return {
                         id: post.id,
@@ -87,6 +88,45 @@ export const RealBlogs = () => {
         const start = (page - 1) * pageSize;
         return filteredPosts.slice(start, start + pageSize);
     }, [filteredPosts, page]);
+
+    useEffect(() => {
+      const prevLink = document.querySelector('link[rel="prev"]');
+      const nextLink = document.querySelector('link[rel="next"]');
+      const baseUrl = `${window.location.origin}/blogs`;
+
+      if (page > 1) {
+        const href = `${baseUrl}?page=${page - 1}`;
+        if (prevLink) {
+          prevLink.setAttribute("href", href);
+        } else {
+          const link = document.createElement("link");
+          link.rel = "prev";
+          link.href = href;
+          document.head.appendChild(link);
+        }
+      } else if (prevLink) {
+        prevLink.remove();
+      }
+
+      if (page < totalPages) {
+        const href = `${baseUrl}?page=${page + 1}`;
+        if (nextLink) {
+          nextLink.setAttribute("href", href);
+        } else {
+          const link = document.createElement("link");
+          link.rel = "next";
+          link.href = href;
+          document.head.appendChild(link);
+        }
+      } else if (nextLink) {
+        nextLink.remove();
+      }
+
+      return () => {
+        document.querySelector('link[rel="prev"]')?.remove();
+        document.querySelector('link[rel="next"]')?.remove();
+      };
+    }, [page, totalPages]);
 
     const placeholderCount = Math.max(0, pageSize - paginatedPosts.length);
 

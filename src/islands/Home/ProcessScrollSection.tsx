@@ -235,16 +235,8 @@ export default function ProcessScrollSection() {
               className="w-full h-[750px] flex items-center justify-center will-change-transform"
             >
               <div className="relative w-full h-full">
-                <div ref={parallaxImgRef} className="absolute inset-0 will-change-transform">
-                  <img src="/svg-parts/home/backline.svg" alt="" className="absolute inset-0 w-full h-full object-contain" style={{ zIndex: 1 }} />
-                  <img src="/svg-parts/home/main.svg" alt="Process Visualization" className="absolute inset-0 w-full h-full object-contain" style={{ zIndex: 2 }} />
-                  <img src="/svg-parts/home/3.svg" alt="" className="absolute inset-0 w-full h-full object-contain" style={{ zIndex: 3 }} />
-                  <img src="/svg-parts/home/4.svg" alt="" className="absolute inset-0 w-full h-full object-contain" style={{ zIndex: 4 }} />
-                  <img src="/svg-parts/home/5.svg" alt="" className="absolute inset-0 w-full h-full object-contain" style={{ zIndex: 5 }} />
-                  <img src="/svg-parts/home/6.svg" alt="" className="absolute inset-0 w-full h-full object-contain" style={{ zIndex: 6 }} />
-                  <img src="/svg-parts/home/7.svg" alt="" className="absolute inset-0 w-full h-full object-contain" style={{ zIndex: 7 }} />
-                  <img src="/svg-parts/home/8.svg" alt="" className="absolute inset-0 w-full h-full object-contain" style={{ zIndex: 8 }} />
-                </div>
+                <img src="/svg-parts/home/single-webp/full.webp" alt="" className="absolute inset-0 w-full h-full object-contain" style={{ zIndex: 8 }} />
+
               </div>
             </div>
           </div>

@@ -12,7 +12,8 @@ import {
   ChevronRight,
   LogOut,
   User,
-  Image
+  Image,
+  BarChart3
 } from "lucide-react";
 import { httpService } from "@/utils/httpService.ts";
 import NotificationBell from "@/islands/Admin/NotificationBell";
@@ -26,6 +27,7 @@ const navItems = [
   { href: "/admin/project-types", icon: Tag, label: "Project Types" },
   { href: "/admin/portfolios", icon: Image, label: "Portfolios" },
   { href: "/admin/case", icon: LayoutDashboard, label: "Case Editor" },
+  { href: "/admin/events", icon: BarChart3, label: "Events" },
   { href: "/admin/settings", icon: Settings, label: "Settings" },
 ];
 

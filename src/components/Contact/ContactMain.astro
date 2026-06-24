@@ -2,6 +2,12 @@
 import { ContactBookingSection } from "../../islands/Contact/ContactBookingSection.tsx";
 ---
 
-<div class="relative">
+<div class="relative contact-booking-island">
   <ContactBookingSection client:load />
 </div>
+
+<style is:global>
+  .contact-booking-island > astro-island {
+    display: block !important;
+  }
+</style>

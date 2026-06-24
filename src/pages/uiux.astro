@@ -4,6 +4,10 @@ import BaseLayout from "../layouts/BaseLayout.astro"
 import UiUxMain from "../components/Uiux/UiUxMain.astro"
 ---
 
-<BaseLayout>
+<BaseLayout
+  title="UI/UX Design — EyesOn Agency"
+  description="UI/UX design services by EyesOn Agency — user research, wireframing, prototyping, and interface design."
+  canonicalUrl={new URL(Astro.url.pathname, 'https://eyeson.com').href}
+>
 <UiUxMain />
 </BaseLayout>
