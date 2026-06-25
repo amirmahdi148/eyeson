@@ -49,10 +49,6 @@ const deploymentHost = process.env.VERCEL_URL || Astro.url.host;
 const origin = `${Astro.url.protocol}//${deploymentHost}`;
 const absoluteOgImage = ogImage?.startsWith("http") ? ogImage : new URL(ogImage, origin).href;
 const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
-
-const analyticsEndpoint = `${import.meta.env.PUBLIC_API_URL || 'http://localhost:3000'}/analytics/receive/v1`;
-
-
 ---
 
 <html lang={lang}>
@@ -90,7 +86,7 @@ const analyticsEndpoint = `${import.meta.env.PUBLIC_API_URL || 'http://localhost
     {dateModified && <meta property="article:modified_time" content={dateModified} />}
     {articleSection && <meta property="article:section" content={articleSection} />}
 
-    <script type="application/ld+json" set:html={JSON.stringify({
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "EyesOn Agency",
@@ -160,18 +156,18 @@ const analyticsEndpoint = `${import.meta.env.PUBLIC_API_URL || 'http://localhost
     <script is:inline>
       console.log('[Analytics] script loaded', window.location.pathname);
 
-      var endpoint = '/api/analytics/receive/v1';
+      const endpoint = '/api/analytics/receive/v1';
       console.log('[Analytics] endpoint:', endpoint);
 
-      var payload = {
+      const payload = {
         event: 'pageview',
         path: window.location.pathname,
         userAgent: navigator.userAgent,
       };
-      var body = JSON.stringify(payload);
+      const body = JSON.stringify(payload);
       console.log('[Analytics] sending:', body);
 
-      var sent = navigator.sendBeacon(endpoint, new Blob([body], { type: 'application/json' }));
+      const sent = navigator.sendBeacon(endpoint, new Blob([body], {type: 'application/json'}));
       console.log('[Analytics] sendBeacon result:', sent);
 
       if (!sent) {
@@ -183,15 +179,15 @@ const analyticsEndpoint = `${import.meta.env.PUBLIC_API_URL || 'http://localhost
       fetch('/api/client-ip')
         .then(function(r) { return r.json(); })
         .then(function(data) {
-          var ip = data.ip || '';
-          var raw = ip + '|' + navigator.userAgent;
-          var hash = 0;
-          for (var i = 0; i < raw.length; i++) {
-            var c = raw.charCodeAt(i);
+          const ip = data.ip || '';
+          const raw = ip + '|' + navigator.userAgent;
+          let hash = 0;
+          for (let i = 0; i < raw.length; i++) {
+            const c = raw.charCodeAt(i);
             hash = ((hash << 5) - hash) + c;
             hash |= 0;
           }
-          var enriched = {
+          const enriched = {
             event: 'pageview',
             hash: Math.abs(hash).toString(36),
             path: window.location.pathname,
