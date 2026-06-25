@@ -5,7 +5,7 @@ export type { EmailRequest, EmailLogItem };
 
 export const LOG_PREFIX = "[EmailsManager]";
 
-export const statuses = ["Pending", "Approved", "In Progress", "Completed", "Cancelled"] as const;
+export const statuses = ["All","Pending", "Approved", "In Progress", "Completed", "Cancelled"] as const;
 
 export const priorities = ["All", "High", "Medium", "Low"] as const;
 

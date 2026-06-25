@@ -7,16 +7,21 @@ export const ALL: APIRoute = async ({ request, params }) => {
   const backendUrl = `${BACKEND_BASE}/${slug}`;
 
   try {
-    const body = request.body ? await request.text() : undefined;
+    const req = request.clone();
+    const body = ["POST", "PUT", "PATCH", "DELETE"].includes(request.method)
+      ? await req.text()
+      : undefined;
+
     const headers: Record<string, string> = {};
     request.headers.forEach((value, key) => {
       if (key !== "host") headers[key] = value;
     });
+    delete headers["content-length"];
 
     const response = await fetch(backendUrl, {
       method: request.method,
-      headers: { ...headers, "Content-Type": "application/json" },
-      body,
+      headers: { ...headers, "content-type": "application/json" },
+      body: body || undefined,
     });
 
     const responseBody = await response.text();

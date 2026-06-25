@@ -34,9 +34,11 @@ export default function RequestsList() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filterStatus, setFilterStatus] = useState("All");
   const sentinelRef = useRef<HTMLDivElement>(null);
+  const isLoadingRef = useRef(false);
 
   const fetchRequests = useCallback(async (p: number, append: boolean) => {
-    if (loading) return;
+    if (isLoadingRef.current) return;
+    isLoadingRef.current = true;
     setLoading(true);
     try {
       const data = await dashboardService.getAllRequests(p, 10);
@@ -47,9 +49,10 @@ export default function RequestsList() {
     } catch (err) {
       console.error("[RequestsList] Failed to load requests", err);
     } finally {
+      isLoadingRef.current = false;
       setLoading(false);
     }
-  }, [loading]);
+  }, []);
 
   useEffect(() => {
     setAllRequests([]);
@@ -61,7 +64,7 @@ export default function RequestsList() {
     if (!sentinelRef.current) return;
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && page < totalPages && !loading) {
+        if (entries[0].isIntersecting && page < totalPages && !isLoadingRef.current) {
           fetchRequests(page + 1, true);
         }
       },
@@ -69,7 +72,7 @@ export default function RequestsList() {
     );
     observer.observe(sentinelRef.current);
     return () => observer.disconnect();
-  }, [page, totalPages, loading, fetchRequests]);
+  }, [page, totalPages]);
 
   const filteredRequests = allRequests.filter((r) => {
     const matchesSearch = r.title.toLowerCase().includes(searchQuery.toLowerCase()) || r.from.toLowerCase().includes(searchQuery.toLowerCase());

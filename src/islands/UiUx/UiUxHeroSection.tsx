@@ -19,57 +19,7 @@ export default function UiUxHeroSection() {
         {/* ستون راست (تصاویر): در موبایل می‌آید بالا (order-1) */}
         {/* ========================================== */}
         <div className="order-1 lg:order-2 relative w-full sm:w-[85%] md:w-[75%] lg:w-7/12 flex justify-center mt-6 lg:mt-0">
-          <div className="relative mx-auto h-[260px] sm:h-[360px] md:h-[450px] lg:h-[550px] w-[95%] sm:w-full lg:w-[120%] lg:-translate-x-4">
-            
-            {/* عکس سوم (پشتی‌ترین - بالا راست) */}
-            <div className="group absolute right-0 sm:right-[5%] lg:right-0 top-0 w-[70%] sm:w-[75%] lg:w-[80%] overflow-hidden rounded-[12px] border border-white/5 shadow-2xl transition-all duration-500 hover:-translate-y-4 hover:shadow-[0_20px_40px_rgba(0,0,0,0.6)] z-10">
-              <div className="bg-[#121212] pt-3 sm:pt-4 lg:pt-5 relative h-full w-full transition-opacity duration-500">
-                <img
-                  src={images[2].src}
-                  alt={images[2].alt}
-                  className="w-full h-auto object-fill"
-                />
-              </div>
-            </div>
-
-            {/* عکس دوم (میانی) */}
-            <div className="group absolute right-[10%] sm:right-[15%] lg:right-[12%] top-[12%] sm:top-[15%] lg:top-[10%] w-[70%] sm:w-[75%] lg:w-[80%] overflow-hidden rounded-[14px] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all duration-500 hover:-translate-y-4 hover:shadow-[0_20px_50px_rgba(0,0,0,0.7)] z-20">
-              <div className="bg-[#1a1025] pt-5 lg:pt-6 relative h-full w-full transition-opacity">
-                {/* شبیه‌سازی نوار مرورگر */}
-                <div className="absolute top-0 left-0 w-full h-5 lg:h-6 bg-[#2a1b38] flex items-center px-3 lg:px-4 gap-1 lg:gap-1.5">
-                  <div className="w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full bg-white/20"></div>
-                  <div className="w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full bg-white/20"></div>
-                  <div className="w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full bg-white/20"></div>
-                </div>
-                <img
-                  src={images[1].src}
-                  alt={images[1].alt}
-                  className="w-full h-auto object-cover"
-                />
-              </div>
-            </div>
-
-            {/* عکس اول (جلویی‌ترین - پایین چپ) */}
-            <div className="group absolute right-[20%] sm:right-[25%] lg:right-[24%] top-[24%] sm:top-[30%] lg:top-[20%] w-[70%] sm:w-[75%] lg:w-[80%] overflow-hidden rounded-[16px] border border-white/15 shadow-[0_30px_60px_rgba(0,0,0,0.7)] transition-all duration-500 hover:-translate-y-4 hover:shadow-[0_30px_70px_rgba(0,0,0,0.8)] hover:z-40 z-30">
-              <div className="bg-[#0b101a] relative h-full w-full transition-opacity duration-500 opacity-100">
-                {/* شبیه‌سازی مرورگر مک */}
-                <div className="absolute top-0 left-0 w-full h-6 lg:h-7 bg-[#1c1c1e] flex items-center px-3 lg:px-4 gap-1 lg:gap-1.5 border-b border-white/5 z-10">
-                  <div className="w-2 h-2 lg:w-2.5 lg:h-2.5 rounded-full bg-[#ff5f56]"></div>
-                  <div className="w-2 h-2 lg:w-2.5 lg:h-2.5 rounded-full bg-[#ffbd2e]"></div>
-                  <div className="w-2 h-2 lg:w-2.5 lg:h-2.5 rounded-full bg-[#27c93f]"></div>
-                  <div className="mx-auto h-3 lg:h-4 w-24 lg:w-48 rounded bg-white/5"></div>
-                </div>
-                <div className="pt-6 lg:pt-7">
-                  <img
-                    src={images[0].src}
-                    alt={images[0].alt}
-                    className="w-full h-auto object-contain"
-                  />
-                </div>
-              </div>
-            </div>
-            
-          </div>
+          <img src="/uiux/RightElement/22.webp" alt="" className="scale-[1.2]"/>
         </div>
 
         {/* ========================================== */}

@@ -2,15 +2,33 @@
 export const prerender = false;
 import AdminBaseLayout from "../../../layouts/AdminLayout.astro";
 import AdminLayout from "@/islands/Admin/AdminLayout";
-import AdminCaseMain from "@/components/Case/AdminCaseMain.astro";
+import AdminCaseStudyHero from "@/islands/Admin/AdminCaseStudyHero";
+import AdminCaseStudyTabsSection from "@/islands/Admin/AdminCaseStudyTabsSection";
+import AdminVisualProofSection from "@/islands/Admin/AdminVisualProofSection";
+import CaseStudiesSection from "@/islands/CaseStudiesSection";
+import ContactUs from "@/islands/ContactUs";
 import AdminGuard from "@/islands/Admin/AdminGuard";
 
 const { slug } = Astro.params;
 ---
+
 <AdminBaseLayout>
   <AdminGuard client:only="react">
     <AdminLayout client:load>
-      <AdminCaseMain slug={slug} />
+      <div class="relative">
+        <div class="pointer-events-none absolute inset-0">
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(0,169,189,0.18),transparent_28%),radial-gradient(circle_at_80%_28%,rgba(0,169,189,0.18),transparent_26%),radial-gradient(circle_at_50%_115%,rgba(0,169,189,0.2),transparent_34%)]" />
+          <div class="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.15),rgba(0,0,0,0.4))]" />
+          <div class="absolute inset-0 opacity-35 bg-[radial-gradient(rgba(255,255,255,0.45)_1px,transparent_1px)] bg-size-[115px_115px]" />
+        </div>
+        <div class="relative flex flex-col gap-3">
+          <AdminCaseStudyHero client:load slug={slug} />
+          <AdminVisualProofSection client:load />
+          <AdminCaseStudyTabsSection client:load slug={slug} />
+          <CaseStudiesSection client:load />
+          <ContactUs client:load />
+        </div>
+      </div>
     </AdminLayout>
   </AdminGuard>
 </AdminBaseLayout>

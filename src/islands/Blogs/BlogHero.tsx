@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { BlocksRenderer, type BlocksContent } from "@strapi/blocks-react-renderer";
+import type {JSX} from "astro/jsx-runtime";
 
 type BlogSection = {
   id?: string;
@@ -255,21 +256,21 @@ export const BlogHero = ({ title: propTitle, category: propCategory, date: propD
                           <div className="absolute h-0.5 w-0.5 rounded-full bg-[#00A9BD]/55" style={{ animation: 'particle-drift-2 6s ease-in-out infinite 3s', top: '25%', left: '60%', willChange: 'transform, opacity' }} />
                           <div className="absolute h-1 w-1 rounded-full bg-[#2dd4bf]/45" style={{ animation: 'particle-drift-3 4s ease-in-out infinite 1.5s', top: '80%', left: '45%', willChange: 'transform, opacity' }} />
                         </div>
-                        <div className="absolute left-[10%] right-[10%] top-[12%] h-px bg-gradient-to-r from-transparent via-[#00A9BD]/35 to-transparent" style={{ animation: 'data-stream 2.8s ease-in-out infinite 0.2s', willChange: 'transform' }} />
-                        <div className="absolute left-[8%] right-[8%] top-[35%] h-px bg-gradient-to-r from-transparent via-[#2dd4bf]/20 to-transparent" style={{ animation: 'data-stream 3.5s ease-in-out infinite 0.6s', willChange: 'transform' }} />
-                        <div className="absolute left-[5%] right-[5%] top-[55%] h-px bg-gradient-to-r from-transparent via-[#00A9BD]/25 to-transparent" style={{ animation: 'data-stream 4s ease-in-out infinite 1s', willChange: 'transform' }} />
-                        <div className="absolute left-[12%] right-[12%] top-[78%] h-px bg-gradient-to-r from-transparent via-[#2dd4bf]/20 to-transparent" style={{ animation: 'data-stream 3s ease-in-out infinite 1.5s', willChange: 'transform' }} />
-                        <div className="absolute left-[30%] right-[30%] top-[92%] h-px bg-gradient-to-r from-transparent via-[#00A9BD]/15 to-transparent" style={{ animation: 'data-stream 4.5s ease-in-out infinite 0.3s', willChange: 'transform' }} />
-                        <div className="absolute inset-y-0 left-[10%] w-px bg-gradient-to-b from-transparent via-[#00A9BD]/18 to-transparent" style={{ animation: 'data-stream-v 3.5s ease-in-out infinite 0.4s', willChange: 'transform' }} />
-                        <div className="absolute inset-y-0 left-[30%] w-px bg-gradient-to-b from-transparent via-[#2dd4bf]/12 to-transparent" style={{ animation: 'data-stream-v 4s ease-in-out infinite 1.2s', willChange: 'transform' }} />
-                        <div className="absolute inset-y-0 left-[50%] w-px bg-gradient-to-b from-transparent via-[#00A9BD]/15 to-transparent" style={{ animation: 'data-stream-v 3s ease-in-out infinite 0.8s', willChange: 'transform' }} />
-                        <div className="absolute inset-y-0 left-[70%] w-px bg-gradient-to-b from-transparent via-[#2dd4bf]/12 to-transparent" style={{ animation: 'data-stream-v 4.2s ease-in-out infinite 1.8s', willChange: 'transform' }} />
-                        <div className="absolute inset-y-0 right-[10%] w-px bg-gradient-to-b from-transparent via-[#00A9BD]/18 to-transparent" style={{ animation: 'data-stream-v 3.8s ease-in-out infinite 0.5s', willChange: 'transform' }} />
-                        <div className="absolute inset-x-[15%] top-0 h-px bg-gradient-to-r from-transparent via-[#00A9BD]/45 to-transparent" />
-                        <div className="absolute inset-x-[15%] bottom-0 h-px bg-gradient-to-r from-transparent via-[#00A9BD]/45 to-transparent" />
-                        <div className="absolute left-[15%] top-0 h-full w-px bg-gradient-to-b from-transparent via-[#00A9BD]/25 to-transparent" />
+                        <div className="absolute left-[10%] right-[10%] top-[12%] h-px bg-linear-to-r from-transparent via-[#00A9BD]/35 to-transparent" style={{ animation: 'data-stream 2.8s ease-in-out infinite 0.2s', willChange: 'transform' }} />
+                        <div className="absolute left-[8%] right-[8%] top-[35%] h-px bg-linear-to-r from-transparent via-[#2dd4bf]/20 to-transparent" style={{ animation: 'data-stream 3.5s ease-in-out infinite 0.6s', willChange: 'transform' }} />
+                        <div className="absolute left-[5%] right-[5%] top-[55%] h-px bg-linear-to-r from-transparent via-[#00A9BD]/25 to-transparent" style={{ animation: 'data-stream 4s ease-in-out infinite 1s', willChange: 'transform' }} />
+                        <div className="absolute left-[12%] right-[12%] top-[78%] h-px bg-linear-to-r from-transparent via-[#2dd4bf]/20 to-transparent" style={{ animation: 'data-stream 3s ease-in-out infinite 1.5s', willChange: 'transform' }} />
+                        <div className="absolute left-[30%] right-[30%] top-[92%] h-px bg-linear-to-r from-transparent via-[#00A9BD]/15 to-transparent" style={{ animation: 'data-stream 4.5s ease-in-out infinite 0.3s', willChange: 'transform' }} />
+                        <div className="absolute inset-y-0 left-[10%] w-px bg-linear-to-b from-transparent via-[#00A9BD]/18 to-transparent" style={{ animation: 'data-stream-v 3.5s ease-in-out infinite 0.4s', willChange: 'transform' }} />
+                        <div className="absolute inset-y-0 left-[30%] w-px bg-linear-to-b from-transparent via-[#2dd4bf]/12 to-transparent" style={{ animation: 'data-stream-v 4s ease-in-out infinite 1.2s', willChange: 'transform' }} />
+                        <div className="absolute inset-y-0 left-[50%] w-px bg-linear-to-b from-transparent via-[#00A9BD]/15 to-transparent" style={{ animation: 'data-stream-v 3s ease-in-out infinite 0.8s', willChange: 'transform' }} />
+                        <div className="absolute inset-y-0 left-[70%] w-px bg-linear-to-b from-transparent via-[#2dd4bf]/12 to-transparent" style={{ animation: 'data-stream-v 4.2s ease-in-out infinite 1.8s', willChange: 'transform' }} />
+                        <div className="absolute inset-y-0 right-[10%] w-px bg-linear-to-b from-transparent via-[#00A9BD]/18 to-transparent" style={{ animation: 'data-stream-v 3.8s ease-in-out infinite 0.5s', willChange: 'transform' }} />
+                        <div className="absolute inset-x-[15%] top-0 h-px bg-linear-to-r from-transparent via-[#00A9BD]/45 to-transparent" />
+                        <div className="absolute inset-x-[15%] bottom-0 h-px bg-linear-to-r from-transparent via-[#00A9BD]/45 to-transparent" />
+                        <div className="absolute left-[15%] top-0 h-full w-px bg-linear-to-b from-transparent via-[#00A9BD]/25 to-transparent" />
                         <div className="absolute right-[15%] top-0 h-full w-px bg-gradient-to-b from-transparent via-[#00A9BD]/25 to-transparent" />
-                        <div className="absolute top-0 h-0.5 w-1/3 bg-gradient-to-r from-transparent via-[#00A9BD]/60 to-transparent blur-sm" style={{ animation: 'sweep 2s ease-in-out infinite', willChange: 'transform' }} />
+                        <div className="absolute top-0 h-0.5 w-1/3 bg-linear-to-r from-transparent via-[#00A9BD]/60 to-transparent blur-sm" style={{ animation: 'sweep 2s ease-in-out infinite', willChange: 'transform' }} />
                       </div>
                     )}
                     <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.4),rgba(255,255,255,0.08))]" />
@@ -308,9 +309,9 @@ export const BlogHero = ({ title: propTitle, category: propCategory, date: propD
                           3: "text-xl sm:text-[1.5rem]",
                         };
                         return (
-                          <Tag className={`mt-10 mb-4 font-semibold tracking-tight text-white ${sizes[level as keyof typeof sizes] || "text-lg"}`}>
+                          <div className={`mt-10 mb-4 font-semibold tracking-tight text-white ${sizes[level as keyof typeof sizes] || "text-lg"}`}>
                             {children}
-                          </Tag>
+                          </div>
                         );
                       },
                       list: ({ children, format }) => (

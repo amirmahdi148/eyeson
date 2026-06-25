@@ -9,42 +9,52 @@ interface CaseData {
   tools?: { name: string; iconUrl?: string }[];
   projectType?: string;
   projectTimeline?: string;
+  projectcategory?: string;
 }
 
-const DEFAULT_DATA: CaseData = {
-  title: "CryptoZen",
-  description: "CryptoZen is a crypto education brand aiming to make blockchain simple, engaging, and actionable. Our mission was to help them scale their content and grow their audience across Instagram, TikTok, and YouTube, with a focus on driving VIP membership conversions through high-retention, short-form video.",
-  tools: [
-    { name: "Blender", iconUrl: "/case/blender.webp" },
-    { name: "Illustrator", iconUrl: "/case/ai.webp" },
-    { name: "Photoshop", iconUrl: "/case/ps.webp" },
-    { name: "After Effects", iconUrl: "/case/ae.webp" },
-  ],
-  projectType: "Subscription",
-  projectTimeline: "9 Months",
-  avatar: "/case/hero-case.webp",
-};
+const CATEGORY_OPTIONS = ["Video", "Industry", "Animation"];
 
 type Props = {
   slug?: string;
 };
 
 export default function AdminCaseStudyHero({ slug: propSlug }: Props) {
-  const slug = propSlug || "skylines-989762e9";
-  const [data, setData] = useState<CaseData>(DEFAULT_DATA);
+  const slug = propSlug || "";
+  const [data, setData] = useState<CaseData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState(false);
   const [editField, setEditField] = useState<string | null>(null);
   const [editValue, setEditValue] = useState("");
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
 
+  const PATCH_BODY = { slug };
+
+  const API_FIELD_MAP: Record<string, string> = {
+    title: "projectname",
+    description: "description",
+    projectType: "type",
+    projectTimeline: "timeline",
+    projectcategory: "projectcategory",
+  };
+
   useEffect(() => {
+    if (!slug) return;
     const fetchData = async () => {
       try {
-        const res = await httpService.get<CaseData>(`/project/details?slug=${slug}`);
-        setData((prev) => ({ ...prev, ...res }));
+        const res: Record<string, any> = await httpService.get(`/project/details` , { params : {slug : slug}});
+        setData({
+          title: res.projectname || "",
+          description: res.description || "",
+          projectType: res.type || "",
+          projectTimeline: res.timeline || "",
+          projectcategory: res.projectcategory || "",
+          avatar: res.avatar || "",
+          tools: res.tools || [],
+        });
       } catch (err) {
-        console.warn("[AdminCaseStudyHero] Using fallback data:", err);
+        console.error("[AdminCaseStudyHero] Fetch failed:", err);
+        setFetchError(true);
       } finally {
         setLoading(false);
       }
@@ -70,27 +80,28 @@ export default function AdminCaseStudyHero({ slug: propSlug }: Props) {
   };
 
   const saveEdit = async () => {
-    if (!editField || !editValue.trim()) return;
+    if (!editField || !editValue.trim() || !data) return;
     setSaving(true);
     setSaveError(null);
     try {
-      if (editField === "title" || editField === "description" || editField === "projectType" || editField === "projectTimeline") {
-        await httpService.put(`/project/details?slug=${slug}`, { [editField]: editValue });
-        setData(prev => ({ ...prev, [editField]: editValue }));
-      } else if (editField === "tools") {
+      if (editField === "tools") {
         const toolNames = editValue.split(",").map(n => n.trim()).filter(Boolean);
         const newTools = toolNames.map(name => {
-          const existing = data.tools?.find(t => t.name.toLowerCase() === name.toLowerCase());
+          const existing = data!.tools?.find(t => t.name.toLowerCase() === name.toLowerCase());
           return {
             name,
             iconUrl: existing?.iconUrl || `/case/${name.toLowerCase().replace(/\s+/g, '')}.webp`
           };
         });
-        await httpService.put(`/project/details?slug=${slug}`, { tools: newTools });
-        setData(prev => ({ ...prev, tools: newTools }));
+        await httpService.patch(`/project/details`, { ...PATCH_BODY, tools: newTools });
+        setData(prev => ({ ...prev, tools: newTools } as CaseData));
       } else if (editField === "avatar") {
-        await httpService.put(`/project/details?slug=${slug}`, { avatar: editValue });
-        setData(prev => ({ ...prev, avatar: editValue }));
+        await httpService.patch(`/project/details`, { ...PATCH_BODY, avatar: editValue });
+        setData(prev => ({ ...prev, avatar: editValue } as CaseData));
+      } else {
+        const apiField = API_FIELD_MAP[editField] || editField;
+        await httpService.patch(`/project/details`, { ...PATCH_BODY, [apiField]: editValue });
+        setData(prev => ({ ...prev, [editField]: editValue } as CaseData));
       }
       setEditField(null);
       setEditValue("");
@@ -148,6 +159,10 @@ export default function AdminCaseStudyHero({ slug: propSlug }: Props) {
     </div>
   );
 
+  const noSlug = !slug;
+  const isLoading = loading;
+  const hasError = fetchError || !data;
+
   return (
     <>
       {saveError && (
@@ -158,6 +173,23 @@ export default function AdminCaseStudyHero({ slug: propSlug }: Props) {
       )}
 
       <section className="relative overflow-hidden py-16 sm:py-20 lg:py-28">
+        {noSlug && (
+          <div className="mx-auto max-w-7xl px-4 text-center">
+            <p className="text-white/40">No project slug provided.</p>
+          </div>
+        )}
+        {isLoading && (
+          <div className="mx-auto max-w-7xl px-4 text-center">
+            <Loader2 className="h-8 w-8 animate-spin text-cyan-400 mx-auto" />
+            <p className="text-white/40 mt-4">Loading project...</p>
+          </div>
+        )}
+        {hasError && (
+          <div className="mx-auto max-w-7xl px-4 text-center">
+            <p className="text-red-400">Failed to load project data for slug: {slug}</p>
+          </div>
+        )}
+        {!noSlug && !isLoading && !hasError && (
         <div className="relative mx-auto flex w-full max-w-7xl flex-col items-center gap-12 px-4 sm:px-6 lg:flex-row lg:items-center lg:gap-16 lg:px-8">
           {/* Left */}
           <div className="w-full lg:w-[48%]">
@@ -168,9 +200,9 @@ export default function AdminCaseStudyHero({ slug: propSlug }: Props) {
               ) : (
                 <div className="flex items-start gap-1">
                   <h1 className="text-3xl font-black leading-tight tracking-tight text-cyan-300 sm:text-4xl lg:text-[3.35rem]">
-                    {data.title}
+                    {data!.title}
                   </h1>
-                  <EditBtn onClick={() => startEdit("title", data.title || "")} />
+                  <EditBtn onClick={() => startEdit("title", data!.title || "")} />
                 </div>
               )}
             </div>
@@ -182,9 +214,9 @@ export default function AdminCaseStudyHero({ slug: propSlug }: Props) {
               ) : (
                 <div className="flex items-start gap-1">
                   <p className="max-w-2xl text-sm leading-7 text-white/65 sm:text-[15px] lg:text-base">
-                    {data.description}
+                    {data!.description}
                   </p>
-                  <EditBtn onClick={() => startEdit("description", data.description || "")} className="mt-1" />
+                  <EditBtn onClick={() => startEdit("description", data!.description || "")} className="mt-1" />
                 </div>
               )}
             </div>
@@ -197,7 +229,7 @@ export default function AdminCaseStudyHero({ slug: propSlug }: Props) {
                 <div>
                   <p className="text-sm font-semibold text-white/80 mb-4">Tools:</p>
                   <div className="flex flex-wrap items-center gap-3">
-                    {(data.tools || []).map((tool, idx) => (
+                    {(data!.tools || []).map((tool, idx) => (
                       <div key={idx} className="group flex h-11 min-w-11 items-center justify-center rounded-xl transition-all duration-200 hover:-translate-y-0.5">
                         {tool.iconUrl ? (
                           <img src={fixImageUrl(tool.iconUrl)} alt={tool.name} width="28" height="28" className="h-7 w-7 object-contain" loading="lazy" />
@@ -211,16 +243,20 @@ export default function AdminCaseStudyHero({ slug: propSlug }: Props) {
               )}
             </div>
 
-            {/* Project Type & Timeline */}
+            {/* Project Type, Category & Timeline */}
             <div className="mt-10">
               <div className="flex flex-wrap gap-3">
                 <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-[#061b21]/90 px-4 py-2 text-sm text-white/75">
                   <img src="/case/layers.webp" alt="Layers" />
-                  <span>Project Type : {data.projectType}</span>
+                  <span>Project Type : {data!.projectType}</span>
                 </div>
                 <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-[#061b21]/90 px-4 py-2 text-sm text-white/75">
                   <img src="/case/clock.webp" alt="Clock" />
-                  <span>Project Timeline : {data.projectTimeline}</span>
+                  <span>Project Timeline : {data!.projectTimeline}</span>
+                </div>
+                <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-[#061b21]/90 px-4 py-2 text-sm text-white/75">
+                  <img src="/case/layers.webp" alt="Category" />
+                  <span>Category : {data!.projectcategory || "Not set"}</span>
                 </div>
               </div>
               {editField === "projectType" ? (
@@ -231,12 +267,39 @@ export default function AdminCaseStudyHero({ slug: propSlug }: Props) {
                 <div className="mt-3">
                   <InlineInput value={editValue} />
                 </div>
+              ) : editField === "projectcategory" ? (
+                <div className="mt-3 flex gap-2">
+                  {CATEGORY_OPTIONS.map((cat) => (
+                    <button
+                      key={cat}
+                      onClick={() => {
+                        setEditValue(cat);
+                      }}
+                      className={`px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-pointer ${
+                        editValue === cat
+                          ? "bg-cyan-400/20 text-cyan-300 border border-cyan-400/30"
+                          : "bg-white/5 text-white/50 border border-white/10 hover:text-white/70"
+                      }`}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                  <button onClick={saveEdit} disabled={saving} className="p-2 rounded-lg bg-cyan-400/20 text-cyan-300 hover:bg-cyan-400/30 transition-colors" aria-label="Save">
+                    {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+                  </button>
+                  <button onClick={cancelEdit} disabled={saving} className="p-2 rounded-lg bg-white/10 text-white/60 hover:text-white hover:bg-white/20 transition-colors" aria-label="Cancel">
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
               ) : (
                 <div className="flex gap-2 mt-3">
-                  <button onClick={() => startEdit("projectType", data.projectType || "")} className="inline-flex items-center justify-center w-7 h-7 rounded-md text-white/40 hover:text-cyan-300 hover:bg-white/10 transition-all" aria-label="Edit project type">
+                  <button onClick={() => startEdit("projectType", data!.projectType || "")} className="inline-flex items-center justify-center w-7 h-7 rounded-md text-white/40 hover:text-cyan-300 hover:bg-white/10 transition-all" aria-label="Edit project type">
                     <Edit2 className="h-3.5 w-3.5" />
                   </button>
-                  <button onClick={() => startEdit("projectTimeline", data.projectTimeline || "")} className="inline-flex items-center justify-center w-7 h-7 rounded-md text-white/40 hover:text-cyan-300 hover:bg-white/10 transition-all" aria-label="Edit project timeline">
+                  <button onClick={() => startEdit("projectTimeline", data!.projectTimeline || "")} className="inline-flex items-center justify-center w-7 h-7 rounded-md text-white/40 hover:text-cyan-300 hover:bg-white/10 transition-all" aria-label="Edit project timeline">
+                    <Edit2 className="h-3.5 w-3.5" />
+                  </button>
+                  <button onClick={() => startEdit("projectcategory", data!.projectcategory || "")} className="inline-flex items-center justify-center w-7 h-7 rounded-md text-white/40 hover:text-cyan-300 hover:bg-white/10 transition-all" aria-label="Edit category">
                     <Edit2 className="h-3.5 w-3.5" />
                   </button>
                 </div>
@@ -259,13 +322,9 @@ export default function AdminCaseStudyHero({ slug: propSlug }: Props) {
                     transition: 'opacity 0.4s ease'
                   }}
                 >
-                  {/* Animated mesh gradient base */}
                   <div className="mesh-gradient"></div>
-                  {/* Noise texture overlay */}
                   <div className="noise-overlay"></div>
-                  {/* Shimmer sweep */}
                   <div className="shimmer"></div>
-                  {/* Floating particles with trails */}
                   <div className="particle particle-1"></div>
                   <div className="particle particle-2"></div>
                   <div className="particle particle-3"></div>
@@ -274,27 +333,22 @@ export default function AdminCaseStudyHero({ slug: propSlug }: Props) {
                   <div className="particle particle-6"></div>
                   <div className="particle particle-7"></div>
                   <div className="particle particle-8"></div>
-                  {/* Morphing blobs */}
                   <div className="blob blob-1"></div>
                   <div className="blob blob-2"></div>
                   <div className="blob blob-3"></div>
-                  {/* Rotating geometric rings */}
                   <div className="geo-ring geo-ring-1"></div>
                   <div className="geo-ring geo-ring-2"></div>
                   <div className="geo-ring geo-ring-3"></div>
                   <div className="geo-ring geo-ring-4"></div>
-                  {/* Floating shapes */}
                   <div className="shape shape-1"></div>
                   <div className="shape shape-2"></div>
                   <div className="shape shape-3"></div>
                   <div className="shape shape-4"></div>
                   <div className="shape shape-5"></div>
                   <div className="shape shape-6"></div>
-                  {/* Pulse rings */}
                   <div className="pulse-ring pulse-ring-1"></div>
                   <div className="pulse-ring pulse-ring-2"></div>
                   <div className="pulse-ring pulse-ring-3"></div>
-                  {/* Grid lines */}
                   <div className="grid-line grid-h-1"></div>
                   <div className="grid-line grid-h-2"></div>
                   <div className="grid-line grid-h-3"></div>
@@ -525,8 +579,8 @@ export default function AdminCaseStudyHero({ slug: propSlug }: Props) {
                   `
                 }} />
                 <img
-                  src={`${import.meta.env.PUBLIC_API_URL}${fixImageUrl(data.avatar) || "/case/hero-case.webp"}`}
-                  alt={data.title || "Hero"}
+                  src={`${import.meta.env.PUBLIC_API_URL}${fixImageUrl(data!.avatar) || ""}`}
+                  alt={data!.title || "Hero"}
                   width="1200"
                   height="900"
                   loading="lazy"
@@ -545,7 +599,7 @@ export default function AdminCaseStudyHero({ slug: propSlug }: Props) {
                   </div>
                 ) : (
                   <button
-                    onClick={() => startEdit("avatar", data.avatar || "")}
+                    onClick={() => startEdit("avatar", data!.avatar || "")}
                     className="absolute top-4 right-4 text-white/60 hover:text-cyan-300 transition-colors z-10 bg-black/40 p-1.5 rounded-md backdrop-blur-sm"
                     aria-label="Edit hero image"
                   >
@@ -556,6 +610,7 @@ export default function AdminCaseStudyHero({ slug: propSlug }: Props) {
             </div>
           </div>
         </div>
+        )}
       </section>
     </>
   );

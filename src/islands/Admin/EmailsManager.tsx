@@ -58,9 +58,9 @@ export default function EmailsManager() {
 
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [searchQuery, setSearchQuery] = useState("");
-  const [filterStatus, setFilterStatus] = useState("All");
+  const [filterStatus, setFilterStatus] = useState<"All" | "Pending" | "Approved" | "In Progress" | "Completed" | "Cancelled">("All");
   const [filterBudget, setFilterBudget] = useState("All");
-  const [filterPriority, setFilterPriority] = useState("All");
+  const [filterPriority, setFilterPriority] = useState<"All" | "High" | "Medium" | "Low">("All");
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<"list" | "grid" | "compact">("list");

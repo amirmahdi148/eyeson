@@ -11,6 +11,7 @@ import {
 
 import { useAsyncOperation } from "@/utils/useAsyncOperation";
 import { loginService } from "@/services/loginService.ts";
+import { logger } from "@/utils/logger";
 
 /* ---------------- TYPES ---------------- */
 /* ---------------- API ---------------- */
@@ -81,31 +82,34 @@ export default function LoginForm() {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
+  logger.info("LoginForm mounted");
+
   /* ---------- MUTATION ---------- */
 
   const loginMutation = useAsyncOperation({
     onSuccess: (data: any) => {
-      // Save the access token to localStorage
+      logger.info("Login successful", { hasToken: !!data?.accessToken });
       if (data?.accessToken) {
         localStorage.setItem('accessToken', data.accessToken);
         setSuccessMessage('Login successful! Redirecting...');
         setErrorMessage("");
-        
-        // Redirect after a short delay
+
         setTimeout(() => {
+          logger.normal("Redirecting to /admin");
           window.location.href = '/admin';
         }, 500);
       } else {
+        logger.warn("Login succeeded but no access token received");
         setErrorMessage('Login failed: No access token received');
       }
     },
     onError: (error: any) => {
-      const errorMsg = error?.response?.data?.message || 
-                      error?.message || 
+      const errorMsg = error?.response?.data?.message ||
+                      error?.message ||
                       'Login failed. Please try again.';
+      logger.warn("Login failed", { errorMsg });
       setErrorMessage(errorMsg);
       setSuccessMessage("");
-      console.error("Login failed:", error);
     },
   });
 
@@ -113,22 +117,23 @@ export default function LoginForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    logger.info("Form submitted", { username: username.trim(), email: email.trim() });
     setErrorMessage("");
     setSuccessMessage("");
 
-    // Basic validation
     if (!username.trim() || !email.trim() || !password.trim()) {
+      logger.warn("Validation failed: missing fields");
       setErrorMessage('Please fill in all fields');
       return;
     }
 
+    logger.normal("Login mutation started");
     loginMutation.mutate(() =>
         loginService.login({
             email,
-            username,
             password,
         })
-    ).then(r =>r);
+    ).then(r => logger.verbose("Login mutation resolved", r));
   };
 
   /* ---------- UI ---------- */
@@ -221,17 +226,20 @@ export default function LoginForm() {
                 <input
                     type="text"
                     value={username}
-                    onChange={(e) =>
+                    onChange={(e) => {
+                        logger.verbose("Username changed", { value: e.target.value });
                         setUsername(
                             e.target.value
-                        )
-                    }
-                    onFocus={() =>
-                        setUsernameFocus(true)
-                    }
-                    onBlur={() =>
-                        setUsernameFocus(false)
-                    }
+                        );
+                    }}
+                    onFocus={() => {
+                        logger.verbose("Username focused");
+                        setUsernameFocus(true);
+                    }}
+                    onBlur={() => {
+                        logger.verbose("Username blurred");
+                        setUsernameFocus(false);
+                    }}
                     placeholder="your username"
                     required
                     className="w-full pl-12 pr-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-[#00E6D7]"
@@ -269,17 +277,20 @@ export default function LoginForm() {
                 <input
                     type="email"
                     value={email}
-                    onChange={(e) =>
+                    onChange={(e) => {
+                        logger.verbose("Email changed", { value: e.target.value });
                         setEmail(
                             e.target.value
-                        )
-                    }
-                    onFocus={() =>
-                        setEmailFocus(true)
-                    }
-                    onBlur={() =>
-                        setEmailFocus(false)
-                    }
+                        );
+                    }}
+                    onFocus={() => {
+                        logger.verbose("Email focused");
+                        setEmailFocus(true);
+                    }}
+                    onBlur={() => {
+                        logger.verbose("Email blurred");
+                        setEmailFocus(false);
+                    }}
                     placeholder="you@example.com"
                     required
                     className="w-full pl-12 pr-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-[#00E6D7]"
@@ -321,17 +332,20 @@ export default function LoginForm() {
                           : "password"
                     }
                     value={password}
-                    onChange={(e) =>
+                    onChange={(e) => {
+                        logger.verbose("Password changed");
                         setPassword(
                             e.target.value
-                        )
-                    }
-                    onFocus={() =>
-                        setPasswordFocus(true)
-                    }
-                    onBlur={() =>
-                        setPasswordFocus(false)
-                    }
+                        );
+                    }}
+                    onFocus={() => {
+                        logger.verbose("Password focused");
+                        setPasswordFocus(true);
+                    }}
+                    onBlur={() => {
+                        logger.verbose("Password blurred");
+                        setPasswordFocus(false);
+                    }}
                     placeholder="••••••••"
                     required
                     className="w-full pl-12 pr-12 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-[#00E6D7]"
@@ -339,11 +353,11 @@ export default function LoginForm() {
 
                 <button
                     type="button"
-                    onClick={() =>
-                        setShowPassword(
-                            !showPassword
-                        )
-                    }
+                    onClick={() => {
+                        const next = !showPassword;
+                        logger.verbose("Password visibility toggled", { show: next });
+                        setShowPassword(next);
+                    }}
                     className="absolute inset-y-0 right-0 flex items-center pr-4 text-white/40 hover:text-[#00E6D7]"
                 >
                   {showPassword ? (
