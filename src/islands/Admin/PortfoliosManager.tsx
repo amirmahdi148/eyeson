@@ -3,20 +3,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Upload, Plus, AlertCircle, CheckCircle2, Image as ImageIcon, FileVideo } from "lucide-react";
 import { httpService } from "@/utils/httpService.ts";
 
-const TYPE_CATEGORIES: Record<string, string[]> = {
-  "Video types": ["Social media", "Training video", "Corporate video", "Product video", "Sizzle reel", "Explainer video"],
-  "Animation Style": ["2D Animation", "3D Animation", "Lottie Animation", "UI Animation"],
-  "Industries": ["SaaS Healthcare", "Ecommerce", "Finance"]
-};
+const CATEGORIES = ["SaaS Trailers", "Explainer Videos", "Motion Graphics", "Ad Creatives", "Social Content", "Graphic Design"];
 
 export default function PortfoliosManager() {
-  const [type, setType] = useState("");
   const [category, setCategory] = useState("");
-
-  const handleTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setType(e.target.value);
-    setCategory("");
-  };
   const [file, setFile] = useState<File | null>(null);
   const [cover, setCover] = useState<File | null>(null);
   
@@ -25,7 +15,7 @@ export default function PortfoliosManager() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!type || !category || !file || !cover) {
+    if (!category || !file || !cover) {
       setStatus({ type: 'error', message: 'All fields are required.' });
       return;
     }
@@ -35,7 +25,7 @@ export default function PortfoliosManager() {
 
     try {
       const formData = new FormData();
-      formData.append('type', type);
+      formData.append('type', 'Video types');
       formData.append('category', category);
       formData.append('file', file);
       formData.append('cover', cover);
@@ -50,7 +40,6 @@ export default function PortfoliosManager() {
       setStatus({ type: 'success', message: 'Portfolio uploaded successfully!' });
       
       // Reset form
-      setType("");
       setCategory("");
       setFile(null);
       setCover(null);
@@ -100,36 +89,22 @@ export default function PortfoliosManager() {
       <form onSubmit={handleSubmit} className="bg-white/[0.03] backdrop-blur-xl border border-white/5 rounded-2xl p-6 sm:p-8 space-y-6">
         
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {/* Type Input */}
-          <div>
-            <label className="block text-sm font-medium text-white/70 mb-2">Type</label>
-            <select
-              value={type}
-              onChange={handleTypeChange}
-              className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 focus:border-[#00E6D7]/30 transition-all appearance-none cursor-pointer"
-            >
-              <option value="" disabled className="bg-[#021617] text-white/50">Select a type</option>
-              {Object.keys(TYPE_CATEGORIES).map((t) => (
-                <option key={t} value={t} className="bg-[#021617] text-white">{t}</option>
-              ))}
-            </select>
-          </div>
-
           {/* Category Input */}
           <div>
             <label className="block text-sm font-medium text-white/70 mb-2">Category</label>
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              disabled={!type}
-              className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 focus:border-[#00E6D7]/30 transition-all appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 focus:border-[#00E6D7]/30 transition-all appearance-none cursor-pointer"
             >
               <option value="" disabled className="bg-[#021617] text-white/50">Select a category</option>
-              {type && TYPE_CATEGORIES[type]?.map((c) => (
+              {CATEGORIES.map((c) => (
                 <option key={c} value={c} className="bg-[#021617] text-white">{c}</option>
               ))}
             </select>
           </div>
+
+          <div></div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">

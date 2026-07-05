@@ -1,25 +1,11 @@
-import { useMemo, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Tabs } from "./Tabs.tsx";
 import { MediaGrid } from "../Shared/PostComp.tsx";
 import { httpService } from "@/utils/httpService.ts";
 
-type PortfolioKey = "Video" | "Animation" | "Industries";
-
-const typeMapping: Record<PortfolioKey, string> = {
-  Video: "Video types",
-  Animation: "Animation Style",
-  Industries: "Industries",
-};
-
-const TYPE_CATEGORIES: Record<string, string[]> = {
-  "Video types": ["Social media", "Training video", "Corporate video", "Product video", "Sizzle reel", "Explainer video"],
-  "Animation Style": ["2D Animation", "3D Animation", "Lottie Animation", "UI Animation"],
-  "Industries": ["SaaS Healthcare", "Ecommerce", "Finance"]
-};
+const CATEGORIES = ["All", "SaaS Trailers", "Explainer Videos", "Motion Graphics", "Ad Creatives", "Social Content", "Graphic Design"];
 
 export const PortfolioShowingSection = () => {
-  const [type, setType] = useState<PortfolioKey>("Video");
   const [selectedCategory, setSelectedCategory] = useState("All");
   
   const [items, setItems] = useState<any[]>([]);
@@ -27,17 +13,6 @@ export const PortfolioShowingSection = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
   const limit = 9;
-
-  const categories = useMemo(() => {
-    const backendType = typeMapping[type];
-    return ["All", ...(TYPE_CATEGORIES[backendType] || [])];
-  }, [type]);
-
-  const handleTypeChange = (nextType: PortfolioKey) => {
-    setType(nextType);
-    setSelectedCategory("All");
-    setPage(1);
-  };
 
   const handleCategoryChange = (cat: string) => {
     setSelectedCategory(cat);
@@ -48,8 +23,7 @@ export const PortfolioShowingSection = () => {
     const fetchPortfolios = async () => {
       setLoading(true);
       try {
-        const backendType = typeMapping[type];
-        const payload: any = { type: backendType };
+        const payload: any = {};
         if (selectedCategory !== "All") {
           payload.category = selectedCategory;
         }
@@ -58,11 +32,11 @@ export const PortfolioShowingSection = () => {
         
         const mappedItems = res.videos.map((v: any) => ({
            id: v.id,
-           src: v.cover ? (v.cover.startsWith('http') ? v.cover : `${import.meta.env.PUBLIC_API_URL}${v.cover}`) : '/video-pieces/person.webp', // fallback image
+           src: v.cover ? (v.cover.startsWith('http') ? v.cover : `${import.meta.env.PUBLIC_API_URL}${v.cover}`) : '/video-pieces/person.webp',
            videoUrl: v.video ? (v.video.startsWith('http') ? v.video : `${import.meta.env.PUBLIC_API_URL}${v.video}`) : '',
            playable: !!v.video,
            category: v.category,
-           title: `${v.type} - ${v.category}`
+            title: v.category
         }));
         
         setItems(mappedItems);
@@ -76,7 +50,7 @@ export const PortfolioShowingSection = () => {
       }
     };
     fetchPortfolios();
-  }, [type, selectedCategory, page]);
+  }, [selectedCategory, page]);
 
   return (
     <motion.section
@@ -98,17 +72,14 @@ export const PortfolioShowingSection = () => {
           performance-driven ad creatives, every project is crafted to communicate clearly, capture
           attention, and leave a lasting impression.
         </p>
-        <div className="mt-8 flex flex-col items-center sm:mt-10">
-          <Tabs type={type} SetType={handleTypeChange} />
-        </div>
       </div>
 
       <div className="w-full">
         <MediaGrid
-          mediaType={type}
+          mediaType="Video"
           pageSize={limit}
           items={items}
-          categories={categories}
+          categories={CATEGORIES}
           selectedCategory={selectedCategory}
           onSelectCategory={handleCategoryChange}
           page={page}

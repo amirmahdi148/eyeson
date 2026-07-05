@@ -6,7 +6,7 @@
 
 A premium, remote creative studio delivering polished animations, UI visuals, product content, and edited videos at the speed of a lean team.
 
-[eyeson.agency](https://eyeson.agency) · [hello@eyeson.agency](mailto:hello@eyeson.agency) · Tbilisi, Georgia · Remote worldwide
+[eyesonstudio.com](https://eyesonstudio.com) · [hello@eyesonstudio.com](mailto:hello@eyesonstudio.com) · Tbilisi, Georgia · Remote worldwide
 
 </div>
 
@@ -166,7 +166,7 @@ Both variables are consumed by the Strapi-backed blog, case studies, and admin a
 
 ## Contact
 
-- **Email** — [hello@eyeson.agency](mailto:hello@eyeson.agency)
+- **Email** — [hello@eyesonstudio.com](mailto:hello@eyesonstudio.com)
 - **Telegram** — [@parhamfardian](https://t.me/parhamfardian)
 - **Phone / WhatsApp** — +98 937 416 2476
 - **Studio** — Tbilisi, Georgia · Remote-first, working with clients worldwide

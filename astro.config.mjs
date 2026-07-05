@@ -1,16 +1,17 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import svelte from '@astrojs/svelte';
-import vercelAdapter from "@astrojs/vercel";
+import nodeAdapter from "@astrojs/node";
+
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: 'https://eyeson.agency',
+  site: 'https://eyesonstudio.com',
   output: 'server',
-  adapter: vercelAdapter(),
+  adapter: nodeAdapter({ mode: 'standalone' }),
   integrations: [react(), svelte(), sitemap({
-    filter: (page) => !page.startsWith('https://eyeson.agency/admin/') && page !== 'https://eyeson.agency/login/',
+    filter: (page) => !page.startsWith('https://eyesonstudio.com/admin/') && page !== 'https://eyesonstudio.com/login/',
   })],
   vite: {
     plugins: [tailwindcss()],
