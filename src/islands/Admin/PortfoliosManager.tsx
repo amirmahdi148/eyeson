@@ -25,17 +25,11 @@ export default function PortfoliosManager() {
 
     try {
       const formData = new FormData();
-      formData.append('type', 'Video types');
       formData.append('category', category);
       formData.append('file', file);
       formData.append('cover', cover);
 
-      // using httpService to post formData. Note: httpService needs to pass the config for headers.
-      await httpService.post('/portfolio/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      await httpService.post('/portfolio/upload', formData);
 
       setStatus({ type: 'success', message: 'Portfolio uploaded successfully!' });
       

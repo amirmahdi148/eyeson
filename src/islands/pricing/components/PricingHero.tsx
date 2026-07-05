@@ -48,7 +48,7 @@ export const PricingHero = () => {
 
   return (
     <>
-      <div className="w-full min-h-dvh flex items-center justify-center flex-col gap-10 sm:gap-20 overflow-x-hidden pt-20 sm:pt-0 pb-16">
+      <div className="w-full min-h-dvh flex items-center justify-center flex-col gap-10 sm:gap-20 overflow-x-hidden pt-20 sm:pt-0 pb-16 mt-20">
 
         {/* پس‌زمینه محو */}
         <div className="absolute bg-[#003641] w-[372px] h-[262px] top-[97px] -left-[147px] blur-[300px] pointer-events-none z-[-1]" />
@@ -331,6 +331,7 @@ We also offer special pricing and discounts for first-time clients on selected s
               {selected === "Monthly Content Packages" && (
             <ShortForm
               packageName="Monthly Content Packages"
+              onEstimated={handleEstimated}
               fields={[
                 { title: "Reel Type", items: ["Clean Edit & VFX", "Motion Graphic Reel", "Advanced Custom Animation"], prices: [120, 180, 240], unit: "per_quantity" },
                 { title: "Number of Reels", items: ["1 Reel", "5 Reels", "10 Reels", "20 Reels", "30 Reels"], prices: [0, 0, 0, 0, 0], quantityValues: [1, 5, 10, 20, 30], discounts: [{ min: 30, percent: 25 }, { min: 20, percent: 15 }, { min: 10, percent: 10 }] },
@@ -348,6 +349,7 @@ We also offer special pricing and discounts for first-time clients on selected s
               {selected === "CGI & Character Animation" && (
             <ShortForm
               packageName="CGI & Character Animation"
+              onEstimated={handleEstimated}
               fields={[
                 { title: "Project Type", items: ["CGI Product Animation", "Character Animation", "CGI Commercial"], prices: [500, 700, 900], unit: "per_minute" },
                 { title: "Animation Complexity", items: ["Basic", "Standard", "Advanced", "Premium"], prices: [0, 100, 250, 500], unit: "per_minute" },
