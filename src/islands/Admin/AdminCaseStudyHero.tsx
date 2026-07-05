@@ -23,10 +23,13 @@ export default function AdminCaseStudyHero({ slug: propSlug }: Props) {
   const [data, setData] = useState<CaseData | null>(null);
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState(false);
+  const [fetchErrorMessage, setFetchErrorMessage] = useState<string | null>(null);
+  const [retryCounter, setRetryCounter] = useState(0);
   const [editField, setEditField] = useState<string | null>(null);
   const [editValue, setEditValue] = useState("");
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const PATCH_BODY = { slug };
 
@@ -40,27 +43,40 @@ export default function AdminCaseStudyHero({ slug: propSlug }: Props) {
 
   useEffect(() => {
     if (!slug) return;
+    setLoading(true);
+    setFetchError(false);
+    setFetchErrorMessage(null);
     const fetchData = async () => {
       try {
         const res: Record<string, any> = await httpService.get(`/project/details` , { params : {slug : slug}});
         setData({
-          title: res.projectname || "",
+          title: res.title || "",
           description: res.description || "",
           projectType: res.type || "",
           projectTimeline: res.timeline || "",
-          projectcategory: res.projectcategory || "",
+          projectcategory: res.category || "",
           avatar: res.avatar || "",
           tools: res.tools || [],
         });
       } catch (err) {
         console.error("[AdminCaseStudyHero] Fetch failed:", err);
         setFetchError(true);
+        if (err && typeof err === "object" && "response" in err) {
+          const axiosErr = err as { response?: { status?: number; data?: any }; message?: string };
+          const status = axiosErr.response?.status ?? "";
+          const detail = axiosErr.response?.data?.message || axiosErr.response?.data?.error || "";
+          setFetchErrorMessage(`HTTP ${status}${detail ? `: ${detail}` : ""}`);
+        } else if (err instanceof Error) {
+          setFetchErrorMessage(err.message);
+        } else {
+          setFetchErrorMessage(String(err));
+        }
       } finally {
         setLoading(false);
       }
     };
     fetchData();
-  }, []);
+  }, [slug, retryCounter]);
 
   const fixImageUrl = (url?: string) => {
     if (!url) return url;
@@ -71,16 +87,27 @@ export default function AdminCaseStudyHero({ slug: propSlug }: Props) {
     setEditField(field);
     setEditValue(value);
     setSaveError(null);
+    if (field !== "avatar") setSelectedFile(null);
   };
 
   const cancelEdit = () => {
     setEditField(null);
     setEditValue("");
+    setSelectedFile(null);
     setSaveError(null);
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setSelectedFile(file);
+      setSaveError(null);
+    }
+  };
+
   const saveEdit = async () => {
-    if (!editField || !editValue.trim() || !data) return;
+    if (!editField || !data) return;
+    if (editField !== "avatar" && !editValue.trim()) return;
     setSaving(true);
     setSaveError(null);
     try {
@@ -96,8 +123,22 @@ export default function AdminCaseStudyHero({ slug: propSlug }: Props) {
         await httpService.patch(`/project/details`, { ...PATCH_BODY, tools: newTools });
         setData(prev => ({ ...prev, tools: newTools } as CaseData));
       } else if (editField === "avatar") {
-        await httpService.patch(`/project/details`, { ...PATCH_BODY, avatar: editValue });
-        setData(prev => ({ ...prev, avatar: editValue } as CaseData));
+        if (selectedFile) {
+          const formData = new FormData();
+          formData.append("slug", slug);
+          formData.append("picture", selectedFile);
+          console.log("[Avatar Upload] formData entries:");
+          for (const pair of (formData as any).entries()) {
+            console.log(`  ${pair[0]}:`, pair[1] instanceof File ? `${pair[1].name} (${pair[1].size} bytes, ${pair[1].type})` : pair[1]);
+          }
+          const res: any = await httpService.patch(`/project/details`, formData);
+          const newAvatar = res?.avatar || "";
+          setData(prev => ({ ...prev, avatar: newAvatar } as CaseData));
+        } else {
+          await httpService.patch(`/project/details`, { ...PATCH_BODY, avatar: editValue });
+          setData(prev => ({ ...prev, avatar: editValue } as CaseData));
+        }
+        setSelectedFile(null);
       } else {
         const apiField = API_FIELD_MAP[editField] || editField;
         await httpService.patch(`/project/details`, { ...PATCH_BODY, [apiField]: editValue });
@@ -105,8 +146,13 @@ export default function AdminCaseStudyHero({ slug: propSlug }: Props) {
       }
       setEditField(null);
       setEditValue("");
-    } catch (err) {
-      setSaveError(err instanceof Error ? err.message : String(err));
+    } catch (err: any) {
+      const status = err?.response?.status;
+      const body = err?.response?.data;
+      const detail = body
+        ? typeof body === "string" ? body : body?.message || body?.error || body?.detail || JSON.stringify(body)
+        : err instanceof Error ? err.message : String(err);
+      setSaveError(status ? `HTTP ${status} — ${detail}` : String(err));
     } finally {
       setSaving(false);
     }
@@ -187,6 +233,17 @@ export default function AdminCaseStudyHero({ slug: propSlug }: Props) {
         {hasError && (
           <div className="mx-auto max-w-7xl px-4 text-center">
             <p className="text-red-400">Failed to load project data for slug: {slug}</p>
+            {fetchErrorMessage && (
+              <p className="text-red-300/70 text-sm mt-2">{fetchErrorMessage}</p>
+            )}
+            <button
+              onClick={() => {
+                setRetryCounter(c => c + 1);
+              }}
+              className="mt-4 px-4 py-2 rounded-xl bg-white/10 text-white/70 text-sm hover:bg-white/20 transition-colors cursor-pointer"
+            >
+              Retry
+            </button>
           </div>
         )}
         {!noSlug && !isLoading && !hasError && (
@@ -579,23 +636,46 @@ export default function AdminCaseStudyHero({ slug: propSlug }: Props) {
                   `
                 }} />
                 <img
-                  src={`${import.meta.env.PUBLIC_API_URL}${fixImageUrl(data!.avatar) || ""}`}
+                  src={data!.avatar?.startsWith("http") ? data!.avatar : `${import.meta.env.PUBLIC_API_URL}${fixImageUrl(data!.avatar) || ""}`}
                   alt={data!.title || "Hero"}
                   width="1200"
                   height="900"
                   loading="lazy"
-                  className="block h-full w-full object-cover"
-                  style={{ opacity: loading ? 0 : 0, transition: 'opacity .4s ease' }}
+                  className="block h-full w-full object-cover relative"
+                  style={{ opacity: loading ? 0 : 1, transition: 'opacity .4s ease', zIndex: 2 }}
                   onLoad={(e) => {
                     const img = e.currentTarget;
                     img.style.opacity = '1';
-                    const prev = img.previousElementSibling;
-                    if (prev) prev.style.display = 'none';
+                    const parent = img.parentElement;
+                    const skeleton = parent?.querySelector('.skeleton-placeholder');
+                    if (skeleton) (skeleton as HTMLElement).style.display = 'none';
                   }}
                 />
                 {editField === "avatar" ? (
-                  <div className="absolute bottom-4 left-4 right-4 z-10">
-                    <InlineInput value={editValue} />
+                  <div className="absolute bottom-4 left-4 right-4 z-20">
+                    <div className="flex flex-col gap-2 rounded-lg bg-black/70 p-3 backdrop-blur-sm border border-white/10">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileChange}
+                        className="text-white text-xs file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-medium file:bg-cyan-400/20 file:text-cyan-300 hover:file:bg-cyan-400/30 file:cursor-pointer cursor-pointer"
+                      />
+                      <div className="flex gap-2 justify-end">
+                        <button
+                          onClick={saveEdit}
+                          disabled={saving || !selectedFile}
+                          className="px-3 py-1.5 rounded-lg bg-cyan-400/20 text-cyan-300 text-xs font-medium hover:bg-cyan-400/30 transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                        >
+                          {saving ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "Upload"}
+                        </button>
+                        <button
+                          onClick={cancelEdit}
+                          className="px-3 py-1.5 rounded-lg bg-white/10 text-white/60 text-xs font-medium hover:bg-white/20 transition-colors cursor-pointer"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 ) : (
                   <button

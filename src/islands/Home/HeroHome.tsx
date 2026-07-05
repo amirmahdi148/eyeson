@@ -111,6 +111,7 @@ export default function HeroHome() {
           shouldReduceMotion={shouldReduceMotion}
           videoRef={videoRef}
           handleTimeUpdate={handleTimeUpdate}
+          onCategoryChange={setActiveTab}
         />
       </div>
 

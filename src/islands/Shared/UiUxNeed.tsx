@@ -144,7 +144,7 @@ export default function UiUxNeed({
 
             <div className="order-1 lg:order-2 lg:pl-30">
               {rightSection ?? (
-                  <img src="/Shared/sharing/main-right.svg" alt="Right Section SVG"/>
+                  <img src="/Shared/sharing/main-right.png" alt="Right Section SVG" className="scale-[1.2]"/>
               )}
             </div>
           </div>
@@ -164,7 +164,7 @@ export default function UiUxNeed({
                 tabIndex={0}
               >
                 <div
-                  className="absolute inset-0 rounded-3xl opacity-25 transition-opacity duration-500 ease-out md:opacity-0 md:group-hover:opacity-100 md:group-focus-visible:opacity-100 md:backdrop-blur-[12px]"
+                  className="absolute inset-0 rounded-3xl opacity-25 transition-opacity duration-500 ease-out md:opacity-0 md:group-hover:opacity-100 md:group-focus-visible:opacity-100 md:backdrop-blur-md"
                   style={{
                     transform: "rotate(-5deg) scale(0.95)",
                     zIndex: 0,
@@ -190,9 +190,9 @@ export default function UiUxNeed({
                           alt={card.title}
                           loading="lazy"
                           decoding="async"
-                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          className="h-full w-full object-cover scale-[0.9] transition-transform duration-500 group-hover:scale-100"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] to-transparent opacity-70" />
+                        <div className="absolute inset-0 bg-linear-to-t from-[#0f172a] to-transparent opacity-70" />
                       </>
                     )}
                   </div>

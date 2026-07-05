@@ -17,9 +17,12 @@ type Props = {
 
 export default function AdminCaseStudyTabsSection({ slug: propSlug }: Props) {
   const slug = propSlug || "";
+  const [projectUUID, setProjectUUID] = useState<string>("");
   const [tabs, setTabs] = useState<TabItem[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState(false);
+  const [fetchErrorMessage, setFetchErrorMessage] = useState<string | null>(null);
+  const [retryCounter, setRetryCounter] = useState(0);
   const [activeTab, setActiveTab] = useState<TabKey>("");
   const [displayedText, setDisplayedText] = useState("");
   const [editField, setEditField] = useState<string | null>(null);
@@ -33,8 +36,14 @@ export default function AdminCaseStudyTabsSection({ slug: propSlug }: Props) {
     if (!slug) return;
     setLoading(true);
     setFetchError(false);
+    setFetchErrorMessage(null);
     const fetchData = async () => {
       try {
+        const details: any = await httpService.get(`/project/details`, { params: { slug } });
+        const uuid = details.projectUUID || details.project || "";
+        setProjectUUID(uuid);
+        if (!uuid) throw new Error("No project UUID found");
+
         const texts = await httpService.get<any[]>(`/project/texts?slug=${slug}`);
         const mapped = texts.map((t: any) => ({
           key: t.section.replace(/\s+/g, "").toLowerCase(),
@@ -47,12 +56,22 @@ export default function AdminCaseStudyTabsSection({ slug: propSlug }: Props) {
       } catch (err) {
         console.error("[AdminCaseStudyTabsSection] Fetch failed:", err);
         setFetchError(true);
+        if (err && typeof err === "object" && "response" in err) {
+          const axiosErr = err as { response?: { status?: number; data?: any }; message?: string };
+          const status = axiosErr.response?.status ?? "";
+          const detail = axiosErr.response?.data?.message || axiosErr.response?.data?.error || "";
+          setFetchErrorMessage(`HTTP ${status}${detail ? `: ${detail}` : ""}`);
+        } else if (err instanceof Error) {
+          setFetchErrorMessage(err.message);
+        } else {
+          setFetchErrorMessage(String(err));
+        }
       } finally {
         setLoading(false);
       }
     };
     fetchData();
-  }, []);
+  }, [slug, retryCounter]);
 
   const activeTabItem = useMemo(
     () => tabs?.find((tab) => tab.key === activeTab) ?? (tabs?.length ? tabs[0] : null),
@@ -89,18 +108,23 @@ export default function AdminCaseStudyTabsSection({ slug: propSlug }: Props) {
     setSaveError(null);
     try {
       if (editField === "title") {
-        await httpService.patch(`/project/add`, { slug, section: activeTabItem.label, title: editValue });
+        await httpService.patch(`/project/add`, { project: projectUUID, section: activeTabItem.label, title: editValue });
         setEditField(null);
         setEditValue("");
         window.location.reload();
       } else if (editField === "text") {
-        await httpService.patch(`/project/add`, { slug, section: activeTabItem.label, description: editValue });
+        await httpService.patch(`/project/add`, { project: projectUUID, section: activeTabItem.label, description: editValue });
         setEditField(null);
         setEditValue("");
         window.location.reload();
       }
-    } catch (err) {
-      setSaveError(err instanceof Error ? err.message : String(err));
+    } catch (err: any) {
+      const status = err?.response?.status;
+      const body = err?.response?.data;
+      const detail = body
+        ? typeof body === "string" ? body : body?.message || body?.error || body?.detail || JSON.stringify(body)
+        : err instanceof Error ? err.message : String(err);
+      setSaveError(status ? `HTTP ${status} — ${detail}` : String(err));
       setSaving(false);
     }
   };
@@ -111,7 +135,7 @@ export default function AdminCaseStudyTabsSection({ slug: propSlug }: Props) {
     setSaveError(null);
     try {
       await httpService.post(`/project/add`, {
-        slug,
+        project: projectUUID,
         section: newSection.label,
         title: newSection.title,
         description: newSection.text,
@@ -119,8 +143,13 @@ export default function AdminCaseStudyTabsSection({ slug: propSlug }: Props) {
       setIsAdding(false);
       setNewSection({ label: "Client", title: "", text: "" });
       window.location.reload();
-    } catch (err) {
-      setSaveError(err instanceof Error ? err.message : String(err));
+    } catch (err: any) {
+      const status = err?.response?.status;
+      const body = err?.response?.data;
+      const detail = body
+        ? typeof body === "string" ? body : body?.message || body?.error || body?.detail || JSON.stringify(body)
+        : err instanceof Error ? err.message : String(err);
+      setSaveError(status ? `HTTP ${status} — ${detail}` : String(err));
       setSaving(false);
     }
   };
@@ -200,6 +229,17 @@ export default function AdminCaseStudyTabsSection({ slug: propSlug }: Props) {
         {showError && (
           <div className="text-center py-12">
             <p className="text-red-400">Failed to load project sections for slug: {slug}</p>
+            {fetchErrorMessage && (
+              <p className="text-red-300/70 text-sm mt-2">{fetchErrorMessage}</p>
+            )}
+            <button
+              onClick={() => {
+                setRetryCounter(c => c + 1);
+              }}
+              className="mt-4 px-4 py-2 rounded-xl bg-white/10 text-white/70 text-sm hover:bg-white/20 transition-colors cursor-pointer"
+            >
+              Retry
+            </button>
           </div>
         )}
         {showContent && (

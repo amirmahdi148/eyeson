@@ -213,9 +213,9 @@ export default function BusinessNeedsSection({
                           alt={card.title}
                           loading="lazy"
                           decoding="async"
-                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          className="h-full  scale-[0.9] w-full object-cover transition-transform duration-500 group-hover:scale-100"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] to-transparent opacity-70" />
+                        <div className="absolute inset-0 bg-linear-to-t from-[#0f172a] to-transparent opacity-70" />
                       </>
                     )}
                   </div>

@@ -83,64 +83,7 @@ const cards = [
 export default function AdCreativesHero() {
   return (
     <section className="hero-section">
-      <div className="hero-container">
-        <div className="hero-header flex items-center justify-center flex-col gap-5">
-          <h1 className="hero-title">
-            <span className="title-teal">Ad Creatives</span> Built to Go Viral
-            <br />
-            and Convert.
-          </h1>
-          <p className="w-[80%] text-[12px] md:text-[20px]">
-            We create scroll-stopping ad creatives for brands that want more reach, stronger
-            engagement, and better conversions. Every asset is designed to capture attention fast,
-            communicate value clearly, and turn views into action.
-          </p>
-        </div>
-
-        <div className="hero-cards-deck">
-          {cards.map((card, index) => (
-            <motion.div
-              key={card.id}
-              className="hero-card-wrapper"
-              style={{
-                zIndex: index + 1,
-                x: card.x,
-                rotate: card.rotate,
-              }}
-              animate={{
-                y: [card.y, card.y - card.float, card.y],
-              }}
-              transition={{
-                duration: 4.8,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: index * 0.18,
-              }}
-              whileHover={{
-                scale: 1.15, // 🔴 موقع هاور کارت خیلی بیشتر بزرگ میشه
-                rotate: 0,
-                y: card.y - 30, // موقع هاور بیشتر میاد بالا
-                transition: {
-                  duration: 0.3,
-                  ease: "easeOut",
-                },
-              }}
-            >
-              <div className="hero-tooltip">{card.tooltip}</div>
-              <img src={card.src} alt={card.alt} className="hero-card-img" />
-            </motion.div>
-          ))}
-        </div>
-
-        <div className="hero-actions">
-          <div className="hero-btn-wrapper">
-            <div className="hero-btn-glow"></div>
-            <PrimaryButton text="Get Ad Creatives" width="auto" />
-          </div>
-
-          <SecondaryButton text="See our work" width="auto" />
-        </div>
-      </div>
+      <img src="/adcreatives/19.png" alt="Hero image" className="scale-[1] sm:scale-[0.8] relative bottom-2  sm:bottom-20"/>
     </section>
   );
 }

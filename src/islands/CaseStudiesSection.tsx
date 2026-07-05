@@ -35,6 +35,7 @@ const STATIC_CONTENT = {
 
 export default function CaseStudiesSection() {
   const [projects, setProjects] = useState<ProjectItem[] | null>(null);
+  const [mounted, setMounted] = useState(false);
 
   const data = async () => {
     try {
@@ -47,6 +48,7 @@ export default function CaseStudiesSection() {
   };
 
   useEffect(() => {
+    setMounted(true);
     data();
   }, []);
 
@@ -112,7 +114,7 @@ export default function CaseStudiesSection() {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#071922] via-[#071922]/20 to-transparent" />
               </div>
             </div>
-          ) : (
+          ) : mounted ? (
           <Swiper
             modules={[Navigation, Autoplay, EffectCreative, Pagination]}
             effect="creative"
@@ -225,8 +227,13 @@ export default function CaseStudiesSection() {
               );
             })}
           </Swiper>
+          ) : (
+            <div className="rounded-[24px] md:rounded-[32px] border border-[#1a5660]/50 bg-[#071922]/80 backdrop-blur-2xl overflow-hidden min-h-[400px] sm:min-h-[500px] flex items-center justify-center">
+              <Loader2 className="h-8 w-8 animate-spin text-cyan-400" />
+            </div>
           )}
 
+          {mounted && (<>
           {/* دکمه‌های اسلایدر */}
           <button className="swiper-button-prev-case group absolute -left-5 top-1/2 z-20 hidden lg:flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-[#071922]/90 text-white shadow-lg backdrop-blur-md transition-all hover:border-cyan-400/50 hover:bg-[#0a262e] hover:text-cyan-400 active:scale-95">
             <svg
@@ -262,6 +269,7 @@ export default function CaseStudiesSection() {
 
           {/* پگینیشن واقعی */}
           <div className="custom-swiper-pagination mt-6 flex justify-center gap-2.5"></div>
+          </>)}
         </div>
       </div>
 

@@ -4,13 +4,13 @@ const BACKEND_BASE = "http://localhost:3000";
 
 export const ALL: APIRoute = async ({ request, params }) => {
   const slug = params.slug || "";
-  const backendUrl = `${BACKEND_BASE}/${slug}`;
+  const queryString = new URL(request.url).search;
+  const backendUrl = `${BACKEND_BASE}/${slug}${queryString}`;
 
   try {
-    const req = request.clone();
-    const body = ["POST", "PUT", "PATCH", "DELETE"].includes(request.method)
-      ? await req.text()
-      : undefined;
+    const contentType = request.headers.get("content-type") || "";
+    const isMultipart = contentType.includes("multipart/form-data");
+    console.log(`[Proxy] ${request.method} /${slug} content-type="${contentType}" isMultipart=${isMultipart}`);
 
     const headers: Record<string, string> = {};
     request.headers.forEach((value, key) => {
@@ -18,11 +18,26 @@ export const ALL: APIRoute = async ({ request, params }) => {
     });
     delete headers["content-length"];
 
-    const response = await fetch(backendUrl, {
-      method: request.method,
-      headers: { ...headers, "content-type": "application/json" },
-      body: body || undefined,
-    });
+    let response: Response;
+
+    if (isMultipart) {
+      const bodyBuffer = await request.arrayBuffer();
+      response = await fetch(backendUrl, {
+        method: request.method,
+        headers,
+        body: bodyBuffer,
+      });
+    } else {
+      const body = ["POST", "PUT", "PATCH", "DELETE"].includes(request.method)
+        ? await request.text()
+        : undefined;
+
+      response = await fetch(backendUrl, {
+        method: request.method,
+        headers: { ...headers, "content-type": "application/json" },
+        body: body || undefined,
+      });
+    }
 
     const responseBody = await response.text();
     return new Response(responseBody, {

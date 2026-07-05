@@ -34,10 +34,11 @@ const navItems = [
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [user, setUser] = useState<{ name?: string; email?: string; avatar?: string } | null>(null);
-  const [currentPath, setCurrentPath] = useState(() => {
-    if (typeof window !== "undefined") return window.location.pathname;
-    return "/admin";
-  });
+  const [currentPath, setCurrentPath] = useState("/admin");
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => { setIsDesktop(window.innerWidth >= 1024); }, []);
+  useEffect(() => { setCurrentPath(window.location.pathname); }, []);
 
   useEffect(() => {
     (async () => {
@@ -78,7 +79,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       {/* Sidebar */}
       <motion.aside
-        animate={{ x: sidebarOpen || typeof window !== "undefined" && window.innerWidth >= 1024 ? 0 : -256 }}
+        animate={{ x: sidebarOpen || isDesktop ? 0 : -256 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
         className="fixed top-0 left-0 h-screen z-50 flex flex-col w-64 bg-[#021617]/95 lg:bg-[#021617]/60 backdrop-blur-xl border-r border-white/5"
       >
