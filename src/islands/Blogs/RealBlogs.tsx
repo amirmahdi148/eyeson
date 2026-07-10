@@ -2,7 +2,7 @@
 import { useMemo, useState, useEffect } from "react";
 import {SmartImage} from "../../utils/SmartImage.tsx";
 
-const STRAPI_URL = import.meta.env.PUBLIC_POST_URL || "http://localhost:1337";
+const STRAPI_URL = import.meta.env.PUBLIC_POST_URL || "https://blog.eyesonstudio.com";
 const API_URL = `${STRAPI_URL}/api/posts`;
 interface StrapiPost {
     id: number;

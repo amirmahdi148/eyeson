@@ -1,9 +1,7 @@
 import axios, {type AxiosRequestConfig, type AxiosResponse } from 'axios';
 
-const BASE_URL = '/api/backend';
-
 const axiosInstance = axios.create({
-    baseURL: BASE_URL,
+    baseURL: import.meta.env.PUBLIC_API_URL,
     withCredentials: true,
 });
 

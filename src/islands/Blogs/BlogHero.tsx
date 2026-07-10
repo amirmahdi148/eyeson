@@ -162,7 +162,7 @@ export const BlogHero = ({ title: propTitle, category: propCategory, date: propD
 
   useEffect(() => {
     if (!propCategory || !propSlug) return;
-    const strapiUrl = import.meta.env.PUBLIC_POST_URL || "http://localhost:1337";
+    const strapiUrl = import.meta.env.PUBLIC_POST_URL || "https://blog.eyesonstudio.com";
     const url = `${strapiUrl}/api/posts?filters[category][$eq]=${encodeURIComponent(propCategory)}&filters[slug][$ne]=${encodeURIComponent(propSlug)}&populate=cover&pagination[limit]=3`;
     fetch(url)
       .then((res) => res.json())
@@ -417,7 +417,7 @@ export const BlogHero = ({ title: propTitle, category: propCategory, date: propD
                     const coverSrc = post.cover?.url
                       ? post.cover.url.startsWith("http")
                         ? post.cover.url
-                        : `${import.meta.env.PUBLIC_POST_URL || "http://localhost:1337"}${post.cover.url}`
+                        : `${import.meta.env.PUBLIC_POST_URL || "https://blog.eyesonstudio.com"}${post.cover.url}`
                       : "";
                     return (
                       <a
