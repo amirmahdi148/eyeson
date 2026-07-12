@@ -11,7 +11,6 @@ const SITE_URL = "https://eyeson.com";
 const { slug } = Astro.params;
 
 let postData = null;
-let blocks = [];
 let coverUrl = null;
 let absoluteCoverUrl = undefined;
 let postDescription = "";
@@ -25,7 +24,6 @@ try {
   const post = json.data?.[0];
   if (post) {
     postData = post;
-    blocks = post.content || [];
 
     const cover = post.cover;
     if (cover?.url) {
@@ -90,13 +88,8 @@ try {
 
       <BlogHero
         client:load
-        title={postData.title}
-        category={postData.category}
-        date={postData.publishedAt}
-        readTime={postData.readTime}
-        image={coverUrl}
-        blocks={blocks}
-        slug={postData.slug}
+        blocksPost={Array.isArray(postData.content) ? postData : undefined}
+        markdownPost={typeof postData.content === "string" ? postData : undefined}
       />
     ) : (
       <div class="flex min-h-screen items-center justify-center text-white">
