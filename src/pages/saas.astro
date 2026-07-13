@@ -1,0 +1,14 @@
+---
+export const prerender = true;
+
+import SaasMain from "../components/SaasMain.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="SaaS Creative Services — EyesOn Agency"
+  description="Placeholder SaaS creative services page for product launches, explainers, and growth campaigns."
+  canonicalUrl={new URL(Astro.url.pathname, "https://eyeson.com").href}
+>
+  <SaasMain />
+</BaseLayout>

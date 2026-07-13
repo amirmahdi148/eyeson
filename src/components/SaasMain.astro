@@ -1,0 +1,100 @@
+---
+import CTA from "./Shared/CTA.astro";
+import FeaturesSection from "./Shared/FeaturesSection.astro";
+import LogoCaro from "./Shared/LogoCaro.astro";
+import QandASection from "./Shared/QandASection.astro";
+import { SaasHeroSection } from "../islands/saas/SaasHeroSection";
+import { SaasServicesSection } from "../islands/saas/SaasServicesSection";
+import { SaasProcessSection } from "../islands/saas/SaasProcessSection";
+
+const features = [
+  {
+    id: 1,
+    title: "Product Explainer Videos",
+    description: "Turn complex product workflows into clear, engaging stories that users understand in seconds.",
+    bgImage: "/Shared/Features/1.png",
+  },
+  {
+    id: 2,
+    title: "Launch Campaign Creative",
+    description: "Every launch deserves visuals that cut through. We build campaign assets for ads, landing pages, and social.",
+    bgImage: "/Shared/Features/1.png",
+  },
+  {
+    id: 3,
+    title: "Feature Demo & Walkthroughs",
+    description: "Showcase new features with polished demo videos that highlight value and drive adoption.",
+    bgImage: "/Shared/Features/1.png",
+  },
+  {
+    id: 4,
+    title: "Paid Social & Ad Creative",
+    description: "Performance-driven creatives designed to stop the scroll and convert attention into action.",
+    bgImage: "/Shared/Features/1.png",
+  },
+  {
+    id: 5,
+    title: "Brand Story & Positioning",
+    description: "Move beyond features. We craft visual narratives that communicate your mission and market fit.",
+    bgImage: "/Shared/Features/1.png",
+  },
+  {
+    id: 6,
+    title: "Ongoing Creative Partnership",
+    description: "A steady pipeline of product content, campaign refreshes, and launch assets — on your cadence.",
+    bgImage: "/Shared/Features/1.png",
+  },
+];
+
+const questions = [
+  { id: 1, q: "What kind of SaaS content do you create?", a: "We produce explainer videos, product demos, launch campaigns, social ads, brand films, and motion assets tailored to SaaS products and platforms." },
+  { id: 2, q: "Can you explain a complex product simply?", a: "That is exactly what we do. We break down dashboards, workflows, and technical concepts into clear visual stories that any audience can follow." },
+  { id: 3, q: "Do you work with early-stage SaaS startups?", a: "Yes. We help early-stage teams build launch creative, pitch decks, and product narratives that communicate vision and attract early adopters." },
+  { id: 4, q: "How do you handle ongoing product marketing?", a: "We set up recurring creative pipelines for feature releases, campaign refreshes, social content, and performance creative so your team can focus on product." },
+];
+---
+
+<div class="relative overflow-x-clip">
+  <SaasHeroSection client:load />
+
+  <LogoCaro tagline="Trusted by SaaS teams, startups, and product-led brands worldwide." />
+
+  <SaasServicesSection client:load />
+
+  <FeaturesSection
+    badgeText="SAAS CREATIVE CAPABILITIES"
+    title="Product Storytelling That"
+    highlight="Drives Growth"
+    description="From explainer videos to ad creatives, we craft visual content that makes your product easy to understand and hard to ignore."
+    features={features}
+  />
+
+  <section class="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-20 md:px-8 lg:px-10 lg:py-28 xl:px-16">
+    <div class="grid items-center gap-10 rounded-3xl border border-white/10 bg-[#071925]/75 p-6 sm:p-8 lg:grid-cols-2 lg:gap-16 lg:p-12">
+      <div class="relative order-2 overflow-hidden rounded-2xl border border-[#00A9BD]/20 bg-[#00121E] p-5 lg:order-1 lg:p-8">
+        <img src="/pricing/svg/sto.svg" alt="SaaS product visual showcase" class="mx-auto h-auto w-full max-w-md" loading="lazy" />
+      </div>
+      <div class="order-1 lg:order-2">
+        <p class="text-xs font-semibold tracking-[0.22em] text-[#42D1D1] uppercase">Built around your product</p>
+        <h2 class="mt-4 text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">From feature list to a clear reason to care.</h2>
+        <p class="mt-5 max-w-xl text-base leading-relaxed text-white/65 sm:text-lg">We turn product complexity into compelling visual narratives. Your audience doesn't need to know every feature — they need to understand why it matters.</p>
+        <ul class="mt-7 grid gap-4 text-sm text-white/80 sm:grid-cols-2">
+          <li class="rounded-xl border border-white/10 bg-white/5 p-4">Product explainers & demos</li>
+          <li class="rounded-xl border border-white/10 bg-white/5 p-4">Launch & campaign creative</li>
+          <li class="rounded-xl border border-white/10 bg-white/5 p-4">Paid social & ad assets</li>
+          <li class="rounded-xl border border-white/10 bg-white/5 p-4">Feature announcements & release content</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <SaasProcessSection client:load />
+
+  <QandASection
+    title1="SaaS Creative"
+    title2="FAQ"
+    description="Common questions about product storytelling, launch creative, and how we partner with SaaS teams."
+    questions={questions}
+  />
+  <CTA />
+</div>
