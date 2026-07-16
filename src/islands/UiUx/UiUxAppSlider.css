@@ -3,7 +3,7 @@
   width: 100%;
   overflow: hidden;
   padding: 100px 0 120px;           
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: var(--font-sans);
 }
 
 .app-slider-header {

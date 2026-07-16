@@ -26,7 +26,7 @@ export default function UiUxHeroSection() {
         {/* ستون چپ (متن‌ها): در موبایل می‌آید پایین (order-2) */}
         {/* ========================================== */}
         <div className="order-2 lg:order-1 flex w-full flex-col items-center text-center lg:items-start lg:text-left lg:w-5/12 z-10">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black leading-[1.12] tracking-tight text-white lg:text-[54px] xl:text-[60px]">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.12] tracking-tight text-white lg:text-[54px] xl:text-[60px]">
             <span className="text-[#32c9b4]">UI/UX Design</span> for SaaS & Digital Products
             <br className="hidden sm:block lg:hidden xl:block" />
 

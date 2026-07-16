@@ -33,7 +33,7 @@ export const PackageCards = ({ packages }: Props) => (
                         <h3 className="text-xl font-bold text-white">{pkg.title}</h3>
                         <div className="mt-4 flex items-baseline gap-1">
                             <span className="text-sm font-medium text-[#A9C1CB]">Starting at</span>
-                            <span className="text-4xl font-black text-[#1AD1BC]">
+                            <span className="text-4xl font-bold text-[#1AD1BC]">
                                 ${formatter.format(pkg.price)}
                             </span>
                         </div>

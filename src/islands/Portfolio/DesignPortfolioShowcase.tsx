@@ -91,7 +91,7 @@ export const DesignPortfolioShowcase = () => {
           <span className="text-sm text-white font-thin tracking-[0.2em]">
             OUR WORK
           </span>
-          <h2 className="bg-linear-to-r from-[#46B6A0] to-[#2EBACA] bg-clip-text text-3xl font-black text-transparent sm:text-4xl md:text-5xl">
+          <h2 className="bg-linear-to-r from-[#46B6A0] to-[#2EBACA] bg-clip-text text-3xl font-bold text-transparent sm:text-4xl md:text-5xl">
             Design portfolio
           </h2>
           <p className="mt-3 text-sm leading-6 text-white/70 sm:text-base">

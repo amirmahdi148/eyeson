@@ -171,7 +171,7 @@ function CaseStudyTabsSection({ slug }: Props) {
           })}
         </div>
         <div className="rounded-[26px] border border-white/5 bg-[#07181d]/95 px-5 py-7 shadow-[0_20px_60px_rgba(0,0,0,0.35)] sm:px-7 sm:py-8 lg:px-8 lg:py-9">
-          <h2 className="text-[28px] font-black leading-tight tracking-tight text-white sm:text-[32px]">
+          <h2 className="text-[28px] font-bold leading-tight tracking-tight text-white sm:text-[32px]">
             {active.title}
           </h2>
           <p className="mt-4 max-w-5xl text-[15px] leading-7 text-white/80 sm:text-base">

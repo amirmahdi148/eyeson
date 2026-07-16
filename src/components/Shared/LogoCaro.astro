@@ -9,13 +9,18 @@ type Props = {
 const {
   tagline = "Trusted by creators, startups, SaaS teams, and modern brands across 25+ countries.",
   logos = [
-    { src: "/obvi.webp", alt: "Obvi" },
-    { src: "/trueclassic.webp", alt: "True Classic" },
-    { src: "/obvi.webp", alt: "Obvi" },
-    { src: "/trueclassic.webp", alt: "True Classic" },
-    { src: "/obvi.webp", alt: "Obvi" },
-    { src: "/trueclassic.webp", alt: "True Classic" },
-    { src: "/obvi.webp", alt: "Obvi" },
+    { src: "/Shared/OrbitIcons/icon1.webp", alt: "Client 1" },
+    { src: "/Shared/OrbitIcons/icon2.webp", alt: "Client 2" },
+    { src: "/Shared/OrbitIcons/icon3.webp", alt: "Client 3" },
+    { src: "/Shared/OrbitIcons/icon4.webp", alt: "Client 4" },
+    { src: "/Shared/OrbitIcons/icon5.webp", alt: "Client 5" },
+    { src: "/Shared/OrbitIcons/icon6.webp", alt: "Client 6" },
+    { src: "/Shared/OrbitIcons/icon7.webp", alt: "Client 7" },
+    { src: "/Shared/OrbitIcons/icon8.webp", alt: "Client 8" },
+    { src: "/Shared/OrbitIcons/icon9.webp", alt: "Client 9" },
+    { src: "/Shared/OrbitIcons/icon10.webp", alt: "Client 10" },
+    { src: "/Shared/OrbitIcons/icon11.webp", alt: "Client 11" },
+    { src: "/Shared/OrbitIcons/icon12.webp", alt: "Client 12" },
   ],
 } = Astro.props as Props;
 
@@ -75,17 +80,10 @@ const loopLogos = [...logos, ...logos];
     opacity: 0.5;
   }
 
-  /* hover effect (بسیار نرم و جذاب) */
-  .logo-item:hover .logo-img {
-    filter: grayscale(0%);
-    opacity: 1;
-    transform: scale(1.08);
-  }
-
   /* ================= MARQUEE & MASK ================= */
   .logo-mask {
     --logo-visible-count: 3; /* موبایل: 3 لوگو */
-    --logo-gap: 1.25rem;
+    --logo-gap: 0.75rem;
     overflow: hidden;
 
     /* جادوی ماسک برای هاله‌های محوشونده در دو طرف */
@@ -135,14 +133,14 @@ const loopLogos = [...logos, ...logos];
   @media (min-width: 640px) {
     .logo-mask {
       --logo-visible-count: 4; /* تبلت: 4 لوگو */
-      --logo-gap: 2rem;
+      --logo-gap: 1rem;
     }
   }
 
   @media (min-width: 1024px) {
     .logo-mask {
       --logo-visible-count: 5; /* دسکتاپ: 5 لوگو */
-      --logo-gap: 3rem;
+      --logo-gap: 1.5rem;
       /* ماسک رو تو دسکتاپ ملایم‌تر می‌کنیم */
       -webkit-mask-image: linear-gradient(
         to right,

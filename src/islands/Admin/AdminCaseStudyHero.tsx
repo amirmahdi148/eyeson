@@ -256,7 +256,7 @@ export default function AdminCaseStudyHero({ slug: propSlug }: Props) {
                 <InlineInput value={editValue} />
               ) : (
                 <div className="flex items-start gap-1">
-                  <h1 className="text-3xl font-black leading-tight tracking-tight text-cyan-300 sm:text-4xl lg:text-[3.35rem]">
+                  <h1 className="text-3xl font-bold leading-tight tracking-tight text-cyan-300 sm:text-4xl lg:text-[3.35rem]">
                     {data!.title}
                   </h1>
                   <EditBtn onClick={() => startEdit("title", data!.title || "")} />

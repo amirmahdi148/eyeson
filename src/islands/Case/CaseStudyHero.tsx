@@ -80,7 +80,7 @@ export default function CaseStudyHero({ slug }: Props) {
           transition={{ duration: 0.6 }}
           className="w-full lg:w-[48%]"
         >
-          <h1 className="text-3xl font-black leading-tight tracking-tight text-cyan-300 sm:text-4xl lg:text-[3.35rem]">
+          <h1 className="text-3xl font-bold leading-tight tracking-tight text-cyan-300 sm:text-4xl lg:text-[3.35rem]">
             {loading ? "Loading..." : title}
           </h1>
 

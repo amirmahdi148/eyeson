@@ -60,7 +60,7 @@ export default function CaseStudiesSection() {
           <p className="mb-3 text-[10px] md:text-xs font-bold uppercase tracking-[0.25em] text-cyan-400/80">
             Customer Stories
           </p>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[56px] font-black leading-[1.1] tracking-tight text-white">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[56px] font-bold leading-[1.1] tracking-tight text-white">
             <span className="block bg-gradient-to-r from-cyan-300 to-teal-400 bg-clip-text text-transparent pb-1">
               CASE STUDIES
             </span>

@@ -1,5 +1,4 @@
 import BusinessNeedsSection from "../Shared/BusinessNeedsSection";
-import BusinessNeeds3DVisual from "./BusinessNeeds3DVisual";
 
 export default function AnimationNeedsBlock() {
   return (
@@ -22,7 +21,7 @@ growth and sales."
       primaryBtnText="Get Pricing"
       secondaryBtnText="See Our Work"
       panelOverlayClassName="bg-[linear-gradient(125deg,rgba(5,28,47,0.72)_15%,rgba(4,16,29,0.8)_60%,rgba(3,13,24,0.86)_100%)]"
-      rightSection={<BusinessNeeds3DVisual />}
+      rightSection={null}
       cards={[
         {
           id: 1,
@@ -30,7 +29,7 @@ growth and sales."
           description:
             "Consistent motion design, animation style, color, and visual direction help brands feel\n" +
               "more polished, memorable, and visually distinct across modern digital platforms.",
-          image: "/animation-section/short-form.webp",
+          image: "/Shared/Features/left.webp",
         },
         {
           id: 2,
@@ -39,7 +38,7 @@ growth and sales."
             "High-quality animation increases perceived brand value and helps products, campaigns,\n" +
               "and content feel more modern, premium, and visually impressive compared to\n" +
               "competitors.",
-          image: "/animation-section/motion.webp",
+          image: "/Shared/Features/middle.webp",
         },
         {
           id: 3,
@@ -48,7 +47,7 @@ growth and sales."
             "Strong animation captures attention faster, improves content engagement, and helps\n" +
               "marketing campaigns, launch videos, ads, and social media content perform more\n" +
               "effectively online.",
-          image: "/animation-section/video.webp",
+          image: "/Shared/Features/right.webp",
         },
       ]}
     />

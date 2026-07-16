@@ -72,7 +72,7 @@ export const CustomerStoriesShowcase = () => {
         <p className="text-xs tracking-[0.18em] text-white/55">
           Customer Stories
         </p>
-        <h2 className="mt-2 text-3xl font-black leading-tight text-white sm:text-4xl md:text-5xl">
+        <h2 className="mt-2 text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
           See how brands grow
           <br />
           with{" "}

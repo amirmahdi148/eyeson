@@ -14,7 +14,7 @@ import CTA from "../Shared/CTA.astro";
 import HomeBackground from "@/components/Home/HomeBackground.astro";
 ---
 
-<div class="min-h-screen">
+<div>
   <HomeBackground />
   <HeroBasic
     client:load
@@ -39,7 +39,8 @@ into clear, engaging visual stories built for modern digital platforms."
     secondaryBtnWrapperClassName="hover:scale-105 transition-transform duration-300"
     secondaryBtnClassName="!bg-transparent !border-2 !border-[#2fd0c8] !text-white font-bold !px-10 !py-3.5 shadow-[0_0_20px_rgba(47,208,200,0.2)]"
     showBackground={true}
-    sectionClassName="!mt-0  pb-20"
+    sectionClassName="!mt-0 pt-20 md:pt-4 pb-10"
+    gridClassName="!min-h-auto"
   />
 
   <WhatMGAre />
@@ -114,7 +115,7 @@ stress."
   }
 
   h2 {
-    font-family: "Inter", sans-serif;
+    font-family: var(--font-heading);
   }
   section {
     -webkit-font-smoothing: antialiased;

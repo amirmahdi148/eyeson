@@ -78,7 +78,7 @@ export const ToolsComponent = () => {
           animate={isInView ? "visible" : "hidden"}
           className="mb-10 sm:mb-14 flex flex-col gap-3 sm:gap-4"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-black tracking-tight text-white">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-bold tracking-tight text-white">
             Tools <span className="text-[#31B9C4]">We Use</span>
           </h2>
           <p className="text-[14px] sm:text-base md:text-lg font-light text-gray-400">

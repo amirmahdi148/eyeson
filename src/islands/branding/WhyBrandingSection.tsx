@@ -29,7 +29,7 @@ export const WhyBrandingSection = () => {
         <div className="flex flex-col gap-5 lg:w-[42%]">
           {/* تیتر */}
           <motion.div variants={itemVariants} className="mb-1">
-            <h2 className="text-3xl font-black uppercase leading-tight tracking-tight text-white sm:text-4xl text-center lg:text-left md:text-5xl">
+            <h2 className="text-3xl font-bold uppercase leading-tight tracking-tight text-white sm:text-4xl text-center lg:text-left md:text-5xl">
               WHY <span className="text-[#1ECFBC]">BRANDING</span> MATTERS
             </h2>
             <p className="text-gray-300 text-base font-light mt-2 sm:text-lg md:text-xl text-center lg:text-left">
@@ -48,7 +48,7 @@ export const WhyBrandingSection = () => {
                 src="/Branding/leftnum1.webp"
                 alt="Builds Instant Trust and Credibility"
                 fill
-                className="object-none"
+                objectFit="cover"
               />
             </div>
             <div
@@ -89,7 +89,7 @@ export const WhyBrandingSection = () => {
                 src="/Branding/leftnum2.webp"
                 alt="Recognizable and Memorable"
                 fill
-                className="object-none"
+                objectFit="cover"
               />
             </div>
           </motion.div>
@@ -115,7 +115,6 @@ export const WhyBrandingSection = () => {
               src="/Branding/rightnum1.webp"
               alt="Consistency Across Product and Marketing"
               fill
-              className="object-none scale-110"
             />
           </div>
         </motion.div>
@@ -130,7 +129,6 @@ export const WhyBrandingSection = () => {
               src="/Branding/rightnum2.webp"
               alt="Better Performing Content and Ads"
               fill
-              className="object-none scale-110"
             />
           </div>
 

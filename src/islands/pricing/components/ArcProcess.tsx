@@ -80,7 +80,7 @@ export const ArcProcess = () => {
 
     return (
         <section ref={sectionRef} className="relative z-10 mx-auto mt-10 w-full max-w-[980px] px-4 pb-24">
-            <h2 className="text-center text-white text-2xl md:text-3xl font-black mb-12">
+            <h2 className="text-center text-white text-2xl md:text-3xl font-bold mb-12">
                 Our <span className="text-[#1FC5C8]">Process</span>
             </h2>
 
@@ -124,7 +124,7 @@ export const ArcProcess = () => {
                                         opacity: 0.25 + stepProgress * 0.75,
                                     }}
                                 >
-                                    <h3 className="text-white text-xl font-black">{step.title}</h3>
+                                    <h3 className="text-white text-xl font-bold">{step.title}</h3>
                                     <p className="mt-1 text-[#1FC5C8] text-sm font-semibold">{step.subtitle}</p>
                                     <p className="mt-3 text-white/70 text-base leading-6">{step.description}</p>
                                 </article>

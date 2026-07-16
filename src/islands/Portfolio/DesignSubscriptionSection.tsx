@@ -13,7 +13,7 @@ export const DesignSubscriptionSection = () => {
         </div>
 
         <div className="order-1 space-y-4 text-left md:order-2">
-          <h2 className="text-3xl font-black leading-tight text-white sm:text-4xl">
+          <h2 className="text-3xl font-bold leading-tight text-white sm:text-4xl">
             What is a{" "}
             <span className="bg-linear-to-r from-[#46B6A0] to-[#2EBACA] bg-clip-text text-transparent">
               design subscription

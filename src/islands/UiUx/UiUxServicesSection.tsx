@@ -53,7 +53,7 @@ export default function UiUxServicesSection() {
       <div className="relative mx-auto max-w-[1400px] px-6 lg:px-8">
         {/* هدر بخش */}
         <div className="mx-auto max-w-3xl text-center mb-16 lg:mb-20">
-          <h2 className="text-[36px] font-black tracking-tight text-[#32c9b4] sm:text-[44px] lg:text-[50px]">
+          <h2 className="text-[36px] font-bold tracking-tight text-[#32c9b4] sm:text-[44px] lg:text-[50px]">
             UI/UX Design Services
           </h2>
           <p className="mt-5 text-[15px] leading-relaxed text-gray-300 sm:text-[16px] lg:text-[17px]">

@@ -1,0 +1,99 @@
+---
+import PrimaryButton from "./PrimaryButton";
+import SecondaryButton from "./SecondaryButton";
+
+// Mirrors eyes-on-front/app/Components/CostVideo.tsx — one layout everywhere (no separate mobile calc).
+---
+
+<section
+  id="cost-video-section"
+  class="cv-section relative flex justify-center w-full overflow-hidden py-12 px-4 sm:px-6 md:py-24"
+  aria-labelledby="cost-video-heading"
+>
+  <div
+    class="cv-card animate-cv-card-in relative w-full max-w-6xl overflow-hidden rounded-[32px] sm:rounded-[40px] border border-[#006B77]/30 bg-linear-to-r from-[#000E17] to-[#002830] p-6 sm:p-8 md:p-12 lg:p-16 shadow-2xl"
+  >
+    <div
+      class="pointer-events-none absolute top-0 left-0 h-px w-full bg-linear-to-r from-transparent via-[#006B77] to-transparent opacity-70"
+    >
+    </div>
+
+    <div
+      class="relative z-10 grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-12 justify-center content-center"
+    >
+      <!-- === ستون چپ: متن و دکمه‌ها === -->
+      <div
+        class="cv-copy text-center lg:text-left flex flex-col items-center lg:items-start max-w-xl mx-auto lg:mx-0"
+      >
+        <p
+          class="mb-3 sm:mb-4 text-xs sm:text-sm font-semibold tracking-wider text-[#006B77] uppercase"
+        >
+          PROJECT COST CALCULATOR
+        </p>
+        <h2
+          id="cost-video-heading"
+          class="mb-5 sm:mb-6 text-3xl sm:text-4xl md:text-[44px] leading-tight font-bold text-white"
+        >
+          Estimate the Cost
+          of Your Next Creative Project
+        </h2>
+        <p
+          class="mb-8 sm:mb-10 text-[15px] sm:text-lg leading-relaxed text-gray-400"
+        >
+          Answer a few quick questions and get a personalized price range for your video, animation,
+          or design project. It helps you understand the expected budget before we start, based on
+          your goals, style, timeline, and project complexity.
+        </p>
+
+        <div
+          class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
+        >
+          <PrimaryButton
+            text="Estimate Project Cost"
+            href="/pricing"
+            width="16rem"
+            height="50px"
+          />
+          <SecondaryButton
+            text="Contact Us"
+            href="/contact"
+            width="14rem"
+            height="50px"
+          />
+        </div>
+      </div>
+
+      <!-- === ستون راست: SVG Calculator === -->
+      <div class="relative flex items-center justify-center pt-12 lg:justify-end lg:pt-0">
+        <img src="/Shared/cal/calu2.png" alt="Calculator" class="w-full max-w-2xl sm:max-w-4xl h-auto scale-125 relative top-3" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes cv-card-in {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 36px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  .animate-cv-card-in {
+    animation: cv-card-in 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-cv-card-in {
+      animation: none !important;
+      opacity: 1;
+    }
+  }
+</style>
+
+

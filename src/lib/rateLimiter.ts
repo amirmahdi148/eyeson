@@ -22,7 +22,6 @@ function cleanup() {
   for (const [key, entries] of store) {
     const valid = entries.filter((e) => e.resetAt > now);
     if (valid.length === 0) store.delete(key);
-    else store.set(key, valid);
   }
 }
 

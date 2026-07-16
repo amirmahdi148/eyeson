@@ -56,7 +56,7 @@ export const PricingHero = () => {
         {/* عنوان */}
         <div className="px-4 text-center mt-12 sm:mt-0">
           <h2 className="leading-tight flex flex-col items-center justify-center gap-2">
-            <span className="text-3xl sm:text-[40px] font-black text-white">
+            <span className="text-3xl sm:text-[40px] font-bold text-white">
               Flexible {' '}
               <span className="bg-linear-to-t from-[#42B6A7] to-[#41B6A7] bg-clip-text text-transparent">
                 Pricing <br/>
@@ -68,7 +68,7 @@ export const PricingHero = () => {
               From social content and motion graphics to branding, animation, and product videos, <br/>
               choose the solution that fits your goals, timeline, and budget.
             </span>
-            <span className="font-black relative top-10 text-md sm:text-xl  text-white/90 sm:text-white mt-2 block sm:mt-0 sm:inline">
+            <span className="font-bold relative top-10 text-md sm:text-xl  text-white/90 sm:text-white mt-2 block sm:mt-0 sm:inline">
               The pricing shown below is intended as a general estimate and starting point. <br/> Final
 pricing may vary depending on project scope, complexity, timeline, and specific
 requirements. <br/>
@@ -88,7 +88,7 @@ We also offer special pricing and discounts for first-time clients on selected s
                 <div
                   key={option.id}
                   onClick={() => handleTabChange(option.name)}
-                  className={`snap-start text-white font-black border cursor-pointer transition-all rounded-full py-2 px-5 sm:px-6 h-12 text-sm sm:text-base text-center flex items-center justify-center shrink-0 whitespace-nowrap
+                  className={`snap-start text-white font-bold border cursor-pointer transition-all rounded-full py-2 px-5 sm:px-6 h-12 text-sm sm:text-base text-center flex items-center justify-center shrink-0 whitespace-nowrap
                     ${
                       option.name === selected
                         ? "bg-linear-to-r from-[#065A69] via-[#093A47] to-[#0B1F2A] border-[#00A9BD] shadow-[0_0_15px_rgba(0,169,189,0.3)]"

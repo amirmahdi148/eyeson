@@ -78,7 +78,7 @@ export default function VisualProofSection() {
         className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8"
       >
         <div className="text-center">
-          <h2 className="text-[28px] font-black leading-tight tracking-tight text-cyan-300 sm:text-[34px] lg:text-[38px]">
+          <h2 className="text-[28px] font-bold leading-tight tracking-tight text-cyan-300 sm:text-[34px] lg:text-[38px]">
             Visual Proof
           </h2>
           <p className="mt-2 text-[15px] text-white/70 sm:text-base">

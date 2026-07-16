@@ -21,7 +21,7 @@ export const SummaryPanel = ({ packageName, lines, total, duration, durationTitl
     return (
         <div className="w-full max-w-[1220px] mx-auto px-4 sm:px-6">
             <div className="rounded-[28px] bg-[#061B22] px-5 py-5 sm:px-7 sm:py-7 shadow-[0_30px_80px_-40px_rgba(0,0,0,0.7)]">
-                <h2 className="text-center text-3xl sm:text-4xl font-black tracking-tight text-white">
+                <h2 className="text-center text-3xl sm:text-4xl font-bold tracking-tight text-white">
                     <span className="text-[#1AD1BC]">Project</span> Summary &amp; Estimate
                 </h2>
 
@@ -61,7 +61,7 @@ export const SummaryPanel = ({ packageName, lines, total, duration, durationTitl
                             {pricedLines.map((line, i) => (
                                 <div key={i} className="text-lg sm:text-[22px] leading-[1.45] text-white">
                                     <span className="font-light">{line.title}:</span>{" "}
-                                    <span className="font-black">${formatter.format(line.price)}</span>
+                                    <span className="font-bold">${formatter.format(line.price)}</span>
                                 </div>
                             ))}
                         </div>
@@ -72,7 +72,7 @@ export const SummaryPanel = ({ packageName, lines, total, duration, durationTitl
                             <span className="text-base sm:text-[19px] font-medium text-[#F4FBFD]">
                                 Total Estimated Cost:
                             </span>
-                            <span className="text-2xl sm:text-[28px] font-black text-white">
+                            <span className="text-2xl sm:text-[28px] font-bold text-white">
                                 ${formatter.format(total)}
                             </span>
                         </div>

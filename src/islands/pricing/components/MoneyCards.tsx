@@ -127,7 +127,7 @@ function PlanCard({ plan, mobile = false }: { plan: Plan; mobile?: boolean }) {
       ) : null}
 
       {/* نام پلن */}
-      <h3 className="text-[28px] sm:text-[34px] font-black leading-none text-white">{plan.name}</h3>
+      <h3 className="text-[28px] sm:text-[34px] font-bold leading-none text-white">{plan.name}</h3>
       
       {/* زیرعنوان */}
       <p className="mt-2 text-xs sm:text-sm text-white/60 font-medium">{plan.subtitle}</p>
@@ -137,7 +137,7 @@ function PlanCard({ plan, mobile = false }: { plan: Plan; mobile?: boolean }) {
 
       {/* قیمت */}
       <div className="flex items-end gap-2 mb-6 sm:mb-8">
-        <span className="text-[36px] sm:text-[42px] font-black leading-none text-[#39C2B6]">
+        <span className="text-[36px] sm:text-[42px] font-bold leading-none text-[#39C2B6]">
           {plan.price}
         </span>
         <span className="pb-1 text-sm sm:text-xl text-white/55 font-medium">Starting at</span>

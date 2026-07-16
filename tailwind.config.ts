@@ -12,7 +12,8 @@ export default {
         border: "var(--border)",
       },
       fontFamily: {
-        sans: ["Geist Variable", "sans-serif"],
+        sans: ["Manrope Variable", "Manrope", "sans-serif"],
+        heading: ["Sora Variable", "Sora", "sans-serif"],
       }
     },
   },

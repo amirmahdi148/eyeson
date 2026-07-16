@@ -32,7 +32,7 @@ const defaultInfoCards: InfoCard[] = [
     description:
       "Intuitive interfaces help users navigate your product with confidence and accomplish tasks\n" +
         "faster.",
-    image: "/Shared/sharing/first-left.svg",
+    image: "/Shared/Features/left.webp",
   },
   {
     id: 2,
@@ -40,7 +40,7 @@ const defaultInfoCards: InfoCard[] = [
     description:
       "Professional design creates stronger first impressions and increases confidence in your\n" +
         "product and brand.",
-    image: "/Shared/sharing/first-right.svg",
+    image: "/Shared/Features/middle.webp",
   },
   {
     id: 3,
@@ -48,7 +48,7 @@ const defaultInfoCards: InfoCard[] = [
     description:
       "Clear layouts, user flows, and information architecture make even advanced platforms\n" +
         "easier to understand and use.",
-    image: "/Shared/sharing/first-right.svg",
+    image: "/Shared/Features/right.webp",
   },
 ];
 

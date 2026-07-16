@@ -54,7 +54,7 @@ export const ConversionScroll = () => {
       ref={sectionRef}
       className="relative z-10 mx-auto w-full overflow-hidden px-4 pb-24 pt-5"
     >
-      <h2 className="text-center text-white text-2xl md:text-3xl font-black mb-12">
+      <h2 className="text-center text-white text-2xl md:text-3xl font-bold mb-12">
         Why <span className="text-[#1FC5C8]">Product Videos</span> increase
         conversion
       </h2>

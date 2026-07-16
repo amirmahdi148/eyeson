@@ -10,90 +10,92 @@ const data = [
 ];
 ---
 
-<div class="w-full flex items-center justify-center px-4 py-10 scale-110">
-  <div
-    class="relative w-full  max-w-6xl overflow-hidden rounded-[24px] border border-cyan-500/20 px-6 py-10 shadow-[0_0_80px_rgba(0,0,0,0.35)] md:px-10 lg:px-12"
-  >
-    <SmartImage
-      src="/blogs/Story-Back.webp"
-      className="absolute inset-0 h-full w-full object-cover opacity-50"
-      client:load
-    />
+<div class="px-3">
+  <div class="w-full flex items-center justify-center px-4 py-10 scale-110 ">
+    <div
+        class="relative w-full  max-w-6xl overflow-hidden rounded-[24px] border border-cyan-500/20 px-6 py-10 shadow-[0_0_80px_rgba(0,0,0,0.35)] md:px-10 lg:px-12"
+    >
+      <SmartImage
+          src="/blogs/Story-Back.webp"
+          className="absolute inset-0 h-full w-full object-cover opacity-50"
+          client:load
+      />
 
-    <div class="absolute inset-0 bg-white/5 backdrop-blur-md"></div>
+      <div class="absolute inset-0 bg-white/5 backdrop-blur-md"></div>
 
-    <div class="relative z-10 grid gap-10 lg:grid-cols-[1fr_2fr] lg:items-center">
-      <div class="flex flex-col gap-8">
-        <div class="flex flex-col gap-5">
-          <h2
-            class="text-3xl font-semibold leading-tight text-white md:text-4xl"
-          >
-            We design <span class="text-[#1EAFB1]">Product Stories</span> not just
-            animations.
-          </h2>
+      <div class="relative z-10 grid gap-10 lg:grid-cols-[1fr_2fr] lg:items-center">
+        <div class="flex flex-col gap-8">
+          <div class="flex flex-col gap-5">
+            <h2
+                class="text-3xl font-semibold leading-tight text-white md:text-4xl"
+            >
+              We design <span class="text-[#1EAFB1]">Product Stories</span> not just
+              animations.
+            </h2>
+
+            <div
+                class="space-y-1 text-sm leading-relaxed text-white/80 md:text-base"
+            >
+              <h4>We don't just move screens around.</h4>
+              <h4>
+                We craft structured narratives that explain, persuade, and
+                convert.
+              </h4>
+            </div>
+          </div>
 
           <div
-            class="space-y-1 text-sm leading-relaxed text-white/80 md:text-base"
+              class="h-px w-full bg-gradient-to-r from-transparent via-[#00A9BD] to-transparent"
           >
-            <h4>We don't just move screens around.</h4>
-            <h4>
-              We craft structured narratives that explain, persuade, and
-              convert.
-            </h4>
+          </div>
+
+          <div class="space-y-4">
+            {
+              data.map((item) => (
+                  <div class="flex items-center gap-3">
+                    <CheckCircle
+                        size={28}
+                        strokeWidth={1.75}
+                        color="#1EAFB1"
+                        className="shrink-0"
+                    />
+                    <h3 class="text-lg text-white/90">{item.title}</h3>
+                  </div>
+              ))
+            }
           </div>
         </div>
 
-        <div
-          class="h-px w-full bg-gradient-to-r from-transparent via-[#00A9BD] to-transparent"
-        >
-        </div>
-
-        <div class="space-y-4">
-          {
-            data.map((item) => (
-              <div class="flex items-center gap-3">
-                <CheckCircle
-                  size={28}
-                  strokeWidth={1.75}
-                  color="#1EAFB1"
-                  className="shrink-0"
-                />
-                <h3 class="text-lg text-white/90">{item.title}</h3>
-              </div>
-            ))
-          }
-        </div>
-      </div>
-
-      <div class="flex items-center justify-center lg:justify-end">
-        <div class="relative w-full aspect-[1200/900] lg:aspect-[1200/800]">
-          <div class="absolute inset-0 z-1 animate-felash-entry [animation-delay:1000ms]">
-            <SmartImage src="/pricing/svg/Felash-1.svg" client:visible />
-          </div>
-          <div class="absolute inset-0 z-1 animate-felash-entry [animation-delay:1100ms]">
-            <SmartImage src="/pricing/svg/Felash-2.svg" client:visible />
-          </div>
-          <div class="absolute inset-0 z-1 animate-felash-entry [animation-delay:1200ms]">
-            <SmartImage src="/pricing/svg/Felash-3.svg" client:visible />
-          </div>
-          <div class="absolute inset-0 z-2 animate-design-entry [animation-delay:1400ms]">
-            <SmartImage src="/pricing/svg/1.svg" client:visible />
-          </div>
-          <div class="absolute inset-0 z-3 animate-design-entry [animation-delay:1500ms]">
-            <SmartImage src="/pricing/svg/2.svg" client:visible />
-          </div>
-          <div class="absolute inset-0 z-4 animate-design-entry [animation-delay:1600ms]">
-            <SmartImage src="/pricing/svg/3.svg" client:visible />
-          </div>
-          <div class="absolute inset-0 z-5 animate-design-entry [animation-delay:1700ms]">
-            <SmartImage src="/pricing/svg/4.svg" client:visible />
+        <div class="flex items-center justify-center lg:justify-end">
+          <div class="relative w-full aspect-[1200/900] lg:aspect-[1200/800]">
+            <div class="absolute inset-0 z-1 animate-felash-entry [animation-delay:1000ms]">
+              <SmartImage src="/pricing/svg/Felash-1.svg" client:visible />
+            </div>
+            <div class="absolute inset-0 z-1 animate-felash-entry [animation-delay:1100ms]">
+              <SmartImage src="/pricing/svg/Felash-2.svg" client:visible />
+            </div>
+            <div class="absolute inset-0 z-1 animate-felash-entry [animation-delay:1200ms]">
+              <SmartImage src="/pricing/svg/Felash-3.svg" client:visible />
+            </div>
+            <div class="absolute inset-0 z-2 animate-design-entry [animation-delay:1400ms]">
+              <SmartImage src="/pricing/svg/1.svg" client:visible />
+            </div>
+            <div class="absolute inset-0 z-3 animate-design-entry [animation-delay:1500ms]">
+              <SmartImage src="/pricing/svg/2.svg" client:visible />
+            </div>
+            <div class="absolute inset-0 z-4 animate-design-entry [animation-delay:1600ms]">
+              <SmartImage src="/pricing/svg/3.svg" client:visible />
+            </div>
+            <div class="absolute inset-0 z-5 animate-design-entry [animation-delay:1700ms]">
+              <SmartImage src="/pricing/svg/4.svg" client:visible />
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
+</div>
 <style>
   @keyframes design-entry {
     0% {

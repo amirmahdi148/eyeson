@@ -204,7 +204,7 @@ const questions: QAItem[] = questionOverrides.map((override) => {
             >
               <button
                   type="button"
-                  class="qa-trigger flex w-full items-start sm:items-center justify-between gap-3 sm:gap-4 px-4 py-4 sm:px-5 md:px-6 md:py-5 text-left group"
+                  class="qa-trigger flex w-full items-start sm:items-center justify-between gap-3 sm:gap-4 px-4 py-1 sm:px-5 md:px-6 md:py-5 text-left group"
                   aria-expanded={index === 0 ? "true" : "false"}
                   aria-controls={`qa-panel-${index}`}
               >
@@ -229,15 +229,15 @@ const questions: QAItem[] = questionOverrides.map((override) => {
                   role="region"
                   aria-label={item.q}
               >
-                <div class="pb-4 sm:pb-5 md:pb-6">
-                  <div class="mb-4 h-px w-full bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent"></div>
+                <div class=" ">
+                  <div class="mb-4 h-px w-full bg-linear-to-r from-transparent via-cyan-400/20 to-transparent"></div>
 
                   <div class="flex items-start gap-3 sm:gap-4">
                   {/* دایره A */}
                   <span class="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-cyan-400/10 border border-cyan-400/20 text-[11px] font-bold text-cyan-400 shadow-[0_0_10px_rgba(57,208,195,0.15)]">
                     A
                   </span>
-                    <p class="max-w-4xl text-[14px] sm:text-sm leading-relaxed sm:leading-7 text-white/70 font-light">
+                    <p class="max-w-4xl text-[14px] pb-4 sm:text-sm leading-relaxed sm:leading-7 text-white/70 font-light">
                       {item.a}
                     </p>
                   </div>

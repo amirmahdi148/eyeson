@@ -31,21 +31,21 @@ const defaultInfoCards: InfoCard[] = [
     title: "Promote brand individuality",
     description:
       "Professional editing shapes your content into a style that feels uniquely yours. From pacing to color and transitions, consistent editing builds a recognizable identity.",
-    image: "/Shared/sharing/first-left.svg",
+    image: "/Shared/Features/left.webp",
   },
   {
     id: 2,
     title: "Stand out from competitors",
     description:
       "Clean, well-structured edits naturally separate you from noise. Strong storytelling and polished visuals make your videos feel more professional and memorable.",
-    image: "/Shared/sharing/first-right.svg",
+    image: "/Shared/Features/middle.webp",
   },
   {
     id: 3,
     title: "Create shareable & reusable assets",
     description:
       "Great edits can be repurposed across social platforms and campaigns. This gives your team more content options without starting from scratch each time.",
-    image: "/Shared/sharing/first-right.svg",
+    image: "/Shared/Features/right.webp",
   },
 ];
 
@@ -139,10 +139,10 @@ export default function BusinessNeedsSection({
 
           <div className="relative z-10 grid items-center gap-7 lg:grid-cols-2">
             <div className="order-2 lg:order-1">
-              <h3 className="text-[42px] leading-[1.05] font-bold text-white md:text-4xl">
+              <h3 className="text-3xl leading-[1.05] font-bold text-white md:text-3xl">
                 {mainTitle}
               </h3>
-              <p className="mt-4 text-lg leading-8 text-[#d2e1e8] md:text-base md:leading-7">
+              <p className="mt-4 text-sm leading-7 text-[#d2e1e8] md:text-sm md:leading-7">
                 {mainBody}
               </p>
 
@@ -165,7 +165,7 @@ export default function BusinessNeedsSection({
               </div>
             </div>
 
-            <div className="order-1 lg:order-2 lg:pl-10">
+            <div className="order-1 lg:order-2 lg:pl-10 flex items-center justify-center">
               {rightSection ?? (
                   <img src="/Shared/sharing/main-right.png" alt="Right Section SVG" className="scale-140"/>
               )}

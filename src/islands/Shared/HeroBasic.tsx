@@ -47,6 +47,7 @@ type Props = {
 
   isBranding?: boolean;
   rightComponent?: ReactNode;
+  gridClassName?: string;
 };
 
 export const HeroBasic = ({
@@ -94,6 +95,7 @@ export const HeroBasic = ({
 
   isBranding = false,
   rightComponent = null,
+  gridClassName = "",
 }: Props) => {
   const MotionTag = motion.div;
 
@@ -185,7 +187,7 @@ export const HeroBasic = ({
         <div
           className={`relative z-10 md:hidden grid min-h-[60vh] items-center gap-6 sm:min-h-[500px] ${
             reverse ? "lg:grid-cols-[320px_1fr]" : "lg:grid-cols-[1fr_320px]"
-          }`}
+          } ${gridClassName}`}
         >
           <div
             className={`mx-auto flex max-w-lg flex-col items-center text-center md:mx-0 md:items-start md:text-left ${textContainerClassName}`}
@@ -196,13 +198,13 @@ export const HeroBasic = ({
               </p>
             )}
             <h1
-              className={`text-[22px] md:text-[35px] font-black leading-tight ${headingClassName}`}
+              className={`text-[22px] md:text-[35px] font-bold leading-tight ${headingClassName}`}
             >
               <span className={beforeHighlightClassName}>
                 {BeforeHighlight}{" "}
               </span>
               <span
-                className={`bg-linear-to-r from-[#45B6A0] to-[#12ACB5] bg-clip-text text-transparent font-black ${highlightClassName}`}
+                className={`bg-linear-to-r from-[#45B6A0] to-[#12ACB5] bg-clip-text text-transparent font-bold ${highlightClassName}`}
               >
                 {Highlight}
               </span>
@@ -272,7 +274,7 @@ export const HeroBasic = ({
         <div
           className={`relative z-10 hidden md:grid min-h-[60vh] items-center gap-6 sm:min-h-[500px] ${
             reverse ? "lg:grid-cols-[320px_1fr]" : "lg:grid-cols-[1fr_320px]"
-          }`}
+          } ${gridClassName}`}
         >
           <MotionTag
             className={`mx-auto flex max-w-lg flex-col items-center text-center md:mx-0 md:items-start md:text-left ${textContainerClassName}`}
@@ -295,7 +297,7 @@ export const HeroBasic = ({
               </motion.p>
             )}
             <motion.h1
-              className={`text-[22px] md:text-[35px] font-black leading-tight ${headingClassName}`}
+              className={`text-[22px] md:text-[35px] font-bold leading-tight ${headingClassName}`}
               {...(!isNone && {
                 initial: "hidden",
                 animate: "show",
@@ -306,7 +308,7 @@ export const HeroBasic = ({
                 {BeforeHighlight}{" "}
               </span>
               <span
-                className={`bg-linear-to-r from-[#45B6A0] to-[#12ACB5] bg-clip-text text-transparent font-black ${highlightClassName}`}
+                className={`bg-linear-to-r from-[#45B6A0] to-[#12ACB5] bg-clip-text text-transparent font-bold ${highlightClassName}`}
               >
                 {Highlight}
               </span>

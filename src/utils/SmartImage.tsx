@@ -65,7 +65,7 @@ export function SmartImage({
   );
 
   if (fill) {
-    return <div className="relative w-full h-full">{img}</div>;
+    return <div className="absolute inset-0">{img}</div>;
   }
 
   return img;

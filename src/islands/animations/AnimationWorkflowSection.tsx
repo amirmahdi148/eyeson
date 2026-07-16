@@ -115,7 +115,7 @@ export default function AnimationWorkflowSection() {
 
   return (
     // حذف بک‌گراند کلی از سکشن، فقط استایل پدینگ و فونت
-    <section className="relative w-full overflow-hidden px-4 py-16 sm:px-8 md:py-24 lg:px-16 font-sans">
+    <section className="relative w-full overflow-hidden px-4 pt-4 pb-16 sm:px-8 md:pt-8 md:pb-24 lg:px-16 font-sans">
       {/* گرید دو ستونه */}
       <div className="mx-auto grid max-w-[1200px] gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 items-start">
         {/* === ستون چپ: متن و عکس === */}
@@ -137,7 +137,7 @@ export default function AnimationWorkflowSection() {
           </p>
 
           {/* عکس دسکتاپ (بدون بک‌گراند باکس، مستقیما عکس) */}
-          <div className="mt-8 md:mt-12 w-full max-w-[400px]">
+          <div className="mt-8 md:mt-12 w-full max-w-100 mx-auto sm:mx-0">
             <img
               src="/preview.webp" // همون عکس 3D که توی دیزاینت هست رو اینجا لود کن
               alt="Workflow 3D visual"

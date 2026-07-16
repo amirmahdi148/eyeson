@@ -1,23 +1,23 @@
 
 import BusinessNeedsSection from "../Shared/BusinessNeedsSection.tsx";
 
-export const VideoNeedsBlock = () => {
+export const SaasNeedsBlock = () => {
     return(
         <BusinessNeedsSection
-            label="WHY VIDEO EDITING MATTERS"
-            beforeHighlight="Why Modern Brands Need"
-            highlight="Better Video Editing"
+            label="WHY SAAS CREATIVE MATTERS"
+            beforeHighlight="Why Modern Products Need"
+            highlight="Better Creative"
             afterHighlight=""
-            body="In today’s content environment, raw footage alone is not enough. Strong editing helps
-brands communicate faster, hold attention longer, and make content feel more
-professional across social media, websites, ads, and product launches.
-Good editing improves clarity, pacing, storytelling, and viewer experience, helping every
-piece of content work harder instead of getting ignored."
+            body="In today’s content environment, features alone are not enough. Strong creative helps
+brands communicate faster, hold attention longer, and make products feel more
+approachable across websites, ads, and product launches.
+Good creative improves clarity, storytelling, and user experience, helping your product
+work harder instead of getting ignored."
 
-            mainTitle="Turn Attention Into Action"
-            mainBody="Professional editing helps your audience understand your message faster, trust your brand
-more, and stay engaged longer. Better pacing, structure, visuals, and storytelling make
-content feel easier to watch and more effective across modern platforms."
+            mainTitle="Turn Features Into Value"
+            mainBody="Professional creative helps your audience understand your product faster, trust your brand
+more, and stay engaged longer. Clearer visuals, structure, and storytelling make
+complex workflows feel simple and effective."
             primaryBtnText="Get a Free Sample"
             secondaryBtnText="See Our Work"
             cards={[

@@ -356,7 +356,7 @@ export default function AdminCaseStudyTabsSection({ slug: propSlug }: Props) {
                     <InlineInput value={editValue} />
                   ) : (
                     <div className="flex items-start gap-1">
-                      <h2 className="text-[28px] font-black leading-tight tracking-tight text-white sm:text-[32px]">
+                      <h2 className="text-[28px] font-bold leading-tight tracking-tight text-white sm:text-[32px]">
                         {activeTabItem?.title}
                       </h2>
                       <EditBtn onClick={() => startEdit("title", activeTabItem?.title || "")} />
