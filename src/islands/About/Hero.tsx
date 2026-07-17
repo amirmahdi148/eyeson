@@ -47,7 +47,7 @@ export const Hero = () => {
             <div
                 className="flex flex-col items-center justify-center bg-[#000E17] relative z-5 mb-10 min-h-screen"
                 style={{
-                    backgroundImage: "url('/About/AU-Hero-Back.svg')",
+                    backgroundImage: "url('/aboutus.webp')",
                     backgroundSize: "contain",
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",
