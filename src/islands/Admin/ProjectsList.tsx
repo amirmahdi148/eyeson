@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Eye, Users, Plus, Search, Grid3X3, List, ArrowUpRight, Pencil } from "lucide-react";
 import { dashboardService } from "@/services/dashboardService.ts";
+import { httpService } from "@/utils/httpService.ts";
 
 type ApiProject = {
   cover: string;
@@ -80,21 +81,33 @@ export default function ProjectsList() {
   async function createProject(e: React.FormEvent) {
     e.preventDefault();
     setCreating(true);
-    await new Promise((r) => setTimeout(r, 800));
-    const newProject = {
-      id: String(Date.now()),
-      title: projectname || "Untitled Project",
-      views: 0,
-      owner: "You",
-      status: "Draft",
-      updated: "Just now",
-    };
-    setProjects([newProject, ...projects]);
-    setProjectname("");
-    setProjectcategory("Video");
-    setDescription("");
-    setCreating(false);
-    setShowNew(false);
+    try {
+      await httpService.post("/project/create", {
+        projectname,
+        projectcategory,
+        description,
+      });
+      // Reload projects from backend after creation
+      const data = await dashboardService.getAllProjects();
+      setProjects(
+        data.projects.map((p: ApiProject) => ({
+          slug: p.slug,
+          title: p.title,
+          views: p.views,
+          owner: p.ownerName,
+          updated: p.updatedAt,
+          cover: p.cover,
+        }))
+      );
+      setProjectname("");
+      setProjectcategory("Video");
+      setDescription("");
+      setShowNew(false);
+    } catch (err) {
+      console.error("Failed to create project", err);
+    } finally {
+      setCreating(false);
+    }
   }
 
   return (
