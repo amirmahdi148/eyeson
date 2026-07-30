@@ -18,7 +18,7 @@ const { slug } = Astro.props;
   </div>
   <div class="relative flex flex-col gap-3">
     <CaseStudyHero client:load slug={slug} />
-    <VisualProofSection client:load />
+    <VisualProofSection client:load slug={slug} />
     <CaseStudyTabsSection client:load slug={slug} />
     <CaseStudiesSection client:load />
     <ContactUs client:load />

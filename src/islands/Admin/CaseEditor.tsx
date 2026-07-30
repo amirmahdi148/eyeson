@@ -18,7 +18,12 @@ interface TabData {
   text: string;
 }
 
-export default function CaseEditor() {
+type CaseEditorProps = {
+  slug?: string;
+};
+
+export default function CaseEditor({ slug: propSlug }: CaseEditorProps) {
+  const slug = propSlug || "skylines-989762e9";
   const [caseData, setCaseData] = useState<CaseData>({});
   const [tabsData, setTabsData] = useState<TabData[]>([]);
   const [editingField, setEditingField] = useState<string | null>(null);
@@ -29,28 +34,29 @@ export default function CaseEditor() {
 
   useEffect(() => {
     fetchCaseData();
-  }, []);
+  }, [slug]);
 
   const fetchCaseData = async () => {
     try {
       // Fetch hero data
       const heroRes = await httpService.get<CaseData>(
-        `/project/details?slug=skylines-989762e9`
+        `/project/details?slug=${slug}`
       );
       
       // Fetch tab data
       const textsRes = await httpService.get<any[]>(
-        `/project/texts?slug=skylines-989762e9`
+        `/project/texts?slug=${slug}`
       );
       
-      const processedTabs = textsRes.map((t) => ({
-        key: t.section.replace(/\s+/g, "").toLowerCase(),
-        label: t.section,
-        title: t.title,
-        text: t.description,
+      const rawTexts = Array.isArray(textsRes) ? textsRes : (textsRes as any)?.data || (textsRes as any)?.texts || [];
+      const processedTabs = rawTexts.map((t: any) => ({
+        key: (t.section || "section").replace(/\s+/g, "").toLowerCase(),
+        label: t.section || "Section",
+        title: t.title || "",
+        text: t.description || t.text || "",
       }));
       
-      setCaseData(heroRes);
+      setCaseData(heroRes || {});
       setTabsData(processedTabs);
     } catch (error) {
       console.error("[CaseEditor] Fetch failed:", error);
@@ -84,7 +90,7 @@ export default function CaseEditor() {
       let payload: any = {};
       
       if (["title", "description", "avatar", "projectType", "projectTimeline"].includes(editingField)) {
-        endpoint = `/project/details?slug=skylines-989762e9`;
+        endpoint = `/project/details?slug=${slug}`;
         payload[editingField] = fieldValue;
         
         // Handle special case for avatar (might need file upload handling)
@@ -104,7 +110,7 @@ export default function CaseEditor() {
             iconUrl: existingTool?.iconUrl || `/case/${name.toLowerCase().replace(/\s+/g, '')}.png` // Default icon
           };
         });
-        endpoint = `/project/details?slug=skylines-989762e9`;
+        endpoint = `/project/details?slug=${slug}`;
         payload.tools = newTools;
       } else if (editingField.startsWith("tab")) {
         // Handle tab data editing
@@ -112,7 +118,7 @@ export default function CaseEditor() {
         const fieldName = editingField.split("-")[2]; // title or text
         
         if (!isNaN(tabIndex) && tabsData[tabIndex]) {
-          endpoint = `/project/texts?slug=skylines-989762e9`;
+          endpoint = `/project/texts?slug=${slug}`;
           payload = {
             [fieldName]: fieldValue,
             section: tabsData[tabIndex].label // Keep original section

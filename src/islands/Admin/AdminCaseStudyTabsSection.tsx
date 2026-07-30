@@ -40,16 +40,16 @@ export default function AdminCaseStudyTabsSection({ slug: propSlug }: Props) {
     const fetchData = async () => {
       try {
         const details: any = await httpService.get(`/project/details`, { params: { slug } });
-        const uuid = details.projectUUID || details.project || "";
+        const uuid = details?.projectUUID || details?.project || details?.uuid || details?.id || details?._id || details?.slug || slug || "";
         setProjectUUID(uuid);
-        if (!uuid) throw new Error("No project UUID found");
 
         const texts = await httpService.get<any[]>(`/project/texts?slug=${slug}`);
-        const mapped = texts.map((t: any) => ({
-          key: t.section.replace(/\s+/g, "").toLowerCase(),
-          label: t.section,
-          title: t.title,
-          text: t.description,
+        const rawTexts = Array.isArray(texts) ? texts : (texts as any)?.data || (texts as any)?.texts || [];
+        const mapped = rawTexts.map((t: any) => ({
+          key: (t.section || "section").replace(/\s+/g, "").toLowerCase(),
+          label: t.section || "Section",
+          title: t.title || "",
+          text: t.description || t.text || "",
         }));
         setTabs(mapped);
         if (mapped.length > 0 && !activeTab) setActiveTab(mapped[0].key);

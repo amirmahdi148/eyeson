@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Eye, Users, Plus, Search, Grid3X3, List, ArrowUpRight, Pencil } from "lucide-react";
+import { Eye, Users, Plus, Search, Grid3X3, List, ArrowUpRight, Pencil, Trash2, Loader2 } from "lucide-react";
 import { dashboardService } from "@/services/dashboardService.ts";
 import { httpService } from "@/utils/httpService.ts";
 
 type ApiProject = {
+  id?: string;
+  uuid?: string;
   cover: string;
   title: string;
   slug: string;
@@ -14,6 +16,8 @@ type ApiProject = {
 };
 
 type ProjectItem = {
+  id?: string;
+  uuid?: string;
   slug: string;
   title: string;
   views: number;
@@ -35,29 +39,54 @@ export default function ProjectsList() {
   const [projectcategory, setProjectcategory] = useState("Video");
   const [description, setDescription] = useState("");
   const [creating, setCreating] = useState(false);
+  const [deletingSlug, setDeletingSlug] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const categories = ["Video", "Industry", "Animation", "Design"];
 
+  const loadProjects = async () => {
+    try {
+      const data = await dashboardService.getAllProjects();
+      setProjects(
+        data.projects.map((p: ApiProject) => ({
+          id: p.id,
+          uuid: p.uuid,
+          slug: p.slug,
+          title: p.title,
+          views: p.views,
+          owner: p.ownerName,
+          updated: p.updatedAt,
+          cover: p.cover,
+        }))
+      );
+    } catch (err) {
+      console.error("Failed to load projects", err);
+    }
+  };
+
   useEffect(() => {
-    (async () => {
-      try {
-        const data = await dashboardService.getAllProjects();
-        setProjects(
-          data.projects.map((p: ApiProject) => ({
-            slug: p.slug,
-            title: p.title,
-            views: p.views,
-            owner: p.ownerName,
-            updated: p.updatedAt,
-            cover: p.cover,
-          }))
-        );
-      } catch (err) {
-        console.error("Failed to load projects", err);
-      }
-    })();
+    loadProjects();
   }, []);
+
+  const handleDeleteProject = async (p: ProjectItem) => {
+    const targetId = p.id || p.uuid || p.slug;
+    if (!targetId) return;
+
+    if (!window.confirm(`Are you sure you want to delete project "${p.title}"?`)) {
+      return;
+    }
+
+    setDeletingSlug(p.slug);
+    try {
+      await httpService.delete(`/project/${targetId}`);
+      await loadProjects();
+    } catch (err) {
+      console.error("Failed to delete project", err);
+      alert("Failed to delete project. Please try again.");
+    } finally {
+      setDeletingSlug(null);
+    }
+  };
 
   const filteredProjects = projects.filter((p) =>
     p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -214,6 +243,14 @@ export default function ProjectsList() {
                     >
                       <Pencil size={14} />
                     </a>
+                    <button
+                      onClick={() => handleDeleteProject(p)}
+                      disabled={deletingSlug === p.slug}
+                      className="p-1.5 rounded-lg text-red-400/80 hover:text-red-400 hover:bg-red-500/10 transition-colors cursor-pointer disabled:opacity-50"
+                      title="Delete Project"
+                    >
+                      {deletingSlug === p.slug ? <Loader2 size={14} className="animate-spin" /> : <Trash2 size={14} />}
+                    </button>
                   </div>
                 </div>
               </motion.div>
@@ -257,7 +294,7 @@ export default function ProjectsList() {
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-4 shrink-0 ml-4">
+                <div className="flex items-center gap-3 shrink-0 ml-4">
                   <span className="hidden sm:inline-flex px-2.5 py-1 rounded-full text-xs font-medium border bg-emerald-500/20 text-emerald-300 border-emerald-500/30">
                     Active
                   </span>
@@ -281,6 +318,16 @@ export default function ProjectsList() {
                   >
                     Edit
                   </motion.a>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => handleDeleteProject(p)}
+                    disabled={deletingSlug === p.slug}
+                    className="p-2 rounded-lg bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20 transition-colors cursor-pointer disabled:opacity-50"
+                    title="Delete Project"
+                  >
+                    {deletingSlug === p.slug ? <Loader2 size={14} className="animate-spin" /> : <Trash2 size={14} />}
+                  </motion.button>
                 </div>
               </motion.div>
             ))}

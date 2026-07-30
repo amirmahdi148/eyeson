@@ -1,37 +1,50 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { httpService } from "@/utils/httpService.ts";
+
+const SECTIONS = ["Lottie Animation Main", "UI Animation Main", "Branded Motion", "UI Animation", "Lottie Animation"];
 
 type CardItem = {
   label: string;
+  section: string;
   imageUrl: string;
 };
 
-const items: CardItem[] = [
-  {
-    label: "Lottie Animation",
-    imageUrl: "/case/rframe.webp",
-  },
-  {
-    label: "UI Animation",
-    imageUrl: "/case/lframe.webp",
-  },
-  {
-    label: "Branded motion",
-    imageUrl: "/case/b1f.webp",
-  },
-  {
-    label: "UI Animation",
-    imageUrl: "/case/b2f.webp",
-  },
-  {
-    label: "Lottie Animation",
-    imageUrl: "/case/b3f.webp",
-  },
+const defaultItems: CardItem[] = [
+  { label: "Lottie Animation", section: SECTIONS[0], imageUrl: "/case/rframe.webp" },
+  { label: "UI Animation", section: SECTIONS[1], imageUrl: "/case/lframe.webp" },
+  { label: "Branded motion", section: SECTIONS[2], imageUrl: "/case/b1f.webp" },
+  { label: "UI Animation", section: SECTIONS[3], imageUrl: "/case/b2f.webp" },
+  { label: "Lottie Animation", section: SECTIONS[4], imageUrl: "/case/b3f.webp" },
 ];
 
-export default function VisualProofSection() {
+type Props = {
+  slug?: string;
+};
+
+export default function VisualProofSection({ slug }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [items, setItems] = useState<CardItem[]>(defaultItems);
+
+  useEffect(() => {
+    if (!slug) return;
+    (async () => {
+      try {
+        const res: any = await httpService.get(`/project/picture/get?slug=${slug}`);
+        const pictures: any[] = res?.data ?? res ?? [];
+        if (Array.isArray(pictures) && pictures.length > 0) {
+          setItems(prev => prev.map(item => {
+            const match = pictures.find((p: any) => p.section === item.section);
+            const backendUrl = match?.filepath || match?.imageUrl || match?.url || match?.path || "";
+            return backendUrl ? { ...item, imageUrl: backendUrl } : item;
+          }));
+        }
+      } catch (err: any) {
+        console.warn("[VisualProofSection] Failed to fetch backend pictures, using fallback:", err);
+      }
+    })();
+  }, [slug]);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -54,6 +67,15 @@ export default function VisualProofSection() {
     cards.forEach((c) => io.observe(c));
     return () => io.disconnect();
   }, []);
+
+  const fixImageUrl = (url: string) => {
+    if (!url) return url;
+    if (url.startsWith("http://") || url.startsWith("https://")) return url;
+    if (url.startsWith("/media/") || url.startsWith("/uploads/")) {
+      return `${import.meta.env.PUBLIC_API_URL}${url}`;
+    }
+    return url;
+  };
 
   return (
     <section className="relative overflow-hidden py-16 sm:py-20 lg:py-24">
@@ -103,7 +125,7 @@ export default function VisualProofSection() {
                 `}
               >
                 <img
-                  src={item.imageUrl}
+                  src={fixImageUrl(item.imageUrl)}
                   alt={item.label}
                   loading="lazy"
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
@@ -120,3 +142,4 @@ export default function VisualProofSection() {
     </section>
   );
 }
+
