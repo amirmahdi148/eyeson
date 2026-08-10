@@ -40,7 +40,7 @@ const DEFAULT_FEATURES: FeatureItem[] = [
         "the pacing, structure, and editing style before committing to a full project.",
     path: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
     bgImageDesktop: "/Shared/Features/1.png",
-    bgImageMobile: "/Shared/Features/mobile-vecs/R1W1.webp",
+    bgImageMobile: "/Shared/Features/mobile-vecs/shared.webp",
   },
   {
     id: 2,
@@ -50,7 +50,7 @@ const DEFAULT_FEATURES: FeatureItem[] = [
         "and better visual flow designed for YouTube, Instagram, TikTok, Reels, Shorts, and X.",
     path: "M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z",
     bgImageDesktop: "/Shared/Features/1.png",
-    bgImageMobile: "/Shared/Features/mobile-vecs/R1W2.webp",
+    bgImageMobile: "/Shared/Features/mobile-vecs/shared.webp",
   },
   {
     id: 3,
@@ -60,7 +60,7 @@ const DEFAULT_FEATURES: FeatureItem[] = [
         "create content that feels more engaging, more watchable, and more likely to be shared.",
     path: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
     bgImageDesktop: "/Shared/Features/1.png",
-    bgImageMobile: "/Shared/Features/mobile-vecs/R1W3.webp",
+    bgImageMobile: "/Shared/Features/mobile-vecs/shared.webp",
   },
   {
     id: 4,
@@ -70,7 +70,7 @@ const DEFAULT_FEATURES: FeatureItem[] = [
         "creators and brands that need consistent output without sacrificing quality.",
     path: "M13 10V3L4 14h7v7l9-11h-7z",
     bgImageDesktop: "/Shared/Features/1.png",
-    bgImageMobile: "/Shared/Features/mobile-vecs/R1W4.webp",
+    bgImageMobile: "/Shared/Features/mobile-vecs/shared.webp",
   },
   {
     id: 5,
@@ -80,7 +80,7 @@ const DEFAULT_FEATURES: FeatureItem[] = [
         "workflow with organized feedback, updates, and reliable delivery timelines.",
     path: "M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01",
     bgImageDesktop: "/Shared/Features/1.png",
-    bgImageMobile: "/Shared/Features/mobile-vecs/R1W5.webp",
+    bgImageMobile: "/Shared/Features/mobile-vecs/shared.webp",
   },
   {
     id: 6,
@@ -90,7 +90,7 @@ const DEFAULT_FEATURES: FeatureItem[] = [
         "delivering content designed for today's fast-moving digital platforms.",
     path: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z",
     bgImageDesktop: "/Shared/Features/1.png",
-    bgImageMobile: "/Shared/Features/mobile-vecs/R1W6.webp",
+    bgImageMobile: "/Shared/Features/mobile-vecs/shared.webp",
   },
 ];
 
@@ -120,6 +120,17 @@ const features: FeatureItem[] = featureOverrides.map((override) => {
     bgImageMobile: override.bgImageMobile ?? def?.bgImageMobile ?? "",
   };
 });
+
+// Mobile: group into slides of 3 (6 features -> 2 slides). Desktop ignores grouping.
+const featureSlides: FeatureItem[][] = features.reduce<FeatureItem[][]>(
+  (acc, feature, i) => {
+    const slideIndex = Math.floor(i / 3);
+    if (!acc[slideIndex]) acc[slideIndex] = [];
+    acc[slideIndex].push(feature);
+    return acc;
+  },
+  [],
+);
 ---
 
 <section
@@ -159,40 +170,45 @@ const features: FeatureItem[] = featureOverrides.map((override) => {
       data-feature-track
     >
       {
-        features.map((feature, index) => (
-          <article
-            class="feature-card group relative min-h-60 overflow-visible rounded-[24px] border border-white/5 bg-[#0A1A2A]/20 p-6 md:p-8 transition-all duration-300 hover:border-white/10 hover:bg-[#0A1A2A]/40 md:backdrop-blur-lg"
-            data-feature-card-index={index}
+        featureSlides.map((slide, slideIndex) => (
+          <div
+            class="feature-slide grid w-full grid-cols-1 gap-5 justify-center items-center"
+            data-feature-slide-index={slideIndex}
           >
-            <img
-              src={`/Shared/Features/${feature.id}.svg`}
-              alt=""
-              class="absolute left-1/2 -top-23 z-20 h-60 w-60 -translate-x-1/2 transition-transform duration-300 group-hover:scale-105"
-              aria-hidden="true"
-            />
-            <div class="flex justify-end items-center flex-col">
-              <div
-                  class="absolute inset-0 z-0 bg-cover bg-center mix-blend-overlay transition-opacity duration-500 rounded-2xl"
-                  style={`background-image: url(${feature.bgImageDesktop})`}
-              />
+            {
+              slide.map((feature, index) => (
+                <article
+                  class=`feature-card relative group flex ${feature.id % 2 == 0 ? 'right-4.5' : 'left-4.5'} items-center scale-[0.8] sm:scale-[1] justify-center w-[80%] relative min-h-fit sm:min-h-40 md:min-h-60 overflow-visible rounded-[24px] border border-white/5 bg-[#0A1A2A]/20 p-6 md:p-8 transition-all duration-300 hover:border-white/10 hover:bg-[#0A1A2A]/40 md:backdrop-blur-lg`
+                  data-feature-card-index={slideIndex * 3 + index}
+                  style={`--bg-d: url(${feature.bgImageDesktop}); --bg-m: url(${feature.bgImageMobile});`}
+                >
+                  <img
+                    src={`/Shared/Features/${feature.id}.svg`}
+                    alt=""
+                    class=`absolute scale-[1] sm:scale-[1.2] ${feature.id % 2 == 0 ? 'right-1 translate-x-1/2' : 'left-1 -translate-x-1/2'} -top-[9%] sm:-top-[10%] z-20 h-60 w-fit  transition-transform duration-300 group-hover:scale-105`
+                    aria-hidden="true"
+                  />
+                  <div class="flex justify-start items-start flex-col w-[80%]">
+                    {/* افکت نوری ملایم در هاور */}
+                    <div class="pointer-events-none absolute inset-x-0 -bottom-10 z-0 h-32 bg-linear-to-t from-[#42D1D1]/10 to-transparent opacity-0 transition-opacity duration-500 blur-2xl group-hover:opacity-100" />
 
-              {/* افکت نوری ملایم در هاور */}
-              <div class="pointer-events-none absolute inset-x-0 -bottom-10 z-0 h-32 bg-linear-to-t from-[#42D1D1]/10 to-transparent opacity-0 transition-opacity duration-500 blur-2xl group-hover:opacity-100" />
-
-              <div class="relative z-10 flex h-full flex-col items-center justify-center text-center top-7">
-                {/* آیکون مینیمال شده */}
+                    <div class="relative z-10 flex  flex-col items-start justify-start md:items-start md:justify-start md:text-center">
+                      {/* آیکون مینیمال شده */}
 
 
-                {/* متون مینیمال شده */}
-                <h3 class="mb-3 text-[19px] -mt-3 font-semibold tracking-wide text-white/95">
-                  {feature.title}
-                </h3>
-                <p class="text-[14px] leading-[1.8] font-light text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
-                  {feature.description}
-                </p>
-              </div>
-            </div>
-          </article>
+                      {/* متون مینیمال شده */}
+                      <h3 class="mb-3 text-[12px]  -mt-3 font-semibold tracking-wide text-white/95">
+                        {feature.title}
+                      </h3>
+                      <p class="text-[12px] leading-[1.8] font-light text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
+                        {feature.description}
+                      </p>
+                    </div>
+                  </div>
+                </article>
+              ))
+            }
+          </div>
         ))
       }
     </div>
@@ -202,7 +218,7 @@ const features: FeatureItem[] = featureOverrides.map((override) => {
       data-feature-dots
     >
       {
-        features.map((_feature, index) => (
+        featureSlides.map((_slide, index) => (
           <button
             type="button"
             class={`feature-dot h-2 w-2 rounded-full transition-all duration-300 ${index === 0 ? "is-active" : ""}`}
@@ -229,22 +245,40 @@ const features: FeatureItem[] = featureOverrides.map((override) => {
       padding-bottom: 1rem; /* برای جا باز کردن سایه‌ی کارت‌ها */
     }
 
-
-
-    .feature-card {
-      min-width: 85%; /* کارت‌ها تو موبایل کمی از کناره‌ها جا می‌ذارن تا کاربر بفهمه اسکرول میشه */
+    .feature-slide {
       scroll-snap-align: center;
+      min-width: 85%;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
     }
   }
 
+  .feature-card {
+    background-image: var(--bg-m);
+    background-size: cover;
+    background-position: center;
+    mix-blend-mode: overlay;
+    background-blend-mode: overlay;
+  }
+
   @media (min-width: 1024px) {
+    .feature-track {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .feature-slide {
+      display: contents; /* بچه‌ها مستقیم داخل گرید ریختن، لوپ نیست */
+    }
+
     .feature-card {
+      background-image: var(--bg-d);
       transition: transform 300ms ease, box-shadow 300ms ease;
     }
 
     .feature-card:hover {
       transform: translateY(-4px);
-     
+
     }
   }
 
@@ -269,13 +303,13 @@ const features: FeatureItem[] = featureOverrides.map((override) => {
 
     if (!window.matchMedia("(max-width: 1023px)").matches) return;
 
-    const cards = Array.from(
-      track.querySelectorAll("[data-feature-card-index]"),
+    const slides = Array.from(
+      track.querySelectorAll("[data-feature-slide-index]"),
     );
     const dots = Array.from(
       dotsWrap.querySelectorAll("[data-feature-dot-index]"),
     );
-    if (cards.length === 0 || dots.length === 0) return;
+    if (slides.length === 0 || dots.length === 0) return;
 
     const setActive = (index: number) => {
       dots.forEach((dot, i) => {
@@ -290,7 +324,7 @@ const features: FeatureItem[] = featureOverrides.map((override) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
           const idx = Number(
-            entry.target.getAttribute("data-feature-card-index"),
+            entry.target.getAttribute("data-feature-slide-index"),
           );
           if (!Number.isNaN(idx)) setActive(idx);
         });
@@ -298,15 +332,17 @@ const features: FeatureItem[] = featureOverrides.map((override) => {
       { root: track, threshold: 0.6 },
     );
 
-    cards.forEach((card) => observer.observe(card));
+    slides.forEach((slide) => observer.observe(slide));
 
     dots.forEach((dot) => {
       dot.addEventListener("click", () => {
         const idx = Number(dot.getAttribute("data-feature-dot-index"));
         if (Number.isNaN(idx)) return;
-        const card = track.querySelector(`[data-feature-card-index="${idx}"]`);
-        if (!(card instanceof HTMLElement)) return;
-        card.scrollIntoView({
+        const slide = track.querySelector(
+          `[data-feature-slide-index="${idx}"]`,
+        );
+        if (!(slide instanceof HTMLElement)) return;
+        slide.scrollIntoView({
           behavior: "smooth",
           inline: "center",
           block: "nearest",
