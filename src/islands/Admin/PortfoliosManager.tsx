@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Upload, Plus, AlertCircle, CheckCircle2, Image as ImageIcon, FileVideo, Trash2, ChevronLeft, ChevronRight, Loader2, Pencil, Save, X } from "lucide-react";
 import { httpService } from "@/utils/httpService.ts";
 
-const CATEGORIES = ["SaaS Trailers", "Explainer Videos", "Motion Graphics", "Ad Creatives", "Social Content", "Graphic Design"];
+const CATEGORIES = ["Brand Trailer", "Explainer Videos", "Motion Graphics", "Ad Creatives", "Social Content", "Graphic Design"];
 const FILTER_CATEGORIES = ["All", ...CATEGORIES];
 
 type PortfolioItem = {

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { MediaGrid } from "../Shared/PostComp.tsx";
 import { httpService } from "@/utils/httpService.ts";
 
-const CATEGORIES = ["All", "SaaS Trailers", "Explainer Videos", "Motion Graphics", "Ad Creatives", "Social Content", "Graphic Design"];
+const CATEGORIES = ["All", "Brand Trailer", "Explainer Videos", "Motion Graphics", "Ad Creatives", "Social Content", "Graphic Design"];
 
 export const PortfolioShowingSection = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -68,7 +68,7 @@ export const PortfolioShowingSection = () => {
         <p className="mx-auto mt-4 max-w-3xl text-sm font-light leading-7 sm:text-base">
           Explore a collection of videos, animations, ad creatives, and visual content created for
           startups, SaaS companies, and modern brands.
-          From SaaS trailers and product explainers to motion graphics, social content, and
+          From brand trailers and product explainers to motion graphics, social content, and
           performance-driven ad creatives, every project is crafted to communicate clearly, capture
           attention, and leave a lasting impression.
         </p>

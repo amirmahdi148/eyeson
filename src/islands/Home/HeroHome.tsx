@@ -72,7 +72,7 @@ export default function HeroHome() {
           <h2 className=" tracking-[0.2rem] text-white/60 text-[1px] md:text-[12px]">Product Launch Videos · Explainers · Social Media Content</h2>
           <motion.h1
             variants={itemVariants}
-            className="text-2xl font-extrabold leading-[1.15] tracking-tight sm:text-3xl lg:text-[2.2rem] flex items-center justify-center flex-col"
+            className="text-2xl font-extrabold leading-[1.15] tracking-tight sm:text-3xl lg:text-[2.2rem] flex items-center lg:items-start justify-center flex-col"
           >
             <span className="block bg-gradient-to-r from-[#31d1a6] to-[#25aeb2] bg-clip-text text-transparent pb-1 w-[70%]">
               Premium Motion Design, Animation & Editing Studio

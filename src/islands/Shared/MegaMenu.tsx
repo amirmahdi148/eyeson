@@ -6,33 +6,33 @@ import { useState, useEffect } from "react";
 
 const SERVICE_GROUPS = [
     {
-        title: "Content Services",
+        title: "Product Marketing & Video Production",
         description: "Production systems for brands that need consistent content output.",
         items: [
-            { title: "Content Production", description: "Tailored content creation aligned with your brand voice and goals.", image: "/Header/ContentServices/cp.webp", accent: "#17d6d4", href: "/video" },
-            { title: "Short-Form Content", description: "Fast-turn edits built for TikTok, Reels, and YouTube Shorts.", image: "/Header/ContentServices/sfc.webp", accent: "#4bc7ff", href: "/video" },
-            { title: "Video Editing", description: "Clean, modern edits focused on retention and engagement.", image: "/Header/ContentServices/vd.webp", accent: "#7ee6ff", href: "/video" },
-            { title: "Ad Creatives", description: "Conversion-focused creatives for paid social campaigns.", image: "/Header/ContentServices/ac.webp", accent: "#66f2c5", href: "/adcreatives" },
-            { title: "Monthly Retainers", description: "A steady content plan with production and delivery built in.", image: "/Header/ContentServices/mr.webp", accent: "#ffd56a", href: "/video" },
+            { title: "Product & SaaS Trailers", description: "Launch videos for SaaS products and digital platforms.", image: "/Header/ContentServices/cp.webp", accent: "#17d6d4", href: "/saas" },
+            { title: "Explainer Videos", description: "Animated videos that explain products, services, and concepts.", image: "/Header/ContentServices/sfc.webp", accent: "#4bc7ff", href: "/saas" },
+            { title: "Product Demo Videos", description: "Feature walkthroughs and product demonstrations.", image: "/Header/ContentServices/vd.webp", accent: "#7ee6ff", href: "/video" },
+            { title: "Ad Creative Production", description: "Video ads for paid social and performance marketing.", image: "/Header/ContentServices/ac.webp", accent: "#66f2c5", href: "/adcreatives" },
         ],
         href: "/video",
     },
     {
-        title: "Creative & Motion Services",
+        title: "Content Production",
         description: "Motion-first storytelling and animation work.",
         items: [
-            { title: "2D/3D Animation", description: "High-end animation work for brands.", image: "/Header/C&MServices/23a.webp", accent: "#8eefff", href: "/animation" },
-            { title: "Motion Graphics", description: "Eye-catching animated visuals crafted for marketing, apps, and websites.", image: "/Header/C&MServices/mg.webp", accent: "#5ee8ff", href: "/motiongraphics" },
-            { title: "Motion Design", description: "Modern motion graphics that elevate your product stories with smooth animations.", image: "/Header/C&MServices/md.webp", accent: "#5ee8ff", href: "/services/motion-design" },
+            { title: "Video Editing for Social Media", description: "Short form editing for TikTok, Reels, Shorts, and social campaigns.", image: "/Header/ContentServices/vd.webp", accent: "#8eefff", href: "/video" },
+            { title: "Motion Graphics", description: "Animated graphics for marketing, education, and brand content.", image: "/Header/C&MServices/mg.webp", accent: "#5ee8ff", href: "/motiongraphics" },
+            { title: "Full Content Production Retainer", description: "Ongoing content creation, editing, and publishing support.", image: "/Header/C&MServices/md.webp", accent: "#5ee8ff", href: "/video" },
         ],
         href: "/animation",
     },
     {
-        title: "Design Services",
+        title: "Design & Motion",
         description: "Brand and digital systems built for clarity.",
         items: [
-            { title: "UI/UX Design", description: "Clean interface systems built for clarity.", image: "/Header/DesignServices/uixd.webp", accent: "#ffd56a", href: "/uiux" },
-            { title: "Brand Identity", description: "Full branding systems from scratch.", image: "/Header/DesignServices/uixd.webp", accent: "#ffee99", href: "/branding" },
+            { title: "2D / 3D Animation", description: "Custom animation for products, brands, and visual storytelling.", image: "/Header/C&MServices/23a.webp", accent: "#ffd56a", href: "/animations" },
+            { title: "Brand Identity & Logo Design", description: "Logos, visual systems, and brand guidelines.", image: "/Header/DesignServices/uixd.webp", accent: "#ffee99", href: "/branding" },
+            { title: "UI/UX Design", description: "Websites, landing pages, and SaaS product interfaces.", image: "/Header/DesignServices/uixd.webp", accent: "#ffee99", href: "/uiux" },
         ],
         href: "/branding",
     },
