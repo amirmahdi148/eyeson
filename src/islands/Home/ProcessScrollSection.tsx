@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap/dist/gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import "./ProcessScrollSection.css";
+import {SmartImage} from "@/utils/SmartImage.tsx";
 
 const PROCESS_STEPS = [
   {
@@ -235,7 +236,7 @@ export default function ProcessScrollSection() {
               className="w-full h-[750px] flex items-center justify-center will-change-transform"
             >
               <div className="relative w-full h-full">
-                <img src="/svg-parts/home/single-webp/full.webp" alt="" className="absolute inset-0 w-full h-full object-contain" style={{ zIndex: 8 }} />
+                <SmartImage src="/svg-parts/home/single-webp/full.webp" alt="" className="absolute inset-0 w-full h-full object-contain z-8"  />
 
               </div>
             </div>

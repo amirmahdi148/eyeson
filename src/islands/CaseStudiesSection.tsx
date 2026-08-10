@@ -14,6 +14,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/effect-creative";
 import "swiper/css/pagination";
+import {SmartImage} from "@/utils/SmartImage.tsx";
+import {Loader2} from "lucide-react";
 
 type ProjectItem = {
   cover: string;
@@ -214,7 +216,7 @@ export default function CaseStudiesSection() {
 
                   {/* بخش تصویر */}
                   <div className="order-1 lg:order-2 lg:col-span-5 relative h-[250px] sm:h-[320px] md:h-[400px] lg:h-full w-full overflow-hidden border-b lg:border-b-0 border-white/10">
-                    <img
+                    <SmartImage
                       src={coverSrc}
                       alt={project.title}
                       loading="lazy"

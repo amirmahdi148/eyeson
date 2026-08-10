@@ -1,5 +1,7 @@
 "use client";
 
+import {SmartImage} from "@/utils/SmartImage.tsx";
+
 type ShowcaseItem = {
   id: number;
   src: string;
@@ -71,9 +73,11 @@ function WorkCard({ src, alt }: { src: string; alt: string }) {
         minHeight: "72px",
       }}
     >
-      <img
+      <SmartImage
         src={src}
         alt={alt}
+        decoding="async"
+        loading="lazy"
         className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
       />
       <div className="absolute inset-0 bg-black/30 transition-colors duration-300 group-hover:bg-black/15" />

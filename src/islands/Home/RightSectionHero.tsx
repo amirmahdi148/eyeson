@@ -12,6 +12,7 @@ import {
     motion,
     AnimatePresence,
 } from "framer-motion";
+import { SmartImage } from "@/utils/SmartImage";
 
 const CATEGORIES = [
     {
@@ -68,13 +69,13 @@ export default function RightSectionHero({
                         key={cat.id}
                         onClick={() => onCategoryChange(cat.id)}
                         disabled={activeTab === cat.id}
-                        className={`w-12 h-12 sm:w-16 sm:h-16 md:w-28 md:h-28 lg:w-35 lg:h-30 flex items-center justify-center transition-all ${
+                        className={`relative w-12 h-12 sm:w-16 sm:h-16 md:w-28 md:h-28 lg:w-35 lg:h-30 flex items-center justify-center transition-all ${
                             activeTab === cat.id
                                 ? "scale-110 cursor-default"
                                 : "hover:scale-102 cursor-pointer"
                         }`}
                     >
-                        <img src={`/home/20/${i + 1}.webp`} alt={cat.title} className="inset-0 h-full w-full object-contain"/>
+                        <SmartImage src={`/home/20/${i + 1}.webp`} alt={cat.title} fill objectFit="contain" loading="lazy"/>
                     </button>
                 ))}
             </div>
@@ -122,13 +123,9 @@ export default function RightSectionHero({
 
             {/* Video Section START */}
             <div
-                className="relative aspect-16/10 w-full  rounded-3xl flex justify-center items-end"
-                style={{
-                    backgroundImage: `url('/home/VideoElements/20/mother.webp')`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                }}
+                className="relative aspect-16/10 w-full rounded-3xl flex justify-center items-end"
             >
+                <SmartImage src="/home/VideoElements/20/mother.webp" alt="" fill priority={false} />
                 <div className="absolute top-0 left-0 z-10 flex items-center gap-2.5 md:gap-4 p-3 md:p-5 text-[#448b99]">
                     <button className="cursor-pointer transition-all duration-200 hover:scale-110 hover:text-cyan-300 active:scale-95">
                         <Home className="h-3.5 w-3.5 md:h-4 md:w-4"/>
@@ -147,13 +144,9 @@ export default function RightSectionHero({
                     </button>
                 </div>
                 <div
-                    className="relative w-full h-[calc(100%-3.1rem)] mt-8 rounded-3xl"
-                    style={{
-                        backgroundImage: `url('/home/VideoElements/20/child.webp')`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                    }}
+                    className="relative w-full h-[calc(100%-3.1rem)] mt-8 rounded-3xl overflow-hidden"
                 >
+                    <SmartImage src="/home/VideoElements/20/child.webp" alt="" fill />
                     <AnimatePresence mode="wait">
                         <motion.video
                             key={activeTab}

@@ -16,6 +16,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
     build: {
+      minify: true,
       chunkSizeWarningLimit: 1000,
     },
   },

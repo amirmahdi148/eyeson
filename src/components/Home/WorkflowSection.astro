@@ -1,4 +1,6 @@
 ---
+import { SmartImage } from "@/utils/SmartImage";
+
 interface CardItem {
   title: string;
   description: string;
@@ -82,12 +84,13 @@ const {
               </div>
 
               <!-- عکس کارت با افکت زوم نرم -->
-              <div class="relative mb-6 overflow-hidden rounded-[16px] border border-[#12323b] bg-[#0b222a]">
-                <img
+              <div class="relative mb-6 overflow-hidden rounded-[16px] border border-[#12323b] bg-[#0b222a] h-52 sm:h-64">
+                <SmartImage
                   src={card.imageUrl}
                   alt={card.title}
+                  fill
                   loading="lazy"
-                  class="block h-52 sm:h-64 w-full object-cover transform-gpu transition-transform duration-700 group-hover:scale-105"
+                  className="transform-gpu transition-transform duration-700 group-hover:scale-105"
                 />
                 {/* هاله تاریک پایین عکس برای خوانایی بهتر مرزها */}
                 <div class="absolute inset-0 bg-gradient-to-t from-[#051821] to-transparent opacity-60"></div>
