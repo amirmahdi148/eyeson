@@ -9,7 +9,7 @@ type Props = {
   Highlight?: string;
   AfterHighlight?: string;
   Description?: string;
-
+  topText? : string;
   imageUrl?: string;
 
   imageClassName?: string;
@@ -55,7 +55,7 @@ export const VideoHeader = ({
   Highlight = "2D & 3D Animations",
   AfterHighlight = "",
   Description = "High-impact animated visuals...",
-
+  topText = "VIDEO EDITING · TALKING HEAD EDITING · SHORT FORM CONTENT · YOUTUBE & SOCIAL MEDIA VIDEOS",
   imageUrl = "/animation-section/Edited.webp",
 
   imageClassName = "object-contain w-full h-auto",
@@ -63,6 +63,8 @@ export const VideoHeader = ({
   imageWrapperClassName = "",
                               secondaryBtnText = "Get Pricing",
                               secondaryBtnUrl = "#pricing",
+    primaryBtnUrl = "/portfolio",
+    primaryBtnText = "See our work",
 
   animationType = "slide",
 
@@ -174,8 +176,7 @@ export const VideoHeader = ({
             })}
           >
             <h2 className="tracking-[0.2em] text-white/60 text-[10px] md:text-[15px]">
-              VIDEO EDITING · TALKING HEAD EDITING · SHORT FORM CONTENT · YOUTUBE & SOCIAL
-              MEDIA VIDEOS
+              {topText}
             </h2>
             <motion.h1
               className={`text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-extrabold leading-[1.15] tracking-tight ${headingClassName}`}
@@ -208,8 +209,8 @@ export const VideoHeader = ({
               {/* دکمه اصلی */}
 
               <PrimaryButton
-                text={secondaryBtnText}
-                href={secondaryBtnUrl}
+                text={primaryBtnText}
+                href={primaryBtnUrl}
                 width="14rem"
                 height="50px"
               />

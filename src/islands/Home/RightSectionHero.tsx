@@ -1,4 +1,6 @@
 import React, {
+    useEffect,
+    useState,
     type RefObject,
 } from "react";
 import {
@@ -54,6 +56,19 @@ export default function RightSectionHero({
                                          }: RightSectionHeroProps) {
     const activeVideo = CATEGORIES.find((c) => c.id === activeTab)?.videoUrl;
 
+    // Mobile: random category picked once at mount; buttons hidden so only that video loads/plays
+    const [isMobile] = useState(
+        () => typeof window !== "undefined" && window.matchMedia("(max-width: 1023px)").matches,
+    );
+    const [mobileTab, setMobileTab] = useState<number | null>(null);
+    useEffect(() => {
+        if (!isMobile) return;
+        const idx = Math.floor(Math.random() * CATEGORIES.length);
+        setMobileTab(idx);
+        onCategoryChange(CATEGORIES[idx].id);
+    }, []);
+    const resolvedVideo = isMobile && mobileTab != null ? CATEGORIES[mobileTab]?.videoUrl : activeVideo;
+
     return (
         <motion.div
             initial={{opacity: 0, x: shouldReduceMotion ? 0 : 30}}
@@ -61,8 +76,8 @@ export default function RightSectionHero({
             transition={{duration: 0.8, ease: "easeOut", delay: 0.2}}
             className="relative order-1 lg:order-2 w-full lg:w-[55%] xl:w-[52%]"
         >
-            {/* Buttons Start */}
-            <div className="absolute z-20 flex flex-col lg:flex-row items-center justify-center gap-3 right-4 lg:right-auto top-1/2 -translate-y-1/2 lg:top-80 lg:-left-10 xl:top-100 xl:left-10 lg:translate-x-0 lg:translate-y-0">
+            {/* Buttons Start (hidden on mobile — one random video plays instead) */}
+            <div className="absolute z-20 hidden lg:flex flex-col lg:flex-row items-center justify-center gap-3 right-4 lg:right-auto top-1/2 -translate-y-1/2 lg:top-80 lg:-left-10 xl:top-100 xl:left-10 lg:translate-x-0 lg:translate-y-0">
 
                 {CATEGORIES.map((cat, i) => (
                     <button
@@ -125,7 +140,7 @@ export default function RightSectionHero({
             <div
                 className="relative aspect-16/10 w-full rounded-3xl flex justify-center items-end"
             >
-                <SmartImage src="/home/VideoElements/20/mother.webp" alt="" fill priority={false} />
+                <SmartImage src="/home/VideoElements/20/mother.webp" alt="" fill priority={false} className="rounded-3xl" />
                 <div className="absolute top-0 left-0 z-10 flex items-center gap-2.5 md:gap-4 p-3 md:p-5 text-[#448b99]">
                     <button className="cursor-pointer transition-all duration-200 hover:scale-110 hover:text-cyan-300 active:scale-95">
                         <Home className="h-3.5 w-3.5 md:h-4 md:w-4"/>
@@ -146,12 +161,12 @@ export default function RightSectionHero({
                 <div
                     className="relative w-full h-[calc(100%-3.1rem)] mt-8 rounded-3xl overflow-hidden"
                 >
-                    <SmartImage src="/home/VideoElements/20/child.webp" alt="" fill />
+                    <SmartImage src="/home/VideoElements/20/child.webp" alt="" fill className="rounded-3xl" />
                     <AnimatePresence mode="wait">
                         <motion.video
                             key={activeTab}
                             ref={videoRef}
-                            src={activeVideo}
+                            src={resolvedVideo}
                             autoPlay
                             muted
                             loop
@@ -165,7 +180,7 @@ export default function RightSectionHero({
                         />
                     </AnimatePresence>
                     <div
-                        className="absolute inset-0 bg-[#051118]/10 mix-blend-overlay pointer-events-none"/>
+                        className="absolute inset-0 bg-[#051118]/10 mix-blend-overlay pointer-events-none rounded-3xl"/>
                 </div>
             </div>
             {/* Video Section END */}

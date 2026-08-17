@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import {SmartImage} from "@/utils/SmartImage.tsx";
 
 const steps = [1, 2, 3, 4, 5, 6];
 
@@ -53,7 +54,7 @@ export default function ApproachTimelineSection() {
 
         <div className="relative mx-auto mt-10 max-w-5xl">
           {/* Lines behind everything */}
-          <div className="absolute bottom-0 left-5 top-0 -translate-x-1/2 md:left-10">
+          <div className="absolute bottom-0 left-5 top-0 -translate-x-1/2 md:left-10 hidden md:block">
             <div className="h-full w-[2px] bg-[#FFFFFF0D]" />
 
             <motion.div
@@ -66,8 +67,8 @@ export default function ApproachTimelineSection() {
           <div className="space-y-0">
             {steps.map((step, index) => (
               <div key={step} className="flex items-center gap-6 md:gap-12">
-                {/* Numbered circle on the line */}
-                <div className="relative flex w-10 shrink-0 items-start justify-center pt-1 md:w-20 md:pt-2">
+                {/* Numbered circle on the line (desktop/tablet only) */}
+                <div className="relative hidden md:flex w-10 shrink-0 items-start justify-center pt-1 md:w-20 md:pt-2">
                   <div className="relative  flex h-12 w-12 items-center justify-center md:h-14 md:w-14">
                     <div className="absolute inset-0 flex items-center justify-center rounded-full border-[0.5px] border-[#FFFFFF33] bg-[#032635] text-base font-bold text-[#FFFFFF66] md:text-xl">
                       {`0${step}`}
@@ -90,7 +91,12 @@ export default function ApproachTimelineSection() {
                   <img
                     src={`/adcreatives/svg/multi-layer/${step}.svg`}
                     alt={`Step ${step}'s svg`}
-                    className="h-auto w-full"
+                    className="hidden h-auto w-full md:block"
+                  />
+                  <img
+                    src={`/adcreatives/approach/R2W (${step}).webp`}
+                    alt={`Step ${step}`}
+                    className="h-auto w-full md:hidden"
                   />
                 </motion.div>
               </div>

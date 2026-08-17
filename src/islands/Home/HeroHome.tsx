@@ -1,6 +1,6 @@
 
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   motion,
   useReducedMotion,
@@ -18,8 +18,20 @@ const items = [
   { src: "/home/Hero/clients/4.webp" },
 ];
 
+const videoUrls = [
+  "/home/Videos/output-first.mp4",
+  "/home/Videos/output-second.mp4",
+  "/home/Videos/output-third.mp4",
+  "/home/Videos/output-fourth.mov",
+];
+
 export default function HeroHome() {
   const [activeTab, setActiveTab] = useState("video-editing");
+  const [mobileVideo, setMobileVideo] = useState(videoUrls[0]);
+
+  useEffect(() => {
+    setMobileVideo(videoUrls[Math.floor(Math.random() * videoUrls.length)]);
+  }, []);
 
   // تشخیص تنظیمات کاهش انیمیشن در سیستم کاربر
   const shouldReduceMotion = useReducedMotion();
@@ -59,7 +71,29 @@ export default function HeroHome() {
   return (
     // فضای خالی بالای موبایل (pt-40) رو به pt-24 کاهش دادیم
     <section className="relative w-full overflow-hidden pt-24 pb-20 lg:pt-32 lg:pb-40">
-      <div className="relative mx-auto flex max-w-[1500px] flex-col items-center gap-10 px-4 sm:px-6 lg:flex-row lg:items-center lg:gap-10 lg:px-8">
+      {/* Mobile-only mother div (cook here) */}
+      <div className="flex w-full px-4 sm:px-6 pb-10 sm:flex lg:hidden items-center justify-center">
+
+        <div className="relative flex h-100 w-[95%] flex-col items-center justify-end overflow-hidden rounded-[30px] bg-red-500">
+          <img src="/home/Hero/mobile/Asset%2035.webp" alt="" className="absolute inset-0 h-full w-full object-stretch z-20" />
+          <div className="relative z-10 h-85 w-full rounded-[30px] bg-pink-400 flex items-center justify-center" >
+
+            <video
+              ref={videoRef}
+              src={mobileVideo}
+              autoPlay
+              muted
+              loop
+              playsInline
+              onTimeUpdate={handleTimeUpdate}
+              className="h-[90%] w-[93%] rounded-[35px] object-cover"
+            />
+
+          </div>
+        </div>
+      </div>
+
+      <div className="relative mx-auto hidden lg:flex max-w-[1500px] flex-col items-center gap-10 px-4 sm:px-6 lg:flex-row lg:items-center lg:gap-10 lg:px-8">
         {/* ========================================== */}
         {/* بخش چپ: متن‌ها و دکمه‌ها (در موبایل پایین) */}
         {/* ========================================== */}
