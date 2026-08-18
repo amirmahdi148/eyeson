@@ -1,5 +1,5 @@
 
-
+import {PlaySquare, Layers, Link2, LayoutGridIcon, PenLine, User, Pin} from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import {
   motion,
@@ -74,10 +74,19 @@ export default function HeroHome() {
       {/* Mobile-only mother div (cook here) */}
       <div className="flex w-full px-4 sm:px-6 pb-10 sm:flex lg:hidden items-center justify-center">
 
-        <div className="relative flex h-100 w-[95%] flex-col items-center justify-end overflow-hidden rounded-[30px] bg-red-500">
+        <div className="relative flex h-100 w-[95%] flex-col items-center justify-end overflow-hidden rounded-[30px] bg-linear-to-br from-[#045769] via-[#070a1d] to-[#070a1d]">
           <img src="/home/Hero/mobile/Asset%2035.webp" alt="" className="absolute inset-0 h-full w-full object-stretch z-20" />
-          <div className="relative z-10 h-85 w-full rounded-[30px] bg-pink-400 flex items-center justify-center" >
+          <div className="flex items-center justify-center">
+            <PlaySquare />
+            <Layers/>
+            <Link2 />
+            <LayoutGridIcon />
+            <User/>
+            <PenLine />
+            <Pin/>
 
+          </div>
+          <div className="relative z-10 h-85 w-full rounded-[30px]  flex items-center justify-center bg-cover" style={{backgroundImage : "url(/home/Hero/mobile/Asset%2037.webp)"}}>
             <video
               ref={videoRef}
               src={mobileVideo}
@@ -91,6 +100,8 @@ export default function HeroHome() {
 
           </div>
         </div>
+        <img src="/home/Hero/mobile/Asset%2036.webp" alt="" className="absolute inset-0 h-[30%] w-auto object-stretch z-1 top-118 sm: left-10" />
+        <img src="/home/Hero/mobile/R3W%20%20(1).webp" alt="" className="absolute inset-0 h-auto w-[22%] sm:w-[19%] md:w-[14%]  object-stretch z-20 top-114 sm:top-104 left-30" />
       </div>
 
       <div className="relative mx-auto hidden lg:flex max-w-[1500px] flex-col items-center gap-10 px-4 sm:px-6 lg:flex-row lg:items-center lg:gap-10 lg:px-8">
