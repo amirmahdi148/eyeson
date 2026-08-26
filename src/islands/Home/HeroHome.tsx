@@ -71,37 +71,77 @@ export default function HeroHome() {
   return (
     // فضای خالی بالای موبایل (pt-40) رو به pt-24 کاهش دادیم
     <section className="relative w-full overflow-hidden pt-24 pb-20 lg:pt-32 lg:pb-40">
-      {/* Mobile-only mother div (cook here) */}
-      <div className="flex w-full px-4 sm:px-6 pb-10 sm:flex lg:hidden items-center justify-center">
+      {/* Mobile / Tablet: column layout — texts on top, video at bottom */}
+      <div className="flex w-full flex-col lg:hidden px-4 sm:px-6 pb-10 gap-8 items-center">
+        {/* Texts — same content as desktop, stacked above video */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="flex w-full max-w-[480px] flex-col items-center text-center gap-0"
+        >
+          <motion.p variants={itemVariants} className="tracking-[0.2rem] text-white/60 text-[10px] sm:text-[11px] uppercase">
+            Product Launch Videos · Explainers · Social Media Content
+          </motion.p>
 
-        <div className="relative flex h-100 w-[95%] flex-col items-center justify-end overflow-hidden rounded-[30px] bg-linear-to-br from-[#045769] via-[#070a1d] to-[#070a1d]">
-          <img src="/home/Hero/mobile/Asset%2035.webp" alt="" className="absolute inset-0 h-full w-full object-stretch z-20" />
-          <div className="flex items-center justify-center">
-            <PlaySquare />
-            <Layers/>
-            <Link2 />
-            <LayoutGridIcon />
-            <User/>
-            <PenLine />
-            <Pin/>
+          <motion.h1
+            variants={itemVariants}
+            className="mt-3 text-[1.7rem] font-extrabold leading-[1.15] tracking-tight sm:text-3xl flex flex-col items-center justify-center"
+          >
+            <span className="block bg-gradient-to-r from-[#31d1a6] to-[#25aeb2] bg-clip-text text-transparent pb-1">
+              Premium Motion Design, Animation & Editing Studio
+            </span>
+            <span className="mt-2 block text-white drop-shadow-md">
+              Make Your Brand Impossible to Ignore.
+            </span>
+          </motion.h1>
 
+          <motion.p
+            variants={itemVariants}
+            className="mt-5 max-w-md text-[14px] leading-[1.7] text-white/60 sm:text-[15px] font-light"
+          >
+            EyesOn Studio helps brands turn ideas, products, and messages into premium videos,motion graphics, product launch videos, explainers, social media content, and high quality
+            video editing built to capture attention, explain faster, and make people remember you.
+          </motion.p>
+
+          <motion.div
+            variants={itemVariants}
+            className="mt-8 flex flex-row gap-3 w-full justify-center"
+          >
+            <PrimaryButton text="Get Started" width="auto" />
+            <SecondaryButton text="View Pricing" width="auto" />
+          </motion.div>
+
+          <motion.p
+            variants={itemVariants}
+            className="mt-6 text-xs text-white/40 uppercase tracking-wider font-medium"
+          >
+            Trusted by brands, founders, and creative teams across 25+ countries.
+          </motion.p>
+        </motion.div>
+
+        {/* Video — below texts */}
+        <div className="relative flex w-full items-center justify-center">
+          <div className="relative flex h-100 w-[95%]  flex-col items-center justify-end overflow-hidden rounded-[25px] bg-linear-to-br from-[#045769] via-[#070a1d] to-[#070a1d]">
+            <img src="/home/Hero/mobile/Asset%2035.webp" alt="" className="absolute inset-0 h-full w-full object-stretch z-20 pointer-events-none" />
+
+            <div className="relative z-10 h-100 w-full rounded-[25px]  flex items-center justify-center bg-cover" style={{backgroundImage : "url(/home/Hero/mobile/Asset%2037.webp)"}}>
+              <video
+                  ref={videoRef}
+                  src={mobileVideo}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  onTimeUpdate={handleTimeUpdate}
+                  className="h-[90%] w-[93%] rounded-[27px] object-cover"
+              />
+
+            </div>
           </div>
-          <div className="relative z-10 h-85 w-full rounded-[30px]  flex items-center justify-center bg-cover" style={{backgroundImage : "url(/home/Hero/mobile/Asset%2037.webp)"}}>
-            <video
-              ref={videoRef}
-              src={mobileVideo}
-              autoPlay
-              muted
-              loop
-              playsInline
-              onTimeUpdate={handleTimeUpdate}
-              className="h-[90%] w-[93%] rounded-[35px] object-cover"
-            />
-
-          </div>
+          <img src="/home/Hero/mobile/Asset%2036.webp" alt="" className="absolute inset-0 h-[30%] w-auto object-stretch z-1 top-100 sm: left-10" />
+          <img src="/home/Hero/mobile/R3W%20%20(1).webp" alt="" className="absolute inset-0 h-auto w-[22%] sm:w-[19%] md:w-[14%]  object-stretch z-20 top-87 sm:top-80 left-25" />
         </div>
-        <img src="/home/Hero/mobile/Asset%2036.webp" alt="" className="absolute inset-0 h-[30%] w-auto object-stretch z-1 top-118 sm: left-10" />
-        <img src="/home/Hero/mobile/R3W%20%20(1).webp" alt="" className="absolute inset-0 h-auto w-[22%] sm:w-[19%] md:w-[14%]  object-stretch z-20 top-114 sm:top-104 left-30" />
       </div>
 
       <div className="relative mx-auto hidden lg:flex max-w-[1500px] flex-col items-center gap-10 px-4 sm:px-6 lg:flex-row lg:items-center lg:gap-10 lg:px-8">

@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import gsap from "gsap/dist/gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./ProcessScrollSection.css";
 import {SmartImage} from "@/utils/SmartImage.tsx";
 
@@ -236,7 +236,7 @@ export default function ProcessScrollSection() {
               className="w-full h-[750px] flex items-center justify-center will-change-transform"
             >
               <div className="relative w-full h-full">
-                <SmartImage src="/svg-parts/home/single-webp/full.webp" alt="" className="absolute inset-0 w-full h-full object-contain z-8"  />
+                <img src="/svg-parts/home/single-webp/full.webp" alt="" className="absolute inset-0 w-full h-full object-contain z-8"  />
 
               </div>
             </div>

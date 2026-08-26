@@ -1,5 +1,7 @@
 # build output
 dist/
+# unused assets
+public/unused/
 # generated types
 .astro/
 

@@ -51,9 +51,9 @@ export const SaasHeroSection = () => {
                 <div className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]"></div>
                 <div className="w-2.5 h-2.5 rounded-full bg-[#27C93F]"></div>
               </div>
-              <div className="overflow-hidden rounded-2xl bg-[#0B1724]">
+              <div className="overflow-hidden rounded-2xl bg-[#0B1724] ">
                 <SmartImage 
-                  src="/Header/DesignServices/uixd.webp" 
+                  src="/saas/right-hero-c2.webp"
                   alt="SaaS product interface" 
                   width={800} 
                   height={600} 

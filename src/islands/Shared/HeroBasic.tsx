@@ -10,7 +10,6 @@ type Props = {
   Description?: string;
 
   imageUrl?: string;
-
   imageClassName?: string;
   imageDivClassName?: string;
   imageWrapperClassName?: string;
@@ -58,7 +57,6 @@ export const HeroBasic = ({
   Description = "High-impact animated visuals...",
 
   imageUrl = "/animation-section/Edited.webp",
-
   imageClassName = "",
   imageDivClassName = "",
   imageWrapperClassName = "",
@@ -183,96 +181,8 @@ export const HeroBasic = ({
       )}
 
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-10">
-        {/* MOBILE VERSION - NO ANIMATION */}
         <div
-          className={`relative z-10 md:hidden grid min-h-[60vh] items-center gap-6 sm:min-h-[500px] ${
-            reverse ? "lg:grid-cols-[320px_1fr]" : "lg:grid-cols-[1fr_320px]"
-          } ${gridClassName}`}
-        >
-          <div
-            className={`mx-auto flex max-w-lg flex-col items-center text-center md:mx-0 md:items-start md:text-left ${textContainerClassName}`}
-          >
-            {SmallLabel && (
-              <p className="mb-3 text-xs tracking-[0.2em] text-[#c2d3dc]">
-                {SmallLabel}
-              </p>
-            )}
-            <h1
-              className={`text-[22px] md:text-[35px] font-bold leading-tight ${headingClassName}`}
-            >
-              <span className={beforeHighlightClassName}>
-                {BeforeHighlight}{" "}
-              </span>
-              <span
-                className={`bg-linear-to-r from-[#45B6A0] to-[#12ACB5] bg-clip-text text-transparent font-bold ${highlightClassName}`}
-              >
-                {Highlight}
-              </span>
-              <br />
-              <span className={afterHighlightClassName}>{AfterHighlight}</span>
-            </h1>
-
-            <p
-              className={`mt-4 max-w-md text-xs leading-6 text-white/75 md:text-[18px] md:text-sm ${descriptionClassName}`}
-            >
-              {Description}
-            </p>
-
-            <div className="mt-6 flex flex-row flex-wrap justify-center gap-2 md:justify-start">
-              <div
-                className={`group relative inline-flex rounded-full p-[2px] ${primaryBtnWrapperClassName}`}
-              >
-                <div className="absolute -inset-[2px] rounded-full bg-linear-to-r from-[#45B6A0] to-[#12ACB5] shadow-[0_0_18px_#00A9BD]" />
-                <a
-                  href={primaryBtnUrl}
-                  className={`relative z-10 rounded-full px-4 py-2.5 cursor-pointer bg-linear-to-r from-[#00A9BD] to-[#1D553A] text-sm md:text-lg overflow-hidden ${primaryBtnClassName}`}
-                >
-                  <div className="absolute inset-0 -translate-x-[150%] bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-[150%] skew-x-[-20deg]" />
-                  {primaryBtnText}
-                </a>
-              </div>
-
-              <div
-                className={`group relative inline-flex rounded-full p-[2px] ${secondaryBtnWrapperClassName}`}
-              >
-                <div className="absolute -inset-[2px] rounded-full bg-linear-to-r from-[#056E7C] to-[#46B6A0] shadow-[0_0_18px_#00A9BD]" />
-                <a
-                  href={secondaryBtnUrl}
-                  className={`relative z-10 rounded-full px-4 py-2.5 bg-linear-to-r from-[#00061D] to-[#0B1F2A] cursor-pointer text-sm md:text-lg overflow-hidden ${secondaryBtnClassName}`}
-                >
-                  <div className="absolute inset-0 -translate-x-[150%] bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-[150%] skew-x-[-20deg]" />
-                  {secondaryBtnText}
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div
-            className={`mx-auto w-full max-w-[480px] md:mx-0 ${imageDivClassName}`}
-          >
-            {isBranding && rightComponent}
-
-            {!isBranding && imageUrl && (
-              <div
-                className={`relative transform-gpu will-change-transform transition-transform duration-300 ease-out ${
-                  enableImageHover ? "hover:scale-[1.03]" : ""
-                } ${imageWrapperClassName}`}
-              >
-                <SmartImage
-                  src={imageUrl}
-                  alt="Hero image"
-                  width={800}
-                  height={640}
-                  className={imageClassName}
-                />
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* DESKTOP VERSION - WITH ANIMATION */}
-        <div
-          className={`relative z-10 hidden md:grid min-h-[60vh] items-center gap-6 sm:min-h-[500px] ${
+          className={`relative z-10 grid min-h-[60vh] items-center gap-6 sm:min-h-[500px] ${
             reverse ? "lg:grid-cols-[320px_1fr]" : "lg:grid-cols-[1fr_320px]"
           } ${gridClassName}`}
         >
