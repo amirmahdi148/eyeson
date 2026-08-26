@@ -144,7 +144,7 @@ export default function UiUxNeed({
 
             <div className="order-1 lg:order-2 lg:pl-30">
               {rightSection ?? (
-                  <img src="/Shared/sharing/main-right.png" alt="Right Section SVG" className="scale-[1.2]"/>
+                  <img src="/Shared/sharing/main-right.webp" alt="Right Section SVG" className="scale-[1.2]"/>
               )}
             </div>
           </div>

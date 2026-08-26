@@ -13,11 +13,7 @@
     "@astrojs/language-server": "2.16.10",
     "@astrojs/node": "^11.0.0",
     "@astrojs/sitemap": "^3.7.3",
-    "@astrojs/vercel": "^11.0.0",
-    "@fontsource-variable/manrope": "^5.2.8",
-    "@fontsource-variable/sora": "^5.2.8",
     "@lucide/astro": "^1.8.0",
-    "@splinetool/react-spline": "^4.1.0",
     "@splinetool/runtime": "^1.12.87",
     "@strapi/blocks-react-renderer": "^1.0.2",
     "astro": "^7.0.2",
@@ -27,7 +23,6 @@
     "framer-motion": "^12.23.24",
     "gsap": "^3.15.0",
     "lenis": "^1.3.23",
-    "lucide-astro": "^0.556.0",
     "lucide-react": "^0.542.0",
     "radix-ui": "^1.4.3",
     "react": "^19.1.1",
@@ -37,12 +32,10 @@
     "react-responsive": "^10.0.1",
     "remark-gfm": "^4.0.1",
     "shadcn": "^4.6.0",
-    "svelte": "^5.38.10",
     "swiper": "^12.0.2",
     "tailwind-merge": "^3.5.0",
     "tw-animate-css": "^1.4.0",
-    "typescript": "^6.0.3",
-    "video.js": "^8.23.7"
+    "typescript": "^6.0.3"
   },
   "devDependencies": {
     "@astrojs/react": "^6.0.0",

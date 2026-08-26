@@ -22,15 +22,24 @@ const videoUrls = [
   "/home/Videos/output-first.mp4",
   "/home/Videos/output-second.mp4",
   "/home/Videos/output-third.mp4",
-  "/home/Videos/output-fourth.mov",
+  "/home/Videos/output-fourth.mp4",
 ];
 
 export default function HeroHome() {
   const [activeTab, setActiveTab] = useState("video-editing");
-  const [mobileVideo, setMobileVideo] = useState(videoUrls[0]);
+  const [mobileVideo, setMobileVideo] = useState<string | null>(null);
+
+  // Only attach a src to the viewport-appropriate hero video (hidden <video> still downloads)
+  const [isMobileViewport, setIsMobileViewport] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(max-width: 1023px)").matches,
+  );
 
   useEffect(() => {
+    const mq = window.matchMedia("(max-width: 1023px)");
+    const onChange = (e: MediaQueryListEvent) => setIsMobileViewport(e.matches);
+    mq.addEventListener("change", onChange);
     setMobileVideo(videoUrls[Math.floor(Math.random() * videoUrls.length)]);
+    return () => mq.removeEventListener("change", onChange);
   }, []);
 
   // تشخیص تنظیمات کاهش انیمیشن در سیستم کاربر
@@ -127,9 +136,11 @@ export default function HeroHome() {
 
             <div className="relative z-10 h-100 w-full rounded-[25px]  flex items-center justify-center bg-cover" style={{backgroundImage : "url(/home/Hero/mobile/Asset%2037.webp)"}}>
               <video
-                  ref={videoRef}
-                  src={mobileVideo}
-                  autoPlay
+                ref={videoRef}
+                src={isMobileViewport ? mobileVideo ?? undefined : undefined}
+                poster={mobileVideo ? mobileVideo.replace(".mp4", "-poster.jpg") : undefined}
+                preload="metadata"
+                autoPlay
                   muted
                   loop
                   playsInline

@@ -4,17 +4,17 @@ import Section2 from "../FooterElements/Section2.astro";
 import Section3 from "../FooterElements/Section3.astro";
 import Section4 from "../FooterElements/Section4.astro";
 
-// lucide (client side)
+// lucide icons (static, zero JS) — brand icons are local inline SVGs
 import {
   ArrowRight,
   Mail,
-  Instagram,
   MapPin,
-  Youtube,
   Send,
   MessageCircle,
   ChevronDown,
-} from "lucide-react";
+} from "@lucide/astro";
+import InstagramIcon from "../icons/InstagramIcon.astro";
+import YoutubeIcon from "../icons/YoutubeIcon.astro";
 
 const contentServices = [
   "Short-Form Content",
@@ -99,7 +99,7 @@ const serviceGroups = [
               aria-label="Subscribe to newsletter"
               class="grid h-11 w-11 shrink-0 cursor-pointer place-items-center rounded-xl bg-[#46B6A0] text-[#00131a] transition-colors duration-300 hover:bg-[#31d1a6]"
             >
-              <ArrowRight client:load className="h-5 w-5" strokeWidth={2.5} />
+              <ArrowRight class="h-5 w-5" stroke-width={2.5} />
             </button>
           </form>
           <div class="mt-3 text-center">
@@ -119,28 +119,28 @@ const serviceGroups = [
             aria-label="Instagram"
             class="grid h-12 w-12 place-items-center rounded-full border border-white/10 bg-white/5 text-white transition-colors duration-300 hover:text-[#E1306C]"
           >
-            <Instagram client:load className="h-[22px] w-[22px]" />
+            <InstagramIcon class="h-[22px] w-[22px]" size={22} />
           </a>
           <a
             href="#"
             aria-label="YouTube"
             class="grid h-12 w-12 place-items-center rounded-full border border-white/10 bg-white/5 text-white transition-colors duration-300 hover:text-red-500"
           >
-            <Youtube client:load className="h-[22px] w-[22px]" />
+            <YoutubeIcon class="h-[22px] w-[22px]" size={22} />
           </a>
           <a
             href="#"
             aria-label="Telegram"
             class="grid h-12 w-12 place-items-center rounded-full border border-white/10 bg-white/5 text-white transition-colors duration-300 hover:text-[#0088cc]"
           >
-            <Send client:load className="h-[22px] w-[22px]" />
+            <Send class="h-[22px] w-[22px]" size={22} />
           </a>
           <a
             href="#"
             aria-label="WhatsApp"
             class="grid h-12 w-12 place-items-center rounded-full border border-white/10 bg-white/5 text-white transition-colors duration-300 hover:text-[#25D366]"
           >
-            <MessageCircle client:load className="h-[22px] w-[22px]" />
+            <MessageCircle class="h-[22px] w-[22px]" size={22} />
           </a>
         </div>
 
@@ -152,20 +152,20 @@ const serviceGroups = [
             rel="noreferrer"
             class="flex items-center gap-3 transition-colors duration-300 hover:text-[#46B6A0]"
           >
-            <Instagram client:load className="h-5 w-5 text-[#46B6A0]" />
+            <InstagramIcon class="h-5 w-5 text-[#46B6A0]" size={20} />
             <span>@EyesonStudio</span>
           </a>
           <a
             href="mailto:hello@eyesonstudio.com"
             class="flex items-center gap-3 transition-colors duration-300 hover:text-[#46B6A0]"
           >
-            <Mail client:load className="h-5 w-5 text-[#46B6A0]" />
+            <Mail class="h-5 w-5 text-[#46B6A0]" size={20} />
             <span>hello@eyesonstudio.com</span>
           </a>
           <div class="flex items-start gap-3 text-center">
             <MapPin
-              client:load
-              className="mt-0.5 h-5 w-5 shrink-0 text-[#46B6A0]"
+              class="mt-0.5 h-5 w-5 shrink-0 text-[#46B6A0]"
+              size={20}
             />
             <span class="max-w-[15rem]">
               Tbilisi, Georgia, Remote studio, working with clients worldwide
@@ -181,8 +181,8 @@ const serviceGroups = [
             >
               Content Services
               <ChevronDown
-                client:load
-                className="h-4 w-4 text-white/60 transition-transform duration-300 group-open:rotate-180"
+                class="h-4 w-4 text-white/60 transition-transform duration-300 group-open:rotate-180"
+                size={16}
               />
             </summary>
             <ul class="flex flex-col gap-3 pb-5 text-sm text-white/70">
@@ -203,8 +203,8 @@ const serviceGroups = [
               >
                 {group.title}
                 <ChevronDown
-                  client:load
-                  className="h-4 w-4 text-white/60 transition-transform duration-300 group-open:rotate-180"
+                  class="h-4 w-4 text-white/60 transition-transform duration-300 group-open:rotate-180"
+                  size={16}
                 />
               </summary>
               <ul class="flex flex-col gap-3 pb-5 text-sm text-white/70">

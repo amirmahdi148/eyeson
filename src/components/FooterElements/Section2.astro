@@ -1,6 +1,7 @@
 ---
-
-import { ArrowRightIcon, Send, MessageCircle, Youtube , Instagram } from "lucide-react";
+import { ArrowRight, Send, MessageCircle } from "@lucide/astro";
+import InstagramIcon from "../icons/InstagramIcon.astro";
+import YoutubeIcon from "../icons/YoutubeIcon.astro";
 ---
 
 <div class="flex flex-col md:flex-col gap-8 md:gap-10 max-w-xs md:max-w-sm">
@@ -22,9 +23,8 @@ import { ArrowRightIcon, Send, MessageCircle, Youtube , Instagram } from "lucide
                 />
             </label>
 
-            <ArrowRightIcon
-                    client:load
-                    className="text-white cursor-pointer hover:text-[#46B6A0] transition-colors duration-300"
+            <ArrowRight
+                    class="text-white cursor-pointer hover:text-[#46B6A0] transition-colors duration-300"
                     size={24}
             />
 
@@ -42,28 +42,24 @@ import { ArrowRightIcon, Send, MessageCircle, Youtube , Instagram } from "lucide
     <!-- social icons -->
     <div class="flex gap-5 justify-start">
 
-        <Youtube
-                client:load
+        <YoutubeIcon
+                class="text-white cursor-pointer hover:text-red-500 transition-colors duration-300"
                 size={36}
-                className="text-white cursor-pointer hover:text-red-500 transition-colors duration-300"
         />
 
         <Send
-                client:load
+                class="text-white cursor-pointer hover:text-[#0088cc] transition-colors duration-300"
                 size={36}
-                className="text-white cursor-pointer hover:text-[#0088cc] transition-colors duration-300"
         />
 
         <MessageCircle
-                client:load
+                class="text-white cursor-pointer hover:text-[#25D366] transition-colors duration-300"
                 size={36}
-                className="text-white cursor-pointer hover:text-[#25D366] transition-colors duration-300"
         />
 
-        <Instagram
-                client:load
+        <InstagramIcon
+                class="text-white cursor-pointer hover:text-pink-500 transition-colors duration-300"
                 size={36}
-                className="text-white cursor-pointer hover:text-pink-500 transition-colors duration-300"
         />
 
     </div>

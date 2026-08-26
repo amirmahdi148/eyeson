@@ -62,6 +62,9 @@ const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/webp" href="/logo.webp" />
 
+    <!-- Self-hosted Space Grotesk: start fetching before CSS parses -->
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/space-grotesk/space-grotesk-latin.woff2" crossorigin />
+
     <link rel="canonical" href={resolvedCanonical} />
     {robots && <meta name="robots" content={robots} />}
 
@@ -101,7 +104,7 @@ const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
   </head>
 
   <body class="bg-[#000E17] text-white overflow-x-hidden" transition:animate="fade">
-    <Header client:load />
+    <Header client:idle />
 
     {/* اضافه شدن pt-24 lg:pt-32 برای جلوگیری از رفتن محتوا به زیر هدر */}
     <main class="min-w-0 overflow-x-hidden pt-8 lg:pt-10">

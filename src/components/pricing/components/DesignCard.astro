@@ -1,5 +1,5 @@
 ---
-import { CheckCircle } from "lucide-react";
+import { CircleCheck } from "@lucide/astro";
 import { SmartImage } from "@/utils/SmartImage.tsx";
 
 const data = [
@@ -18,7 +18,6 @@ const data = [
       <SmartImage
           src="/blogs/Story-Back.webp"
           className="absolute inset-0 h-full w-full object-cover opacity-50"
-          client:load
       />
 
       <div class="absolute inset-0 bg-white/5 backdrop-blur-md"></div>
@@ -53,11 +52,11 @@ const data = [
             {
               data.map((item) => (
                   <div class="flex items-center gap-3">
-                    <CheckCircle
+                    <CircleCheck
                         size={28}
-                        strokeWidth={1.75}
+                        stroke-width={1.75}
                         color="#1EAFB1"
-                        className="shrink-0"
+                        class="shrink-0"
                     />
                     <h3 class="text-lg text-white/90">{item.title}</h3>
                   </div>
@@ -69,25 +68,25 @@ const data = [
         <div class="flex items-center justify-center lg:justify-end">
           <div class="relative w-full aspect-[1200/900] lg:aspect-[1200/800]">
             <div class="absolute inset-0 z-1 animate-felash-entry [animation-delay:1000ms]">
-              <SmartImage src="/pricing/svg/Felash-1.svg" client:visible />
+              <SmartImage src="/pricing/svg/Felash-1.svg"/>
             </div>
             <div class="absolute inset-0 z-1 animate-felash-entry [animation-delay:1100ms]">
-              <SmartImage src="/pricing/svg/Felash-2.svg" client:visible />
+              <SmartImage src="/pricing/svg/Felash-2.svg"/>
             </div>
             <div class="absolute inset-0 z-1 animate-felash-entry [animation-delay:1200ms]">
-              <SmartImage src="/pricing/svg/Felash-3.svg" client:visible />
+              <SmartImage src="/pricing/svg/Felash-3.svg"/>
             </div>
             <div class="absolute inset-0 z-2 animate-design-entry [animation-delay:1400ms]">
-              <SmartImage src="/pricing/svg/1.svg" client:visible />
+              <SmartImage src="/pricing/svg/1.svg"/>
             </div>
             <div class="absolute inset-0 z-3 animate-design-entry [animation-delay:1500ms]">
-              <SmartImage src="/pricing/svg/2.svg" client:visible />
+              <SmartImage src="/pricing/svg/2.svg"/>
             </div>
             <div class="absolute inset-0 z-4 animate-design-entry [animation-delay:1600ms]">
-              <SmartImage src="/pricing/svg/3.svg" client:visible />
+              <SmartImage src="/pricing/svg/3.svg"/>
             </div>
             <div class="absolute inset-0 z-5 animate-design-entry [animation-delay:1700ms]">
-              <SmartImage src="/pricing/svg/4.svg" client:visible />
+              <SmartImage src="/pricing/svg/4.svg"/>
             </div>
           </div>
         </div>

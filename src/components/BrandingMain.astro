@@ -65,39 +65,39 @@ const features = [
     id : 1,
     title : "Strategic Brand Foundations",
     description : "Every visual identity starts with understanding your positioning, audience, and goals.",
-    bgImage : "/Shared/Features/1.png",
+    bgImage : "/Shared/Features/1.webp",
   },
   {
     id : 2,
     title : "Distinctive Brand Identity",
     description : "Logos, colors, typography, and visual systems designed to help your brand stand out.",
-    bgImage : "/Shared/Features/1.png",
+    bgImage : "/Shared/Features/1.webp",
   },
   {
     id : 3,
     title : "Scalable Design Systems",
     description : "Consistent brand assets and guidelines that grow with your business.",
-    bgImage : "/Shared/Features/1.png",
+    bgImage : "/Shared/Features/1.webp",
   },
   {
     id : 4,
     title : "Consistent Across Every Touchpoint",
     description : "Maintain a unified look and feel across websites, social media, products, and marketing\n" +
         "materials.",
-    bgImage : "/Shared/Features/1.png",
+    bgImage : "/Shared/Features/1.webp",
   },
   {
     id : 5,
     title : "Professional & Memorable",
     description : "Build stronger first impressions and increase brand recognition through thoughtful design.",
-    bgImage : "/Shared/Features/1.png",
+    bgImage : "/Shared/Features/1.webp",
   },
   {
     id : 6,
     title : "Collaborative Process",
     description : "Clear communication, structured feedback, and a streamlined workflow from concept to\n" +
         "final delivery.",
-    bgImage : "/Shared/Features/1.png",
+    bgImage : "/Shared/Features/1.webp",
   },
 
 ]
@@ -107,7 +107,7 @@ const features = [
   <StarBackground client:load />
   <BrandingHeroWrapper client:load />
   <LogoCaro />
-  <WhatIsBranding client:load />
+  <WhatIsBranding client:visible />
   <FeaturesSection
     title="Why Brands Choose "
     highlight="EyesOn"
@@ -115,10 +115,10 @@ const features = [
 business growth."
     features={features}
   />
-  <ServicesSection client:load />
-  <AssetsGallerySection client:load />
-  <WhyBrandingSection client:load />
+  <ServicesSection client:visible />
+  <AssetsGallerySection client:visible />
+  <WhyBrandingSection client:visible />
   <QandASection questions={qas}/>
-  <ContactUs client:load />
+  <ContactUs client:visible />
   <CTA  />
 </div>

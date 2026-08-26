@@ -35,9 +35,16 @@ const CATEGORIES = [
     {
         id: "brand-identity",
         title: "Brand Identity",
-        videoUrl: "/home/Videos/output-fourth.mov",
+        videoUrl: "/home/Videos/output-fourth.mp4",
     },
 ];
+
+const VIDEO_POSTERS: Record<string, string> = {
+    "/home/Videos/output-first.mp4": "/home/Videos/output-first-poster.jpg",
+    "/home/Videos/output-second.mp4": "/home/Videos/output-second-poster.jpg",
+    "/home/Videos/output-third.mp4": "/home/Videos/output-third-poster.jpg",
+    "/home/Videos/output-fourth.mp4": "/home/Videos/output-fourth-poster.jpg",
+};
 
 interface RightSectionHeroProps {
     activeTab: string;
@@ -56,18 +63,24 @@ export default function RightSectionHero({
                                          }: RightSectionHeroProps) {
     const activeVideo = CATEGORIES.find((c) => c.id === activeTab)?.videoUrl;
 
-    // Mobile: random category picked once at mount; buttons hidden so only that video loads/plays
-    const [isMobile] = useState(
-        () => typeof window !== "undefined" && window.matchMedia("(max-width: 1023px)").matches,
+    // Only the viewport-appropriate hero video may have a src — hidden <video> elements still download data
+    const [isDesktop, setIsDesktop] = useState(
+        () => typeof window !== "undefined" && window.matchMedia("(min-width: 1024px)").matches,
     );
-    const [mobileTab, setMobileTab] = useState<number | null>(null);
     useEffect(() => {
-        if (!isMobile) return;
-        const idx = Math.floor(Math.random() * CATEGORIES.length);
-        setMobileTab(idx);
-        onCategoryChange(CATEGORIES[idx].id);
+        const mq = window.matchMedia("(min-width: 1024px)");
+        const onChange = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+        mq.addEventListener("change", onChange);
+        return () => mq.removeEventListener("change", onChange);
     }, []);
-    const resolvedVideo = isMobile && mobileTab != null ? CATEGORIES[mobileTab]?.videoUrl : activeVideo;
+    // Mobile: one random category synced once at mount (visible video lives in HeroHome mobile section)
+    useEffect(() => {
+        if (isDesktop) return;
+        const idx = Math.floor(Math.random() * CATEGORIES.length);
+        onCategoryChange(CATEGORIES[idx].id);
+    }, [isDesktop]);
+    const resolvedVideo = isDesktop ? activeVideo : undefined;
+    const resolvedPoster = resolvedVideo ? VIDEO_POSTERS[resolvedVideo] : undefined;
 
     return (
         <motion.div
@@ -167,6 +180,8 @@ export default function RightSectionHero({
                             key={activeTab}
                             ref={videoRef}
                             src={resolvedVideo}
+                            poster={resolvedPoster}
+                            preload="metadata"
                             autoPlay
                             muted
                             loop
