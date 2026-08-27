@@ -1,5 +1,6 @@
-@import "shadcn/tailwind.css";
 @import "tailwindcss";
+@import "./tokens.css";
+@import "shadcn/tailwind.css";
 
 /* Global font: Space Grotesk (Google Fonts, self-hosted variable font, wght 300-700) */
 @font-face {
@@ -43,8 +44,9 @@ astro-island {
 }
 
 @theme inline {
-  --font-heading: "Space Grotesk", sans-serif;
-  --font-sans: "Space Grotesk", sans-serif;
+  --font-heading: var(--font-heading);
+  --font-sans: var(--font-sans);
+  /* Shadcn aliases */
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -76,13 +78,20 @@ astro-island {
   --color-card: var(--card);
   --color-foreground: var(--foreground);
   --color-background: var(--background);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  /* Design-system radius — semantic, not computed from --radius */
+  --radius-sm: var(--primitive-radius-sm);
+  --radius-md: var(--primitive-radius-md);
+  --radius-lg: var(--primitive-radius-lg);
+  --radius-xl: var(--primitive-radius-xl);
+  --radius-2xl: var(--primitive-radius-2xl);
+  --radius-3xl: var(--primitive-radius-2xl);
+  --radius-4xl: var(--primitive-radius-2xl);
+  /* Spacing tokens for Tailwind (v4 @theme) */
+  --spacing-gutter: var(--space-gutter);
+  /* Elevation alias */
+  --shadow-subtle: var(--elevation-1);
+  --shadow-medium: var(--elevation-2);
+  --shadow-floating: var(--elevation-3);
 }
 
 :root {
@@ -92,8 +101,9 @@ astro-island {
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
+  /* Brand primary — was neutral oklch(0.205 0 0), now teal for visibility on dark */
+  --primary: #00a9bd;
+  --primary-foreground: #ffffff;
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
@@ -103,7 +113,7 @@ astro-island {
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --ring: #00a9bd;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -127,8 +137,9 @@ astro-island {
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
+  /* Brand primary in dark — lighter teal for contrast */
+  --primary: #2fd0c8;
+  --primary-foreground: #000e17;
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
@@ -138,7 +149,7 @@ astro-island {
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  --ring: #00a9bd;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);

@@ -84,12 +84,11 @@ export default function RightSectionHero({
 
     return (
         <motion.div
-            initial={{opacity: 0, x: shouldReduceMotion ? 0 : 30}}
+            initial={{opacity: 0, x: shouldReduceMotion ? 0 : 28}}
             animate={{opacity: 1, x: 0}}
-            transition={{duration: 0.8, ease: "easeOut", delay: 0.2}}
+            transition={{duration: 0.6, ease: [0.16, 1, 0.3, 1] as any, delay: 0.18}}
             className="relative order-1 lg:order-2 w-full lg:w-[55%] xl:w-[52%]"
         >
-            {/* Buttons Start (hidden on mobile — one random video plays instead) */}
             <div className="absolute z-20 hidden lg:flex flex-col lg:flex-row items-center justify-center gap-3 right-4 lg:right-auto top-1/2 -translate-y-1/2 lg:top-80 lg:-left-10 xl:top-100 xl:left-10 lg:translate-x-0 lg:translate-y-0">
 
                 {CATEGORIES.map((cat, i) => (
@@ -97,10 +96,12 @@ export default function RightSectionHero({
                         key={cat.id}
                         onClick={() => onCategoryChange(cat.id)}
                         disabled={activeTab === cat.id}
-                        className={`relative w-12 h-12 sm:w-16 sm:h-16 md:w-28 md:h-28 lg:w-35 lg:h-30 flex items-center justify-center transition-all ${
+                        aria-pressed={activeTab === cat.id}
+                        aria-label={cat.title}
+                        className={`relative w-12 h-12 sm:w-16 sm:h-16 md:w-28 md:h-28 lg:w-35 lg:h-30 flex items-center justify-center transition-all duration-[var(--duration-normal)] ease-[var(--ease-default)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)] rounded-[var(--radius-md)] ${
                             activeTab === cat.id
-                                ? "scale-110 cursor-default"
-                                : "hover:scale-102 cursor-pointer"
+                                ? "scale-[1.06] cursor-default opacity-100"
+                                : "hover:scale-[1.03] cursor-pointer opacity-80 hover:opacity-100"
                         }`}
                     >
                         <SmartImage src={`/home/20/${i + 1}.webp`} alt={cat.title} fill objectFit="contain" loading="lazy"/>
@@ -149,32 +150,31 @@ export default function RightSectionHero({
                 className="hidden lg:block absolute inset-0 z-10 h-full w-full scale-[0.6] sm:scale-[0.8] md:scale-[1] lg:scale-[1.4] xl:scale-[1.6] pointer-events-none"
             />
 
-            {/* Video Section START */}
             <div
-                className="relative aspect-16/10 w-full rounded-3xl flex justify-center items-end"
+                className="relative aspect-16/10 w-full rounded-[var(--radius-2xl)] flex justify-center items-end border border-[var(--color-border)] shadow-[var(--elevation-2)] overflow-hidden bg-[#040a12]"
             >
-                <SmartImage src="/home/VideoElements/20/mother.webp" alt="" fill priority={false} className="rounded-3xl" />
-                <div className="absolute top-0 left-0 z-10 flex items-center gap-2.5 md:gap-4 p-3 md:p-5 text-[#448b99]">
-                    <button className="cursor-pointer transition-all duration-200 hover:scale-110 hover:text-cyan-300 active:scale-95">
+                <SmartImage src="/home/VideoElements/20/mother.webp" alt="" fill priority={false} className="rounded-[var(--radius-2xl)]" />
+                <div className="absolute top-0 left-0 z-10 flex items-center gap-2.5 md:gap-4 p-3 md:p-5 text-white/60">
+                    <button aria-label="Home" className="cursor-pointer transition-all duration-[var(--duration-normal)] ease-[var(--ease-default)] hover:scale-[1.06] hover:text-[var(--primitive-teal-400)] active:scale-95 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ring)] rounded-sm">
                         <Home className="h-3.5 w-3.5 md:h-4 md:w-4"/>
                     </button>
-                    <button className="cursor-pointer transition-all duration-200 hover:scale-110 hover:text-cyan-300 active:scale-95">
+                    <button aria-label="Next" className="cursor-pointer transition-all duration-[var(--duration-normal)] ease-[var(--ease-default)] hover:scale-[1.06] hover:text-[var(--primitive-teal-400)] active:scale-95 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ring)] rounded-sm">
                         <ArrowRight className="h-3.5 w-3.5 md:h-4 md:w-4"/>
                     </button>
-                    <button className="cursor-pointer transition-all duration-200 hover:scale-110 hover:text-cyan-300 active:scale-95">
-                        <Folder className="h-3.5 w-3.5 md:h-4 md:w-4 text-cyan-400"/>
+                    <button aria-label="Folder" className="cursor-pointer transition-all duration-[var(--duration-normal)] ease-[var(--ease-default)] hover:scale-[1.06] text-[var(--primitive-teal-400)] active:scale-95 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ring)] rounded-sm">
+                        <Folder className="h-3.5 w-3.5 md:h-4 md:w-4"/>
                     </button>
-                    <button className="cursor-pointer transition-all duration-200 hover:scale-110 hover:text-cyan-300 active:scale-95">
+                    <button aria-label="Add" className="cursor-pointer transition-all duration-[var(--duration-normal)] ease-[var(--ease-default)] hover:scale-[1.06] hover:text-[var(--primitive-teal-400)] active:scale-95 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ring)] rounded-sm">
                         <Plus className="h-3.5 w-3.5 md:h-4 md:w-4"/>
                     </button>
-                    <button className="cursor-pointer transition-all duration-200 hover:scale-110 hover:text-cyan-300 active:scale-95">
+                    <button aria-label="Edit" className="cursor-pointer transition-all duration-[var(--duration-normal)] ease-[var(--ease-default)] hover:scale-[1.06] hover:text-[var(--primitive-teal-400)] active:scale-95 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ring)] rounded-sm">
                         <Pen className="h-3.5 w-3.5 md:h-4 md:w-4"/>
                     </button>
                 </div>
                 <div
-                    className="relative w-full h-[calc(100%-3.1rem)] mt-8 rounded-3xl overflow-hidden"
+                    className="relative w-full h-[calc(100%-3.1rem)] mt-8 rounded-[var(--radius-2xl)] overflow-hidden border border-white/[0.06]"
                 >
-                    <SmartImage src="/home/VideoElements/20/child.webp" alt="" fill className="rounded-3xl" />
+                    <SmartImage src="/home/VideoElements/20/child.webp" alt="" fill className="rounded-[var(--radius-2xl)]" />
                     <AnimatePresence mode="wait">
                         <motion.video
                             key={activeTab}
@@ -190,12 +190,12 @@ export default function RightSectionHero({
                             initial={{opacity: 0}}
                             animate={{opacity: 1}}
                             exit={{opacity: 0}}
-                            transition={{duration: 0.4}}
-                            className="absolute inset-0 h-full w-full object-cover rounded-3xl"
+                            transition={{duration: 0.35, ease: [0.16, 1, 0.3, 1] as any}}
+                            className="absolute inset-0 h-full w-full object-cover rounded-[var(--radius-2xl)]"
                         />
                     </AnimatePresence>
                     <div
-                        className="absolute inset-0 bg-[#051118]/10 mix-blend-overlay pointer-events-none rounded-3xl"/>
+                        className="absolute inset-0 bg-[#051118]/10 mix-blend-overlay pointer-events-none rounded-[var(--radius-2xl)]" aria-hidden="true"/>
                 </div>
             </div>
             {/* Video Section END */}

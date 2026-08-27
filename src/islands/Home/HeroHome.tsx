@@ -60,11 +60,16 @@ export default function HeroHome() {
     progressBar.style.left = `${percent}%`;
   };
 
+  // Liquid Glass — Modern Dark uses Expo easing & fluid 400-600ms per skill
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.15, delayChildren: 0.1 },
+      transition: {
+        staggerChildren: 0.12,
+        delayChildren: 0.08,
+        ease: [0.16, 1, 0.3, 1] as any,
+      },
     },
   };
 
@@ -73,15 +78,19 @@ export default function HeroHome() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
+      transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] as any },
     },
   };
 
   return (
-    // فضای خالی بالای موبایل (pt-40) رو به pt-24 کاهش دادیم
-    <section className="relative w-full overflow-hidden pt-24 pb-20 lg:pt-32 lg:pb-40">
+    <section className="relative w-full overflow-hidden pt-24 pb-20 lg:pt-32 lg:pb-40 bg-[radial-gradient(ellipse_800px_400px_at_50%_-5%,rgba(0,169,189,0.08),transparent_70%),radial-gradient(ellipse_600px_300px_at_85%_30%,rgba(46,182,160,0.06),transparent_60%)]">
+      {/* Ambient blobs — Modern Dark (Cinema) per ui-ux-pro-max */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -top-32 left-[12%] h-[420px] w-[420px] rounded-full bg-[var(--primitive-teal-500)] opacity-[0.07] blur-[72px] will-change-transform motion-safe:animate-[blobFloat_18s_ease-in-out_infinite]" />
+        <div className="absolute top-[18%] right-[8%] h-[360px] w-[360px] rounded-full bg-[var(--primitive-emerald-500)] opacity-[0.05] blur-[64px] will-change-transform motion-safe:animate-[blobFloat_22s_ease-in-out_infinite_reverse]" />
+      </div>
       {/* Mobile / Tablet: column layout — texts on top, video at bottom */}
-      <div className="flex w-full flex-col lg:hidden px-4 sm:px-6 pb-10 gap-8 items-center">
+      <div className="flex w-full flex-col lg:hidden px-[var(--space-gutter)] sm:px-[var(--space-gutter-md)] pb-10 gap-[var(--space-lg)] items-center">
         {/* Texts — same content as desktop, stacked above video */}
         <motion.div
           variants={containerVariants}
@@ -95,9 +104,9 @@ export default function HeroHome() {
 
           <motion.h1
             variants={itemVariants}
-            className="mt-3 text-[1.7rem] font-extrabold leading-[1.15] tracking-tight sm:text-3xl flex flex-col items-center justify-center"
+            className="mt-3 text-display flex flex-col items-center justify-center sm:text-3xl text-center"
           >
-            <span className="block bg-gradient-to-r from-[#31d1a6] to-[#25aeb2] bg-clip-text text-transparent pb-1">
+            <span className="block bg-gradient-to-r from-[var(--primitive-teal-400)] to-[#25aeb2] bg-clip-text text-transparent pb-1">
               Premium Motion Design, Animation & Editing Studio
             </span>
             <span className="mt-2 block text-white drop-shadow-md">
@@ -107,9 +116,9 @@ export default function HeroHome() {
 
           <motion.p
             variants={itemVariants}
-            className="mt-5 max-w-md text-[14px] leading-[1.7] text-white/60 sm:text-[15px] font-light"
+            className="mt-5 max-w-md text-small leading-[1.7] text-white/60 sm:text-[15px] font-light"
           >
-            EyesOn Studio helps brands turn ideas, products, and messages into premium videos,motion graphics, product launch videos, explainers, social media content, and high quality
+            EyesOn Studio helps brands turn ideas, products, and messages into premium videos, motion graphics, product launch videos, explainers, social media content, and high quality
             video editing built to capture attention, explain faster, and make people remember you.
           </motion.p>
 
@@ -123,18 +132,18 @@ export default function HeroHome() {
 
           <motion.p
             variants={itemVariants}
-            className="mt-6 text-xs text-white/40 uppercase tracking-wider font-medium"
+            className="mt-6 text-caption text-white/40 tracking-widest"
           >
             Trusted by brands, founders, and creative teams across 25+ countries.
           </motion.p>
         </motion.div>
 
-        {/* Video — below texts */}
+        {/* Video — below texts — glassmorphism per skill */}
         <div className="relative flex w-full items-center justify-center">
-          <div className="relative flex h-100 w-[95%]  flex-col items-center justify-end overflow-hidden rounded-[25px] bg-linear-to-br from-[#045769] via-[#070a1d] to-[#070a1d]">
+          <div className="relative flex h-100 w-[95%] flex-col items-center justify-end overflow-hidden rounded-[var(--radius-2xl)] border border-[var(--color-border)] bg-linear-to-br from-[#045769] via-[#070a1d] to-[#070a1d] shadow-[var(--elevation-3)] backdrop-blur-sm">
             <img src="/home/Hero/mobile/Asset%2035.webp" alt="" className="absolute inset-0 h-full w-full object-stretch z-20 pointer-events-none" />
 
-            <div className="relative z-10 h-100 w-full rounded-[25px]  flex items-center justify-center bg-cover" style={{backgroundImage : "url(/home/Hero/mobile/Asset%2037.webp)"}}>
+            <div className="relative z-10 h-100 w-full rounded-[var(--radius-2xl)] flex items-center justify-center bg-cover border border-white/[0.06]" style={{backgroundImage : "url(/home/Hero/mobile/Asset%2037.webp)"}}>
               <video
                 ref={videoRef}
                 src={isMobileViewport ? mobileVideo ?? undefined : undefined}
@@ -145,7 +154,7 @@ export default function HeroHome() {
                   loop
                   playsInline
                   onTimeUpdate={handleTimeUpdate}
-                  className="h-[90%] w-[93%] rounded-[27px] object-cover"
+                  className="h-[90%] w-[93%] rounded-[var(--radius-xl)] object-cover"
               />
 
             </div>
@@ -155,7 +164,7 @@ export default function HeroHome() {
         </div>
       </div>
 
-      <div className="relative mx-auto hidden lg:flex max-w-[1500px] flex-col items-center gap-10 px-4 sm:px-6 lg:flex-row lg:items-center lg:gap-10 lg:px-8">
+      <div className="relative mx-auto hidden lg:flex max-w-[var(--container-wide)] flex-col items-center gap-10 px-[var(--space-gutter)] sm:px-[var(--space-gutter-md)] lg:flex-row lg:items-center lg:gap-10 lg:px-[var(--space-gutter-lg)]">
         {/* ========================================== */}
         {/* بخش چپ: متن‌ها و دکمه‌ها (در موبایل پایین) */}
         {/* ========================================== */}
@@ -165,24 +174,24 @@ export default function HeroHome() {
           animate="visible"
           className="order-2 lg:order-1 w-full lg:w-[45%] xl:w-[48%] flex flex-col justify-center items-center lg:items-start text-center lg:text-start"
         >
-          <h2 className=" tracking-[0.2rem] text-white/60 text-[1px] md:text-[12px]">Product Launch Videos · Explainers · Social Media Content</h2>
+          <h2 className="tracking-[0.2rem] text-white/60 text-[11px] md:text-xs uppercase font-medium">Product Launch Videos · Explainers · Social Media Content</h2>
           <motion.h1
             variants={itemVariants}
-            className="text-2xl font-extrabold leading-[1.15] tracking-tight sm:text-3xl lg:text-[2.2rem] flex items-center lg:items-start justify-center flex-col"
+            className="text-h1 flex items-start justify-center flex-col lg:text-[2.2rem]"
           >
-            <span className="block bg-gradient-to-r from-[#31d1a6] to-[#25aeb2] bg-clip-text text-transparent pb-1 w-[70%]">
+            <span className="block bg-gradient-to-r from-[var(--primitive-teal-400)] to-[#25aeb2] bg-clip-text text-transparent pb-1 w-[70%]">
               Premium Motion Design, Animation & Editing Studio
             </span>
-            <span className="mt-2 block text-white drop-shadow-md  w-[70%]">
+            <span className="mt-2 block text-white drop-shadow-md w-[70%]">
               Make Your Brand Impossible to Ignore.
             </span>
           </motion.h1>
 
           <motion.p
             variants={itemVariants}
-            className="mt-5 max-w-md text-[14px] leading-[1.7] text-white/60 sm:text-[15px] lg:text-base font-light"
+            className="mt-5 max-w-md text-small leading-[1.7] text-white/60 lg:text-base font-light"
           >
-            EyesOn Studio helps brands turn ideas, products, and messages into premium videos,motion graphics, product launch videos, explainers, social media content, and high quality
+            EyesOn Studio helps brands turn ideas, products, and messages into premium videos, motion graphics, product launch videos, explainers, social media content, and high quality
             video editing built to capture attention, explain faster, and make people remember you.
           </motion.p>
 
@@ -196,7 +205,7 @@ export default function HeroHome() {
 
           <motion.p
             variants={itemVariants}
-            className="mt-6 text-xs text-white/40 uppercase tracking-wider font-medium"
+            className="mt-6 text-caption text-white/40 tracking-widest"
           >
             Trusted by brands, founders, and creative teams across 25+ countries.
           </motion.p>
@@ -211,43 +220,43 @@ export default function HeroHome() {
         />
       </div>
 
-      {/* ========================================== */}
-      {/* بخش آواتارها و پروژه‌ها (همون دسکتاپ) */}
-      {/* ========================================== */}
-      <div className="hidden flex-col items-center justify-center gap-12 py-8 pt-0 lg:pt-40 text-white lg:flex">
+      {/* Social proof — stats bar — glass hairline per skill */}
+      <div className="hidden flex-col items-center justify-center gap-12 py-8 pt-0 lg:pt-32 text-white lg:flex">
         <div className="flex items-center justify-center gap-12">
           <div className="flex items-center gap-4">
-            <div className="flex -space-x-7 isolate">
+            <div className="flex -space-x-3 isolate">
               {items.map((item, index) => (
                 <motion.div
                   key={index}
                   style={{ zIndex: items.length - index }}
-                  whileHover={{ scale: 1.15, y: -5, zIndex: 20 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                  className={`h-10 w-10 rounded-full overflow-hidden border-2 cursor-pointer shadow-lg
-                    ${index === 3 ? "border-gray-400" : "border-[#031c26]"} bg-zinc-700`}
+                  whileHover={{ scale: 1.08, y: -3, zIndex: 20 }}
+                  transition={{ type: "spring", stiffness: 420, damping: 22 }}
+                  className={`h-10 w-10 rounded-full overflow-hidden border-2 cursor-pointer shadow-md transition-colors duration-[var(--duration-normal)]
+                    ${index === 3 ? "border-white/20" : "border-[var(--color-border)]"} bg-zinc-700`}
                 >
                   <SmartImage src={item.src} />
                 </motion.div>
               ))}
             </div>
-            <p className="text-sm md:text-base font-medium">
+            <p className="text-small font-medium">
               80+ Happy Clients
             </p>
           </div>
-          <div className="h-12 w-[1px] bg-white/10" />
+          <div className="h-12 w-px bg-[var(--color-border)]" />
           <div className="flex items-baseline gap-2">
             <span className="text-xl font-bold">1200+</span>
-            <span className="text-sm text-gray-400">Projects Delivered</span>
+            <span className="text-small text-white/60">Projects Delivered</span>
           </div>
-          <div className="h-12 w-[1px] bg-white/10" />
+          <div className="h-12 w-px bg-[var(--color-border)]" />
           <div className="flex items-baseline gap-2">
             <span className="text-xl font-bold">25+</span>
-            <span className="text-sm text-gray-400">Countries Served</span>
+            <span className="text-small text-white/60">Countries Served</span>
           </div>
         </div>
-        <div className="h-0.5 w-full bg-linear-to-r from-[#00222600] via-[#00A9BD] to-[#00222600]" />
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-[var(--color-border-teal)] to-transparent" />
       </div>
+
+      <style>{`@keyframes blobFloat{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(18px,-18px) scale(1.04)}}@media(prefers-reduced-motion:reduce){[style*="blobFloat"]{animation:none!important}}`}</style>
     </section>
   );
 }

@@ -1,0 +1,534 @@
+/**
+ * EyesOn Studio — Shared Design Token System
+ * ==========================================
+ * Three-layer architecture: primitive → semantic → component
+ * Single source of truth for radius, spacing, typography, elevation,
+ * borders, containers, breakpoints, and motion.
+ *
+ * Usage: import via global.css — all tokens are CSS custom properties.
+ * Components reference semantic/component tokens, never raw values.
+ * "Fix the system, not the page."
+ */
+
+/* ──────────────────────────────────────────────────────────────
+   1. PRIMITIVE TOKENS — raw values, no meaning attached
+   ────────────────────────────────────────────────────────────── */
+
+:root {
+  /* Primitive — Color: Brand Teal (consolidates #00A9BD, #00E6D7, #46B6A0, #31d1a6, #25aeb2 variants) */
+  --primitive-teal-50: #e6fdfc;
+  --primitive-teal-100: #b8f5f0;
+  --primitive-teal-200: #7eece4;
+  --primitive-teal-300: #42d1d1;
+  --primitive-teal-400: #2fd0c8;
+  --primitive-teal-500: #00a9bd; /* primary brand */
+  --primitive-teal-600: #0090a3;
+  --primitive-teal-700: #006b77;
+  --primitive-teal-800: #00565f;
+  --primitive-teal-900: #003741;
+
+  /* Primitive — Color: Neutrals / Surfaces (consolidates #000E17, #020915, #03111C, #0B1F2A, #04131b…) */
+  --primitive-neutral-0: #ffffff;
+  --primitive-neutral-50: #f9fafb;
+  --primitive-neutral-100: #eef4f7;
+  --primitive-neutral-200: #c2d3dc;
+  --primitive-neutral-300: #94a8b4;
+  --primitive-neutral-400: #6b8290;
+  --primitive-neutral-500: #4b5563;
+  --primitive-neutral-700: #1e293b;
+  --primitive-neutral-800: #0b1f2a;
+  --primitive-neutral-900: #020915;
+  --primitive-neutral-950: #000e17; /* page background */
+
+  /* Primitive — Color: Accent / Supporting */
+  --primitive-ink-900: #00061d;
+  --primitive-emerald-500: #46b6a0;
+  --primitive-emerald-600: #1d553a;
+
+  /* Primitive — Spacing (8/12/16/24/32/48/64/96/128 scale + sub-steps) */
+  --primitive-spacing-0: 0;
+  --primitive-spacing-1: 0.25rem; /* 4px */
+  --primitive-spacing-2: 0.5rem; /* 8px  — base unit */
+  --primitive-spacing-3: 0.75rem; /* 12px */
+  --primitive-spacing-4: 1rem; /* 16px */
+  --primitive-spacing-5: 1.25rem; /* 20px */
+  --primitive-spacing-6: 1.5rem; /* 24px */
+  --primitive-spacing-8: 2rem; /* 32px */
+  --primitive-spacing-10: 2.5rem; /* 40px */
+  --primitive-spacing-12: 3rem; /* 48px */
+  --primitive-spacing-16: 4rem; /* 64px */
+  --primitive-spacing-20: 5rem; /* 80px */
+  --primitive-spacing-24: 6rem; /* 96px */
+  --primitive-spacing-32: 8rem; /* 128px */
+
+  /* Primitive — Font Size — fluid where marked with clamp */
+  --primitive-text-xs: 0.75rem; /* 12px — Caption / overline */
+  --primitive-text-sm: 0.875rem; /* 14px — Small / labels */
+  --primitive-text-base: 1rem; /* 16px — Body */
+  --primitive-text-lg: 1.125rem; /* 18px — Body Large */
+  --primitive-text-xl: 1.25rem; /* 20px — H4-ish */
+  --primitive-text-2xl: 1.5rem; /* 24px — H3 */
+  --primitive-text-3xl: 1.875rem; /* 30px — H2 */
+  --primitive-text-4xl: 2.25rem; /* 36px — H1 mobile */
+  --primitive-text-5xl: 3rem; /* 48px — Display mobile */
+  --primitive-text-6xl: 3.75rem; /* 60px — Display desktop */
+
+  /* Primitive — Radius (canonical scale) */
+  --primitive-radius-none: 0;
+  --primitive-radius-sm: 0.5rem; /* 8px  — small UI, badges, chips */
+  --primitive-radius-md: 0.75rem; /* 12px — buttons, inputs */
+  --primitive-radius-lg: 1rem; /* 16px — cards, panels */
+  --primitive-radius-xl: 1.5rem; /* 24px — large containers, featured */
+  --primitive-radius-2xl: 2rem; /* 32px — hero / mega */
+  --primitive-radius-full: 9999px; /* pills, avatars */
+
+  /* Primitive — Shadow / Elevation (consolidates 30+ arbitrary shadows) */
+  --primitive-shadow-none: none;
+  --primitive-shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
+  --primitive-shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.18), 0 4px 8px rgba(0, 0, 0, 0.12);
+  --primitive-shadow-floating: 0 18px 45px rgba(0, 0, 0, 0.4), 0 8px 20px rgba(0, 0, 0, 0.24);
+  --primitive-shadow-glow-teal: 0 0 24px rgba(0, 169, 189, 0.28);
+  --primitive-shadow-glow-teal-strong: 0 0 40px rgba(0, 169, 189, 0.38);
+
+  /* Primitive — Border */
+  --primitive-border-width-thin: 1px;
+  --primitive-border-width-medium: 1.5px;
+  --primitive-border-width-thick: 2px;
+
+  /* Primitive — Icon Size */
+  --primitive-icon-xs: 1rem; /* 16px */
+  --primitive-icon-sm: 1.25rem; /* 20px */
+  --primitive-icon-md: 1.5rem; /* 24px */
+  --primitive-icon-lg: 2rem; /* 32px */
+  --primitive-icon-xl: 2.5rem; /* 40px */
+
+  /* Primitive — Component Heights */
+  --primitive-height-xs: 1.5rem; /* 24px — icon button */
+  --primitive-height-sm: 2rem; /* 32px — compact */
+  --primitive-height-md: 2.5rem; /* 40px — default button/input */
+  --primitive-height-lg: 3rem; /* 48px — prominent CTA */
+
+  /* Primitive — Container / Layout */
+  --primitive-container-sm: 640px;
+  --primitive-container-md: 768px;
+  --primitive-container-lg: 1024px;
+  --primitive-container-xl: 1280px; /* max-w-7xl default */
+  --primitive-container-2xl: 1440px;
+  --primitive-gutter-mobile: 1rem; /* 16px — px-4 */
+  --primitive-gutter-tablet: 1.5rem; /* 24px — sm:px-6 */
+  --primitive-gutter-desktop: 2rem; /* 32px — lg:px-8 */
+  --primitive-gutter-wide: 2.5rem; /* 40px — xl:px-10 */
+
+  /* Primitive — Animation Duration */
+  --primitive-duration-instant: 0ms;
+  --primitive-duration-fast: 150ms;
+  --primitive-duration-normal: 220ms;
+  --primitive-duration-slow: 320ms;
+  --primitive-duration-slower: 500ms;
+  --primitive-duration-emphasis: 700ms;
+
+  /* Primitive — Easing */
+  --primitive-ease-default: cubic-bezier(0.22, 1, 0.36, 1);
+  --primitive-ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --primitive-ease-entrance: cubic-bezier(0, 0, 0, 1);
+  --primitive-ease-exit: cubic-bezier(0.3, 0, 1, 1);
+  --primitive-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ──────────────────────────────────────────────────────────────
+   2. SEMANTIC TOKENS — meaning, not values
+   Derive from primitives; enable theme / density switching
+   ────────────────────────────────────────────────────────────── */
+
+:root {
+  /* Semantic — Color */
+  --color-background: var(--primitive-neutral-950);
+  --color-foreground: var(--primitive-neutral-0);
+  --color-surface: var(--primitive-neutral-800);
+  --color-surface-raised: #0f2c3d;
+  --color-surface-overlay: #071d29;
+  --color-primary: var(--primitive-teal-500);
+  --color-primary-hover: var(--primitive-teal-600);
+  --color-primary-foreground: var(--primitive-neutral-0);
+  --color-accent: var(--primitive-emerald-500);
+  --color-muted: rgba(255, 255, 255, 0.06);
+  --color-muted-foreground: rgba(255, 255, 255, 0.65);
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.14);
+  --color-border-teal: rgba(0, 169, 189, 0.22);
+  --color-border-teal-strong: rgba(0, 169, 189, 0.38);
+  --color-ring: var(--primitive-teal-500);
+
+  /* Semantic — Radius mapping (spec §2) */
+  --radius-sm: var(--primitive-radius-sm); /* small UI: badges, chips, thumbnails */
+  --radius-md: var(--primitive-radius-md); /* buttons, inputs, selects */
+  --radius-lg: var(--primitive-radius-lg); /* cards, panels */
+  --radius-xl: var(--primitive-radius-xl); /* large containers, featured blocks */
+  --radius-2xl: var(--primitive-radius-2xl); /* hero / mega surfaces */
+  --radius-full: var(--primitive-radius-full); /* pills, avatars */
+
+  /* Semantic — Radius aliases for component layer */
+  --radius-button: var(--radius-full); /* pill CTA (brand) — use --radius-md for rectangular variant */
+  --radius-card: var(--radius-lg);
+  --radius-card-large: var(--radius-xl);
+  --radius-input: var(--radius-md);
+  --radius-badge: var(--radius-full);
+
+  /* Semantic — Spacing aliases (8-pt rhythm) */
+  --space-2xs: var(--primitive-spacing-2); /* 8px — tight */
+  --space-xs: var(--primitive-spacing-3); /* 12px — compact */
+  --space-sm: var(--primitive-spacing-4); /* 16px — default gap */
+  --space-md: var(--primitive-spacing-6); /* 24px — card padding / section gap */
+  --space-lg: var(--primitive-spacing-8); /* 32px — card gap */
+  --space-xl: var(--primitive-spacing-12); /* 48px — section gap */
+  --space-2xl: var(--primitive-spacing-16); /* 64px — section padding */
+  --space-3xl: var(--primitive-spacing-24); /* 96px — large section */
+  --space-4xl: var(--primitive-spacing-32); /* 128px — page section */
+  --space-section: var(--primitive-spacing-24); /* alias for section vertical rhythm */
+  --space-section-mobile: var(--primitive-spacing-16);
+  --space-gutter: var(--primitive-gutter-mobile);
+  --space-gutter-md: var(--primitive-gutter-tablet);
+  --space-gutter-lg: var(--primitive-gutter-desktop);
+
+  /* Semantic — Typography scale (spec §4) */
+  --text-display-size: clamp(2.25rem, 5vw + 1rem, 3.75rem);
+  --text-display-weight: 800;
+  --text-display-line: 1.06;
+  --text-display-tracking: -0.03em;
+
+  --text-h1-size: clamp(1.875rem, 4vw + 0.5rem, 3rem);
+  --text-h1-weight: 700;
+  --text-h1-line: 1.1;
+  --text-h1-tracking: -0.025em;
+
+  --text-h2-size: clamp(1.5rem, 3vw + 0.5rem, 2.25rem);
+  --text-h2-weight: 700;
+  --text-h2-line: 1.2;
+  --text-h2-tracking: -0.02em;
+
+  --text-h3-size: 1.5rem;
+  --text-h3-weight: 600;
+  --text-h3-line: 1.3;
+  --text-h3-tracking: -0.015em;
+
+  --text-body-lg-size: 1.125rem;
+  --text-body-lg-line: 1.7;
+  --text-body-lg-weight: 400;
+
+  --text-body-size: 1rem;
+  --text-body-line: 1.7;
+  --text-body-weight: 400;
+
+  --text-small-size: 0.875rem;
+  --text-small-line: 1.6;
+  --text-small-weight: 400;
+
+  --text-caption-size: 0.75rem;
+  --text-caption-line: 1.5;
+  --text-caption-weight: 500;
+  --text-caption-tracking: 0.08em;
+
+  --font-sans: "Space Grotesk", sans-serif;
+  --font-heading: "Space Grotesk", sans-serif;
+
+  /* Semantic — Elevation (spec §5) */
+  --elevation-0: var(--primitive-shadow-none);
+  --elevation-1: var(--primitive-shadow-subtle); /* subtle separation */
+  --elevation-2: var(--primitive-shadow-medium); /* elevated component */
+  --elevation-3: var(--primitive-shadow-floating); /* floating / modal */
+  --elevation-glow: var(--primitive-shadow-glow-teal);
+  --elevation-glow-strong: var(--primitive-shadow-glow-teal-strong);
+
+  /* Semantic — Border */
+  --border-width-default: var(--primitive-border-width-thin);
+  --border-width-strong: var(--primitive-border-width-medium);
+  --border-opacity-subtle: 0.06;
+  --border-opacity-default: 0.08;
+  --border-opacity-strong: 0.14;
+  --border-opacity-teal: 0.22;
+
+  /* Semantic — Icon */
+  --icon-xs: var(--primitive-icon-xs);
+  --icon-sm: var(--primitive-icon-sm);
+  --icon-md: var(--primitive-icon-md);
+  --icon-lg: var(--primitive-icon-lg);
+  --icon-xl: var(--primitive-icon-xl);
+
+  /* Semantic — Component Height */
+  --height-control-sm: var(--primitive-height-sm);
+  --height-control-md: var(--primitive-height-md);
+  --height-control-lg: var(--primitive-height-lg);
+  --height-control-icon: var(--primitive-height-md);
+
+  /* Semantic — Container / Grid */
+  --container-max: var(--primitive-container-xl); /* 1280 — default page container */
+  --container-wide: var(--primitive-container-2xl);
+  --grid-gap: var(--space-md);
+  --grid-gap-lg: var(--space-lg);
+  --section-gap: var(--space-3xl);
+  --section-gap-mobile: var(--space-2xl);
+
+  /* Semantic — Motion */
+  --duration-fast: var(--primitive-duration-fast);
+  --duration-normal: var(--primitive-duration-normal);
+  --duration-slow: var(--primitive-duration-slow);
+  --duration-slower: var(--primitive-duration-slower);
+  --duration-emphasis: var(--primitive-duration-emphasis);
+  --ease-default: var(--primitive-ease-default);
+  --ease-emphasized: var(--primitive-ease-emphasized);
+  --ease-entrance: var(--primitive-ease-entrance);
+  --ease-exit: var(--primitive-ease-exit);
+  --ease-spring: var(--primitive-ease-spring);
+}
+
+/* ──────────────────────────────────────────────────────────────
+   3. COMPONENT TOKENS — one place to tweak a component globally
+   All components read these, not raw primitives.
+   ────────────────────────────────────────────────────────────── */
+
+:root {
+  /* Button — all variants derive gradients from brand teal; tweaked here globally */
+  --button-radius: var(--radius-full);
+  --button-radius-rect: var(--radius-md);
+  --button-height-sm: var(--height-control-sm);
+  --button-height-md: var(--height-control-md);
+  --button-height-lg: var(--height-control-lg);
+  --button-padding-x-sm: var(--primitive-spacing-3);
+  --button-padding-x-md: var(--primitive-spacing-6);
+  --button-padding-x-lg: var(--primitive-spacing-8);
+  --button-font-size: var(--primitive-text-sm);
+  --button-font-weight: 600;
+  --button-transition: var(--duration-normal) var(--ease-default);
+  --button-primary-bg: linear-gradient(to right, var(--primitive-teal-500), var(--primitive-emerald-600));
+  --button-primary-border-gradient: linear-gradient(to right, var(--primitive-emerald-500), #12acb5);
+  --button-secondary-bg: linear-gradient(to right, var(--primitive-ink-900), var(--primitive-neutral-800));
+  --button-shadow: 0 0 12px rgba(0, 169, 189, 0.5);
+  --button-shadow-hover: 0 0 24px rgba(0, 169, 189, 0.4);
+
+  /* Card / Surface */
+  --card-radius: var(--radius-lg);
+  --card-radius-lg: var(--radius-xl);
+  --card-padding: var(--space-md);
+  --card-padding-lg: var(--space-lg);
+  --card-gap: var(--space-sm);
+  --card-border: var(--color-border);
+  --card-border-hover: var(--color-border-teal);
+  --card-shadow: var(--elevation-1);
+  --card-shadow-hover: var(--elevation-2);
+  --card-bg: rgba(255, 255, 255, 0.03);
+  --card-bg-strong: rgba(8, 23, 33, 0.95);
+
+  /* Input / Select */
+  --input-radius: var(--radius-md);
+  --input-height: var(--height-control-md);
+  --input-height-lg: var(--height-control-lg);
+  --input-padding-x: var(--primitive-spacing-4);
+  --input-bg: rgba(255, 255, 255, 0.06);
+  --input-border: var(--color-border);
+  --input-border-focus: var(--color-border-teal-strong);
+  --input-ring: var(--color-ring);
+
+  /* Badge / Pill */
+  --badge-radius: var(--radius-full);
+  --badge-padding-x: var(--primitive-spacing-3);
+  --badge-padding-y: var(--primitive-spacing-1);
+  --badge-font-size: var(--primitive-text-xs);
+  --badge-tracking: 0.08em;
+
+  /* Navigation */
+  --nav-height: 4.5rem;
+  --nav-height-scrolled: 3.5rem;
+  --nav-radius: var(--primitive-radius-2xl);
+  --nav-radius-mobile: var(--radius-full);
+  --nav-border: rgba(58, 175, 200, 0.35);
+  --nav-bg: rgba(3, 17, 28, 0.9);
+  --nav-bg-scrolled: rgba(3, 17, 28, 0.95);
+  --nav-shadow: 0 8px 32px rgba(0, 0, 0, 0.28);
+  --nav-blur: 12px;
+
+  /* Dropdown / Popover */
+  --popover-radius: var(--radius-lg);
+  --popover-padding: var(--primitive-spacing-4);
+  --popover-shadow: var(--elevation-3);
+  --popover-border: var(--color-border-strong);
+  --popover-bg: var(--color-surface-overlay);
+
+  /* Modal */
+  --modal-radius: var(--radius-xl);
+  --modal-shadow: var(--elevation-3);
+  --modal-backdrop: rgba(0, 14, 23, 0.8);
+
+  /* Tooltip */
+  --tooltip-radius: var(--radius-sm);
+  --tooltip-padding-x: var(--primitive-spacing-2);
+  --tooltip-padding-y: var(--primitive-spacing-1);
+  --tooltip-bg: var(--primitive-neutral-900);
+  --tooltip-fg: var(--primitive-neutral-0);
+  --tooltip-shadow: var(--elevation-2);
+
+  /* CTA Block */
+  --cta-radius: var(--radius-xl);
+  --cta-padding: var(--space-xl);
+  --cta-shadow: var(--elevation-glow);
+}
+
+/* ──────────────────────────────────────────────────────────────
+   4. BREAKPOINT TOKENS (for JS + documentation)
+   Use via var() in CSS or import in JS.
+   Tailwind breakpoints remain the runtime source of truth;
+   these are the documented contract.
+   ────────────────────────────────────────────────────────────── */
+
+:root {
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   5. TYPOGRAPHY UTILITY CLASSES — semantic hierarchy (§4)
+   One class per level; components should use these, not ad-hoc sizes.
+   ────────────────────────────────────────────────────────────── */
+
+.text-display {
+  font-family: var(--font-heading);
+  font-size: var(--text-display-size);
+  font-weight: var(--text-display-weight);
+  line-height: var(--text-display-line);
+  letter-spacing: var(--text-display-tracking);
+}
+
+.text-h1 {
+  font-family: var(--font-heading);
+  font-size: var(--text-h1-size);
+  font-weight: var(--text-h1-weight);
+  line-height: var(--text-h1-line);
+  letter-spacing: var(--text-h1-tracking);
+}
+
+.text-h2 {
+  font-family: var(--font-heading);
+  font-size: var(--text-h2-size);
+  font-weight: var(--text-h2-weight);
+  line-height: var(--text-h2-line);
+  letter-spacing: var(--text-h2-tracking);
+}
+
+.text-h3 {
+  font-family: var(--font-heading);
+  font-size: var(--text-h3-size);
+  font-weight: var(--text-h3-weight);
+  line-height: var(--text-h3-line);
+  letter-spacing: var(--text-h3-tracking);
+}
+
+.text-body-lg {
+  font-size: var(--text-body-lg-size);
+  line-height: var(--text-body-lg-line);
+  font-weight: var(--text-body-lg-weight);
+}
+
+.text-body {
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-line);
+  font-weight: var(--text-body-weight);
+}
+
+.text-small {
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-line);
+  font-weight: var(--text-small-weight);
+}
+
+.text-caption {
+  font-size: var(--text-caption-size);
+  line-height: var(--text-caption-line);
+  font-weight: var(--text-caption-weight);
+  letter-spacing: var(--text-caption-tracking);
+  text-transform: uppercase;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   6. LAYOUT PRIMITIVES — container & section rhythm (§8, §3)
+   ────────────────────────────────────────────────────────────── */
+
+.container-constrained {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--space-gutter);
+}
+
+@media (min-width: 640px) {
+  .container-constrained {
+    padding-inline: var(--space-gutter-md);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-constrained {
+    padding-inline: var(--space-gutter-lg);
+  }
+}
+
+.section-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--section-gap-mobile);
+}
+
+@media (min-width: 1024px) {
+  .section-stack {
+    gap: var(--section-gap);
+  }
+}
+
+.section-padding {
+  padding-block: var(--space-2xl);
+}
+
+@media (min-width: 640px) {
+  .section-padding {
+    padding-block: var(--space-3xl);
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-padding {
+    padding-block: var(--space-3xl);
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   7. MOTION PRIMITIVES (§12)
+   Shared transitions; use instead of arbitrary durations.
+   ────────────────────────────────────────────────────────────── */
+
+.transition-default {
+  transition-duration: var(--duration-normal);
+  transition-timing-function: var(--ease-default);
+}
+
+.transition-emphasis {
+  transition-duration: var(--duration-slow);
+  transition-timing-function: var(--ease-emphasized);
+}
+
+.transition-spring {
+  transition-duration: var(--duration-slower);
+  transition-timing-function: var(--ease-spring);
+}
+
+/* prefers-reduced-motion — global respect */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

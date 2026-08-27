@@ -1,0 +1,43 @@
+---
+/**
+ * Shared Section — enforces vertical rhythm (§3)
+ * Every page section should use this instead of arbitrary `py-16 sm:py-24 lg:py-32`.
+ * Background treatment can vary (via `variant`), but spacing/radius/shadow stay tokenized.
+ */
+interface Props {
+  variant?: "default" | "muted" | "surface" | "transparent";
+  padded?: boolean; // vertical padding
+  gap?: "sm" | "md" | "lg" | "xl"; // internal stack gap
+  id?: string;
+  class?: string;
+}
+
+const { variant = "default", padded = true, gap = "lg", id, class: klass = "" } = Astro.props;
+
+const variantMap: Record<string, string> = {
+  default: "",
+  muted: "bg-[var(--color-muted)]",
+  surface: "bg-[var(--color-surface)]",
+  transparent: "bg-transparent",
+};
+
+const gapMap: Record<string, string> = {
+  sm: "gap-[var(--space-sm)]",
+  md: "gap-[var(--space-md)]",
+  lg: "gap-[var(--space-lg)]",
+  xl: "gap-[var(--space-xl)]",
+};
+---
+
+<section
+  id={id}
+  class:list={[
+    "relative w-full overflow-hidden flex flex-col",
+    gapMap[gap],
+    variantMap[variant],
+    padded && "py-[var(--space-2xl)] sm:py-[var(--space-3xl)] lg:py-[var(--space-3xl)]",
+    klass,
+  ]}
+>
+  <slot />
+</section>

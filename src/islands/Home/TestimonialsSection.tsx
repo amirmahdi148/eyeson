@@ -31,13 +31,15 @@ export default function TestimonialsSection() {
     Array<{ top: string; left: string; size: number; delay: number }>
   >([]);
 
-  // تولید ستاره‌ها فقط در کلاینت برای جلوگیری از خطای Hydration
   useEffect(() => {
-    const newStars = [...Array(30)].map(() => ({
+    const prefersReduced = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Limit decorative stars to 18 (performance) and disable twinkle when reduced-motion
+    const count = prefersReduced ? 0 : 18;
+    const newStars = [...Array(count)].map(() => ({
       top: `${Math.random() * 100}%`,
       left: `${Math.random() * 100}%`,
-      size: Math.random() * 2 + 1, // سایز تصادفی بین 1 تا 3 پیکسل
-      delay: Math.random() * 3, // تاخیر تصادفی برای چشمک زدن
+      size: Math.random() * 1.8 + 1.1,
+      delay: Math.random() * 2.2,
     }));
     setStars(newStars);
   }, []);
@@ -116,16 +118,13 @@ export default function TestimonialsSection() {
   ];
 
   return (
-    <section className="relative py-24 overflow-hidden">
-      {/* ========================================== */}
-      {/* رندر کردن ستاره‌های متحرک پس‌زمینه */}
-      {/* ========================================== */}
+    <section className="relative py-[var(--space-2xl)] lg:py-[var(--space-3xl)] overflow-hidden">
       {stars.length > 0 && (
-        <div className="absolute inset-0 pointer-events-none -z-10">
+        <div className="absolute inset-0 pointer-events-none -z-10" aria-hidden="true">
           {stars.map((star, i) => (
             <motion.div
               key={i}
-              className="absolute rounded-full bg-[#21AFAF] will-change-transform"
+              className="absolute rounded-full bg-[var(--primitive-teal-500)] will-change-transform"
               style={{
                 top: star.top,
                 left: star.left,
@@ -133,11 +132,11 @@ export default function TestimonialsSection() {
                 height: star.size,
               }}
               animate={{
-                opacity: [0.1, 0.6, 0.1],
-                scale: [1, 1.5, 1],
+                opacity: [0.08, 0.42, 0.08],
+                scale: [1, 1.35, 1],
               }}
               transition={{
-                duration: 3 + Math.random() * 2,
+                duration: 3.2 + Math.random() * 1.8,
                 repeat: Infinity,
                 ease: "easeInOut",
                 delay: star.delay,
@@ -147,7 +146,7 @@ export default function TestimonialsSection() {
         </div>
       )}
 
-      <div className="relative z-10 container mx-auto px-6 max-w-7xl">
+      <div className="relative z-10 mx-auto max-w-[var(--container-max)] px-[var(--space-gutter)] sm:px-[var(--space-gutter-md)] lg:px-[var(--space-gutter-lg)]">
         {/* ========================================== */}
         {/* هدر بخش (Staggered Animation) */}
         {/* ========================================== */}
@@ -160,16 +159,16 @@ export default function TestimonialsSection() {
         >
           <motion.h2
             variants={itemVariants}
-            className="text-xl lg:text-5xl font-bold mb-6 leading-tight text-white"
+            className="text-h2 mb-6 leading-tight text-white"
           >
             What our{" "}
-            <span className="text-[#21AFAF] relative inline-block">
+            <span className="text-[var(--primitive-teal-400)] relative inline-block">
               clients
               <motion.div
                 initial={{ width: 0 }}
                 whileInView={{ width: "100%" }}
-                transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
-                className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-[#21AFAF] to-transparent rounded-full"
+                transition={{ delay: 0.5, duration: 0.65, ease: [0.16, 1, 0.3, 1] as any }}
+                className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-[var(--primitive-teal-500)] to-transparent rounded-full"
               />
             </span>{" "}
             say after
@@ -179,7 +178,7 @@ export default function TestimonialsSection() {
 
           <motion.p
             variants={itemVariants}
-            className="text-gray-400 text-xs max-w-3xl mx-auto leading-relaxed"
+            className="text-small text-white/60 max-w-3xl mx-auto leading-relaxed"
           >
             We collaborate with ambitious teams around the world, from early stage startups and
             online brands to established global companies. Every project is built around clear
@@ -192,16 +191,15 @@ export default function TestimonialsSection() {
         {/* کانتینر اسلایدر */}
         {/* ========================================== */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as any, delay: 0.32 }}
           className="relative group/carousel"
         >
-          {/* هاله نورانی پشت اسلایدر (روی هاور فعال میشه) */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-[#21AFAF]/5 to-transparent blur-3xl opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-1000 -z-20" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-[var(--primitive-teal-500)]/06 to-transparent blur-3xl opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-[var(--duration-slower)] -z-20" aria-hidden="true" />
 
-          <div className="absolute inset-0 bg-[#0f172a]/50 rounded-[40px] border border-white/5 backdrop-blur-sm -z-10" />
+          <div className="absolute inset-0 bg-[#0f172a]/55 rounded-[var(--radius-2xl)] border border-[var(--color-border)] backdrop-blur-md -z-10 shadow-[var(--elevation-1)]" />
 
           <Swiper
             modules={[Navigation, Autoplay]}
@@ -224,8 +222,7 @@ export default function TestimonialsSection() {
           >
             {testimonials.map((item) => (
               <SwiperSlide key={item.id} className="h-auto">
-                {/* اگر داخل TestimonialCard هاور افکت نداری، اینجا میشه روی SwiperSlide ترانزیشن گذاشت */}
-                <div className="h-full transform-gpu transition-transform duration-500 hover:-translate-y-2">
+                <div className="h-full transform-gpu transition-transform duration-[var(--duration-normal)] ease-[var(--ease-default)] hover:-translate-y-1">
                   <TestimonialCard item={item} />
                 </div>
               </SwiperSlide>
@@ -237,12 +234,13 @@ export default function TestimonialsSection() {
           {/* ========================================== */}
           <motion.button
             whileHover={{
-              scale: 1.15,
+              scale: 1.06,
               backgroundColor: "#1e293b",
-              borderColor: "rgba(33, 175, 175, 0.5)",
+              borderColor: "rgba(0,169,189,0.42)",
             }}
-            whileTap={{ scale: 0.9 }}
-            className="swiper-button-prev-custom absolute top-1/2 -left-3 lg:-left-6 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-[#0f172a] border border-white/10 flex items-center justify-center text-white hover:text-[#21AFAF] hover:shadow-[0_0_15px_rgba(33,175,175,0.3)] transition-colors shadow-lg cursor-pointer"
+            whileTap={{ scale: 0.95 }}
+            aria-label="Previous testimonials"
+            className="swiper-button-prev-custom absolute top-1/2 -left-3 lg:-left-6 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-[#0f172a] border border-[var(--color-border)] flex items-center justify-center text-white hover:text-[var(--primitive-teal-400)] hover:shadow-[var(--elevation-glow)] transition-colors duration-[var(--duration-normal)] shadow-lg cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]"
           >
             <svg
               className="w-5 h-5"
@@ -250,6 +248,7 @@ export default function TestimonialsSection() {
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
+              aria-hidden="true"
             >
               <path
                 strokeLinecap="round"
@@ -261,12 +260,13 @@ export default function TestimonialsSection() {
 
           <motion.button
             whileHover={{
-              scale: 1.15,
+              scale: 1.06,
               backgroundColor: "#1e293b",
-              borderColor: "rgba(33, 175, 175, 0.5)",
+              borderColor: "rgba(0,169,189,0.42)",
             }}
-            whileTap={{ scale: 0.9 }}
-            className="swiper-button-next-custom absolute top-1/2 -right-3 lg:-right-6 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-[#0f172a] border border-white/10 flex items-center justify-center text-white hover:text-[#21AFAF] hover:shadow-[0_0_15px_rgba(33,175,175,0.3)] transition-colors shadow-lg cursor-pointer"
+            whileTap={{ scale: 0.95 }}
+            aria-label="Next testimonials"
+            className="swiper-button-next-custom absolute top-1/2 -right-3 lg:-right-6 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-[#0f172a] border border-[var(--color-border)] flex items-center justify-center text-white hover:text-[var(--primitive-teal-400)] hover:shadow-[var(--elevation-glow)] transition-colors duration-[var(--duration-normal)] shadow-lg cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]"
           >
             <svg
               className="w-5 h-5"
@@ -274,6 +274,7 @@ export default function TestimonialsSection() {
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
+              aria-hidden="true"
             >
               <path
                 strokeLinecap="round"

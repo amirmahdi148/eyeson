@@ -49,14 +49,12 @@ const {
 } = Astro.props;
 ---
 
-<section class="relative overflow-hidden py-16 sm:py-24 lg:py-32">
-  
-
-  <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<section class="relative overflow-hidden py-[var(--space-2xl)] sm:py-[var(--space-3xl)] lg:py-[var(--space-3xl)]">
+  <div class="relative mx-auto max-w-[var(--container-max)] px-[var(--space-gutter)] sm:px-[var(--space-gutter-md)] lg:px-[var(--space-gutter-lg)]">
     <div class="mx-auto max-w-4xl text-center">
       
-      <h2 class="workflow-reveal fade-up delay-100 text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-[3.2rem]">
-        <span class="block bg-gradient-to-r from-[#2fd0c8] via-[#60d6c6] to-[#2fd0c8] bg-[length:200%_auto] animate-gradient bg-clip-text text-transparent pb-1">
+      <h2 class="workflow-reveal fade-up delay-100 text-h2">
+        <span class="block bg-gradient-to-r from-[var(--primitive-teal-400)] via-[#60d6c6] to-[var(--primitive-teal-400)] bg-[length:200%_auto] animate-gradient bg-clip-text text-transparent pb-1">
           {headingTop}
         </span>
         <span class="mt-1 block text-white drop-shadow-md">
@@ -64,27 +62,27 @@ const {
         </span>
       </h2>
 
-      <p class="workflow-reveal fade-up delay-200 mt-6 text-sm leading-relaxed text-white/60 sm:text-base font-light max-w-2xl mx-auto">
+      <p class="workflow-reveal fade-up delay-200 mt-[var(--space-sm)] text-small text-white/60 max-w-2xl mx-auto">
         {description}
       </p>
     </div>
 
     <!-- Swiper Container -->
-    <div class="mt-16 workflow-reveal fade-up delay-300">
+    <div class="mt-[var(--space-xl)] workflow-reveal fade-up delay-300">
       <swiper-container init="false" class="mySwiper !pb-16">
         {cards.map((card) => (
           <swiper-slide class="h-auto">
             <article
-              class="group relative flex h-full flex-col overflow-hidden rounded-[24px] border border-[#0f2931] bg-gradient-to-b from-[#051821]/95 to-[#020a0f]/95 p-5 shadow-[0_18px_45px_rgba(0,0,0,0.4)] backdrop-blur-xl transform-gpu transition-all duration-500 ease-out  hover:border-[#33d2c7]/50 hover:shadow-[0_0_30px_rgba(51,210,199,0.15),0_24px_70px_rgba(0,0,0,0.6)]"
+              class="group relative flex h-full flex-col overflow-hidden rounded-[var(--card-radius-lg)] border border-[var(--color-border)] bg-gradient-to-b from-[#051821]/95 to-[#020a0f]/95 p-[var(--card-padding)] shadow-[var(--elevation-2)] backdrop-blur-xl transform-gpu transition-all duration-[var(--duration-slow)] ease-[var(--ease-default)] hover:border-[var(--color-border-teal)] hover:shadow-[var(--elevation-3)]"
             >
               <!-- Hover Border Glow Effect -->
-              <div class="pointer-events-none absolute inset-0 rounded-[24px] opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <div class="absolute inset-[1px] rounded-[22px] border border-[#33d2c7]/50" />
-                <div class="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-[#33d2c7]/10 to-transparent rounded-t-[22px]" />
+              <div class="pointer-events-none absolute inset-0 rounded-[var(--card-radius-lg)] opacity-0 group-hover:opacity-100 transition-opacity duration-[var(--duration-slow)]">
+                <div class="absolute inset-[1px] rounded-[var(--card-radius)] border border-[var(--color-primary)]/50" />
+                <div class="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-[var(--color-primary)]/10 to-transparent rounded-t-[var(--card-radius)]" />
               </div>
 
-              <!-- عکس کارت با افکت زوم نرم -->
-              <div class="relative mb-6 overflow-hidden rounded-[16px] border border-[#12323b] bg-[#0b222a] h-52 sm:h-64">
+              <!-- Image -->
+              <div class="relative mb-[var(--space-md)] overflow-hidden rounded-[var(--radius-lg)] border border-white/5 bg-[#0b222a] h-52 sm:h-64">
                 <SmartImage
                   src={card.imageUrl}
                   alt={card.title}
@@ -97,16 +95,15 @@ const {
               </div>
 
               <div class="flex flex-1 flex-col z-10">
-                <h3 class="text-xl font-extrabold text-white transition-colors group-hover:text-[#33d2c7]">
+                <h3 class="text-xl font-extrabold text-white transition-colors duration-[var(--duration-normal)] group-hover:text-[var(--color-primary)]">
                   {card.title}
                 </h3>
-                <p class="mt-3 text-sm leading-relaxed text-white/65 font-light flex-grow">
+                <p class="mt-[var(--space-xs)] text-small leading-relaxed text-white/65 font-light flex-grow">
                   {card.description}
                 </p>
-                
-                {/* دکمه با افکت پرش به بالا در هاور کارت */}
-                <div class="mt-8 flex justify-start transform transition-transform duration-500 group-hover:-translate-y-1">
-                  <button class="inline-flex min-h-10 items-center justify-center rounded-xl bg-white/5 border border-white/10 px-6 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#33d2c7] hover:text-[#032024] hover:border-transparent hover:shadow-[0_0_20px_rgba(51,210,199,0.4)] w-full sm:w-auto">
+
+                <div class="mt-[var(--space-lg)] flex justify-start transform transition-transform duration-[var(--duration-slow)] ease-[var(--ease-default)] group-hover:-translate-y-1">
+                  <button class="inline-flex min-h-[var(--height-control-md)] items-center justify-center rounded-[var(--radius-md)] bg-white/5 border border-white/10 px-6 py-2.5 text-sm font-semibold text-white transition-all duration-[var(--duration-normal)] ease-[var(--ease-default)] hover:bg-[var(--color-primary)] hover:text-[#032024] hover:border-transparent hover:shadow-[var(--elevation-glow)] w-full sm:w-auto">
                     {card.buttonText}
                   </button>
                 </div>
@@ -138,7 +135,7 @@ const {
 
   .fade-up {
     transform: translateY(40px);
-    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: opacity var(--duration-emphasis) var(--ease-default), transform var(--duration-emphasis) var(--ease-default);
   }
 
   .workflow-reveal.is-visible {
@@ -161,15 +158,15 @@ const {
 
   /* ================= Swiper Customization ================= */
   swiper-container::part(bullet-active) {
-    background: #33d2c7;
+    background: var(--color-primary);
     width: 24px;
-    border-radius: 4px;
-    transition: width 0.3s ease;
+    border-radius: var(--radius-sm);
+    transition: width var(--duration-normal) var(--ease-default);
   }
   swiper-container::part(bullet) {
     background: rgba(255, 255, 255, 0.2);
     opacity: 1;
-    transition: background 0.3s ease, width 0.3s ease;
+    transition: background var(--duration-normal) var(--ease-default), width var(--duration-normal) var(--ease-default);
   }
   swiper-container::part(bullet):hover {
     background: rgba(255, 255, 255, 0.5);

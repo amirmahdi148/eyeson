@@ -23,10 +23,10 @@ const {
 } = Astro.props;
 ---
 
-<section class="relative w-full overflow-hidden">
-  <div class="relative z-10 mx-auto max-w-300 px-6 lg:px-8">
+<section class="relative w-full overflow-hidden py-[var(--space-lg)] sm:py-[var(--space-xl)]">
+  <div class="relative z-10 mx-auto max-w-[var(--container-max)] px-[var(--space-gutter)] sm:px-[var(--space-gutter-md)] lg:px-[var(--space-gutter-lg)]">
     <div
-      class="flex flex-col lg:flex-row items-center gap-6 lg:gap-8 xl:gap-12"
+      class="flex flex-col lg:flex-row items-center gap-[var(--space-md)] lg:gap-[var(--space-lg)] xl:gap-[var(--space-xl)]"
     >
       {/* ========================================== */}
       {/* Image Section (با کلاس‌های انیمیشن اسکرول) */}
@@ -36,14 +36,14 @@ const {
       >
         <div class="relative w-full group">
           <div
-            class="relative z-10 w-full transform-gpu transition-all duration-700 ease-out group-hover:scale-[1.03] group-hover:-translate-y-2 flex items-center justify-center mx-auto"
+            class="relative z-10 w-full transform-gpu transition-all duration-[var(--duration-emphasis)] ease-[var(--ease-default)] group-hover:scale-[1.02] group-hover:-translate-y-1 flex items-center justify-center mx-auto rounded-[var(--radius-xl)] border border-[var(--color-border)] shadow-[var(--elevation-2)] overflow-hidden bg-[var(--card-bg)] backdrop-blur-sm"
             style="aspect-ratio: 1300 / 1040"
           >
             <SmartImage
               src={imageUrl}
               alt="Creative Directions Concept"
               fill={true}
-              className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)] transition-all duration-700"
+              className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)] transition-all duration-[var(--duration-emphasis)] ease-[var(--ease-default)]"
               loading="lazy"
             />
           </div>
@@ -57,32 +57,31 @@ const {
         class="w-full lg:w-[42%] flex flex-col items-center text-center lg:items-start lg:text-left order-2 lg:order-2 reveal-on-scroll fade-up"
       >
         <h2
-          class="text-[28px] sm:text-[34px] lg:text-[42px] font-extrabold leading-[1.15] tracking-tight mb-4 sm:mb-6"
+          class="text-h2 mb-4 sm:mb-6"
         >
           <span class="block text-white mb-1">{titleLine1}</span>
           <span
-            class="block bg-linear-to-r from-[#29C4A9] to-[#128a8a] bg-clip-text text-transparent"
+            class="block bg-gradient-to-r from-[var(--primitive-teal-400)] to-[var(--primitive-teal-700)] bg-clip-text text-transparent"
           >
             {titleLine2}
           </span>
         </h2>
 
         <p
-          class="text-[14px] sm:text-[15px] leading-[1.6] text-white/60 max-w-[48ch] mx-auto lg:mx-0 mb-8 sm:mb-10 font-light"
+          class="text-small leading-[1.7] text-white/60 max-w-[48ch] mx-auto lg:mx-0 mb-8 sm:mb-10 font-light"
         >
           {description}
         </p>
 
-        {/* دکمه با افکت هاور فنری با CSS */}
         <div class="relative group/btn w-full sm:w-auto">
-          {/* افکت بلور (Glow) پشت دکمه */}
           <div
-            class="absolute -inset-1 rounded-full bg-linear-to-r from-[#29C4A9] to-[#128a8a] opacity-0 blur-lg transition-opacity duration-500 group-hover/btn:opacity-40"
+            class="absolute -inset-1 rounded-full bg-gradient-to-r from-[var(--primitive-teal-400)] to-[var(--primitive-teal-700)] opacity-0 blur-lg transition-opacity duration-[var(--duration-slow)] group-hover/btn:opacity-30"
+            aria-hidden="true"
           >
           </div>
 
           <div
-            class="relative transform-gpu transition-transform duration-300 ease-out group-hover/btn:scale-[1.05] group-active/btn:scale-[0.95]"
+            class="relative transform-gpu transition-transform duration-[var(--duration-normal)] ease-[var(--ease-default)] group-hover/btn:scale-[1.02] group-active/btn:scale-[0.98]"
           >
             <PrimaryButton text={buttonText} width="14rem" />
           </div>
@@ -101,19 +100,19 @@ const {
   }
 
   .fade-up {
-    transform: translateY(40px);
+    transform: translateY(32px);
     transition:
-      opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+      opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .fade-right {
-    transform: translateX(-40px);
-    filter: blur(8px);
+    transform: translateX(-28px);
+    filter: blur(6px);
     transition:
-      opacity 0.8s ease-out,
-      transform 0.8s ease-out,
-      filter 0.8s ease-out;
+      opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+      filter 0.65s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   /* حالتی که توسط جاوااسکریپت اضافه میشه (وقتی وارد کادر میشه) */

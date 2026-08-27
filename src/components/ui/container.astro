@@ -1,0 +1,31 @@
+---
+/**
+ * Shared Container — single source for horizontal rhythm (§8)
+ * Replaces ad-hoc `max-w-7xl mx-auto px-4 sm:px-6 lg:px-8` scattered across 54+ locations.
+ *
+ * Props:
+ *  - size: "default" (1280) | "narrow" (1024) | "wide" (1440) | "full" (100%)
+ *  - padded: include gutters (default true)
+ *  - as: semantic element
+ */
+interface Props {
+  size?: "default" | "narrow" | "wide" | "full" | "prose";
+  padded?: boolean;
+  as?: "div" | "section" | "header" | "footer" | "main";
+  class?: string;
+}
+
+const { size = "default", padded = true, as: Tag = "div", class: klass = "" } = Astro.props;
+
+const sizeMap: Record<string, string> = {
+  default: "max-w-[var(--container-max)]",
+  narrow: "max-w-[var(--primitive-container-lg)]",
+  wide: "max-w-[var(--container-wide)]",
+  full: "max-w-full",
+  prose: "max-w-[65ch]",
+};
+---
+
+<Tag class:list={["w-full mx-auto", sizeMap[size], padded && "px-[var(--space-gutter)] sm:px-[var(--space-gutter-md)] lg:px-[var(--space-gutter-lg)]", klass]}>
+  <slot />
+</Tag>

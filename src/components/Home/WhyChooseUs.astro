@@ -30,8 +30,8 @@ const {
 } = Astro.props;
 ---
 
-<section class="relative py-16 sm:py-20 lg:py-28 overflow-hidden">
-  <div class="relative mx-auto flex w-full max-w-7xl flex-col lg:flex-row lg:items-center lg:justify-between px-4 sm:px-6 lg:px-8">
+<section class="relative py-[var(--space-2xl)] sm:py-[var(--space-3xl)] lg:py-[var(--space-3xl)] overflow-hidden">
+  <div class="relative mx-auto flex w-full max-w-[var(--container-max)] flex-col lg:flex-row lg:items-center lg:justify-between px-[var(--space-gutter)] sm:px-[var(--space-gutter-md)] lg:px-[var(--space-gutter-lg)]">
     
     {/* ===== سمت چپ: محتوای متنی و سمت راست: تصویر ===== */}
     {/* با استفاده از Grid و Order جایگاه عناصر رو تو موبایل و دسکتاپ مدیریت کردیم */}
@@ -40,38 +40,36 @@ const {
       
       {/* 1. نشانک و عنوان (در موبایل اولین عنصر، در دسکتاپ داخل ستون چپ) */}
       <div class="lg:col-span-6 flex flex-col items-center lg:items-start order-1">
-        {/* نشانک (Eyebrow) */}
+        {/* Eyebrow — glass hairline per Modern Dark */}
         <div
-          class="why-reveal fade-up delay-100 mb-6 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2.5 sm:py-2 shadow-[0_0_0_1px_rgba(0,0,0,0.15)] backdrop-blur-sm group"
-          style="background: linear-gradient(135deg, rgba(17, 86, 95, 0.4) 0%, rgba(11, 31, 42, 0.4) 100%);"
+          class="why-reveal fade-up delay-100 mb-6 inline-flex items-center gap-3 rounded-full border border-[var(--color-border)] bg-white/[0.04] px-4 py-2.5 sm:py-2 shadow-[var(--elevation-1)] backdrop-blur-md group"
+          style="background: linear-gradient(135deg, rgba(17,86,95,0.32) 0%, rgba(11,31,42,0.36) 100%);"
         >
           <span class="relative flex h-2.5 w-2.5 sm:h-3 sm:w-3">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-full w-full bg-cyan-400 shadow-[0_0_12px_rgba(34,211,238,1)] group-hover:shadow-[0_0_20px_rgba(34,211,238,1)] transition-shadow duration-300"></span>
+            <span class="relative inline-flex rounded-full h-full w-full bg-[var(--primitive-teal-400)] shadow-[0_0_10px_rgba(47,208,200,0.7)] motion-safe:group-hover:shadow-[0_0_14px_rgba(47,208,200,0.9)] transition-shadow duration-[var(--duration-normal)]"></span>
+            <span class="absolute inset-0 rounded-full bg-[var(--primitive-teal-400)] opacity-0 motion-safe:animate-[softPulse_2.8s_ease-in-out_infinite]" aria-hidden="true"></span>
           </span>
-          <span class="text-xs sm:text-sm font-medium text-white/80">{eyebrow}</span>
+          <span class="text-caption text-white/80 normal-case tracking-normal">{eyebrow}</span>
         </div>
 
-        {/* عنوان اصلی */}
-        <h2 class="why-reveal fade-up delay-200 max-w-xl text-3xl font-bold leading-[1.12] tracking-tight text-white sm:text-4xl lg:text-[3.35rem]">
+        <h2 class="why-reveal fade-up delay-200 max-w-xl text-h2 leading-[1.12] text-white">
           {title}
           {highlight && (
-            <span class="block mt-1 bg-linear-to-r from-cyan-300 to-teal-400 bg-clip-text text-transparent">
+            <span class="block mt-1 bg-gradient-to-r from-[var(--primitive-teal-400)] to-[var(--primitive-teal-600)] bg-clip-text text-transparent">
               {highlight}
             </span>
           )}
         </h2>
       </div>
 
-      {/* 2. تصویر (در موبایل بین عنوان و توضیحات میافته - order-2، در دسکتاپ میره سمت راست) */}
       <div class="lg:col-span-6 lg:row-span-2 w-full mt-4 lg:mt-0 why-reveal fade-left delay-300 order-2 lg:order-0">
-        <div class="relative mx-auto w-full max-w-112.5 lg:max-w-155 animate-float group">
-          <div class="relative transform-gpu transition-all duration-700 ease-out group-hover:scale-[1.04] group-hover:-translate-y-2">
+        <div class="relative mx-auto w-full max-w-112.5 lg:max-w-155 motion-safe:animate-[softFloat_7s_ease-in-out_infinite] group will-change-transform">
+          <div class="relative transform-gpu transition-all duration-[var(--duration-slower)] ease-[var(--ease-default)] group-hover:scale-[1.02] group-hover:-translate-y-1">
             <SmartImage
               src="/home/new-svgs/multiple-icon.svg"
               alt="Why choose us visual"
               loading="lazy"
-              className="drop-shadow-[0_20px_40px_rgba(0,0,0,0.4)] group-hover:drop-shadow-[0_30px_60px_rgba(20,150,150,0.3)] transition-all duration-700"
+              className="drop-shadow-[0_20px_40px_rgba(0,0,0,0.4)] group-hover:drop-shadow-[0_24px_48px_rgba(20,150,150,0.22)] transition-all duration-[var(--duration-slower)] ease-[var(--ease-default)]"
             />
           </div>
         </div>
@@ -79,26 +77,22 @@ const {
 
       {/* 3. توضیحات و دکمه‌ها (در موبایل میوفته زیر عکس - order-3، در دسکتاپ زیر عنوان) */}
       <div class="lg:col-span-6 flex flex-col items-center lg:items-start mt-2 lg:mt-0 order-3">
-        {/* توضیحات */}
-        <p class="why-reveal fade-up delay-300 max-w-xl text-[15px] sm:text-base leading-relaxed text-white/65 mx-auto lg:mx-0 font-light">
+        <p class="why-reveal fade-up delay-300 max-w-xl text-small leading-relaxed text-white/65 mx-auto lg:mx-0 font-light">
           {description}
         </p>
 
-        {/* دکمه‌ها - در موبایل زیر هم (flex-col)، در تبلت/دسکتاپ کنار هم (sm:flex-row) */}
-        <div class="why-reveal fade-up delay-400 mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center w-full sm:w-auto">
-          <div class="relative group/btn transform-gpu transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] w-full sm:w-auto">
-            <div class="absolute -inset-1 rounded-full bg-linear-to-r from-cyan-400 to-teal-400 opacity-0 blur-lg transition-opacity duration-500 group-hover/btn:opacity-30"></div>
+        <div class="why-reveal fade-up delay-400 mt-[var(--space-lg)] flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center w-full sm:w-auto">
+          <div class="relative group/btn transform-gpu transition-transform duration-[var(--duration-normal)] ease-[var(--ease-default)] hover:scale-[1.02] active:scale-[0.98] w-full sm:w-auto">
+            <div class="absolute -inset-1 rounded-full bg-gradient-to-r from-[var(--primitive-teal-400)] to-[var(--primitive-teal-600)] opacity-0 blur-lg transition-opacity duration-[var(--duration-slow)] group-hover/btn:opacity-30" aria-hidden="true"></div>
             <div class="relative flex justify-center w-full">
-              {/* توی موبایل دکمه عرض کامل میشه تا خوشگل‌تر بشه */}
               <div class="w-[16rem] sm:w-auto">
                 <PrimaryButton text={primaryText} href={primaryHref} width="100%" height="50px" />
               </div>
             </div>
           </div>
-          
-          <div class="relative group/btn transform-gpu transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] w-full sm:w-auto">
+
+          <div class="relative group/btn transform-gpu transition-transform duration-[var(--duration-normal)] ease-[var(--ease-default)] hover:scale-[1.02] active:scale-[0.98] w-full sm:w-auto">
             <div class="relative flex justify-center w-full">
-               {/* توی موبایل دکمه عرض کامل میشه تا خوشگل‌تر بشه */}
               <div class="w-[16rem] sm:w-auto">
                 <SecondaryButton text={secondaryText} href={secondaryHref} width="100%" height="50px" />
               </div>
@@ -112,39 +106,32 @@ const {
 </section>
 
 <style>
-  /* ================= انیمیشن شناور (Float) ================= */
-  @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-15px);
-    }
+  @keyframes softFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
   }
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-    will-change: transform;
+  @keyframes softPulse {
+    0%, 100% { opacity: 0; transform: scale(1); }
+    50% { opacity: 0.22; transform: scale(1.55); }
   }
 
-  /* ================= کلاس‌های انیمیشن اسکرول ================= */
   .why-reveal {
     opacity: 0;
     will-change: opacity, transform;
   }
 
   .fade-up {
-    transform: translateY(30px);
+    transform: translateY(24px);
     transition:
-      opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+      opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .fade-left {
-    transform: translateX(40px);
+    transform: translateX(28px);
     transition:
-      opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+      opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .why-reveal.is-visible {
@@ -163,8 +150,9 @@ const {
       transform: none;
       transition: none;
     }
-    .animate-float {
-      animation: none;
+    .motion-safe\:animate-\[softFloat_7s_ease-in-out_infinite\],
+    .motion-safe\:animate-\[softPulse_2\.8s_ease-in-out_infinite\] {
+      animation: none !important;
     }
   }
 </style>

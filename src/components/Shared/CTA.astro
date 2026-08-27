@@ -3,10 +3,10 @@ import { SmartImage } from "../../utils/SmartImage";
 ---
 
 <section
-  class="relative z-10 mx-auto w-full max-w-7xl px-4 pb-12 sm:px-6 sm:pb-14 md:px-8 md:pb-16 xl:px-10 xl:pb-20"
+  class="relative z-10 mx-auto w-full max-w-[var(--container-max)] px-[var(--space-gutter)] pb-[var(--space-xl)] sm:px-[var(--space-gutter-md)] md:px-[var(--space-gutter-lg)] xl:px-[var(--space-gutter-lg)]"
 >
   <div
-    class="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-[#00A9BD]/40 shadow-[0px_0px_30px_0px_#00A9BD40]"
+    class="relative overflow-hidden rounded-[var(--radius-xl)] border border-[var(--color-border-teal)] shadow-[var(--elevation-glow)]"
   >
     <!-- تصویر پس‌زمینه -->
     <SmartImage
@@ -25,34 +25,29 @@ import { SmartImage } from "../../utils/SmartImage";
 
     <!-- محتوا -->
     <div
-      class="relative flex min-h-50 flex-col justify-center gap-5 px-5 py-8 text-center
-                  sm:min-h-57.5 sm:gap-6 sm:px-10 sm:py-10 sm:text-center
-                  lg:min-h-65 lg:flex-row lg:items-center lg:justify-between lg:px-14"
+      class="relative flex min-h-50 flex-col justify-center gap-[var(--space-sm)] px-[var(--space-sm)] py-[var(--space-lg)] text-center
+                  sm:min-h-57.5 sm:gap-[var(--space-md)] sm:px-[var(--space-lg)] sm:py-[var(--space-lg)] sm:text-center
+                  lg:min-h-65 lg:flex-row lg:items-center lg:justify-between lg:px-[var(--space-xl)]"
     >
       <!-- متن + دکمه -->
       <div class="w-full max-w-xl text-white mx-auto lg:mx-0 text-center flex items-center justify-center flex-col">
         <h2
-          class="text-xl font-semibold leading-tight
-                     sm:text-2xl
-                     md:text-3xl"
+          class="text-h2 text-white"
         >
           Let Your Story Move People.
         </h2>
         <p
-          class="mt-2 text-xs leading-relaxed text-white/85
-                    sm:mt-3 sm:text-sm
-                    md:text-base
-                    lg:text-lg"
+          class="mt-[var(--space-2xs)] text-small text-white/85 sm:text-body"
         >
           Tell us what you're building — we'll bring it to life with motion.
         </p>
         <button
-          class="mt-5 w-full max-w-60 mx-auto block cursor-pointer rounded-xl
-                         bg-linear-to-r from-[#46B6A0] to-[#00A9BD]
+          class="mt-[var(--space-sm)] w-full max-w-60 mx-auto block cursor-pointer rounded-[var(--radius-md)]
                          px-5 py-2.5 text-xs font-medium text-white
-                         shadow-[0_12px_30px_-10px_#00A9BD] transition
-                         sm:mt-6 sm:mx-0 sm:w-auto sm:px-6 sm:py-3 sm:text-sm
+                         shadow-[var(--elevation-glow)] transition duration-[var(--duration-normal)] ease-[var(--ease-default)]
+                         sm:mt-[var(--space-md)] sm:mx-0 sm:w-auto sm:px-6 sm:py-3 sm:text-sm
                          hover:opacity-90 active:scale-95"
+          style="background-image: var(--button-primary-bg)"
         >
           Start a Motion Project
         </button>

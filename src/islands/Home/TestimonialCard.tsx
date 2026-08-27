@@ -5,10 +5,10 @@ import { motion } from "framer-motion";
 export default function TestimonialCard({ item }: { item: any }) {
   return (
     <div className="relative group h-full px-2 py-2">
-      <div className="relative h-full bg-[#0B1F2A] rounded-[32px] overflow-hidden border border-[#109197]/10 transition-all duration-300 group-hover:border-[#109197]/50 group-hover:shadow-[0_0_30px_rgba(16,145,151,0.15)]">
+      <div className="relative h-full bg-[#0B1F2A] rounded-[var(--radius-2xl)] overflow-hidden border border-[var(--color-border)] shadow-[var(--elevation-1)] transition-all duration-[var(--duration-normal)] ease-[var(--ease-default)] group-hover:border-[var(--color-border-teal)] group-hover:shadow-[var(--elevation-glow)]">
         <div className="px-8 pt-8 pb-4 flex items-center gap-4 relative z-10">
           <div className="relative">
-            <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-[#109197] p-0.5 shadow-[0_0_15px_rgba(16,145,151,0.4)]">
+            <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-[var(--primitive-teal-700)] p-0.5 shadow-[0_0_14px_rgba(0,169,189,0.32)]">
               <img
                 src={item.avatar}
                 alt={item.name}
@@ -18,16 +18,16 @@ export default function TestimonialCard({ item }: { item: any }) {
           </div>
 
           <div>
-            <h4 className="text-white font-bold text-lg leading-tight group-hover:text-[#109197] transition-colors duration-300">
+            <h4 className="text-white font-bold text-lg leading-tight group-hover:text-[var(--primitive-teal-400)] transition-colors duration-[var(--duration-normal)]">
               {item.name}
             </h4>
-            <p className="text-gray-400 text-xs mt-1">{item.role}</p>
+            <p className="text-white/60 text-xs mt-1">{item.role}</p>
           </div>
         </div>
 
-        <div className="relative mt-2 mx-2 mb-2 bg-[#109197]/5 rounded-[28px] p-8 border border-[#109197]/10 group-hover:bg-[#109197]/10 transition-all duration-300 h-[calc(100%-100px)] flex flex-col justify-between overflow-hidden">
-          <p className="text-gray-200 text-[15px] leading-relaxed relative z-10">
-            "{item.text}"
+        <div className="relative mt-2 mx-2 mb-2 bg-[var(--primitive-teal-700)]/06 rounded-[var(--radius-xl)] p-8 border border-[var(--color-border)] group-hover:bg-[var(--primitive-teal-700)]/08 transition-colors duration-[var(--duration-normal)] h-[calc(100%-100px)] flex flex-col justify-between overflow-hidden">
+          <p className="text-white/90 text-[15px] leading-relaxed relative z-10 font-light">
+            “{item.text}”
           </p>
 
           <div className="flex gap-1 mt-6 relative z-10">
@@ -35,17 +35,19 @@ export default function TestimonialCard({ item }: { item: any }) {
               <motion.svg
                 key={i}
                 initial={{ scale: 1 }}
-                whileHover={{ scale: 1.2, rotate: 10 }}
-                className={`w-5 min-h-10 max-h-10 drop-shadow-[0_0_8px_rgba(16,145,151,0.6)] ${i < item.stars ? "text-[#109197] fill-[#109197]" : "text-[#109197]/20 fill-[#109197]/20"}`}
+                whileHover={{ scale: 1.15, rotate: 6 }}
+                transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] as any }}
+                className={`w-5 min-h-10 max-h-10 ${i < item.stars ? "text-[var(--primitive-teal-500)] fill-[var(--primitive-teal-500)] drop-shadow-[0_0_6px_rgba(0,169,189,0.5)]" : "text-[var(--primitive-teal-500)]/18 fill-[var(--primitive-teal-500)]/18"}`}
                 viewBox="0 0 24 24"
+                aria-hidden="true"
               >
                 <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
               </motion.svg>
             ))}
           </div>
 
-          <div className="absolute top-0 right-0 w-40 h-40 bg-[#109197]/10 rounded-full blur-[50px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#109197]/5 rounded-full blur-[40px] translate-y-1/2 -translate-x-1/2 pointer-events-none" />
+          <div className="absolute top-0 right-0 w-40 h-40 bg-[var(--primitive-teal-500)]/08 rounded-full blur-[48px] -translate-y-1/2 translate-x-1/2 pointer-events-none" aria-hidden="true" />
+          <div className="absolute bottom-0 left-0 w-32 h-32 bg-[var(--primitive-teal-500)]/04 rounded-full blur-[36px] translate-y-1/2 -translate-x-1/2 pointer-events-none" aria-hidden="true" />
         </div>
       </div>
     </div>

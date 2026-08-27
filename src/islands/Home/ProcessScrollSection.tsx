@@ -165,20 +165,19 @@ export default function ProcessScrollSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-16 sm:py-20 lg:py-24 overflow-hidden"
+      className="relative py-[var(--space-2xl)] sm:py-[var(--space-3xl)] lg:py-[var(--space-3xl)] overflow-hidden"
     >
-      <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
+      <div className="mx-auto max-w-[var(--container-max)] px-[var(--space-gutter)] sm:px-[var(--space-gutter-md)] lg:px-[var(--space-gutter-lg)]">
         
-        {/* 🔴 موبایل: وسط‌چین / دسکتاپ: چپ‌چین */}
-        <div className="mb-12 sm:mb-16 lg:mb-20 max-w-3xl flex flex-col items-center text-center lg:items-start lg:text-left mx-auto lg:mx-0">
-          <p className="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4 font-semibold uppercase tracking-widest">
+        <div className="mb-12 sm:mb-16 lg:mb-16 max-w-3xl flex flex-col items-center text-center lg:items-start lg:text-left mx-auto lg:mx-0">
+          <p className="text-caption text-white/50 mb-3 sm:mb-4 tracking-[0.18em]">
             Our Creative Process
           </p>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-4 sm:mb-6 leading-[1.15] tracking-tight">
+          <h2 className="text-h2 text-white mb-4 sm:mb-6 leading-[1.12]">
             From Idea to Results,
             How We Bring Your Project to Life
           </h2>
-          <p className="text-gray-400 text-sm sm:text-base lg:text-lg leading-relaxed max-w-xl">
+          <p className="text-small text-white/60 lg:text-body leading-relaxed max-w-xl">
             Every strong project needs a clear path. We guide your idea through strategy, creative
             direction, production, feedback, and final delivery, so the process feels smooth and the
             final result is ready to perform.
@@ -189,26 +188,24 @@ export default function ProcessScrollSection() {
           ref={gridContainerRef}
           className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-10 lg:gap-16 relative items-start"
         >
-          {/* 🔴 فاصله‌ی عمودی بین کارت‌ها در موبایل کمتر شد (space-y-12) */}
-          <div className="space-y-10 sm:space-y-16 lg:space-y-32 lg:pb-32">
+          <div className="space-y-10 sm:space-y-12 lg:space-y-20 lg:pb-24">
             {PROCESS_STEPS.map((step) => (
               <div key={step.id} className="process-step will-change-transform">
-                <div className="relative p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-card hover:border-white/30 transition-all duration-300 group shadow-lg">
+                <div className="relative p-6 sm:p-8 rounded-[var(--radius-xl)] sm:rounded-[var(--radius-xl)] bg-[var(--card-bg)] border border-[var(--card-border)] backdrop-blur-md hover:border-[var(--card-border-hover)] hover:shadow-[var(--card-shadow-hover)] transition-all duration-[var(--duration-normal)] ease-[var(--ease-default)] group shadow-[var(--elevation-1)]">
                   
-                  {/* بج دکوری */}
-                  <div className="absolute step-bg top-5 right-5 sm:top-8 sm:right-8 text-[10px] sm:text-xs font-bold px-3 py-1 sm:py-1.5 rounded-full">
+                  <div className="absolute step-bg top-5 right-5 sm:top-8 sm:right-8 text-[10px] sm:text-xs font-bold px-3 py-1 sm:py-1.5 rounded-full border border-[var(--color-border)] bg-white/[0.04] text-white/70">
                     {step.step}
                   </div>
 
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[14px] sm:rounded-2xl di-bg flex items-center justify-center mb-5 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[var(--radius-lg)] di-bg flex items-center justify-center mb-5 sm:mb-6 group-hover:scale-[1.04] transition-transform duration-[var(--duration-normal)] ease-[var(--ease-default)] border border-white/[0.06] bg-white/[0.04]">
                     {step.icon}
                   </div>
 
-                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">
+                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 tracking-tight">
                     {step.title}
                   </h3>
 
-                  <p className="text-gray-400 text-sm sm:text-base leading-relaxed mb-6 sm:mb-8">
+                  <p className="text-white/60 text-sm sm:text-base leading-relaxed mb-6 sm:mb-8 font-light">
                     {step.description}
                   </p>
 
@@ -216,14 +213,14 @@ export default function ProcessScrollSection() {
                     {step.tags.map((tag, idx) => (
                       <span
                         key={idx}
-                        className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-[#122E3E] text-gray-300 text-[11px] sm:text-sm border border-white/5 hover:border-foreground/30 transition-colors duration-300"
+                        className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-[var(--color-surface)] text-white/70 text-[11px] sm:text-sm border border-[var(--color-border)] hover:border-[var(--color-border-teal)] hover:text-white transition-colors duration-[var(--duration-normal)] cursor-default"
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
 
-                  <div className="absolute inset-0 bg-gradient-to-br from-foreground/0 via-foreground/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl sm:rounded-3xl pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] via-white/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-[var(--duration-normal)] rounded-[var(--radius-xl)] pointer-events-none" />
                 </div>
               </div>
             ))}
