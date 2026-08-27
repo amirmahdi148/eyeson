@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { motion, type Variants } from "framer-motion";
 import {
   Mail,
   Lock,
@@ -13,107 +12,46 @@ import { useAsyncOperation } from "@/utils/useAsyncOperation";
 import { loginService } from "@/services/loginService.ts";
 import { logger } from "@/utils/logger";
 
-/* ---------------- TYPES ---------------- */
-/* ---------------- API ---------------- */
-
-const BASE_URL = import.meta.env.PUBLIC_API_URL;
-
-
-
-/* ---------------- ANIMATION ---------------- */
-
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-
-  visible: {
-    opacity: 1,
-
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-    },
-  },
-};
-
-const itemVariants: Variants = {
-  hidden: {
-    opacity: 0,
-    y: 20,
-  },
-
-  visible: {
-    opacity: 1,
-    y: 0,
-
-    transition: {
-      type: "spring",
-      stiffness: 100,
-      damping: 12,
-    },
-  },
-};
-
-/* ---------------- COMPONENT ---------------- */
-
 export default function LoginForm() {
-  /* ---------- STATES ---------- */
-
-  const [username, setUsername] =
-      useState("");
-
-  const [email, setEmail] =
-      useState("");
-
-  const [password, setPassword] =
-      useState("");
-
-  const [showPassword, setShowPassword] =
-      useState(false);
-
-  const [usernameFocus, setUsernameFocus] =
-      useState(false);
-
-  const [emailFocus, setEmailFocus] =
-      useState(false);
-
-  const [passwordFocus, setPasswordFocus] =
-      useState(false);
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [usernameFocus, setUsernameFocus] = useState(false);
+  const [emailFocus, setEmailFocus] = useState(false);
+  const [passwordFocus, setPasswordFocus] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
   logger.info("LoginForm mounted");
 
-  /* ---------- MUTATION ---------- */
-
   const loginMutation = useAsyncOperation({
     onSuccess: (data: any) => {
-      logger.info("Login successful", { hasToken: !!data?.accessToken });
+      logger.info("Login successful", { hasToken: !data?.accessToken });
       if (data?.accessToken) {
-        localStorage.setItem('accessToken', data.accessToken);
-        setSuccessMessage('Login successful! Redirecting...');
+        localStorage.setItem("accessToken", data.accessToken);
+        setSuccessMessage("Login successful! Redirecting...");
         setErrorMessage("");
 
         setTimeout(() => {
           logger.normal("Redirecting to /admin");
-          window.location.href = '/admin';
+          window.location.href = "/admin";
         }, 500);
       } else {
         logger.warn("Login succeeded but no access token received");
-        setErrorMessage('Login failed: No access token received');
+        setErrorMessage("Login failed: No access token received");
       }
     },
     onError: (error: any) => {
       const errorMsg = error?.response?.data?.message ||
                       error?.message ||
-                      'Login failed. Please try again.';
+                      "Login failed. Please try again.";
       logger.warn("Login failed", { errorMsg });
       setErrorMessage(errorMsg);
       setSuccessMessage("");
     },
   });
-
-  /* ---------- SUBMIT ---------- */
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -123,7 +61,7 @@ export default function LoginForm() {
 
     if (!username.trim() || !email.trim() || !password.trim()) {
       logger.warn("Validation failed: missing fields");
-      setErrorMessage('Please fill in all fields');
+      setErrorMessage("Please fill in all fields");
       return;
     }
 
@@ -136,30 +74,16 @@ export default function LoginForm() {
     ).then(r => logger.verbose("Login mutation resolved", r));
   };
 
-  /* ---------- UI ---------- */
-
   return (
       <div className="min-h-screen w-full flex items-center justify-center relative overflow-hidden bg-black">
         {/* Background */}
-
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-[#00E6D7] to-[#12ACB5] rounded-full blur-3xl opacity-20 animate-pulse" />
-
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-[#12ACB5] to-[#00E6D7] rounded-full blur-3xl opacity-20 animate-pulse" />
 
         {/* Container */}
-
-        <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={containerVariants}
-            className="relative z-10 w-full max-w-md px-6"
-        >
+        <div className="relative z-10 w-full max-w-md px-6 animate-fade-in">
           {/* Header */}
-
-          <motion.div
-              variants={itemVariants}
-              className="text-center mb-8"
-          >
+          <div className="text-center mb-8 animate-slide-up">
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-2 bg-clip-text text-transparent bg-gradient-to-r from-[#00E6D7] via-white to-[#12ACB5]">
               Welcome Back
             </h1>
@@ -167,46 +91,29 @@ export default function LoginForm() {
             <p className="text-white/70 text-sm">
               Enter your credentials
             </p>
-          </motion.div>
+          </div>
 
           {/* Form */}
-
-          <motion.form
+          <form
               onSubmit={handleSubmit}
-              variants={itemVariants}
-              className="backdrop-blur-2xl bg-white/8 border border-white/20 rounded-2xl p-8 shadow-2xl"
+              className="backdrop-blur-2xl bg-white/8 border border-white/20 rounded-2xl p-8 shadow-2xl animate-scale-up"
           >
             {/* Error Message */}
             {errorMessage && (
-              <motion.div
-                  variants={itemVariants}
-                  className="mb-6 p-4 bg-red-500/20 border border-red-500/50 rounded-lg"
-              >
+              <div className="mb-6 p-4 bg-red-500/20 border border-red-500/50 rounded-lg animate-fade-in">
                 <p className="text-red-300 text-sm">{errorMessage}</p>
-              </motion.div>
+              </div>
             )}
 
             {/* Success Message */}
             {successMessage && (
-              <motion.div
-                  variants={itemVariants}
-                  className="mb-6 p-4 bg-green-500/20 border border-green-500/50 rounded-lg"
-              >
+              <div className="mb-6 p-4 bg-green-500/20 border border-green-500/50 rounded-lg animate-fade-in">
                 <p className="text-green-300 text-sm">{successMessage}</p>
-              </motion.div>
+              </div>
             )}
 
             {/* Username */}
-
-            <motion.div
-                variants={itemVariants}
-                className="mb-6"
-                animate={
-                  usernameFocus
-                      ? { scale: 1.02 }
-                      : { scale: 1 }
-                }
-            >
+            <div className={"mb-6 transition-transform duration-200 " + (usernameFocus ? "scale-[1.02]" : "scale-100")}>
               <label className="block text-sm font-medium text-white/90 mb-2">
                 Username
               </label>
@@ -228,9 +135,7 @@ export default function LoginForm() {
                     value={username}
                     onChange={(e) => {
                         logger.verbose("Username changed", { value: e.target.value });
-                        setUsername(
-                            e.target.value
-                        );
+                        setUsername(e.target.value);
                     }}
                     onFocus={() => {
                         logger.verbose("Username focused");
@@ -245,19 +150,10 @@ export default function LoginForm() {
                     className="w-full pl-12 pr-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-[#00E6D7]"
                 />
               </div>
-            </motion.div>
+            </div>
 
             {/* Email */}
-
-            <motion.div
-                variants={itemVariants}
-                className="mb-6"
-                animate={
-                  emailFocus
-                      ? { scale: 1.02 }
-                      : { scale: 1 }
-                }
-            >
+            <div className={"mb-6 transition-transform duration-200 " + (emailFocus ? "scale-[1.02]" : "scale-100")}>
               <label className="block text-sm font-medium text-white/90 mb-2">
                 Email
               </label>
@@ -279,9 +175,7 @@ export default function LoginForm() {
                     value={email}
                     onChange={(e) => {
                         logger.verbose("Email changed", { value: e.target.value });
-                        setEmail(
-                            e.target.value
-                        );
+                        setEmail(e.target.value);
                     }}
                     onFocus={() => {
                         logger.verbose("Email focused");
@@ -296,19 +190,10 @@ export default function LoginForm() {
                     className="w-full pl-12 pr-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-[#00E6D7]"
                 />
               </div>
-            </motion.div>
+            </div>
 
             {/* Password */}
-
-            <motion.div
-                variants={itemVariants}
-                className="mb-6"
-                animate={
-                  passwordFocus
-                      ? { scale: 1.02 }
-                      : { scale: 1 }
-                }
-            >
+            <div className={"mb-6 transition-transform duration-200 " + (passwordFocus ? "scale-[1.02]" : "scale-100")}>
               <label className="block text-sm font-medium text-white/90 mb-2">
                 Password
               </label>
@@ -326,17 +211,11 @@ export default function LoginForm() {
                 </div>
 
                 <input
-                    type={
-                      showPassword
-                          ? "text"
-                          : "password"
-                    }
+                    type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => {
                         logger.verbose("Password changed");
-                        setPassword(
-                            e.target.value
-                        );
+                        setPassword(e.target.value);
                     }}
                     onFocus={() => {
                         logger.verbose("Password focused");
@@ -358,54 +237,30 @@ export default function LoginForm() {
                         logger.verbose("Password visibility toggled", { show: next });
                         setShowPassword(next);
                     }}
-                    className="absolute inset-y-0 right-0 flex items-center pr-4 text-white/40 hover:text-[#00E6D7]"
+                    className="absolute inset-y-0 right-0 flex items-center pr-4 text-white/40 hover:text-[#00E6D7] cursor-pointer"
                 >
-                  {showPassword ? (
-                      <EyeOff size={18} />
-                  ) : (
-                      <Eye size={18} />
-                  )}
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
-            </motion.div>
+            </div>
 
             {/* Submit */}
-
-            <motion.button
-                variants={itemVariants}
+            <button
                 type="submit"
-                disabled={
-                  loginMutation.isPending
-                }
-                whileHover={{
-                  scale: 1.02,
-                }}
-                whileTap={{
-                  scale: 0.98,
-                }}
-                className="w-full py-3 px-4 bg-gradient-to-r from-[#00E6D7] to-[#12ACB5] text-black font-semibold rounded-xl flex items-center justify-center gap-2"
+                disabled={loginMutation.isPending}
+                className="w-full py-3 px-4 bg-gradient-to-r from-[#00E6D7] to-[#12ACB5] text-black font-semibold rounded-xl flex items-center justify-center gap-2 transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
             >
               {loginMutation.isPending ? (
-                  <motion.div
-                      animate={{
-                        rotate: 360,
-                      }}
-                      transition={{
-                        duration: 1,
-                        repeat: Infinity,
-                        ease: "linear",
-                      }}
-                      className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full"
-                  />
+                  <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
               ) : (
                   <>
                     Sign In
                     <ArrowRight size={18} />
                   </>
               )}
-            </motion.button>
-          </motion.form>
-        </motion.div>
+            </button>
+          </form>
+        </div>
       </div>
   );
 }

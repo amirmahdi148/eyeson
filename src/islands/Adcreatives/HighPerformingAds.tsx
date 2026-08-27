@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
 import "./HighPerformingAds.css";
 import PrimaryButton from "@/components/Shared/PrimaryButton";
 
@@ -10,7 +9,7 @@ export default function HighPerformingAds() {
     <section className="hpa-section">
       <div className="hpa-container">
         {/* --- ستون سمت چپ: متن و دکمه --- */}
-        <div className="hpa-content">
+        <div className="hpa-content animate-fade-in">
           <h2 className="hpa-title">
             <span className="title-white">From Raw Ideas to</span>
             <br />
@@ -38,12 +37,8 @@ export default function HighPerformingAds() {
 
         {/* --- ستون سمت راست: انیمیشن پوشه تعاملی --- */}
         <div className="hpa-visual">
-          <motion.div
-            className="folder-wrapper"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+          <div
+            className="folder-wrapper animate-slide-up"
           >
             {/* هاله نور پشت پوشه */}
             <div className="folder-glow-bg"></div>
@@ -77,7 +72,7 @@ export default function HighPerformingAds() {
 
             {/* ۳. لایه جلوی پوشه (شیشه‌ای یک‌تکه با Clip-Path) */}
             <div className="folder-front"></div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

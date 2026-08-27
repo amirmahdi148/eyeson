@@ -242,7 +242,7 @@ export const Header = () => {
                 <div className={`relative px-4 sm:px-6 lg:px-10 transition-[padding] duration-300 ease-out ${scrolled ? "py-2 lg:py-3" : "py-3 lg:py-6"}`}>
 
                     {/* Scroll background */}
-                    <div className={`pointer-events-none absolute inset-x-0 top-0 h-full transition-all duration-300 ease-out ${scrolled ? "bg-[#03111C]/95 backdrop-blur-md shadow-md" : "bg-transparent"}`} />
+                    <div className={`pointer-events-none absolute inset-x-0 top-0 h-full transition-all duration-300 ease-out ${scrolled ? "bg-[#000E17]/90 backdrop-blur-md shadow-md border-b border-white/5" : "bg-transparent"}`} />
 
                     {/* Desktop Header */}
                     <div className="relative mx-auto max-w-[1200px] hidden lg:flex items-center justify-between gap-3">
@@ -272,7 +272,7 @@ export const Header = () => {
                     </div>
 
                     {/* Mobile / Compact Header */}
-                    <div className="relative mx-auto max-w-[1200px] flex lg:hidden items-center justify-between rounded-full border border-[#3AAFC8]/35 bg-[#03111C]/90 px-4 py-2 shadow-lg backdrop-blur-md sm:px-6">
+                    <div className="relative mx-auto max-w-[1200px] flex lg:hidden items-center justify-between rounded-full border border-[#3AAFC8]/35 bg-[#000E17]/90 px-4 py-2 shadow-lg backdrop-blur-md sm:px-6">
                         <a href="/" className="relative z-50">
                             <img src="/logo.webp" className="h-9 object-contain" alt="EyesOn logo" />
                         </a>

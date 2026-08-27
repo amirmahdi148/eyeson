@@ -1,4 +1,3 @@
-import { motion, type Variants } from "framer-motion";
 import type { ReactNode } from "react";
 import { SmartImage } from "../../utils/SmartImage.tsx";
 import SecondaryButton from "@/components/Shared/SecondaryButton.tsx";
@@ -61,10 +60,10 @@ export const VideoHeader = ({
   imageClassName = "object-contain w-full h-auto",
   imageDivClassName = "",
   imageWrapperClassName = "",
-                              secondaryBtnText = "Get Pricing",
-                              secondaryBtnUrl = "#pricing",
-    primaryBtnUrl = "/portfolio",
-    primaryBtnText = "See our work",
+  secondaryBtnText = "Get Pricing",
+  secondaryBtnUrl = "#pricing",
+  primaryBtnUrl = "/portfolio",
+  primaryBtnText = "See our work",
 
   animationType = "slide",
 
@@ -87,65 +86,8 @@ export const VideoHeader = ({
   isBranding = false,
   rightComponent = null,
 }: Props) => {
-  const MotionTag = motion.div;
-
-  const isNone = animationType === "none";
-  const isFade = animationType === "fade";
-
-  const textVariants: Variants = isNone
-    ? {}
-    : isFade
-      ? {
-          hidden: { opacity: 0 },
-          show: { opacity: 1, transition: { duration: 0.35 } },
-        }
-      : {
-          hidden: { opacity: 0, x: -12 },
-          show: {
-            opacity: 1,
-            x: 0,
-            transition: {
-              duration: 0.4,
-              ease: "easeOut",
-              when: "beforeChildren",
-            },
-          },
-        };
-
-  const itemVariants: Variants = isNone
-    ? {}
-    : isFade
-      ? {
-          hidden: { opacity: 0 },
-          show: { opacity: 1, transition: { duration: 0.25 } },
-        }
-      : {
-          hidden: { opacity: 0, y: 8 },
-          show: {
-            opacity: 1,
-            y: 0,
-            transition: { duration: 0.3, ease: "easeOut" },
-          },
-        };
-  const rightVariants: Variants = isNone
-    ? {}
-    : isFade
-      ? {
-          hidden: { opacity: 0 },
-          show: { opacity: 1, transition: { duration: 0.4 } },
-        }
-      : {
-          hidden: { opacity: 0, x: 14 },
-          show: {
-            opacity: 1,
-            x: 0,
-            transition: {
-              duration: 0.45,
-              ease: "easeOut",
-              delay: 0.05,
-            },
-          },
-        };
+  const isSlide = animationType === "slide";
+  const animClass = animationType === "none" ? "" : isSlide ? "animate-slide-up" : "animate-fade-in";
 
   return (
     <section
@@ -155,32 +97,21 @@ export const VideoHeader = ({
         <div className={`absolute inset-0 -z-10 ${backgroundClassName}`} />
       )}
 
-      <div className="mx-auto w-full max-w-300">
+      <div className="mx-auto w-full max-w-7xl">
         <div
-          /* 
-            در دسکتاپ (lg) به صورت flex-row در میاد، 
-            اما در موبایل flex-col هست تا بتونیم ترتیب (order) رو عوض کنیم. 
-          */
           className={`relative z-10 flex flex-col items-center gap-10 lg:flex-row lg:justify-between lg:gap-16 ${
             reverse ? "lg:flex-row-reverse" : ""
           }`}
         >
           {/* === سمت چپ: متن و دکمه‌ها === */}
-          <MotionTag
-            /* order-2 در موبایل یعنی میاد زیر عکس. lg:order-1 در دسکتاپ برمی‌گرده سر جاش */
-            className={`order-2 mx-auto flex w-full max-w-xl flex-col items-center text-center lg:order-1 lg:mx-0 lg:w-[48%] lg:items-start lg:text-left ${textContainerClassName}`}
-            {...(!isNone && {
-              variants: textVariants,
-              initial: "hidden",
-              animate: "show",
-            })}
+          <div
+            className={`order-2 mx-auto flex w-full max-w-xl flex-col items-center text-center lg:order-1 lg:mx-0 lg:w-[48%] lg:items-start lg:text-left ${animClass} ${textContainerClassName}`}
           >
             <h2 className="tracking-[0.2em] text-white/60 text-[10px] md:text-[15px]">
               {topText}
             </h2>
-            <motion.h1
+            <h1
               className={`text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-extrabold leading-[1.15] tracking-tight ${headingClassName}`}
-              {...(!isNone && { variants: itemVariants })}
             >
               {BeforeHighlight && (
                 <span className={beforeHighlightClassName}>
@@ -193,21 +124,17 @@ export const VideoHeader = ({
               <span className={`text-white ${afterHighlightClassName}`}>
                 {AfterHighlight}
               </span>
-            </motion.h1>
+            </h1>
 
-            <motion.p
+            <p
               className={`mt-5 max-w-[48ch] text-[15px] sm:text-base leading-[1.7] text-white/70 ${descriptionClassName}`}
-              {...(!isNone && { variants: itemVariants })}
             >
               {Description}
-            </motion.p>
+            </p>
 
-            <motion.div
+            <div
               className="mt-8 flex w-full flex-col sm:w-auto sm:flex-row items-center justify-center gap-4 lg:justify-start"
-              {...(!isNone && { variants: itemVariants })}
             >
-              {/* دکمه اصلی */}
-
               <PrimaryButton
                 text={primaryBtnText}
                 href={primaryBtnUrl}
@@ -215,26 +142,18 @@ export const VideoHeader = ({
                 height="50px"
               />
 
-              {/* دکمه فرعی */}
-
               <SecondaryButton
                 text={secondaryBtnText}
                 href={secondaryBtnUrl}
                 width="14rem"
                 height="50px"
               />
-            </motion.div>
-          </MotionTag>
+            </div>
+          </div>
 
           {/* === سمت راست: عکس === */}
-          <MotionTag
-            /* order-1 در موبایل یعنی عکس میره بالا. lg:order-2 در دسکتاپ سمت راست میمونه */
-            className={`order-1 mx-auto flex w-full justify-center lg:order-2 lg:mx-0 lg:w-[52%] lg:justify-end ${imageDivClassName}`}
-            {...(!isNone && {
-              variants: rightVariants,
-              initial: "hidden",
-              animate: "show",
-            })}
+          <div
+            className={`order-1 mx-auto flex w-full justify-center lg:order-2 lg:mx-0 lg:w-[52%] lg:justify-end ${animClass} ${imageDivClassName}`}
           >
             {isBranding && rightComponent}
 
@@ -249,11 +168,11 @@ export const VideoHeader = ({
                   alt="Video Editing Dashboard"
                   width={900}
                   height={700}
-                  className={`w-full h-auto object-contain  ${imageClassName}`}
+                  className={`w-full h-auto object-contain ${imageClassName}`}
                 />
               </div>
             )}
-          </MotionTag>
+          </div>
         </div>
       </div>
     </section>

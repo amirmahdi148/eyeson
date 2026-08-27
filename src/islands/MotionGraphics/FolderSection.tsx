@@ -1,6 +1,5 @@
 import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
-import { motion, useInView } from "framer-motion";
 
 interface CardData {
   title: string;
@@ -38,29 +37,6 @@ const Folder: React.FC = () => {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const flapRef = useRef<HTMLDivElement>(null);
   const backgroundRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(container, {
-    once: true,
-    margin: "0px 0px -100px 0px",
-  });
-
-  useEffect(() => {
-    // Entry animation for cards when in view
-    if (isInView) {
-      cardRefs.current.forEach((card, i) => {
-        if (card) {
-          gsap.from(card, {
-            y: 100,
-            x: (i - 1) * -60,
-            opacity: 0,
-            scale: 0.8,
-            duration: 0.8,
-            delay: i * 0.1,
-            ease: "back.out",
-          });
-        }
-      });
-    }
-  }, [isInView]);
 
   const handleMouseEnter = (): void => {
     const tl = gsap.timeline();
@@ -142,7 +118,7 @@ const Folder: React.FC = () => {
   return (
     <div
       ref={container}
-      className="relative w-[450px] h-[400px] flex items-center justify-center cursor-pointer"
+      className="relative w-[450px] max-w-full h-[400px] flex items-center justify-center cursor-pointer"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       style={{ perspective: "1000px" }}
@@ -173,10 +149,10 @@ const Folder: React.FC = () => {
         ))}
       </div>
 
-      {/* Folder Front Flap (Glassmorphism) - Image Placeholder */}
+      {/* Folder Front Flap (Glassmorphism) */}
       <div
         ref={flapRef}
-        className="absolute bottom-4 w-[500px] h-[320px] z-20"
+        className="absolute bottom-4 w-[500px] max-w-full h-[320px] z-20"
         style={{
           backgroundImage: "url(/motion-graphics/Folder/FF.svg)",
           backgroundSize: "contain",
@@ -192,30 +168,14 @@ const Folder: React.FC = () => {
  * Main  Component
  */
 const MotionSection: React.FC = () => {
-  const contentRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(contentRef, {
-    once: true,
-    margin: "0px 0px -50px 0px",
-  });
-
   return (
-    <div className="min-h-screen w-full  flex items-center justify-center px-6 md:px-8 font-sans overflow-hidden py-20 lg:py-0">
-      <motion.div
-        ref={contentRef}
-        // Changed to flex-col for mobile, flex-row for desktop
-        // items-center ensures text is centered horizontally on mobile
-        className="w-full flex flex-col lg:flex-row justify-center items-center relative z-10 gap-12 lg:gap-16"
-        initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+    <div className="min-h-screen w-full flex items-center justify-center px-6 md:px-8 font-sans overflow-hidden py-20 lg:py-0">
+      <div
+        className="w-full flex flex-col lg:flex-row justify-center items-center relative z-10 gap-12 lg:gap-16 animate-fade-in"
       >
         {/* Left Section: Content */}
-        <motion.div
-          // text-center for mobile, text-left for desktop
-          className="space-y-8 text-center lg:text-left flex flex-col items-center lg:items-start"
-          initial={{ opacity: 0, x: -50 }}
-          animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+        <div
+          className="space-y-8 text-center lg:text-left flex flex-col items-center lg:items-start animate-slide-up"
         >
           <h1 className="text-2xl md:text-2xl lg:text-4xl font-bold text-white leading-[1.2] lg:leading-[1.1] tracking-tight">
             Where ideas turn into <br className="hidden md:block" />
@@ -241,31 +201,23 @@ const MotionSection: React.FC = () => {
             audience actually wants to watch.
           </p>
 
-          <motion.button
-            // mx-auto centers the button in its flex-col parent on mobile
-            className="group relative px-8 py-4 bg-teal-500/10 border border-teal-500/50 rounded-full overflow-hidden transition-all duration-300 hover:border-teal-400 hover:shadow-[0_0_20px_rgba(20,184,166,0.4)] active:scale-95 mx-auto lg:mx-0"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 }}
+          <button
+            className="group relative px-8 py-4 bg-teal-500/10 border border-teal-500/50 rounded-full overflow-hidden transition-all duration-300 hover:border-teal-400 hover:shadow-[0_0_20px_rgba(20,184,166,0.4)] active:scale-95 mx-auto lg:mx-0 cursor-pointer"
           >
             <span className="relative z-10 text-teal-400 font-semibold group-hover:text-white transition-colors">
               Start a Motion Project
             </span>
             <div className="absolute inset-0 bg-gradient-to-r from-teal-500 to-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          </motion.button>
-        </motion.div>
+          </button>
+        </div>
 
         {/* Right Section: Interactive Folder */}
-        {/* hidden on mobile, block on large screens (Desktop) */}
-        <motion.div
-          className="hidden lg:block"
-          initial={{ opacity: 0, x: 50 }}
-          animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+        <div
+          className="hidden lg:block animate-fade-in"
         >
           <Folder />
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </div>
   );
 };

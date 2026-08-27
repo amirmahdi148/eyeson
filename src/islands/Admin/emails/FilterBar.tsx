@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Search, Wallet, ArrowUpDown } from "lucide-react";
 import { LOG_PREFIX, statuses, priorities } from "./types";
 import type { FilterStatus, FilterPriority, SortOrder } from "./types";
@@ -83,10 +82,8 @@ export default function FilterBar({
       <div className="flex flex-wrap items-center gap-2">
         <span className="text-xs text-white/30 font-medium mr-1">Status:</span>
         {statuses.map((s) => (
-          <motion.button
+          <button
             key={s}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
             onClick={() => {
               console.log(`${LOG_PREFIX} [UI] Status filter changed: "${s}" (was "${filterStatus}")`);
               onStatusChange(s);
@@ -98,15 +95,13 @@ export default function FilterBar({
             }`}
           >
             {s}
-          </motion.button>
+          </button>
         ))}
 
         <span className="text-xs text-white/30 font-medium ml-3 mr-1">Priority:</span>
         {priorities.map((p) => (
-          <motion.button
+          <button
             key={p}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
             onClick={() => {
               console.log(`${LOG_PREFIX} [UI] Priority filter changed: "${p}" (was "${filterPriority}")`);
               onPriorityChange(p);
@@ -118,7 +113,7 @@ export default function FilterBar({
             }`}
           >
             {p}
-          </motion.button>
+          </button>
         ))}
       </div>
     </div>

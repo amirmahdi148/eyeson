@@ -1,7 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
-
 type ModelStep = {
   id: number;
   title: string;
@@ -45,7 +43,7 @@ export default function RetainerModelSteps() {
   return (
     <section className="relative w-full overflow-hidden px-4 pb-16 pt-10 sm:px-6 lg:px-20 lg:pb-24">
       <div className="mx-auto max-w-7xl">
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="mx-auto max-w-3xl text-center animate-fade-in">
           <p className="mb-3 text-[11px] tracking-[0.2em] text-[#c2d3dc] sm:text-xs">
             FLEXIBLE BY DESIGN
           </p>
@@ -67,24 +65,16 @@ export default function RetainerModelSteps() {
         <div className="relative mx-auto mt-14 max-w-5xl">
           <div className="absolute bottom-6 left-5 top-6 -translate-x-1/2 md:left-10">
             <div className="h-full w-[2px] bg-[#FFFFFF0D]" />
-            <motion.div
-              initial={{ scaleY: 0 }}
-              whileInView={{ scaleY: 1 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 1.2, ease: "easeOut" }}
-              className="absolute left-0 top-0 h-full w-[3px] origin-top bg-[#46B59E] shadow-[0_0_12px_#46B59E,0_0_24px_#46B59E]"
+            <div
+              className="absolute left-0 top-0 h-full w-[3px] bg-[#46B59E] shadow-[0_0_12px_#46B59E,0_0_24px_#46B59E]"
             />
           </div>
 
-          <div className="space-y-8">
-            {defaultSteps.map((step, index) => (
-              <motion.div
+          <div className="space-y-8 animate-slide-up">
+            {defaultSteps.map((step) => (
+              <div
                 key={step.id}
-                initial={{ opacity: 0, x: -16 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.5, delay: index * 0.05, ease: "easeOut" }}
-                className="flex items-start gap-5 md:gap-10"
+                className="flex items-start gap-5 md:gap-10 transition-transform duration-200 hover:scale-[1.01]"
               >
                 <div className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#46B59E] bg-[#032635] text-lg font-bold text-[#46B59E] shadow-[0_0_14px_rgba(83,226,202,0.45)] md:h-14 md:w-14 md:text-xl">
                   {step.id}
@@ -97,7 +87,7 @@ export default function RetainerModelSteps() {
                     {step.description}
                   </p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

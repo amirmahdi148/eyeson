@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { MediaGrid } from "../Shared/PostComp.tsx";
 import { httpService } from "@/utils/httpService.ts";
 
@@ -53,11 +52,8 @@ export const PortfolioShowingSection = () => {
   }, [selectedCategory, page]);
 
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+    <section
+      className="relative z-10 w-full max-w-7xl mx-auto px-4 py-8 flex flex-col items-center animate-fade-in"
       className="mt-20 flex w-full flex-col items-center justify-center px-4 sm:mt-24 sm:px-6"
     >
       <div className="w-full max-w-5xl text-center">
@@ -88,6 +84,6 @@ export const PortfolioShowingSection = () => {
           isLoading={loading}
         />
       </div>
-    </motion.section>
+    </section>
   );
 };

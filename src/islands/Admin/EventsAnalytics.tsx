@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import {
   TrendingUp,
   Users,
@@ -238,14 +237,13 @@ export default function EventsAnalytics() {
             </button>
           </div>
 
-          <motion.button
-            whileTap={{ scale: 0.95 }}
+          <button
             onClick={handleRefresh}
             className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-white/70 hover:text-white transition-colors cursor-pointer"
             title="Refresh statistics"
           >
             <RefreshCw size={15} className={isRefreshing ? "animate-spin text-[#00E6D7]" : ""} />
-          </motion.button>
+          </button>
         </div>
 
         <div className="flex gap-2 w-full sm:w-auto">
@@ -268,11 +266,8 @@ export default function EventsAnalytics() {
           const Icon = stat.icon;
           const isUp = stat.change.startsWith("+");
           return (
-            <motion.div
+            <div
               key={stat.label}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ type: "spring", stiffness: 120, damping: 18, delay: i * 0.05 }}
               className="relative overflow-hidden rounded-2xl border border-white/5 bg-white/[0.03] backdrop-blur-xl p-5"
             >
               <div className="flex items-start justify-between">
@@ -292,7 +287,7 @@ export default function EventsAnalytics() {
                 <div className="text-2xl font-bold text-white">{stat.value}</div>
                 <div className="text-sm text-white/50 mt-0.5">{stat.label}</div>
               </div>
-            </motion.div>
+            </div>
           );
         })}
       </div>
@@ -694,21 +689,14 @@ export default function EventsAnalytics() {
       </div>
 
       {/* JSON Details Inspector Drawer/Modal */}
-      <AnimatePresence>
+      
         {selectedEvent && (
           <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.7 }}
-              exit={{ opacity: 0 }}
+            <div
               onClick={() => setSelectedEvent(null)}
               className="fixed inset-0 bg-black z-50 cursor-pointer"
             />
-            <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            <div
               className="fixed right-0 top-0 bottom-0 w-full sm:w-[480px] bg-[#021617]/95 border-l border-white/10 z-50 p-6 shadow-2xl backdrop-blur-xl flex flex-col justify-between text-white"
             >
               <div className="space-y-6 overflow-y-auto">
@@ -764,10 +752,10 @@ export default function EventsAnalytics() {
                   Done
                 </button>
               </div>
-            </motion.div>
+            </div>
           </>
         )}
-      </AnimatePresence>
+      
     </div>
   );
 }

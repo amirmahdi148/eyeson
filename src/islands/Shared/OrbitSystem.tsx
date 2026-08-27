@@ -2,11 +2,12 @@ import React, {
   memo,
   useLayoutEffect,
   useRef,
+  useState,
+  useEffect,
 } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
-import { motion, useInView, type Variants } from "framer-motion";
 import OrbitCircles from "./Orbit-Circles.svg";
 import { useMediaQuery } from "react-responsive";
 import SecondaryButton from "@/components/Shared/SecondaryButton";
@@ -81,42 +82,6 @@ interface OrbitSystemProps {
   animations: boolean;
 }
 
-/* ================= FRAMER VARIANTS ================= */
-
-const ContentSpawn: Variants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: "easeOut" },
-  },
-};
-
-const OrbitSpawn: Variants = {
-  hidden: { opacity: 0 },
-  visible: (delay: number) => ({
-    opacity: 1,
-    transition: { duration: 0.8, delay, ease: "easeOut" },
-  }),
-};
-
-const IconSpawn: Variants = {
-  hidden: { opacity: 0 },
-  visible: (delay: number) => ({
-    opacity: 1,
-    transition: {
-      duration: 0.6,
-      delay,
-    },
-  }),
-};
-
-/* ================= DELAYS ================= */
-
-const orbitDelays = [2, 0.7, 1.2];
-
-/* ================= COMPONENT ================= */
-
 export const OrbitSystem = memo(function OrbitSystem({
   orbits,
   content,
@@ -130,10 +95,21 @@ export const OrbitSystem = memo(function OrbitSystem({
   const iconTweensRef = useRef<gsap.core.Tween[]>([]);
 
   const isMobileView = useMediaQuery({ maxWidth: 700 });
-  const isInView = useInView(containerRef, {
-    once: true,
-    margin: "-100px",
-  });
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "80px" }
+    );
+    if (containerRef.current) observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   /* ===== GSAP (lazy) ===== */
   useLayoutEffect(() => {
@@ -205,18 +181,18 @@ export const OrbitSystem = memo(function OrbitSystem({
   return (
     <div
       ref={containerRef}
-      className="w-full min-h-screen sm:min-h-screen lg:min-h-screen overflow-hidden relative flex items-center justify-center "
+      className="w-full min-h-[60vh] md:min-h-screen overflow-hidden relative flex items-center justify-center py-12 md:py-0"
     >
-      <div className="pointer-events-none absolute inset-0 " />
+      <div className="pointer-events-none absolute inset-0" />
       <div
         ref={sceneRef}
         className="absolute inset-0 pointer-events-none overflow-hidden will-change-transform"
       >
         <div className="relative w-full h-full">
-          <motion.svg
+          <svg
             viewBox={isMobileView ? "0 -15 1000 500" : "0 -15 1000 1000"}
             preserveAspectRatio="xMidYMid meet"
-            className="absolute inset-0 w-full h-full mx-auto scale-150 sm:scale-120 md:scale-100 will-change-transform"
+            className="absolute inset-0 w-full h-full mx-auto scale-125 sm:scale-110 md:scale-100 will-change-transform"
             style={{
               maskImage:
                 "linear-gradient(to bottom, black 0%, transparent 100%)",
@@ -236,16 +212,10 @@ export const OrbitSystem = memo(function OrbitSystem({
             </defs>
 
             {orbits.map((orbit, orbitIndex) => {
-              const orbitDelay = orbitDelays[orbitIndex] ?? 0.5;
-
               return (
-                <motion.g
+                <g
                   key={orbitIndex}
                   className={`orbit-${orbitIndex + 1} ${orbitIndex > 2 ? "hidden lg:block" : ""}`}
-                  variants={OrbitSpawn}
-                  custom={orbitDelay}
-                  initial="hidden"
-                  animate={isInView && animations ? "visible" : "hidden"}
                 >
                   <path
                     ref={(el) => {
@@ -258,7 +228,7 @@ export const OrbitSystem = memo(function OrbitSystem({
                     vectorEffect="non-scaling-stroke"
                   />
 
-                  {orbit.icons.map((icon, iconIndex) => {
+                  {orbit.icons.map((icon) => {
                     const iconSrcValue = icon.iconSrc
                       ? typeof icon.iconSrc === "string"
                         ? icon.iconSrc
@@ -268,7 +238,7 @@ export const OrbitSystem = memo(function OrbitSystem({
                     const iconRadius = iconWidth / 2;
 
                     return (
-                      <motion.g
+                      <g
                         key={icon.name}
                         ref={(el) => {
                           if (el) {
@@ -278,8 +248,6 @@ export const OrbitSystem = memo(function OrbitSystem({
                           }
                         }}
                         className={`icon ${icon.name}`}
-                        variants={IconSpawn}
-                        custom={orbitDelay + iconIndex * 0.15}
                       >
                         <image
                           href={OrbitCircles.src}
@@ -302,23 +270,20 @@ export const OrbitSystem = memo(function OrbitSystem({
                             className={`pointer-events-none ${icon.iconClassName ?? ""}`.trim()}
                           />
                         )}
-                      </motion.g>
+                      </g>
                     );
                   })}
-                </motion.g>
+                </g>
               );
             })}
-          </motion.svg>
+          </svg>
         </div>
       </div>
 
-      <motion.div
-        className="relative z-10 flex flex-col items-center justify-center gap-2 sm:gap-4 md:gap-6 min-h-screen sm:min-h-[80vh] pt-70 lg:pt-60 lg:min-h-[70vh] w-full text-center  max-w-4xl mx-auto"
-        variants={ContentSpawn}
-        initial="hidden"
-        animate={isInView && animations ? "visible" : "hidden"}
+      <div
+        className="relative z-10 flex flex-col items-center justify-center gap-2 sm:gap-4 md:gap-6 min-h-[50vh] sm:min-h-[70vh] pt-32 sm:pt-48 lg:pt-60 w-full text-center max-w-4xl mx-auto px-4 animate-fade-in"
       >
-        <h3 className="text-lg leading-tight sm:text-xl md:text-2xl lg:text-3xl font-bold text-white relative z-10">
+        <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white relative z-10 leading-tight">
           {content.headingHighlight ? (
             <span className="text-[#38B6B3]">{content.headingHighlight}</span>
           ) : null}
@@ -333,7 +298,7 @@ export const OrbitSystem = memo(function OrbitSystem({
         </h3>
 
         {content.subheading && (
-          <h5 className="text-xs sm:text-sm md:text-base lg:text-xl w-full max-w-xs sm:max-w-160 md:max-w-160 lg:w-120 text-[#B5C6CC] relative z-10 leading-relaxed">
+          <h5 className="text-xs sm:text-sm md:text-base lg:text-lg w-full max-w-xs sm:max-w-md md:max-w-xl text-[#B5C6CC] relative z-10 leading-relaxed font-light mt-2">
             {content.subheading}
           </h5>
         )}
@@ -361,7 +326,7 @@ export const OrbitSystem = memo(function OrbitSystem({
     ))}
   </div>
 )}
-      </motion.div>
+      </div>
     </div>
   );
 });

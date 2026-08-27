@@ -1,7 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
-
 export default function TestimonialCard({ item }: { item: any }) {
   return (
     <div className="relative group h-full px-2 py-2">
@@ -32,17 +30,14 @@ export default function TestimonialCard({ item }: { item: any }) {
 
           <div className="flex gap-1 mt-6 relative z-10">
             {[...Array(5)].map((_, i) => (
-              <motion.svg
+              <svg
                 key={i}
-                initial={{ scale: 1 }}
-                whileHover={{ scale: 1.15, rotate: 6 }}
-                transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] as any }}
-                className={`w-5 min-h-10 max-h-10 ${i < item.stars ? "text-[var(--primitive-teal-500)] fill-[var(--primitive-teal-500)] drop-shadow-[0_0_6px_rgba(0,169,189,0.5)]" : "text-[var(--primitive-teal-500)]/18 fill-[var(--primitive-teal-500)]/18"}`}
+                className={`w-5 min-h-10 max-h-10 transition-transform duration-200 hover:scale-110 ${i < item.stars ? "text-[var(--primitive-teal-500)] fill-[var(--primitive-teal-500)] drop-shadow-[0_0_6px_rgba(0,169,189,0.5)]" : "text-[var(--primitive-teal-500)]/18 fill-[var(--primitive-teal-500)]/18"}`}
                 viewBox="0 0 24 24"
                 aria-hidden="true"
               >
                 <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-              </motion.svg>
+              </svg>
             ))}
           </div>
 

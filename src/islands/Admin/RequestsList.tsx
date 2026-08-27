@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Search, ArrowUpRight, Clock, CheckCircle2, AlertCircle, XCircle, Loader2 } from "lucide-react";
 import { dashboardService } from "@/services/dashboardService.ts";
 
@@ -106,10 +105,8 @@ export default function RequestsList() {
         </div>
         <div className="flex gap-2 overflow-x-auto pb-1">
           {statuses.map((s) => (
-            <motion.button
+            <button
               key={s}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
               onClick={() => setFilterStatus(s)}
               className={`px-3 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition-all cursor-pointer ${
                 filterStatus === s
@@ -118,24 +115,19 @@ export default function RequestsList() {
               }`}
             >
               {s}
-            </motion.button>
+            </button>
           ))}
         </div>
       </div>
 
       {/* Requests List */}
       <div className="rounded-2xl border border-white/5 bg-white/[0.03] backdrop-blur-xl divide-y divide-white/5">
-        <AnimatePresence mode="popLayout">
+        
           {filteredRequests.map((r, i) => {
             const status = statusConfig[r.status] || statusConfig.Pending;
             return (
-              <motion.div
+              <div
                 key={`${r.title}-${i}`}
-                layout
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ delay: i * 0.03 }}
                 className="flex flex-col sm:flex-row sm:items-center justify-between p-4 sm:p-5 hover:bg-white/[0.02] transition-colors gap-3 sm:gap-0"
               >
                 <div className="flex items-start gap-4 min-w-0">
@@ -168,10 +160,10 @@ export default function RequestsList() {
                     <ArrowUpRight size={14} />
                   </a>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
-        </AnimatePresence>
+        
 
         {filteredRequests.length === 0 && (
           <div className="p-12 text-center">

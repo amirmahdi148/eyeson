@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import {
   Clock,
   Settings,
@@ -42,9 +41,7 @@ export default function SettingsPanel() {
   };
 
   const Toggle = ({ checked, onChange }: { checked: boolean; onChange: (v: boolean) => void }) => (
-    <motion.button
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+    <button
       onClick={() => onChange(!checked)}
       className={`relative w-11 h-6 rounded-full transition-colors duration-200 cursor-pointer ${
         checked ? "bg-[#00E6D7]" : "bg-white/10"
@@ -55,7 +52,7 @@ export default function SettingsPanel() {
           checked ? "translate-x-5" : "translate-x-0"
         }`}
       />
-    </motion.button>
+    </button>
   );
 
   const settingItems = [
@@ -109,8 +106,7 @@ export default function SettingsPanel() {
             <p className="text-sm text-white/50">Manage your admin preferences</p>
           </div>
         </div>
-        <motion.button
-          whileTap={{ scale: 0.95 }}
+        <button
           onClick={handleSave}
           className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all cursor-pointer ${
             saved
@@ -120,17 +116,14 @@ export default function SettingsPanel() {
         >
           {saved ? <Check size={16} /> : <Save size={16} />}
           {saved ? "Saved!" : "Save Changes"}
-        </motion.button>
+        </button>
       </div>
 
       {/* Settings List */}
       <div className="rounded-2xl border border-white/5 bg-white/[0.03] backdrop-blur-xl divide-y divide-white/5">
         {settingItems.map((item, i) => (
-          <motion.div
+          <div
             key={item.title}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.05 }}
             className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5"
           >
             <div className="flex items-start gap-4 min-w-0">
@@ -141,7 +134,7 @@ export default function SettingsPanel() {
               </div>
             </div>
             <div className="shrink-0 sm:ml-4">{item.control}</div>
-          </motion.div>
+          </div>
         ))}
       </div>
 

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { AlertTriangle, Clock, X, Loader2, User, Phone, Mail } from "lucide-react";
 import { httpService } from "@/utils/httpService.ts";
 
@@ -87,9 +86,7 @@ export default function UpcomingRequests() {
 
   return (
     <div className="relative" ref={dropdownRef}>
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+      <button
         onClick={() => {
           if (!open) fetchUpcoming(1, false);
           setOpen(!open);
@@ -103,15 +100,11 @@ export default function UpcomingRequests() {
             {totalItems > 9 ? "9+" : totalItems}
           </span>
         )}
-      </motion.button>
+      </button>
 
-      <AnimatePresence>
+      
         {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -8, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -8, scale: 0.95 }}
-            transition={{ duration: 0.15 }}
+          <div
             className="absolute right-0 mt-2 w-80 sm:w-96 rounded-2xl bg-[#021617] border border-red-500/20 shadow-2xl shadow-red-900/20 z-50 flex flex-col max-h-[70vh]"
           >
             <div className="flex items-center justify-between px-4 py-3 border-b border-red-500/10 shrink-0 bg-red-500/5 rounded-t-2xl">
@@ -124,14 +117,12 @@ export default function UpcomingRequests() {
                   </span>
                 )}
               </div>
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
+              <button
                 onClick={() => setOpen(false)}
                 className="text-white/30 hover:text-white transition-colors cursor-pointer"
               >
                 <X size={16} />
-              </motion.button>
+              </button>
             </div>
 
             <div 
@@ -149,11 +140,8 @@ export default function UpcomingRequests() {
                   {requests.map((r, i) => {
                     const isDanger = r.daysLeft < 2;
                     return (
-                      <motion.div
+                      <div
                         key={r.id}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: i * 0.03 }}
                         className={`p-4 transition-colors hover:bg-white/[0.02] ${isDanger ? 'bg-red-500/[0.02]' : ''}`}
                       >
                         <div className="flex items-start justify-between gap-3 mb-2">
@@ -188,7 +176,7 @@ export default function UpcomingRequests() {
                             </div>
                           )}
                         </div>
-                      </motion.div>
+                      </div>
                     );
                   })}
                   {loading && (
@@ -199,9 +187,9 @@ export default function UpcomingRequests() {
                 </div>
               )}
             </div>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
+      
     </div>
   );
 }

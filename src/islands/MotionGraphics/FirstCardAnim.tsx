@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import {motion, type Variants, easeInOut} from 'framer-motion';
 import { Sparkles } from 'lucide-react';
 
 export const AnimatedCard = () => {
@@ -10,173 +9,120 @@ export const AnimatedCard = () => {
     }, []);
 
     if (!mounted) return null;
-    // Animation Variants
-    const containerVariants : Variants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.2,
-                delayChildren: 0.1,
-            },
-        },
-    };
-
-    const popIn : Variants = {
-        hidden: { opacity: 0, scale: 0.8, y: 20 },
-        visible: {
-            opacity: 1,
-            scale: 1,
-            y: 0,
-            transition: { type: 'spring', stiffness: 120, damping: 12 },
-        },
-    };
-
-    const floating = (yOffset = 10, duration = 3) => ({
-        y: [0, -yOffset, 0],
-        transition: {
-            duration: duration,
-            repeat: Infinity,
-            ease: easeInOut,
-        },
-    });
-
-    const getPulseAnimation = (delay = 0) => ({
-        scale: [1, 1.3, 1],
-        opacity: [0.6, 1, 0.6],
-        transition: { duration: 2, repeat: Infinity, ease: easeInOut, delay },
-    });
 
     return (
-        <div className="flex items-center justify-center overflow-hidden p-8 w-full">
+        <div className="flex items-center justify-center overflow-hidden p-2 sm:p-6 md:p-8 w-full">
             {/* Main Container */}
-            <motion.div
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
-                className="relative w-[700px] flex items-center justify-center"
+            <div
+                className="relative w-full max-w-[620px] aspect-[16/10] flex items-center justify-center animate-fade-in"
             >
                 {/* Wireframe Outline Top Left */}
-                <motion.div
-                    variants={popIn}
-                    className="absolute top-0 left-0 w-48 h-48 border-[1.5px] border-cyan-300 rounded-[2rem] opacity-60 z-0"
+                <div
+                    className="absolute top-0 left-0 w-32 sm:w-48 h-32 sm:h-48 border-[1.5px] border-cyan-300 rounded-[1.5rem] sm:rounded-[2rem] opacity-60 z-0"
                 />
 
                 {/* Wireframe Outline Bottom Right */}
-                <motion.div
-                    variants={popIn}
-                    className="absolute -bottom-8 right-0 w-64 h-48 border-[1.5px] border-cyan-300 rounded-[2rem] opacity-60 z-0"
+                <div
+                    className="absolute -bottom-4 sm:-bottom-8 right-0 w-44 sm:w-64 h-32 sm:h-48 border-[1.5px] border-cyan-300 rounded-[1.5rem] sm:rounded-[2rem] opacity-60 z-0"
                 />
 
                 {/* Main Frosted Glass Background Card */}
-                <motion.div
-                    variants={popIn}
-                    className="absolute w-[600px] h-[250px] rounded-[2rem] border border-cyan-400/50 shadow-[0_20px_50px_rgba(6,182,212,0.2)] overflow-hidden z-10 bg-gradient-to-br from-cyan-900/40 to-teal-800/20 backdrop-blur-md"
+                <div
+                    className="absolute w-[88%] h-[75%] rounded-[1.5rem] sm:rounded-[2rem] border border-cyan-400/50 shadow-[0_20px_50px_rgba(6,182,212,0.2)] overflow-hidden z-10 bg-gradient-to-br from-cyan-900/40 to-teal-800/20 backdrop-blur-md"
                 >
                     {/* Inner shadow/glow effect */}
                     <div className="absolute inset-0 shadow-[inset_0_0_40px_rgba(6,182,212,0.3)]"></div>
-                </motion.div>
+                </div>
 
                 {/* --- Floating Elements --- */}
 
                 {/* 3D Badge */}
-                <motion.div
-                    variants={popIn}
-                    className="absolute top-4 left-10 z-20"
+                <div
+                    className="absolute top-4 left-6 sm:left-10 z-20"
                 >
-                    <motion.div
-                        animate={floating(8, 2.5)}
-                        className="px-4 py-1.5 bg-[#00a8cc] rounded-full shadow-lg transform -rotate-12"
+                    <div
+                        className="px-3 sm:px-4 py-1 sm:py-1.5 bg-[#00a8cc] rounded-full shadow-lg transform -rotate-12 animate-float-slow"
                     >
-                        <span className="text-white font-bold text-sm tracking-wider">3D</span>
-                    </motion.div>
-                </motion.div>
+                        <span className="text-white font-bold text-xs sm:text-sm tracking-wider">3D</span>
+                    </div>
+                </div>
 
                 {/* Motion Design Pill */}
-                <motion.div
-                    variants={popIn}
-                    className="absolute top-1/4 left-24 z-20"
+                <div
+                    className="absolute top-1/4 left-10 sm:left-20 z-20"
                 >
-                    <motion.div
-                        animate={floating(12, 4)}
-                        className="px-8 py-4 bg-gradient-to-r from-[#17a2b8] to-[#20c997] rounded-xl shadow-xl shadow-cyan-900/20"
+                    <div
+                        className="px-4 sm:px-8 py-2 sm:py-4 bg-gradient-to-r from-[#17a2b8] to-[#20c997] rounded-xl shadow-xl shadow-cyan-900/20 animate-float-slow"
                     >
-                        <span className="text-white font-extrabold text-lg tracking-wide">Motion Design</span>
-                    </motion.div>
-                </motion.div>
+                        <span className="text-white font-extrabold text-sm sm:text-lg tracking-wide">Motion Design</span>
+                    </div>
+                </div>
 
                 {/* 4K Badge */}
-                <motion.div
-                    variants={popIn}
-                    className="absolute top-10 right-48 z-20"
+                <div
+                    className="absolute top-6 sm:top-10 right-20 sm:right-36 z-20"
                 >
-                    <motion.div animate={floating(5, 3)}>
-                        <div className="px-4 py-1 bg-[#343a40] rounded-xl shadow-lg border border-slate-600/50">
-                            <span className="text-white font-bold text-sm">4K</span>
-                        </div>
-                    </motion.div>
-                </motion.div>
+                    <div className="px-3 sm:px-4 py-1 bg-[#343a40] rounded-xl shadow-lg border border-slate-600/50 animate-float-slow">
+                        <span className="text-white font-bold text-xs sm:text-sm">4K</span>
+                    </div>
+                </div>
 
                 {/* Team A Card */}
-                <motion.div
-                    variants={popIn}
-                    className="absolute -bottom-4 left-4 z-30"
+                <div
+                    className="absolute -bottom-2 sm:-bottom-4 left-4 z-30"
                 >
-                    <motion.div
-                        animate={floating(10, 3.5)}
-                        className="p-1 bg-[#1a202c] rounded-2xl shadow-2xl"
+                    <div
+                        className="p-1 bg-[#1a202c] rounded-2xl shadow-2xl animate-float-slow"
                     >
-                        <div className="px-8 py-4 bg-gradient-to-br from-[#0f766e] to-[#0891b2] rounded-xl border border-cyan-400/30">
-                            <span className="text-white font-semibold text-lg">Team A</span>
+                        <div className="px-4 sm:px-8 py-2 sm:py-4 bg-gradient-to-br from-[#0f766e] to-[#0891b2] rounded-xl border border-cyan-400/30">
+                            <span className="text-white font-semibold text-sm sm:text-lg">Team A</span>
                         </div>
-                    </motion.div>
-                </motion.div>
+                    </div>
+                </div>
 
                 {/* Team B Card */}
-                <motion.div
-                    variants={popIn}
-                    className="absolute bottom-8 right-12 z-30"
+                <div
+                    className="absolute bottom-4 sm:bottom-8 right-6 sm:right-12 z-30"
                 >
-                    <motion.div
-                        animate={floating(15, 4.5)}
-                        className="p-1.5 bg-[#0f172a] rounded-[1.5rem] shadow-2xl transform rotate-[10deg]"
+                    <div
+                        className="p-1 sm:p-1.5 bg-[#0f172a] rounded-[1.5rem] shadow-2xl transform rotate-[10deg] animate-float-slow"
                     >
-                        <div className="px-10 py-5 bg-[#0e7490] rounded-2xl border border-cyan-400/20 transform -rotate-[5deg] origin-left">
-                            <span className="text-white font-medium text-lg">Team B</span>
+                        <div className="px-5 sm:px-10 py-2.5 sm:py-5 bg-[#0e7490] rounded-2xl border border-cyan-400/20 transform -rotate-[5deg] origin-left">
+                            <span className="text-white font-medium text-sm sm:text-lg">Team B</span>
                         </div>
-                    </motion.div>
-                </motion.div>
+                    </div>
+                </div>
 
                 {/* --- Decorative Stars --- */}
 
                 {/* Top Left Star */}
-                <motion.div variants={popIn} className="absolute top-6 left-28 z-20 text-cyan-400">
-                    <motion.div animate={getPulseAnimation(0)}>
-                        <Sparkles size={36} className="fill-cyan-400" strokeWidth={1} />
-                    </motion.div>
-                </motion.div>
+                <div className="absolute top-6 left-20 sm:left-28 z-20 text-cyan-400">
+                    <div className="animate-pulse">
+                        <Sparkles size={28} className="fill-cyan-400" strokeWidth={1} />
+                    </div>
+                </div>
 
                 {/* Top Right Stars */}
-                <motion.div variants={popIn} className="absolute -top-4 right-32 z-20 flex text-cyan-400 gap-1">
-                    <motion.div animate={getPulseAnimation(0.5)}>
-                        <Sparkles size={24} className="fill-cyan-400" strokeWidth={1} />
-                    </motion.div>
-                    <motion.div animate={getPulseAnimation(0)} className="mt-4">
-                        <Sparkles size={32} className="fill-cyan-400" strokeWidth={1} />
-                    </motion.div>
-                </motion.div>
+                <div className="absolute -top-4 right-16 sm:right-28 z-20 flex text-cyan-400 gap-1">
+                    <div className="animate-pulse">
+                        <Sparkles size={20} className="fill-cyan-400" strokeWidth={1} />
+                    </div>
+                    <div className="mt-4 animate-pulse">
+                        <Sparkles size={28} className="fill-cyan-400" strokeWidth={1} />
+                    </div>
+                </div>
 
                 {/* Bottom Center Stars */}
-                <motion.div variants={popIn} className="absolute bottom-12 right-1/3 z-20 flex gap-1 text-cyan-400">
-                    <motion.div animate={getPulseAnimation(0)} className="mb-4">
-                        <Sparkles size={20} className="fill-cyan-400" strokeWidth={1} />
-                    </motion.div>
-                    <motion.div animate={getPulseAnimation(0.8)}>
-                        <Sparkles size={28} className="fill-cyan-400" strokeWidth={1} />
-                    </motion.div>
-                </motion.div>
+                <div className="absolute bottom-10 sm:bottom-12 right-1/3 z-20 flex gap-1 text-cyan-400">
+                    <div className="mb-4 animate-pulse">
+                        <Sparkles size={18} className="fill-cyan-400" strokeWidth={1} />
+                    </div>
+                    <div className="animate-pulse">
+                        <Sparkles size={24} className="fill-cyan-400" strokeWidth={1} />
+                    </div>
+                </div>
 
-            </motion.div>
+            </div>
         </div>
     );
-}
+};

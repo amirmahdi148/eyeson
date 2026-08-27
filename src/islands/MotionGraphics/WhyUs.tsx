@@ -1,5 +1,4 @@
 import React, { useState, useEffect, type FC } from "react";
-import { motion, type Variants } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 
@@ -7,8 +6,6 @@ import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import { SmartImage } from "@/utils/SmartImage.tsx";
-// Assuming SmartImage is your custom component
-// import { SmartImage } from "@/utils/SmartImage.tsx";
 
 // --- Types ---
 interface Card {
@@ -86,17 +83,6 @@ const useMediaQuery = (query: string): boolean => {
   return matches;
 };
 
-// --- Animations ---
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
-};
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
-};
-
 // --- Sub-component ---
 const CardContent: FC<{ card: Card }> = ({ card }) => (
   <div className="flex h-full flex-col rounded-[2rem] border border-slate-700/50 bg-linear-to-br from-[#0B1F2A] to-[#094350] p-6 sm:p-8 transition-all duration-300 hover:border-cyan-500/30 group">
@@ -130,7 +116,6 @@ const CardContent: FC<{ card: Card }> = ({ card }) => (
 
     {/* Image Container - Fixed Height for visual balance */}
     <div className="mt-8 overflow-hidden rounded-2xl bg-slate-900/80 h-48 sm:h-60 flex items-center justify-center shadow-[0_0_20px_#00A9BD66]">
-      {/* Using img tag here for demo, swap back to SmartImage in your project */}
       <SmartImage
         src={card.image}
         alt={card.title}
@@ -173,12 +158,8 @@ export const MotionGraphicsSection: FC = () => {
       />
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={itemVariants}
-          className="mx-auto max-w-3xl text-center mb-16"
+        <div
+          className="mx-auto max-w-3xl text-center mb-16 animate-fade-in"
         >
           <h2 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
             Where <span className="text-[#00E5FF]">Motion Graphics</span>
@@ -191,7 +172,7 @@ export const MotionGraphicsSection: FC = () => {
             <br className="hidden sm:block" /> Here's where they create the most
             impact.
           </p>
-        </motion.div>
+        </div>
 
         <div className="relative">
           {isMobile ? (
@@ -202,7 +183,7 @@ export const MotionGraphicsSection: FC = () => {
               centeredSlides={false}
               pagination={{ clickable: true }}
               className="pb-12 !overflow-visible"
-              autoHeight={false} // Forces cards to follow container height
+              autoHeight={false}
             >
               {cardData.map((card) => (
                 <SwiperSlide key={card.id} className="!h-auto flex">
@@ -211,23 +192,18 @@ export const MotionGraphicsSection: FC = () => {
               ))}
             </Swiper>
           ) : (
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={containerVariants}
-              className="grid grid-cols-1 gap-6 md:grid-cols-2"
+            <div
+              className="grid grid-cols-1 gap-6 md:grid-cols-2 animate-slide-up"
             >
               {cardData.map((card) => (
-                <motion.div
+                <div
                   key={card.id}
-                  variants={itemVariants}
                   className="flex"
                 >
                   <CardContent card={card} />
-                </motion.div>
+                </div>
               ))}
-            </motion.div>
+            </div>
           )}
         </div>
       </div>

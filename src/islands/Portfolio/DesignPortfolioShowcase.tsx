@@ -1,5 +1,4 @@
 import { SmartImage } from "../../utils/SmartImage.tsx";
-import { motion } from "framer-motion";
 
 type DesignShowcaseItem = {
   id: string;
@@ -70,12 +69,8 @@ const designShowcaseItems: DesignShowcaseItem[] = [
 
 export const DesignPortfolioShowcase = () => {
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-      className="relative isolate overflow-hidden pb-20"
+    <section
+      className="relative isolate overflow-hidden pb-20 animate-fade-in"
     >
       <div
         aria-hidden="true"
@@ -110,6 +105,7 @@ export const DesignPortfolioShowcase = () => {
                 src={item.src}
                 alt={item.title}
                 className="h-full w-full object-cover"
+                loading="lazy"
               />
               <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/70 to-transparent p-3">
                 <span className="text-xs text-white/85">{item.category}</span>
@@ -141,7 +137,7 @@ export const DesignPortfolioShowcase = () => {
           ))}
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { ArrowLeft, User, Mail, Phone, Building2, Calendar, Clock, DollarSign, Briefcase, FileText } from "lucide-react";
 import { httpService } from "@/utils/httpService.ts";
 
@@ -63,9 +62,7 @@ export default function RequestDetail({ slug }: { slug?: string }) {
 
       <div className="grid gap-6 md:grid-cols-2">
         {/* Client Info */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
+        <div
           className="rounded-2xl border border-white/10 bg-[#05151d]/50 p-6 backdrop-blur-xl"
         >
           <h2 className="mb-4 text-lg font-semibold text-white flex items-center gap-2">
@@ -89,13 +86,10 @@ export default function RequestDetail({ slug }: { slug?: string }) {
               <p className="text-base font-medium text-white">{requestData.companyName || "N/A"}</p>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Project Info */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
+        <div
           className="rounded-2xl border border-white/10 bg-[#05151d]/50 p-6 backdrop-blur-xl"
         >
           <h2 className="mb-4 text-lg font-semibold text-white flex items-center gap-2">
@@ -121,13 +115,10 @@ export default function RequestDetail({ slug }: { slug?: string }) {
               <p className="text-base font-medium text-white">{requestData.time} ({requestData.duration})</p>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Description / Extra */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
+        <div
           className="md:col-span-2 rounded-2xl border border-white/10 bg-[#05151d]/50 p-6 backdrop-blur-xl"
         >
           <h2 className="mb-4 text-lg font-semibold text-white flex items-center gap-2">
@@ -138,7 +129,7 @@ export default function RequestDetail({ slug }: { slug?: string }) {
               {requestData.projectDetails || "No additional details provided."}
             </p>
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

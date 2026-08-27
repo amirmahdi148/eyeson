@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import {
   LayoutDashboard,
   FolderOpen,
@@ -64,23 +63,17 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   return (
     <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,#062428,#001219)] text-white">
       {/* Mobile overlay */}
-      <AnimatePresence>
+      
         {sidebarOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+          <div
             className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
             onClick={() => setSidebarOpen(false)}
           />
         )}
-      </AnimatePresence>
+      
 
       {/* Sidebar */}
-      <motion.aside
-        animate={{ x: sidebarOpen || isDesktop ? 0 : -256 }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      <aside
         className="fixed top-0 left-0 h-screen z-50 flex flex-col w-64 bg-[#021617]/95 lg:bg-[#021617]/60 backdrop-blur-xl border-r border-white/5"
       >
         {/* Logo */}
@@ -91,14 +84,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </div>
             <span className="font-bold text-lg tracking-tight">EyesON</span>
           </div>
-          <motion.button
-            whileHover={{ scale: 1.1, rotate: 90 }}
-            whileTap={{ scale: 0.9 }}
+          <button
             onClick={() => setSidebarOpen(false)}
             className="lg:hidden text-white/60 hover:text-white transition-colors cursor-pointer"
           >
             <X size={20} />
-          </motion.button>
+          </button>
         </div>
 
         {/* Navigation */}
@@ -106,11 +97,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           {navItems.map((item) => {
             const active = isActive(item.href);
             return (
-              <motion.a
+              <a
                 key={item.href}
                 href={item.href}
-                whileHover={{ x: 4, scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 cursor-pointer ${
                   active
                     ? "bg-gradient-to-r from-[#00E6D7]/15 to-[#12ACB5]/10 text-[#00E6D7] border border-[#00E6D7]/20 shadow-lg shadow-[#00E6D7]/5"
@@ -121,7 +110,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 <item.icon size={18} />
                 <span>{item.label}</span>
                 {active && <ChevronRight size={14} className="ml-auto opacity-60" />}
-              </motion.a>
+              </a>
             );
           })}
         </nav>
@@ -140,25 +129,23 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <div className="text-sm font-medium truncate">{user?.name || "Admin"}</div>
               <div className="text-xs text-white/40 truncate">{user?.email || "admin@eyeson.io"}</div>
             </div>
-            <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} onClick={handleLogout} className="text-white/40 hover:text-red-400 transition-colors cursor-pointer" title="Logout">
+            <button onClick={handleLogout} className="text-white/40 hover:text-red-400 transition-colors cursor-pointer" title="Logout">
               <LogOut size={16} />
-            </motion.button>
+            </button>
           </div>
         </div>
-      </motion.aside>
+      </aside>
 
       {/* Main content */}
       <div className="lg:ml-64 flex flex-col min-h-screen">
         {/* Top bar */}
         <header className="sticky top-0 z-30 flex items-center gap-4 px-4 sm:px-6 lg:px-8 py-4 bg-[#021617]/60 backdrop-blur-xl border-b border-white/5">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          <button
             onClick={() => setSidebarOpen(true)}
             className="lg:hidden text-white/60 hover:text-white transition-colors p-1 cursor-pointer"
           >
             <Menu size={22} />
-          </motion.button>
+          </button>
           <div className="flex-1 min-w-0">
             <h1 className="text-lg sm:text-xl font-bold truncate">
               {navItems.find((item) => isActive(item.href))?.label || "Admin"}
