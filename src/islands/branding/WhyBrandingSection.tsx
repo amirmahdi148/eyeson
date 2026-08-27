@@ -1,46 +1,26 @@
-import { motion, type Variants } from "framer-motion";
 import { SmartImage } from "../../utils/SmartImage.tsx";
 
 export const WhyBrandingSection = () => {
-  const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
-    },
-  };
-
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.12 } },
-  };
-
   return (
     <section className="w-full py-12 px-4 sm:py-16 md:px-8 lg:py-20 lg:px-16 font-sans">
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.05 }}
-        className="max-w-350 mx-auto flex flex-col lg:flex-row gap-5"
+      <div
+        className="max-w-350 mx-auto flex flex-col lg:flex-row gap-5 animate-fade-in"
       >
         {/* ===== ستون چپ: تیتر + ۲ کارت افقی ===== */}
         <div className="flex flex-col gap-5 lg:w-[42%]">
           {/* تیتر */}
-          <motion.div variants={itemVariants} className="mb-1">
+          <div className="mb-1 animate-slide-up">
             <h2 className="text-3xl font-bold uppercase leading-tight tracking-tight text-white sm:text-4xl text-center lg:text-left md:text-5xl">
               WHY <span className="text-[#1ECFBC]">BRANDING</span> MATTERS
             </h2>
             <p className="text-gray-300 text-base font-light mt-2 sm:text-lg md:text-xl text-center lg:text-left">
               The Business Value of a Strong Brand
             </p>
-          </motion.div>
+          </div>
 
           {/* کارت ۱: عکس چپ، متن راست */}
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-row rounded-2xl border border-[#14313B] bg-[#081620] overflow-hidden"
+          <div
+            className="flex flex-row rounded-2xl border border-[#14313B] bg-[#081620] overflow-hidden transition-transform duration-200 hover:border-[#1ECFBC]/40"
             style={{ minHeight: 160 }}
           >
             <div className="relative shrink-0" style={{ width: "42%" }}>
@@ -64,12 +44,11 @@ export const WhyBrandingSection = () => {
                 confident choosing your business.
               </p>
             </div>
-          </motion.div>
+          </div>
 
           {/* کارت ۲: متن چپ، عکس راست */}
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-row rounded-2xl border border-[#14313B] bg-[#081620] overflow-hidden"
+          <div
+            className="flex flex-row rounded-2xl border border-[#14313B] bg-[#081620] overflow-hidden transition-transform duration-200 hover:border-[#1ECFBC]/40"
             style={{ minHeight: 160 }}
           >
             <div
@@ -92,13 +71,12 @@ export const WhyBrandingSection = () => {
                 objectFit="cover"
               />
             </div>
-          </motion.div>
+          </div>
         </div>
 
         {/* ===== ستون وسط: Consistency ===== */}
-        <motion.div
-          variants={itemVariants}
-          className="flex flex-col rounded-2xl border border-[#1A5560] bg-[#071820] overflow-hidden lg:w-[33%]"
+        <div
+          className="flex flex-col rounded-2xl border border-[#1A5560] bg-[#071820] overflow-hidden lg:w-[33%] transition-transform duration-200 hover:border-[#1ECFBC]/40"
         >
           <div className="p-5 sm:p-6 lg:p-7 shrink-0">
             <h3 className="text-xl font-bold text-white leading-tight mb-3 sm:text-2xl lg:mb-4">
@@ -117,12 +95,11 @@ export const WhyBrandingSection = () => {
               fill
             />
           </div>
-        </motion.div>
+        </div>
 
         {/* ===== ستون راست: Better Performing ===== */}
-        <motion.div
-          variants={itemVariants}
-          className="flex flex-col rounded-2xl border border-[#1A5560] bg-[#071820] overflow-hidden lg:w-[25%]"
+        <div
+          className="flex flex-col rounded-2xl border border-[#1A5560] bg-[#071820] overflow-hidden lg:w-[25%] transition-transform duration-200 hover:border-[#1ECFBC]/40"
         >
           <div className="relative flex-1" style={{ minHeight: 240 }}>
             <SmartImage
@@ -141,8 +118,8 @@ export const WhyBrandingSection = () => {
               what makes you unique.
             </p>
           </div>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </section>
   );
 };

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Eye, Users, Plus, Search, Grid3X3, List, ArrowUpRight, Pencil, Trash2, Loader2 } from "lucide-react";
 import { dashboardService } from "@/services/dashboardService.ts";
 import { httpService } from "@/utils/httpService.ts";
@@ -147,15 +146,13 @@ export default function ProjectsList() {
           <h2 className="text-xl font-bold text-white">Projects</h2>
           <p className="text-sm text-white/50 mt-0.5">{projects.length} total projects</p>
         </div>
-        <motion.button
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.97 }}
+        <button
           onClick={() => setShowNew(true)}
           className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#00E6D7] to-[#12ACB5] text-black font-medium text-sm hover:opacity-90 transition-opacity shrink-0 cursor-pointer"
         >
           <Plus size={16} />
           New Project
-        </motion.button>
+        </button>
       </div>
 
       {/* Toolbar */}
@@ -171,37 +168,28 @@ export default function ProjectsList() {
           />
         </div>
         <div className="flex gap-2">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          <button
             onClick={() => setViewMode("grid")}
             className={`p-2.5 rounded-xl border transition-all cursor-pointer ${viewMode === "grid" ? "bg-[#00E6D7]/15 border-[#00E6D7]/30 text-[#00E6D7]" : "bg-white/5 border-white/10 text-white/40 hover:text-white/60"}`}
           >
             <Grid3X3 size={16} />
-          </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          </button>
+          <button
             onClick={() => setViewMode("list")}
             className={`p-2.5 rounded-xl border transition-all cursor-pointer ${viewMode === "list" ? "bg-[#00E6D7]/15 border-[#00E6D7]/30 text-[#00E6D7]" : "bg-white/5 border-white/10 text-white/40 hover:text-white/60"}`}
           >
             <List size={16} />
-          </motion.button>
+          </button>
         </div>
       </div>
 
       {/* Projects Grid/List */}
       {viewMode === "grid" ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <AnimatePresence mode="popLayout">
+          
             {filteredProjects.map((p, i) => (
-              <motion.div
+              <div
                 key={p.slug}
-                layout
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ delay: i * 0.03 }}
                 className="group rounded-2xl border border-white/5 bg-white/[0.03] backdrop-blur-xl p-5 hover:border-white/10 transition-all"
               >
                 <div className="flex items-start justify-between mb-4">
@@ -253,21 +241,16 @@ export default function ProjectsList() {
                     </button>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
-          </AnimatePresence>
+          
         </div>
       ) : (
         <div className="rounded-2xl border border-white/5 bg-white/[0.03] backdrop-blur-xl divide-y divide-white/5">
-          <AnimatePresence mode="popLayout">
+          
             {filteredProjects.map((p, i) => (
-              <motion.div
+              <div
                 key={p.slug}
-                layout
-                initial={{ opacity: 0, x: -8 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -8 }}
-                transition={{ delay: i * 0.03 }}
                 className="flex items-center justify-between p-4 hover:bg-white/[0.02] transition-colors"
               >
                 <div className="flex items-center gap-4 min-w-0">
@@ -302,53 +285,41 @@ export default function ProjectsList() {
                     <Eye size={14} />
                     <span>{p.views.toLocaleString()}</span>
                   </div>
-                  <motion.a
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                  <a
                     href={`/case/${p.slug}`}
                     className="px-3 py-1.5 rounded-lg bg-white/10 text-white text-sm font-medium hover:bg-white/20 transition-colors cursor-pointer"
                   >
                     Open
-                  </motion.a>
-                  <motion.a
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                  </a>
+                  <a
                     href={`/admin/case/${p.slug}`}
                     className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#00E6D7] to-[#12ACB5] text-black text-sm font-medium hover:opacity-90 transition-opacity cursor-pointer"
                   >
                     Edit
-                  </motion.a>
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                  </a>
+                  <button
                     onClick={() => handleDeleteProject(p)}
                     disabled={deletingSlug === p.slug}
                     className="p-2 rounded-lg bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20 transition-colors cursor-pointer disabled:opacity-50"
                     title="Delete Project"
                   >
                     {deletingSlug === p.slug ? <Loader2 size={14} className="animate-spin" /> : <Trash2 size={14} />}
-                  </motion.button>
+                  </button>
                 </div>
-              </motion.div>
+              </div>
             ))}
-          </AnimatePresence>
+          
         </div>
       )}
 
       {/* Create Project Modal */}
-      <AnimatePresence>
+      
         {showNew && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+          <div
             className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
             onClick={() => !creating && setShowNew(false)}
           >
-            <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
+            <div
               className="w-full max-w-md rounded-2xl border border-white/10 bg-[#021617] p-6"
               onClick={(e) => e.stopPropagation()}
             >
@@ -392,31 +363,27 @@ export default function ProjectsList() {
                 </div>
 
                 <div className="flex gap-3 pt-2">
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                  <button
                     type="button"
                     onClick={() => setShowNew(false)}
                     disabled={creating}
                     className="flex-1 px-4 py-2.5 rounded-xl border border-white/10 text-white/70 text-sm font-medium hover:bg-white/5 transition-colors disabled:opacity-50 cursor-pointer"
                   >
                     Cancel
-                  </motion.button>
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                  </button>
+                  <button
                     type="submit"
                     disabled={creating}
                     className="flex-1 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#00E6D7] to-[#12ACB5] text-black text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-50 cursor-pointer"
                   >
                     {creating ? "Creating..." : "Create Project"}
-                  </motion.button>
+                  </button>
                 </div>
               </form>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         )}
-      </AnimatePresence>
+      
     </div>
   );
 }

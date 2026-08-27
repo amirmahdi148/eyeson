@@ -1,4 +1,3 @@
-import { motion, AnimatePresence } from "framer-motion";
 import {
   CheckSquare, Square, Mail, Building2, Phone, Wallet,
   ChevronUp, ChevronDown, FileText, Tag, Calendar, Clock, Timer, User,
@@ -23,19 +22,14 @@ export default function RequestsListView({
 }: RequestsListViewProps) {
   return (
     <div className="rounded-2xl border border-white/5 bg-white/[0.03] backdrop-blur-xl divide-y divide-white/5">
-      <AnimatePresence mode="popLayout">
+      
         {requests.map((r, i) => {
           const isSelected = selectedIds.has(r.id);
           const isExpanded = expandedId === r.id;
           const status = statusConfig[r.status] || statusConfig.Pending;
           return (
-            <motion.div key={r.id} layout>
-              <motion.div
-                layout
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ delay: i * 0.02 }}
+            <div key={r.id}>
+              <div
                 className={`flex items-center gap-3 p-4 sm:p-5 hover:bg-white/[0.02] transition-colors cursor-pointer ${
                   isSelected ? "bg-[#00E6D7]/5" : ""
                 }`}
@@ -102,24 +96,18 @@ export default function RequestsListView({
                   <span className={`text-[10px] font-semibold uppercase px-2 py-1 rounded-full border ${priorityColors[r.priority] || "text-white/30"} border-white/10`}>
                     {r.priority}
                   </span>
-                  <motion.button
+                  <button
                     data-expand-toggle
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
                     className="text-white/30 hover:text-white/60 transition-colors cursor-pointer p-1"
                   >
                     {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-                  </motion.button>
+                  </button>
                 </div>
-              </motion.div>
+              </div>
 
-              <AnimatePresence>
+              
                 {isExpanded && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
+                  <div
                     className="overflow-hidden"
                   >
                     <div className="mx-4 sm:mx-5 mb-4 p-4 rounded-xl bg-white/5 border border-white/5">
@@ -162,13 +150,13 @@ export default function RequestsListView({
                         <span>Priority: {r.priority}</span>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 )}
-              </AnimatePresence>
-            </motion.div>
+              
+            </div>
           );
         })}
-      </AnimatePresence>
+      
     </div>
   );
 }

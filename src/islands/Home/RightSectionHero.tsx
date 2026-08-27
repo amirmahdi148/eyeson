@@ -10,10 +10,6 @@ import {
     Plus,
     Pen,
 } from "lucide-react";
-import {
-    motion,
-    AnimatePresence,
-} from "framer-motion";
 import { SmartImage } from "@/utils/SmartImage";
 
 const CATEGORIES = [
@@ -63,7 +59,6 @@ export default function RightSectionHero({
                                          }: RightSectionHeroProps) {
     const activeVideo = CATEGORIES.find((c) => c.id === activeTab)?.videoUrl;
 
-    // Only the viewport-appropriate hero video may have a src — hidden <video> elements still download data
     const [isDesktop, setIsDesktop] = useState(
         () => typeof window !== "undefined" && window.matchMedia("(min-width: 1024px)").matches,
     );
@@ -73,7 +68,7 @@ export default function RightSectionHero({
         mq.addEventListener("change", onChange);
         return () => mq.removeEventListener("change", onChange);
     }, []);
-    // Mobile: one random category synced once at mount (visible video lives in HeroHome mobile section)
+
     useEffect(() => {
         if (isDesktop) return;
         const idx = Math.floor(Math.random() * CATEGORIES.length);
@@ -83,11 +78,8 @@ export default function RightSectionHero({
     const resolvedPoster = resolvedVideo ? VIDEO_POSTERS[resolvedVideo] : undefined;
 
     return (
-        <motion.div
-            initial={{opacity: 0, x: shouldReduceMotion ? 0 : 28}}
-            animate={{opacity: 1, x: 0}}
-            transition={{duration: 0.6, ease: [0.16, 1, 0.3, 1] as any, delay: 0.18}}
-            className="relative order-1 lg:order-2 w-full lg:w-[55%] xl:w-[52%]"
+        <div
+            className="relative order-1 lg:order-2 w-full lg:w-[55%] xl:w-[52%] animate-fade-in"
         >
             <div className="absolute z-20 hidden lg:flex flex-col lg:flex-row items-center justify-center gap-3 right-4 lg:right-auto top-1/2 -translate-y-1/2 lg:top-80 lg:-left-10 xl:top-100 xl:left-10 lg:translate-x-0 lg:translate-y-0">
 
@@ -109,8 +101,6 @@ export default function RightSectionHero({
                 ))}
             </div>
 
-
-
             {/* Buttons End */}
             <div className="absolute inset-0 pointer-events-none">
                 <img
@@ -122,17 +112,17 @@ export default function RightSectionHero({
             <img
                 src="/home/RightElements/el/1.svg"
                 alt=""
-                className="absolute inset-0 z-10 h-full w-full scale-[1.2] md:scale-[1] lg:scale-[1.4] xl:scale-[1.6]  pointer-events-none"
+                className="absolute inset-0 z-10 h-full w-full scale-[1.2] md:scale-[1] lg:scale-[1.4] xl:scale-[1.6] pointer-events-none"
             />
             <img
                 src="/home/RightElements/el/2.svg"
                 alt=""
-                className="absolute inset-0 z-10 h-full w-full scale-[1.2] md:scale-[1] lg:scale-[1.4]  xl:scale-[1.6] pointer-events-none hidden lg:block"
+                className="absolute inset-0 z-10 h-full w-full scale-[1.2] md:scale-[1] lg:scale-[1.4] xl:scale-[1.6] pointer-events-none hidden lg:block"
             />
             <img
                 src="/home/RightElements/el/3.svg"
                 alt=""
-                className="absolute inset-0 z-10 h-full w-full scale-[1.2] md:scale-[1] lg:scale-[1.4]  xl:scale-[1.6] pointer-events-none hidden lg:block"
+                className="absolute inset-0 z-10 h-full w-full scale-[1.2] md:scale-[1] lg:scale-[1.4] xl:scale-[1.6] pointer-events-none hidden lg:block"
             />
             <img
                 src="/home/RightElements/el/5.svg"
@@ -142,7 +132,7 @@ export default function RightSectionHero({
             <img
                 src="/home/RightElements/el/6.svg"
                 alt=""
-                className="hidden lg:block absolute inset-0 z-10 h-full w-full scale-[0.6] sm:scale-[1.2] md:scale-[1] lg:scale-[1.4] xl:scale-[1.6]  pointer-events-none"
+                className="hidden lg:block absolute inset-0 z-10 h-full w-full scale-[0.6] sm:scale-[1.2] md:scale-[1] lg:scale-[1.4] xl:scale-[1.6] pointer-events-none"
             />
             <img
                 src="/home/RightElements/el/7.svg"
@@ -175,30 +165,24 @@ export default function RightSectionHero({
                     className="relative w-full h-[calc(100%-3.1rem)] mt-8 rounded-[var(--radius-2xl)] overflow-hidden border border-white/[0.06]"
                 >
                     <SmartImage src="/home/VideoElements/20/child.webp" alt="" fill className="rounded-[var(--radius-2xl)]" />
-                    <AnimatePresence mode="wait">
-                        <motion.video
-                            key={activeTab}
-                            ref={videoRef}
-                            src={resolvedVideo}
-                            poster={resolvedPoster}
-                            preload="metadata"
-                            autoPlay
-                            muted
-                            loop
-                            playsInline
-                            onTimeUpdate={handleTimeUpdate}
-                            initial={{opacity: 0}}
-                            animate={{opacity: 1}}
-                            exit={{opacity: 0}}
-                            transition={{duration: 0.35, ease: [0.16, 1, 0.3, 1] as any}}
-                            className="absolute inset-0 h-full w-full object-cover rounded-[var(--radius-2xl)]"
-                        />
-                    </AnimatePresence>
+                    <video
+                        key={activeTab}
+                        ref={videoRef}
+                        src={resolvedVideo}
+                        poster={resolvedPoster}
+                        preload="metadata"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        onTimeUpdate={handleTimeUpdate}
+                        className="absolute inset-0 h-full w-full object-cover rounded-[var(--radius-2xl)] transition-opacity duration-300"
+                    />
                     <div
                         className="absolute inset-0 bg-[#051118]/10 mix-blend-overlay pointer-events-none rounded-[var(--radius-2xl)]" aria-hidden="true"/>
                 </div>
             </div>
             {/* Video Section END */}
-        </motion.div>
-);
+        </div>
+    );
 }

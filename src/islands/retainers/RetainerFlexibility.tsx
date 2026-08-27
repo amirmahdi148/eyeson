@@ -1,17 +1,11 @@
 "use client";
 
-import { motion } from "framer-motion";
-
 export default function RetainerFlexibility() {
   return (
     <section className="relative w-full overflow-hidden px-4 py-10 sm:px-6 lg:px-20">
-      <div className="mx-auto max-w-4xl">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="rounded-3xl border border-[#13a8b8]/40 bg-linear-to-br from-[#0B1F2A] to-[#093C49] p-8 text-center shadow-[0_0_30px_rgba(0,168,182,0.1)] md:p-12"
+      <div className="mx-auto max-w-4xl animate-fade-in">
+        <div
+          className="rounded-3xl border border-[#13a8b8]/40 bg-linear-to-br from-[#0B1F2A] to-[#093C49] p-8 text-center shadow-[0_0_30px_rgba(0,168,182,0.1)] md:p-12 transition-transform duration-200 hover:border-[#13a8b8]/70"
         >
           <h2 className="text-3xl font-bold leading-tight text-white md:text-4xl lg:text-5xl">
             Your Business Changes.
@@ -30,7 +24,7 @@ export default function RetainerFlexibility() {
             That means you're buying ongoing creative capacity, not a random
             bundle of deliverables you may not need.
           </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

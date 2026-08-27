@@ -1,6 +1,4 @@
-
 import { useState } from "react";
-import { motion, type Variants } from "framer-motion";
 import { SmartImage } from "@/utils/SmartImage.tsx";
 
 const contactImg = "/Shared/contact/a.webp";
@@ -8,39 +6,15 @@ const contactImg = "/Shared/contact/a.webp";
 export default function ContactUs() {
   const [selectedBudget, setSelectedBudget] = useState<string | null>(null);
 
-  const container: Variants = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.2 },
-    },
-  };
-
-  const item: Variants = {
-    hidden: { opacity: 0, y: 50, scale: 0.95 },
-    show: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: { type: "spring", stiffness: 60, damping: 20 },
-    },
-  };
-
   return (
     <section className="py-12 px-4 mb-16 sm:py-16 sm:px-6 sm:mb-24 lg:px-16 lg:py-20 lg:mb-40">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-12 lg:gap-16 items-center">
         {/* ===== Left: Text + Image ===== */}
-        {/* 🔴 موبایل: وسط‌چین / دسکتاپ: چپ‌چین */}
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.15 }}
-          className="lg:col-span-5 flex flex-col items-center text-center lg:items-start lg:text-left gap-8 sm:gap-10 lg:gap-12"
+        <div
+          className="lg:col-span-5 flex flex-col items-center text-center lg:items-start lg:text-left gap-8 sm:gap-10 lg:gap-12 animate-fade-in"
         >
           {/* Text */}
-          <motion.div
-            variants={item}
+          <div
             className="text-white space-y-4 sm:space-y-6 w-full max-w-2xl lg:max-w-none"
           >
             <p className="text-[11px] sm:text-sm tracking-widest text-cyan-400 font-semibold uppercase">
@@ -57,14 +31,11 @@ export default function ContactUs() {
               editing, or design asset. We will review your project and suggest the best direction,
               timeline, and pricing option.
             </p>
-          </motion.div>
+          </div>
 
           {/* Image */}
-          <motion.div
-            variants={item}
-            animate={{ y: [0, -15, 0], rotate: [0, 1.5, 0] }}
-            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-            className="relative hidden sm:block w-full max-w-[700px] flex justify-center"
+          <div
+            className="relative hidden sm:flex w-full max-w-[700px] justify-center animate-float-slow"
           >
             <SmartImage
               src={contactImg}
@@ -73,19 +44,14 @@ export default function ContactUs() {
               height={600}
               loading="lazy"
               decoding="async"
-              className="rounded-2xl sm:rounded-3xl w-100 h-auto drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]    transition-transform duration-500"
+              className="rounded-2xl sm:rounded-3xl w-100 h-auto drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)] transition-transform duration-500"
             />
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
         {/* ===== Right: Form ===== */}
-        <motion.div
-          initial={{ opacity: 0, y: 80 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.1 }}
-          transition={{ type: "spring", stiffness: 60, damping: 16 }}
-          // 🔴 پدینگ موبایل رو کم کردم که فرم جا بشه (p-5 به جای p-8)
-          className="lg:col-span-7 w-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-12 shadow-2xl"
+        <div
+          className="lg:col-span-7 w-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-12 shadow-2xl animate-slide-up"
         >
           <form className="space-y-5 sm:space-y-6 md:space-y-8 text-white w-full text-left">
             {/* Name */}
@@ -108,30 +74,23 @@ export default function ContactUs() {
               <label className="text-xs sm:text-sm text-gray-400 font-medium ml-1">
                 Budget Range
               </label>
-              {/* 🔴 موبایل: justify-center تا دکمه‌ها وسط باشن و از لبه بیرون نزنن */}
               <div className="flex flex-wrap gap-2 sm:gap-3 justify-center sm:justify-start">
                 {["Under $500", "$500 to $1,500", "$1,500 to $3,000", "$3,000 to $7,500", "$7,500+"].map(
                   (budget) => (
-                    <motion.button
+                    <button
                       key={budget}
                       type="button"
                       onClick={() => setSelectedBudget(budget)}
-                      whileHover={{
-                        scale: 1.05,
-                        boxShadow: "0px 0px 20px rgba(34,211,238,0.4)",
-                      }}
-                      whileTap={{ scale: 0.95 }}
-                      // 🔴 flex-1 در موبایل کوچیک باعث میشه دکمه‌ها هم‌عرض بشن و کل عرض رو پر کنن
-                      className={`px-3 py-2 text-[11px] font-medium rounded-full border transition-all duration-300
-                      sm:px-4 sm:py-2.5 sm:text-sm flex-1 sm:flex-none whitespace-nowrap
+                      className={`px-3 py-2 text-[11px] font-medium rounded-full border transition-all duration-200 ease-out hover:scale-105 active:scale-95
+                      sm:px-4 sm:py-2.5 sm:text-sm flex-1 sm:flex-none whitespace-nowrap cursor-pointer
                       ${
                         selectedBudget === budget
                           ? "bg-cyan-400 text-black border-cyan-400 shadow-lg shadow-cyan-400/40"
-                          : "bg-white/5 border-white/10 hover:border-cyan-400/50 text-white/80"
+                          : "bg-white/5 border-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_15px_rgba(34,211,238,0.3)] text-white/80"
                       }`}
                     >
                       {budget}
-                    </motion.button>
+                    </button>
                   ),
                 )}
               </div>
@@ -142,45 +101,33 @@ export default function ContactUs() {
               <label className="text-xs sm:text-sm text-gray-400 font-medium ml-1">
                 Tell us about your project
               </label>
-              <motion.textarea
+              <textarea
                 rows={4}
-                placeholder="What do you want to create, what is your goal, and do you have any references, deadline, or
-style in mind?"
-                whileFocus={{
-                  scale: 1.01,
-                  boxShadow: "0px 0px 25px rgba(34,211,238,0.15)",
-                }}
+                placeholder="What do you want to create, what is your goal, and do you have any references, deadline, or style in mind?"
                 className="bg-[#040e14]/50 border border-white/10 rounded-xl px-4 py-3 text-sm
-                            focus:outline-none focus:border-cyan-400/50 focus:bg-white/5
+                            focus:outline-none focus:border-cyan-400/50 focus:bg-white/5 focus:shadow-[0_0_20px_rgba(34,211,238,0.15)]
                            transition-all duration-300 resize-none w-full"
               />
             </div>
 
             {/* Submit */}
             <div className="pt-4">
-              <motion.button
-                whileHover={{
-                  scale: 1.02,
-                  boxShadow: "0px 0px 30px rgba(34,211,238,0.4)",
-                }}
-                whileTap={{ scale: 0.98 }}
+              <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-cyan-400 to-teal-400 text-white
-                           text-black font-bold rounded-xl
-                           py-3.5 text-[15px]
-                           sm:py-4 sm:text-base shadow-[0_0_20px_rgba(34,211,238,0.2)]"
+                className="w-full bg-gradient-to-r from-cyan-400 to-teal-400 text-black font-bold rounded-xl
+                           py-3.5 text-[15px] cursor-pointer
+                           sm:py-4 sm:text-base shadow-[0_0_20px_rgba(34,211,238,0.2)] transition-all duration-200 ease-out hover:scale-[1.01] hover:shadow-[0_0_30px_rgba(34,211,238,0.4)] active:scale-[0.98]"
               >
                 Send Project Request
-              </motion.button>
+              </button>
             </div>
           </form>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
 }
 
-/* ===== Reusable Input ===== */
 /* ===== Reusable Select ===== */
 function Select({ label, options }: { label: string; options: string[] }) {
   return (
@@ -189,12 +136,13 @@ function Select({ label, options }: { label: string; options: string[] }) {
         {label}
       </label>
       <select
+        defaultValue=""
         className="bg-[#040e14]/50 border border-white/10 rounded-xl
                    px-4 py-3 text-sm sm:text-base w-full
                    focus:outline-none focus:border-cyan-400/50 focus:bg-white/5
                    transition-all duration-300 text-white"
       >
-        <option value="" disabled selected className="text-gray-400">
+        <option value="" disabled className="text-gray-400">
           Select {label}
         </option>
         {options.map((opt) => (
@@ -213,15 +161,11 @@ function Input({ label, type = "text" }: { label: string; type?: string }) {
       <label className="text-xs sm:text-sm text-gray-400 font-medium ml-1">
         {label}
       </label>
-      <motion.input
+      <input
         type={type}
-        whileFocus={{
-          scale: 1.01,
-          boxShadow: "0px 0px 25px rgba(34,211,238,0.15)",
-        }}
         className="bg-[#040e14]/50 border border-white/10 rounded-xl
                    px-4 py-3 text-sm sm:text-base w-full
-                   focus:outline-none focus:border-cyan-400/50 focus:bg-white/5
+                   focus:outline-none focus:border-cyan-400/50 focus:bg-white/5 focus:shadow-[0_0_20px_rgba(34,211,238,0.15)]
                    transition-all duration-300"
       />
     </div>

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import {
   Layers,
   Eye,
@@ -105,11 +104,8 @@ export default function DashboardOverview() {
         {quickStats.map((s, i) => {
           const Icon = s.icon;
           return (
-            <motion.div
+            <div
               key={s.label}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ ...itemTransition, delay: i * 0.06 }}
               className="relative overflow-hidden rounded-2xl border border-white/5 bg-white/[0.03] backdrop-blur-xl p-5"
             >
               <div className="flex items-start justify-between">
@@ -125,7 +121,7 @@ export default function DashboardOverview() {
                 <div className="text-2xl font-bold text-white">{s.value.toLocaleString()}</div>
                 <div className="text-sm text-white/50 mt-0.5">{s.label}</div>
               </div>
-            </motion.div>
+            </div>
           );
         })}
       </div>
@@ -136,17 +132,14 @@ export default function DashboardOverview() {
         <div className="lg:col-span-2 rounded-2xl border border-white/5 bg-white/[0.03] backdrop-blur-xl">
           <div className="flex items-center justify-between p-5 border-b border-white/5">
             <h3 className="font-semibold text-white">Recent Projects</h3>
-            <motion.a whileHover={{ x: 3 }} whileTap={{ scale: 0.97 }} href="/admin/projects" className="text-sm text-[#00E6D7] hover:text-[#00E6D7]/80 transition-colors cursor-pointer">
+            <a href="/admin/projects" className="text-sm text-[#00E6D7] hover:text-[#00E6D7]/80 transition-colors cursor-pointer">
               View all
-            </motion.a>
+            </a>
           </div>
           <div className="divide-y divide-white/5">
             {latestProjects.map((p, i) => (
-              <motion.div
+              <div
                 key={p.title}
-                initial={{ opacity: 0, x: -8 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ ...itemTransition, delay: i * 0.05 }}
                 className="flex items-center justify-between p-5 hover:bg-white/[0.02] transition-colors"
               >
                 <div className="flex items-center gap-4 min-w-0">
@@ -178,24 +171,20 @@ export default function DashboardOverview() {
                     <Eye size={14} />
                     <span>{p.views.toLocaleString()}</span>
                   </div>
-                  <motion.a
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                  <a
                     href={`/case/${p.slug}`}
                     className="px-3 py-1.5 rounded-lg bg-white/10 text-white text-sm font-medium hover:bg-white/20 transition-colors cursor-pointer"
                   >
                     Open
-                  </motion.a>
-                  <motion.a
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                  </a>
+                  <a
                     href={`/admin/case/${p.slug}`}
                     className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#00E6D7] to-[#12ACB5] text-black text-sm font-medium hover:opacity-90 transition-opacity cursor-pointer"
                   >
                     Edit
-                  </motion.a>
+                  </a>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -206,17 +195,14 @@ export default function DashboardOverview() {
           <div className="rounded-2xl border border-white/5 bg-white/[0.03] backdrop-blur-xl">
             <div className="flex items-center justify-between p-5 border-b border-white/5">
               <h3 className="font-semibold text-white">Recent Requests</h3>
-              <motion.a whileHover={{ x: 3 }} whileTap={{ scale: 0.97 }} href="/admin/requests" className="text-sm text-[#00E6D7] hover:text-[#00E6D7]/80 transition-colors cursor-pointer">
+              <a href="/admin/requests" className="text-sm text-[#00E6D7] hover:text-[#00E6D7]/80 transition-colors cursor-pointer">
                 View all
-              </motion.a>
+              </a>
             </div>
             <div className="divide-y divide-white/5">
               {latestRequests.map((r, i) => (
-                <motion.div
+                <div
                   key={`${r.title}-${i}`}
-                  initial={{ opacity: 0, x: 8 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ ...itemTransition, delay: i * 0.05 }}
                   className="flex items-center justify-between p-4 hover:bg-white/[0.02] transition-colors"
                 >
                   <div className="min-w-0">
@@ -226,7 +212,7 @@ export default function DashboardOverview() {
                   <span className={`px-2.5 py-1 rounded-full text-xs font-medium border shrink-0 ml-2 ${statusColors[r.status] || "bg-white/10 text-white/60 border-white/10"}`}>
                     {r.status}
                   </span>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>

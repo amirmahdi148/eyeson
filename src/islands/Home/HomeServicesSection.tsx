@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
@@ -191,15 +190,9 @@ export default function HomeServicesSection() {
             }}
             className="services-swiper pb-12!"
           >
-            {services.map((service, index) => (
+            {services.map((service) => (
               <SwiperSlide key={service.id} className="h-auto">
-                  <motion.div
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.45, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] as any }}
-                  className="group relative h-full py-4"
-                >
+                <div className="group relative h-full py-4 w-full">
                   <div className="absolute inset-0 rounded-[var(--radius-2xl)] border border-[var(--color-border-teal)] bg-[var(--card-bg)] opacity-0 lg:group-hover:opacity-100 transition-opacity duration-[var(--duration-slow)]" aria-hidden="true" />
 
                   <div className="relative h-full bg-[#0f172a]/70 backdrop-blur-md rounded-[var(--radius-2xl)] border border-[var(--card-border)] overflow-hidden z-10 shadow-[var(--card-shadow)] transition-all duration-[var(--duration-slow)] ease-[var(--ease-default)] lg:group-hover:-translate-y-1.5 lg:group-hover:shadow-[var(--card-shadow-hover)] flex flex-col">
@@ -221,7 +214,7 @@ export default function HomeServicesSection() {
                       </p>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               </SwiperSlide>
             ))}
           </Swiper>

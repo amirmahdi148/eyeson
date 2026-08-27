@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Tag, Plus, X, Check, Pencil, Loader2, Save } from "lucide-react";
 import { dashboardService } from "@/services/dashboardService.ts";
 
@@ -90,25 +89,20 @@ export default function ProjectTypesManager() {
             <p className="text-sm text-white/40">Manage and edit all project types</p>
           </div>
         </div>
-        <motion.button
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
+        <button
           onClick={handleSave}
           disabled={saving}
           className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-[#00E6D7] to-[#12ACB5] text-[#021617] font-medium text-sm hover:shadow-lg hover:shadow-[#00E6D7]/20 transition-all disabled:opacity-50"
         >
           {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
           {saving ? "Saving..." : "Save Changes"}
-        </motion.button>
+        </button>
       </div>
 
-      <AnimatePresence>
+      
         {feedback && (
-          <motion.div
+          <div
             key="feedback"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
             className={`mb-4 px-4 py-3 rounded-xl text-sm ${
               feedback.type === "success"
                 ? "bg-[#00E6D7]/10 border border-[#00E6D7]/20 text-[#00E6D7]"
@@ -116,9 +110,9 @@ export default function ProjectTypesManager() {
             }`}
           >
             {feedback.message}
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
+      
 
       <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-6">
         <div className="flex gap-2 mb-6">
@@ -130,15 +124,13 @@ export default function ProjectTypesManager() {
             placeholder="Add new project type..."
             className="flex-1 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#00E6D7]/30 focus:border-[#00E6D7]/30 transition-all"
           />
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+          <button
             onClick={handleAdd}
             className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#00E6D7] to-[#12ACB5] text-[#021617] font-medium text-sm"
           >
             <Plus className="h-4 w-4" />
             Add
-          </motion.button>
+          </button>
         </div>
 
         {loading ? (
@@ -152,11 +144,8 @@ export default function ProjectTypesManager() {
         ) : (
           <div className="space-y-2">
             {types.map((type, index) => (
-              <motion.div
+              <div
                 key={`${index}-${type}`}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
                 className="flex items-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 group hover:border-[#00E6D7]/20 transition-all"
               >
                 <Tag className="h-4 w-4 text-[#00E6D7]/50 shrink-0" />
@@ -172,24 +161,22 @@ export default function ProjectTypesManager() {
                   <>
                     <span className="flex-1 text-white text-sm">{type}</span>
                     <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <motion.button
-                        whileHover={{ scale: 1.1 }}
+                      <button
                         onClick={() => startEdit(index)}
                         className="p-1.5 rounded-lg hover:bg-white/10 text-white/40 hover:text-white/70 transition-all"
                       >
                         <Pencil className="h-3.5 w-3.5" />
-                      </motion.button>
-                      <motion.button
-                        whileHover={{ scale: 1.1 }}
+                      </button>
+                      <button
                         onClick={() => handleRemove(index)}
                         className="p-1.5 rounded-lg hover:bg-red-500/20 text-white/40 hover:text-red-400 transition-all"
                       >
                         <X className="h-3.5 w-3.5" />
-                      </motion.button>
+                      </button>
                     </div>
                   </>
                 )}
-              </motion.div>
+              </div>
             ))}
           </div>
         )}
@@ -221,20 +208,18 @@ const EditInput = React.forwardRef<HTMLInputElement, EditInputProps>(
           }}
           className="flex-1 px-3 py-1 rounded-lg bg-white/10 border border-[#00E6D7]/30 text-white text-sm focus:outline-none"
         />
-        <motion.button
-          whileHover={{ scale: 1.1 }}
+        <button
           onClick={() => onConfirm(value)}
           className="p-1 rounded-lg bg-[#00E6D7]/20 text-[#00E6D7] hover:bg-[#00E6D7]/30 transition-all"
         >
           <Check className="h-4 w-4" />
-        </motion.button>
-        <motion.button
-          whileHover={{ scale: 1.1 }}
+        </button>
+        <button
           onClick={onCancel}
           className="p-1 rounded-lg bg-white/10 text-white/50 hover:bg-white/20 transition-all"
         >
           <X className="h-4 w-4" />
-        </motion.button>
+        </button>
       </div>
     );
   }

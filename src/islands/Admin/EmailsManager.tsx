@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import {
   Send,
   Mail,
@@ -367,8 +366,7 @@ export default function EmailsManager() {
 
       {/* Tabs */}
       <div className="flex gap-1 p-1 rounded-xl bg-white/5 border border-white/5 w-fit">
-        <motion.button
-          whileTap={{ scale: 0.97 }}
+        <button
           onClick={() => { console.log(`${LOG_PREFIX} [UI] Tab clicked: "compose" (was "${activeTab}")`); setActiveTab("compose"); }}
           className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
             activeTab === "compose"
@@ -378,9 +376,8 @@ export default function EmailsManager() {
         >
           <Inbox size={16} />
           Compose
-        </motion.button>
-        <motion.button
-          whileTap={{ scale: 0.97 }}
+        </button>
+        <button
           onClick={() => { console.log(`${LOG_PREFIX} [UI] Tab clicked: "history" (was "${activeTab}")`); setActiveTab("history"); }}
           className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
             activeTab === "history"
@@ -390,7 +387,7 @@ export default function EmailsManager() {
         >
           <History size={16} />
           History
-        </motion.button>
+        </button>
       </div>
 
       {/* ─────── COMPOSE TAB ─────── */}
@@ -424,41 +421,40 @@ export default function EmailsManager() {
               )}
             </div>
             <div className="flex gap-2">
-              <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
+              <button
                 onClick={() => { console.log(`${LOG_PREFIX} [UI] 'Select All' button clicked`); selectAll(); }}
                 className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-white/60 hover:text-white/80 transition-all cursor-pointer"
-              >Select All</motion.button>
-              <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
+              >Select All</button>
+              <button
                 onClick={() => { console.log(`${LOG_PREFIX} [UI] 'Select Filtered' button clicked`); selectFiltered(); }}
                 className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-white/60 hover:text-white/80 transition-all cursor-pointer"
-              >Select Filtered</motion.button>
+              >Select Filtered</button>
               {selectedIds.size > 0 && (
-                <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
+                <button
                   onClick={() => { console.log(`${LOG_PREFIX} [UI] 'Clear' button clicked`); clearSelection(); }}
                   className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-red-400/70 hover:text-red-400 transition-all cursor-pointer"
-                >Clear</motion.button>
+                >Clear</button>
               )}
             </div>
             <div className="flex items-center gap-1 p-1 rounded-lg bg-white/5 border border-white/10">
-              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
+              <button
                 onClick={() => { console.log(`${LOG_PREFIX} [UI] View mode changed to "list"`); setViewMode("list"); }}
                 className={`p-1.5 rounded-md transition-all cursor-pointer ${viewMode === "list" ? "bg-[#00E6D7]/15 text-[#00E6D7]" : "text-white/30 hover:text-white/60"}`} title="List view"
-              ><List size={16} /></motion.button>
-              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
+              ><List size={16} /></button>
+              <button
                 onClick={() => { console.log(`${LOG_PREFIX} [UI] View mode changed to "grid"`); setViewMode("grid"); }}
                 className={`p-1.5 rounded-md transition-all cursor-pointer ${viewMode === "grid" ? "bg-[#00E6D7]/15 text-[#00E6D7]" : "text-white/30 hover:text-white/60"}`} title="Grid view"
-              ><Grid3X3 size={16} /></motion.button>
-              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
+              ><Grid3X3 size={16} /></button>
+              <button
                 onClick={() => { console.log(`${LOG_PREFIX} [UI] View mode changed to "compact"`); setViewMode("compact"); }}
                 className={`p-1.5 rounded-md transition-all cursor-pointer ${viewMode === "compact" ? "bg-[#00E6D7]/15 text-[#00E6D7]" : "text-white/30 hover:text-white/60"}`} title="Compact table view"
-              ><Table2 size={16} /></motion.button>
+              ><Table2 size={16} /></button>
             </div>
             {selectedIds.size > 0 && (
-              <motion.button initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
-                whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
+              <button
                 onClick={() => { console.log(`${LOG_PREFIX} [UI] Compose Email button clicked`); console.log(`${LOG_PREFIX} [UI] Selected IDs count: ${selectedIds.size}`); openComposer(); }}
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#00E6D7] to-[#12ACB5] text-black font-medium text-sm hover:opacity-90 transition-opacity shrink-0 cursor-pointer"
-              ><Send size={16} /> Compose Email</motion.button>
+              ><Send size={16} /> Compose Email</button>
             )}
           </div>
 

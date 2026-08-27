@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { DayPicker } from "react-day-picker";
-import { motion, AnimatePresence } from "framer-motion";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
 import { httpService } from "@/utils/httpService.ts";
 
@@ -85,7 +84,7 @@ export const ContactBookingSection = () => {
   };
 
   return (
-      <section className="mx-auto w-full max-w-6xl px-4 pb-20 pt-12 sm:px-6 font-sans tracking-tight">
+      <section className="mx-auto w-full max-w-6xl px-4 pb-20 pt-12 sm:px-6 font-sans tracking-tight animate-fade-in">
         {/* Header Section */}
         <div className="mx-auto max-w-3xl text-center mb-12">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/20 px-4 py-1.5 text-[10px] font-medium uppercase tracking-widest text-white/80">
@@ -106,23 +105,18 @@ export const ContactBookingSection = () => {
         </div>
 
         {/* Status Messages */}
-        <AnimatePresence mode="wait">
-          {status.type !== 'idle' && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className={`max-w-3xl mx-auto mb-8 p-4 rounded-xl flex items-center gap-3 border ${
-                status.type === 'success' 
-                  ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' 
-                  : 'bg-red-500/10 border-red-500/20 text-red-400'
-              }`}
-            >
-              {status.type === 'success' ? <CheckCircle2 size={20} /> : <AlertCircle size={20} />}
-              <p className="text-sm font-medium">{status.message}</p>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {status.type !== 'idle' && (
+          <div
+            className={`max-w-3xl mx-auto mb-8 p-4 rounded-xl flex items-center gap-3 border animate-slide-up ${
+              status.type === 'success' 
+                ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' 
+                : 'bg-red-500/10 border-red-500/20 text-red-400'
+            }`}
+          >
+            {status.type === 'success' ? <CheckCircle2 size={20} /> : <AlertCircle size={20} />}
+            <p className="text-sm font-medium">{status.message}</p>
+          </div>
+        )}
 
         <div className="mt-8 grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
           {/* Left Form Card */}

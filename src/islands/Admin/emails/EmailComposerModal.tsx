@@ -1,4 +1,3 @@
-import { motion, AnimatePresence } from "framer-motion";
 import { X, Send, Variable, Loader2 } from "lucide-react";
 import type { EmailRequest } from "./types";
 import { LOG_PREFIX } from "./types";
@@ -41,12 +40,8 @@ export default function EmailComposerModal({
   const recipientsWithoutEmail = selectedRequests.filter((r) => !r.email);
 
   return (
-    <AnimatePresence>
-      {show && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+      <> {show && (
+        <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
           onClick={() => {
             if (!sending) {
@@ -57,10 +52,7 @@ export default function EmailComposerModal({
             }
           }}
         >
-          <motion.div
-            initial={{ scale: 0.95, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.95, opacity: 0 }}
+          <div
             className="w-full max-w-3xl rounded-2xl border border-white/10 bg-[#021617] p-6 max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
@@ -76,9 +68,7 @@ export default function EmailComposerModal({
                   )}
                 </p>
               </div>
-              <motion.button
-                whileHover={{ scale: 1.1, rotate: 90 }}
-                whileTap={{ scale: 0.9 }}
+              <button
                 onClick={() => {
                   if (!sending) {
                     console.log(`${LOG_PREFIX} [UI] Composer modal X button clicked - closing`);
@@ -90,7 +80,7 @@ export default function EmailComposerModal({
                 className="text-white/40 hover:text-white transition-colors cursor-pointer"
               >
                 <X size={20} />
-              </motion.button>
+              </button>
             </div>
 
             <div className="mb-5">
@@ -140,10 +130,8 @@ export default function EmailComposerModal({
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {TEMPLATE_VARIABLES.map((v) => (
-                  <motion.button
+                  <button
                     key={v.value}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
                     onClick={() => {
                       console.log(`${LOG_PREFIX} [UI] Template variable "${v.value}" clicked - inserting into ${body.length > 0 ? 'end of body' : 'body'}`);
                       onBodyChange(body + v.value);
@@ -153,7 +141,7 @@ export default function EmailComposerModal({
                   >
                     <Variable size={10} />
                     {v.label}
-                  </motion.button>
+                  </button>
                 ))}
               </div>
             </div>
@@ -185,9 +173,7 @@ Tip: Use template variables like {{firstName}} to personalize."
             </div>
 
             <div className="flex gap-3">
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+              <button
                 type="button"
                 onClick={() => {
                   console.log(`${LOG_PREFIX} [UI] Composer modal Cancel button clicked`);
@@ -197,10 +183,8 @@ Tip: Use template variables like {{firstName}} to personalize."
                 className="flex-1 px-4 py-2.5 rounded-xl border border-white/10 text-white/70 text-sm font-medium hover:bg-white/5 transition-colors disabled:opacity-50 cursor-pointer"
               >
                 Cancel
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+              </button>
+              <button
                 onClick={onSend}
                 disabled={sending || !subject.trim() || !body.trim()}
                 className="flex-1 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#00E6D7] to-[#12ACB5] text-black text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-50 cursor-pointer inline-flex items-center justify-center gap-2"
@@ -216,11 +200,12 @@ Tip: Use template variables like {{firstName}} to personalize."
                     Send Email
                   </>
                 )}
-              </motion.button>
+              </button>
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       )}
-    </AnimatePresence>
+    
+  </>
   );
 }

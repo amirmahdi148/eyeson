@@ -1,4 +1,3 @@
-import { motion, type Variants } from "framer-motion";
 import type { ReactNode } from "react";
 import { SmartImage } from "../../utils/SmartImage.tsx";
 
@@ -95,86 +94,12 @@ export const HeroBasic = ({
   rightComponent = null,
   gridClassName = "",
 }: Props) => {
-  const MotionTag = motion.div;
-
-  const isNone = animationType === "none";
-  const isFade = animationType === "fade";
-
-  // ✨ FAST variant for mobile - no stagger delays
-  const textVariants: Variants = isNone
-    ? {}
-    : isFade
-      ? {
-          hidden: { opacity: 0 },
-          show: { opacity: 1, transition: { duration: 0.25 } },
-        }
-      : {
-          hidden: { opacity: 0, x: -12 },
-          show: {
-            opacity: 1,
-            x: 0,
-            transition: {
-              duration: 0.3,
-              ease: "easeOut",
-            },
-          },
-        };
-
-  // ✨ Fast items - no stagger, instant show
-  const itemVariants: Variants = isNone
-    ? {}
-    : isFade
-      ? {
-          hidden: { opacity: 0 },
-          show: { opacity: 1, transition: { duration: 0.2 } },
-        }
-      : {
-          hidden: { opacity: 0, y: 8 },
-          show: {
-            opacity: 1,
-            y: 0,
-            transition: { duration: 0.25, ease: "easeOut" },
-          },
-        };
-
-  const ctaVariants: Variants = isNone
-    ? {}
-    : isFade
-      ? {
-          hidden: { opacity: 0 },
-          show: { opacity: 1, transition: { duration: 0.15 } },
-        }
-      : {
-          hidden: { opacity: 0, y: 6 },
-          show: {
-            opacity: 1,
-            y: 0,
-            transition: { duration: 0.2, ease: "easeOut" },
-          },
-        };
-
-  const rightVariants: Variants = isNone
-    ? {}
-    : isFade
-      ? {
-          hidden: { opacity: 0 },
-          show: { opacity: 1, transition: { duration: 0.3 } },
-        }
-      : {
-          hidden: { opacity: 0, x: 14 },
-          show: {
-            opacity: 1,
-            x: 0,
-            transition: {
-              duration: 0.35,
-              ease: "easeOut",
-            },
-          },
-        };
+  const isSlide = animationType === "slide";
+  const animClass = animationType === "none" ? "" : isSlide ? "animate-slide-up" : "animate-fade-in";
 
   return (
     <section
-      className={`relative mt-36 w-full overflow-hidden px-4 pb-10 pt-4 text-white md:px-8 lg:px-12 ${sectionClassName}`}
+      className={`relative mt-20 md:mt-36 w-full overflow-hidden px-4 pb-10 pt-4 text-white md:px-8 lg:px-12 ${sectionClassName}`}
     >
       {showBackground && (
         <div className={`absolute inset-0 -z-10 ${backgroundClassName}`} />
@@ -182,37 +107,22 @@ export const HeroBasic = ({
 
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-10">
         <div
-          className={`relative z-10 grid min-h-[60vh] items-center gap-6 sm:min-h-[500px] ${
+          className={`relative z-10 grid min-h-[50vh] sm:min-h-[500px] items-center gap-6 ${
             reverse ? "lg:grid-cols-[320px_1fr]" : "lg:grid-cols-[1fr_320px]"
           } ${gridClassName}`}
         >
-          <MotionTag
-            className={`mx-auto flex max-w-lg flex-col items-center text-center md:mx-0 md:items-start md:text-left ${textContainerClassName}`}
-            {...(!isNone && {
-              initial: "hidden",
-              animate: "show",
-              variants: textVariants,
-            })}
+          <div
+            className={`mx-auto flex max-w-lg flex-col items-center text-center md:mx-0 md:items-start md:text-left ${animClass} ${textContainerClassName}`}
           >
             {SmallLabel && (
-              <motion.p
+              <p
                 className="mb-3 text-xs tracking-[0.2em] text-[#c2d3dc]"
-                {...(!isNone && {
-                  initial: "hidden",
-                  animate: "show",
-                  variants: itemVariants,
-                })}
               >
                 {SmallLabel}
-              </motion.p>
+              </p>
             )}
-            <motion.h1
+            <h1
               className={`text-[22px] md:text-[35px] font-bold leading-tight ${headingClassName}`}
-              {...(!isNone && {
-                initial: "hidden",
-                animate: "show",
-                variants: itemVariants,
-              })}
             >
               <span className={beforeHighlightClassName}>
                 {BeforeHighlight}{" "}
@@ -224,34 +134,19 @@ export const HeroBasic = ({
               </span>
               <br />
               <span className={afterHighlightClassName}>{AfterHighlight}</span>
-            </motion.h1>
+            </h1>
 
-            <motion.p
+            <p
               className={`mt-4 max-w-md text-xs leading-6 text-white/75 md:text-[18px] md:text-sm ${descriptionClassName}`}
-              {...(!isNone && {
-                initial: "hidden",
-                animate: "show",
-                variants: itemVariants,
-              })}
             >
               {Description}
-            </motion.p>
+            </p>
 
-            <motion.div
+            <div
               className="mt-6 flex flex-row flex-wrap justify-center gap-2 md:justify-start"
-              {...(!isNone && {
-                initial: "hidden",
-                animate: "show",
-                variants: itemVariants,
-              })}
             >
-              <motion.div
-                className={`group relative inline-flex rounded-full p-[2px] ${primaryBtnWrapperClassName}`}
-                {...(!isNone && {
-                  initial: "hidden",
-                  animate: "show",
-                  variants: ctaVariants,
-                })}
+              <div
+                className={`group relative inline-flex rounded-full p-[2px] transition-transform duration-200 hover:scale-105 active:scale-95 ${primaryBtnWrapperClassName}`}
               >
                 <div className="absolute -inset-[2px] rounded-full bg-linear-to-r from-[#45B6A0] to-[#12ACB5] shadow-[0_0_18px_#00A9BD]" />
                 <a
@@ -261,15 +156,10 @@ export const HeroBasic = ({
                   <div className="absolute inset-0 -translate-x-[150%] bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-[150%] skew-x-[-20deg]" />
                   {primaryBtnText}
                 </a>
-              </motion.div>
+              </div>
 
-              <motion.div
-                className={`group relative inline-flex rounded-full p-[2px] ${secondaryBtnWrapperClassName}`}
-                {...(!isNone && {
-                  initial: "hidden",
-                  animate: "show",
-                  variants: ctaVariants,
-                })}
+              <div
+                className={`group relative inline-flex rounded-full p-[2px] transition-transform duration-200 hover:scale-105 active:scale-95 ${secondaryBtnWrapperClassName}`}
               >
                 <div className="absolute -inset-[2px] rounded-full bg-linear-to-r from-[#056E7C] to-[#46B6A0] shadow-[0_0_18px_#00A9BD]" />
                 <a
@@ -279,17 +169,12 @@ export const HeroBasic = ({
                   <div className="absolute inset-0 -translate-x-[150%] bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-[150%] skew-x-[-20deg]" />
                   {secondaryBtnText}
                 </a>
-              </motion.div>
-            </motion.div>
-          </MotionTag>
+              </div>
+            </div>
+          </div>
 
-          <MotionTag
-            className={`mx-auto w-full max-w-[480px] md:mx-0 ${imageDivClassName}`}
-            {...(!isNone && {
-              initial: "hidden",
-              animate: "show",
-              variants: rightVariants,
-            })}
+          <div
+            className={`mx-auto w-full max-w-[480px] md:mx-0 ${animClass} ${imageDivClassName}`}
           >
             {isBranding && rightComponent}
 
@@ -308,7 +193,7 @@ export const HeroBasic = ({
                 />
               </div>
             )}
-          </MotionTag>
+          </div>
         </div>
       </div>
     </section>

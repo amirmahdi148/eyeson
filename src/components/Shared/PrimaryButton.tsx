@@ -1,12 +1,11 @@
 'use client';
 
-import { motion } from 'framer-motion';
-
 type PrimaryButtonProps = {
-  text: string | undefined;
+  text?: string;
   href?: string;
   width?: string;
   height?: string;
+  className?: string;
 };
 
 export default function PrimaryButton({
@@ -14,13 +13,11 @@ export default function PrimaryButton({
   href = "#",
   width = "auto",
   height = "auto",
+  className = "",
 }: PrimaryButtonProps) {
   return (
-    <motion.div
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      transition={{ type: "spring", stiffness: 400, damping: 20 }}
-      className="group relative inline-flex rounded-[var(--radius-full)] p-[var(--primitive-border-width-medium)]"
+    <div
+      className={`group relative inline-flex transition-transform duration-200 ease-out hover:scale-105 active:scale-95 rounded-[var(--radius-full)] p-[var(--primitive-border-width-medium)] ${className}`}
       style={{ width, height }}
     >
       <div
@@ -41,6 +38,6 @@ export default function PrimaryButton({
           {text}
         </span>
       </a>
-    </motion.div>
+    </div>
   );
 }

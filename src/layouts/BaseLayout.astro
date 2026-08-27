@@ -106,20 +106,20 @@ const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
   <body class="bg-[#000E17] text-white overflow-x-hidden" transition:animate="fade">
     <Header client:idle />
 
-    {/* اضافه شدن pt-24 lg:pt-32 برای جلوگیری از رفتن محتوا به زیر هدر */}
-    <main class="min-w-0 overflow-x-hidden pt-8 lg:pt-10">
+    <main class="min-w-0 overflow-x-hidden">
       <slot />
     </main>
 
     <Footer />
 
-
     <script>
       import type Lenis from "lenis";
 
+      const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 1024px)').matches;
       const isFirefox = navigator.userAgent.toLowerCase().includes('firefox');
 
-      if (!isFirefox) {
+      // Only run Lenis on desktop non-Firefox to ensure 120fps native GPU scrolling on mobile
+      if (!isFirefox && !isMobile) {
         let lenis: Lenis;
         let rafId = 0;
 
@@ -130,11 +130,11 @@ const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
           const Lenis = (await import('lenis')).default;
 
           lenis = new Lenis({
-            duration: 1.2,
+            duration: 1.0,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             smoothWheel: true,
             wheelMultiplier: 1,
-            touchMultiplier: 2,
+            touchMultiplier: 1.5,
             gestureOrientation: 'vertical',
           });
 

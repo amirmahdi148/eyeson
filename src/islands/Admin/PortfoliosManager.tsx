@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Upload, Plus, AlertCircle, CheckCircle2, Image as ImageIcon, FileVideo, Trash2, ChevronLeft, ChevronRight, Loader2, Pencil, Save, X } from "lucide-react";
 import { httpService } from "@/utils/httpService.ts";
 
@@ -202,12 +201,9 @@ export default function PortfoliosManager() {
         </div>
 
         {/* Status Messages */}
-        <AnimatePresence mode="wait">
+        
           {status.type !== 'idle' && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
+            <div
               className={`p-4 rounded-xl flex items-center gap-3 border ${
                 status.type === 'success' 
                   ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' 
@@ -216,9 +212,9 @@ export default function PortfoliosManager() {
             >
               {status.type === 'success' ? <CheckCircle2 size={20} /> : <AlertCircle size={20} />}
               <p className="text-sm font-medium">{status.message}</p>
-            </motion.div>
+            </div>
           )}
-        </AnimatePresence>
+        
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="bg-white/[0.03] backdrop-blur-xl border border-white/5 rounded-2xl p-6 sm:p-8 space-y-6">
@@ -301,9 +297,7 @@ export default function PortfoliosManager() {
 
           {/* Submit Button */}
           <div className="pt-4 border-t border-white/5 flex justify-end">
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+            <button
               type="submit"
               disabled={isSubmitting}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-[#00E6D7] to-[#12ACB5] text-black font-medium text-sm hover:opacity-90 transition-opacity disabled:opacity-50 cursor-pointer"
@@ -319,7 +313,7 @@ export default function PortfoliosManager() {
                   Add Portfolio
                 </>
               )}
-            </motion.button>
+            </button>
           </div>
 
         </form>
@@ -459,19 +453,13 @@ export default function PortfoliosManager() {
         )}
 
         {/* Edit Modal */}
-        <AnimatePresence>
+        
           {editingItem && (
-            <motion.div
+            <div
               className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
               onClick={cancelEdit}
             >
-              <motion.div
-                initial={{ scale: 0.95, y: 10 }}
-                animate={{ scale: 1, y: 0 }}
-                exit={{ scale: 0.95, y: 10 }}
+              <div
                 onClick={(e) => e.stopPropagation()}
                 className="w-full max-w-lg bg-[#0A1A1B] border border-white/10 rounded-2xl p-6 sm:p-8 space-y-6"
               >
@@ -574,10 +562,10 @@ export default function PortfoliosManager() {
                     Cancel
                   </button>
                 </div>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           )}
-        </AnimatePresence>
+        
 
         {/* Pagination Controls */}
         {totalPages > 1 && (

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Bell, Mail, X, CheckCheck, Loader2, Building2, Tag, Wallet } from "lucide-react";
 import { httpService } from "@/utils/httpService.ts";
 
@@ -96,9 +95,7 @@ export default function NotificationBell() {
 
   return (
     <div className="relative" ref={dropdownRef}>
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+      <button
         onClick={open ? handleClose : handleOpen}
         className="relative p-2 rounded-xl text-white/50 hover:text-white hover:bg-white/5 transition-all cursor-pointer"
         title="Notifications"
@@ -114,15 +111,11 @@ export default function NotificationBell() {
             <Loader2 size={12} className="animate-spin text-[#00E6D7]" />
           </span>
         )}
-      </motion.button>
+      </button>
 
-      <AnimatePresence>
+      
         {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -8, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -8, scale: 0.95 }}
-            transition={{ duration: 0.15 }}
+          <div
             className="absolute right-0 mt-2 w-80 sm:w-96 rounded-2xl bg-[#021617] border border-white/10 shadow-2xl shadow-black/50 z-50 flex flex-col max-h-[70vh]"
           >
             <div className="flex items-center justify-between px-4 py-3 border-b border-white/5 shrink-0">
@@ -135,14 +128,12 @@ export default function NotificationBell() {
                   </span>
                 )}
               </div>
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
+              <button
                 onClick={handleClose}
                 className="text-white/30 hover:text-white transition-colors cursor-pointer"
               >
                 <X size={16} />
-              </motion.button>
+              </button>
             </div>
 
             <div className="overflow-y-auto flex-1 min-h-0">
@@ -153,11 +144,8 @@ export default function NotificationBell() {
                 </div>
               ) : (
                 requests.map((r, i) => (
-                  <motion.div
+                  <div
                     key={r.id}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.03 }}
                     className="flex items-start gap-3 px-4 py-3 border-b border-white/[0.03] hover:bg-white/[0.03] transition-colors"
                   >
                     <div className="mt-0.5 p-1.5 rounded-lg bg-[#00E6D7]/10 shrink-0">
@@ -191,13 +179,13 @@ export default function NotificationBell() {
                       </div>
                       <p className="text-[10px] text-white/20">{r.createdAt}</p>
                     </div>
-                  </motion.div>
+                  </div>
                 ))
               )}
             </div>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
+      
     </div>
   );
 }

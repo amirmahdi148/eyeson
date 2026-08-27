@@ -1,4 +1,3 @@
-import { motion, AnimatePresence } from "framer-motion";
 import { CheckSquare, Square, ChevronUp, ChevronDown } from "lucide-react";
 import type { EmailRequest } from "./types";
 import { statusConfig, priorityColors } from "./types";
@@ -36,18 +35,13 @@ export default function RequestsCompactView({
             </tr>
           </thead>
           <tbody className="divide-y divide-white/5">
-            <AnimatePresence mode="popLayout">
+            
               {requests.map((r, i) => {
                 const isSelected = selectedIds.has(r.id);
                 const status = statusConfig[r.status] || statusConfig.Pending;
                 return (
-                  <motion.tr
+                  <tr
                     key={r.id}
-                    layout
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ delay: i * 0.01 }}
                     className={`hover:bg-white/[0.02] transition-colors cursor-pointer ${isSelected ? "bg-[#00E6D7]/5" : ""}`}
                     onClick={() => onToggleSelect(r.id)}
                   >
@@ -78,9 +72,7 @@ export default function RequestsCompactView({
                       <span className={`text-[10px] font-semibold uppercase ${priorityColors[r.priority] || "text-white/30"}`}>{r.priority}</span>
                     </td>
                     <td className="px-3 py-3">
-                      <motion.button
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
+                      <button
                         onClick={(e) => {
                           e.stopPropagation();
                           onSetExpandedId(expandedId === r.id ? null : r.id);
@@ -88,12 +80,12 @@ export default function RequestsCompactView({
                         className="text-white/20 hover:text-white/50 transition-colors cursor-pointer"
                       >
                         {expandedId === r.id ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
-                      </motion.button>
+                      </button>
                     </td>
-                  </motion.tr>
+                  </tr>
                 );
               })}
-            </AnimatePresence>
+            
           </tbody>
         </table>
       </div>

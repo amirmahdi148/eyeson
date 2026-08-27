@@ -1,4 +1,3 @@
-import { motion, AnimatePresence } from "framer-motion";
 import { Send, Mail, FileText, Eye, Loader2 } from "lucide-react";
 import type { EmailLogItem } from "./types";
 import { LOG_PREFIX, formatDate } from "./types";
@@ -35,14 +34,10 @@ export default function HistoryList({ items, loading, page, totalPages, onPageCh
 
   return (
     <div className="rounded-2xl border border-white/5 bg-white/[0.03] backdrop-blur-xl divide-y divide-white/5">
-      <AnimatePresence mode="popLayout">
+      
         {items.map((item, i) => (
-          <motion.div
+          <div
             key={item.id}
-            layout
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.03 }}
             className="p-4 sm:p-5 hover:bg-white/[0.02] transition-colors"
           >
             <div className="flex items-start justify-between gap-4">
@@ -122,17 +117,15 @@ export default function HistoryList({ items, loading, page, totalPages, onPageCh
                 </div>
               </div>
             )}
-          </motion.div>
+          </div>
         ))}
-      </AnimatePresence>
+      
 
       {totalPages > 1 && (
         <div className="flex items-center justify-center gap-2 p-4 border-t border-white/5">
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-            <motion.button
+            <button
               key={p}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
               onClick={() => {
                 console.log(`${LOG_PREFIX} [UI] History pagination: page ${p} clicked (current: ${page})`);
                 onPageChange(p);
@@ -144,7 +137,7 @@ export default function HistoryList({ items, loading, page, totalPages, onPageCh
               }`}
             >
               {p}
-            </motion.button>
+            </button>
           ))}
         </div>
       )}
