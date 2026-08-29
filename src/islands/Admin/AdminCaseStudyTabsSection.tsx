@@ -203,8 +203,10 @@ export default function AdminCaseStudyTabsSection({ slug: propSlug }: Props) {
 
   const showTabs = tabs && tabs.length > 0;
   const noSlug = !slug;
-  const showError = !loading && (fetchError || !showTabs);
-  const showContent = !noSlug && !loading && !showError;
+  const showError = !loading && fetchError;
+  const showEmpty = !loading && !fetchError && !showTabs && !noSlug;
+  const showContent = !noSlug && !loading && !showError && showTabs;
+  const showMain = !noSlug && !loading && !showError;
 
   return (
     <section className="relative overflow-hidden lg:py-40">
@@ -242,9 +244,9 @@ export default function AdminCaseStudyTabsSection({ slug: propSlug }: Props) {
             </button>
           </div>
         )}
-        {showContent && (
+        {showMain && (
           <>
-            <div className="mb-4 flex flex-wrap items-center justify-center gap-4 sm:gap-7">
+            <div className="mb-4 flex flex-nowrap items-center gap-6 overflow-x-auto pb-3 sm:gap-7 sm:justify-center [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {tabs?.map((tab) => {
                 const isActiveTab = tab.key === activeTab && !isAdding;
                 return (
@@ -289,7 +291,7 @@ export default function AdminCaseStudyTabsSection({ slug: propSlug }: Props) {
                     <X className="h-5 w-5" />
                   </button>
                 </div>
-                
+                 
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
@@ -348,6 +350,18 @@ export default function AdminCaseStudyTabsSection({ slug: propSlug }: Props) {
                     </button>
                   </div>
                 </div>
+              </div>
+            ) : showEmpty ? (
+              <div className="rounded-[26px] border border-white/5 bg-[#07181d]/95 px-5 py-12 text-center shadow-[0_20px_60px_rgba(0,0,0,0.35)] sm:px-7 lg:px-8">
+                <p className="text-white/60 text-sm">No text sections yet for this project.</p>
+                <p className="text-white/40 text-sm mt-1">Add your first section to get started.</p>
+                <button
+                  onClick={() => setIsAdding(true)}
+                  className="mt-6 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-cyan-400 text-black text-sm font-bold hover:bg-cyan-300 transition-colors"
+                >
+                  <Plus className="h-4 w-4" />
+                  Add First Text
+                </button>
               </div>
             ) : (
               <div className="rounded-[26px] border border-white/5 bg-[#07181d]/95 px-5 py-7 shadow-[0_20px_60px_rgba(0,0,0,0.35)] sm:px-7 sm:py-8 lg:px-8 lg:py-9">

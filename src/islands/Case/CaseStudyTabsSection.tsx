@@ -147,7 +147,7 @@ function CaseStudyTabsSection({ slug }: Props) {
           </div>
         ) : (
         <>
-        <div className="mb-4 flex flex-wrap items-center justify-evenly overflow-x-auto pb-2 sm:gap-7">
+        <div className="mb-4 flex flex-nowrap items-center gap-6 overflow-x-auto pb-3 sm:gap-7 sm:justify-evenly [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {tabs.map((tab) => {
             const isActive = tab.key === activeTab;
             return (
