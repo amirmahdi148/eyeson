@@ -2,13 +2,15 @@
 @import "./tokens.css";
 @import "shadcn/tailwind.css";
 
-/* Global font: Space Grotesk (Google Fonts, self-hosted variable font, wght 300-700) */
-@font-face {
-  font-family: "Space Grotesk";
-  src: url("/fonts/space-grotesk/space-grotesk-latin.woff2") format("woff2");
-  font-weight: 300 700;
-  font-style: normal;
-  font-display: swap;
+/* Global Font System: Plus Jakarta Sans / Inter */
+body {
+  font-family: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  letter-spacing: -0.01em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  letter-spacing: -0.025em;
 }
 
 @custom-variant dark (&:is(.dark *));
