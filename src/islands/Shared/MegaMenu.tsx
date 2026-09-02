@@ -242,7 +242,7 @@ export const Header = () => {
                 <div className={`relative px-4 sm:px-6 lg:px-10 transition-[padding] duration-300 ease-out ${scrolled ? "py-2 lg:py-3" : "py-3 lg:py-6"}`}>
 
                     {/* Scroll background */}
-                    <div className={`pointer-events-none absolute inset-x-0 top-0 h-full transition-all duration-300 ease-out ${scrolled ? "bg-[#000E17]/90 backdrop-blur-md shadow-md border-b border-white/5" : "bg-transparent"}`} />
+                    <div className={`pointer-events-none absolute inset-x-0 top-0 h-full transition-all duration-300 ease-out ${scrolled ? "bg-[#000E17]/90 backdrop-blur-md shadow-md" : "bg-transparent opacity-0"}`} />
 
                     {/* Desktop Header */}
                     <div className="relative mx-auto max-w-[1200px] hidden lg:flex items-center justify-between gap-3">

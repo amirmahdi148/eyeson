@@ -1,6 +1,4 @@
 import React, {
-    useEffect,
-    useState,
     type RefObject,
 } from "react";
 import {
@@ -9,28 +7,44 @@ import {
     Folder,
     Plus,
     Pen,
+    Sparkles,
+    Film,
+    Layers,
+    Box,
 } from "lucide-react";
 import { SmartImage } from "@/utils/SmartImage";
 
 const CATEGORIES = [
     {
-        id: "motion-design",
-        title: "Motion Design",
-        videoUrl: "/home/Videos/output-second.mp4",
-    },
-    {
         id: "video-editing",
         title: "Video Editing",
+        badge: "4K Cuts",
+        icon: Film,
+        image: "/home/20/2.webp",
         videoUrl: "/home/Videos/output-first.mp4",
     },
     {
+        id: "motion-design",
+        title: "Motion Design",
+        badge: "2D Motion",
+        icon: Sparkles,
+        image: "/home/20/1.webp",
+        videoUrl: "/home/Videos/output-second.mp4",
+    },
+    {
         id: "3d-uiux",
-        title: "3D / UIUX",
+        title: "3D & UI/UX",
+        badge: "Visual Flow",
+        icon: Box,
+        image: "/home/20/3.webp",
         videoUrl: "/home/Videos/output-third.mp4",
     },
     {
         id: "brand-identity",
         title: "Brand Identity",
+        badge: "Visual System",
+        icon: Layers,
+        image: "/home/20/4.webp",
         videoUrl: "/home/Videos/output-fourth.mp4",
     },
 ];
@@ -44,131 +58,79 @@ const VIDEO_POSTERS: Record<string, string> = {
 
 interface RightSectionHeroProps {
     activeTab: string;
-    shouldReduceMotion: boolean | null;
+    shouldReduceMotion?: boolean | null;
     videoRef: RefObject<HTMLVideoElement | null>;
     handleTimeUpdate: () => void;
     onCategoryChange: (category: string) => void;
 }
 
 export default function RightSectionHero({
-                                             activeTab,
-                                             shouldReduceMotion,
-                                             videoRef,
-                                             handleTimeUpdate,
-                                             onCategoryChange,
-                                         }: RightSectionHeroProps) {
-    const activeVideo = CATEGORIES.find((c) => c.id === activeTab)?.videoUrl;
-
-    const [isDesktop, setIsDesktop] = useState(
-        () => typeof window !== "undefined" && window.matchMedia("(min-width: 1024px)").matches,
-    );
-    useEffect(() => {
-        const mq = window.matchMedia("(min-width: 1024px)");
-        const onChange = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
-        mq.addEventListener("change", onChange);
-        return () => mq.removeEventListener("change", onChange);
-    }, []);
-
-    useEffect(() => {
-        if (isDesktop) return;
-        const idx = Math.floor(Math.random() * CATEGORIES.length);
-        onCategoryChange(CATEGORIES[idx].id);
-    }, [isDesktop]);
-    const resolvedVideo = isDesktop ? activeVideo : undefined;
-    const resolvedPoster = resolvedVideo ? VIDEO_POSTERS[resolvedVideo] : undefined;
+    activeTab,
+    videoRef,
+    handleTimeUpdate,
+    onCategoryChange,
+}: RightSectionHeroProps) {
+    const activeVideo = CATEGORIES.find((c) => c.id === activeTab)?.videoUrl || CATEGORIES[0].videoUrl;
+    const resolvedPoster = activeVideo ? VIDEO_POSTERS[activeVideo] : undefined;
 
     return (
-        <div
-            className="relative order-1 lg:order-2 w-full lg:w-[55%] xl:w-[52%] animate-fade-in"
-        >
-            <div className="absolute z-20 hidden lg:flex flex-col lg:flex-row items-center justify-center gap-3 right-4 lg:right-auto top-1/2 -translate-y-1/2 lg:top-80 lg:-left-10 xl:top-100 xl:left-10 lg:translate-x-0 lg:translate-y-0">
-
-                {CATEGORIES.map((cat, i) => (
-                    <button
-                        key={cat.id}
-                        onClick={() => onCategoryChange(cat.id)}
-                        disabled={activeTab === cat.id}
-                        aria-pressed={activeTab === cat.id}
-                        aria-label={cat.title}
-                        className={`relative w-12 h-12 sm:w-16 sm:h-16 md:w-28 md:h-28 lg:w-35 lg:h-30 flex items-center justify-center transition-all duration-[var(--duration-normal)] ease-[var(--ease-default)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)] rounded-[var(--radius-md)] ${
-                            activeTab === cat.id
-                                ? "scale-[1.06] cursor-default opacity-100"
-                                : "hover:scale-[1.03] cursor-pointer opacity-80 hover:opacity-100"
-                        }`}
-                    >
-                        <SmartImage src={`/home/20/${i + 1}.webp`} alt={cat.title} fill objectFit="contain" loading="lazy"/>
-                    </button>
-                ))}
-            </div>
-
-            {/* Buttons End */}
-            <div className="absolute inset-0 pointer-events-none">
+        <div className="relative w-full max-w-[850px] xl:max-w-[950px] mx-auto animate-fade-in flex flex-col items-center">
+            {/* Background Glow Overlay Elements */}
+            <div className="absolute -inset-10 pointer-events-none hidden md:block overflow-visible -z-10">
                 <img
                     src="/home/RightElements/el/20.svg"
                     alt=""
-                    className="h-full w-full scale-[1.2] md:scale-[1] lg:scale-[1.4] xl:scale-[1.6]"
+                    className="h-full w-full object-contain scale-[1.2] opacity-70"
                 />
             </div>
             <img
                 src="/home/RightElements/el/1.svg"
                 alt=""
-                className="absolute inset-0 z-10 h-full w-full scale-[1.2] md:scale-[1] lg:scale-[1.4] xl:scale-[1.6] pointer-events-none"
+                className="absolute -top-12 -left-10 z-0 h-40 w-40 object-contain pointer-events-none hidden lg:block opacity-80"
             />
             <img
                 src="/home/RightElements/el/2.svg"
                 alt=""
-                className="absolute inset-0 z-10 h-full w-full scale-[1.2] md:scale-[1] lg:scale-[1.4] xl:scale-[1.6] pointer-events-none hidden lg:block"
-            />
-            <img
-                src="/home/RightElements/el/3.svg"
-                alt=""
-                className="absolute inset-0 z-10 h-full w-full scale-[1.2] md:scale-[1] lg:scale-[1.4] xl:scale-[1.6] pointer-events-none hidden lg:block"
-            />
-            <img
-                src="/home/RightElements/el/5.svg"
-                alt=""
-                className="hidden lg:block absolute inset-0 z-10 h-full w-full scale-[0.6] sm:scale-[0.8] md:scale-[1] lg:scale-[1.4] xl:scale-[1.6] pointer-events-none"
-            />
-            <img
-                src="/home/RightElements/el/6.svg"
-                alt=""
-                className="hidden lg:block absolute inset-0 z-10 h-full w-full scale-[0.6] sm:scale-[1.2] md:scale-[1] lg:scale-[1.4] xl:scale-[1.6] pointer-events-none"
-            />
-            <img
-                src="/home/RightElements/el/7.svg"
-                alt=""
-                className="hidden lg:block absolute inset-0 z-10 h-full w-full scale-[0.6] sm:scale-[0.8] md:scale-[1] lg:scale-[1.4] xl:scale-[1.6] pointer-events-none"
+                className="absolute -top-10 -right-8 z-0 h-36 w-36 object-contain pointer-events-none hidden lg:block opacity-80"
             />
 
-            <div
-                className="relative aspect-16/10 w-full rounded-[var(--radius-2xl)] flex justify-center items-end border border-[var(--color-border)] shadow-[var(--elevation-2)] overflow-hidden bg-[#040a12]"
-            >
-                <SmartImage src="/home/VideoElements/20/mother.webp" alt="" fill priority={false} className="rounded-[var(--radius-2xl)]" />
-                <div className="absolute top-0 left-0 z-10 flex items-center gap-2.5 md:gap-4 p-3 md:p-5 text-white/60">
-                    <button aria-label="Home" className="cursor-pointer transition-all duration-[var(--duration-normal)] ease-[var(--ease-default)] hover:scale-[1.06] hover:text-[var(--primitive-teal-400)] active:scale-95 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ring)] rounded-sm">
-                        <Home className="h-3.5 w-3.5 md:h-4 md:w-4"/>
-                    </button>
-                    <button aria-label="Next" className="cursor-pointer transition-all duration-[var(--duration-normal)] ease-[var(--ease-default)] hover:scale-[1.06] hover:text-[var(--primitive-teal-400)] active:scale-95 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ring)] rounded-sm">
-                        <ArrowRight className="h-3.5 w-3.5 md:h-4 md:w-4"/>
-                    </button>
-                    <button aria-label="Folder" className="cursor-pointer transition-all duration-[var(--duration-normal)] ease-[var(--ease-default)] hover:scale-[1.06] text-[var(--primitive-teal-400)] active:scale-95 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ring)] rounded-sm">
-                        <Folder className="h-3.5 w-3.5 md:h-4 md:w-4"/>
-                    </button>
-                    <button aria-label="Add" className="cursor-pointer transition-all duration-[var(--duration-normal)] ease-[var(--ease-default)] hover:scale-[1.06] hover:text-[var(--primitive-teal-400)] active:scale-95 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ring)] rounded-sm">
-                        <Plus className="h-3.5 w-3.5 md:h-4 md:w-4"/>
-                    </button>
-                    <button aria-label="Edit" className="cursor-pointer transition-all duration-[var(--duration-normal)] ease-[var(--ease-default)] hover:scale-[1.06] hover:text-[var(--primitive-teal-400)] active:scale-95 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-ring)] rounded-sm">
-                        <Pen className="h-3.5 w-3.5 md:h-4 md:w-4"/>
-                    </button>
+            {/* Giant Mockup Player Container */}
+            <div className="relative aspect-16/10 w-full rounded-[24px] sm:rounded-[32px] md:rounded-[36px] flex justify-center items-end border border-white/10 shadow-[0_30px_80px_-20px_rgba(0,169,189,0.35)] overflow-hidden bg-[#02070f]">
+                <SmartImage src="/home/VideoElements/20/mother.webp" alt="" fill priority={false} className="rounded-[inherit] object-cover" />
+
+                {/* Top header bar inside Mockup */}
+                <div className="absolute top-0 left-0 z-10 flex items-center justify-between w-full px-3 py-2 sm:px-5 sm:py-3 md:px-6 md:py-3.5 text-white/70">
+                    <div className="flex items-center gap-2.5 sm:gap-4">
+                        <button aria-label="Home" className="cursor-pointer transition-colors hover:text-[#00E6D7] rounded-sm">
+                            <Home className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                        </button>
+                        <button aria-label="Next" className="cursor-pointer transition-colors hover:text-[#00E6D7] rounded-sm">
+                            <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                        </button>
+                        <button aria-label="Folder" className="cursor-pointer text-[#00E6D7] rounded-sm">
+                            <Folder className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                        </button>
+                        <button aria-label="Add" className="cursor-pointer transition-colors hover:text-[#00E6D7] rounded-sm">
+                            <Plus className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                        </button>
+                        <button aria-label="Edit" className="cursor-pointer transition-colors hover:text-[#00E6D7] rounded-sm">
+                            <Pen className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                        </button>
+                    </div>
+
+                    <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-black/40 border border-white/10 text-[10px] sm:text-xs text-white/80 font-mono backdrop-blur-md">
+                        <span className="h-2 w-2 rounded-full bg-[#00E6D7] shadow-[0_0_8px_#00E6D7] animate-pulse" />
+                        <span>LIVE PREVIEW</span>
+                    </div>
                 </div>
-                <div
-                    className="relative w-full h-[calc(100%-3.1rem)] mt-8 rounded-[var(--radius-2xl)] overflow-hidden border border-white/[0.06]"
-                >
-                    <SmartImage src="/home/VideoElements/20/child.webp" alt="" fill className="rounded-[var(--radius-2xl)]" />
+
+                {/* Inner Video Container */}
+                <div className="relative w-full h-[calc(100%-2.2rem)] sm:h-[calc(100%-2.8rem)] md:h-[calc(100%-3.1rem)] mt-6 sm:mt-7 md:mt-8 rounded-[18px] sm:rounded-[24px] md:rounded-[28px] overflow-hidden border border-white/[0.08]">
+                    <SmartImage src="/home/VideoElements/20/child.webp" alt="" fill className="rounded-[inherit] object-cover" />
                     <video
                         key={activeTab}
                         ref={videoRef}
-                        src={resolvedVideo}
+                        src={activeVideo}
                         poster={resolvedPoster}
                         preload="metadata"
                         autoPlay
@@ -176,13 +138,59 @@ export default function RightSectionHero({
                         loop
                         playsInline
                         onTimeUpdate={handleTimeUpdate}
-                        className="absolute inset-0 h-full w-full object-cover rounded-[var(--radius-2xl)] transition-opacity duration-300"
+                        className="absolute inset-0 h-full w-full object-cover rounded-[inherit] transition-opacity duration-300"
                     />
-                    <div
-                        className="absolute inset-0 bg-[#051118]/10 mix-blend-overlay pointer-events-none rounded-[var(--radius-2xl)]" aria-hidden="true"/>
+                    <div className="absolute inset-0 bg-[#051118]/10 mix-blend-overlay pointer-events-none rounded-[inherit]" aria-hidden="true" />
                 </div>
             </div>
-            {/* Video Section END */}
+
+            {/* Premium Category Bar — Desktop Only (Clean Glass Cards with Neon Accents) */}
+            <div className="hidden lg:grid grid-cols-4 gap-3.5 mt-5 w-full relative z-30">
+                {CATEGORIES.map((cat) => {
+                    const Icon = cat.icon;
+                    const isActive = activeTab === cat.id;
+
+                    return (
+                        <button
+                            key={cat.id}
+                            onClick={() => onCategoryChange(cat.id)}
+                            aria-pressed={isActive}
+                            className={`group relative flex items-center gap-3 p-3 rounded-2xl border transition-all duration-300 text-left cursor-pointer overflow-hidden backdrop-blur-xl ${
+                                isActive
+                                    ? "bg-gradient-to-r from-[#042833]/90 to-[#063342]/90 border-[#00E6D7] shadow-[0_0_30px_rgba(0,230,215,0.25)] scale-[1.02]"
+                                    : "bg-[#05141e]/80 border-white/[0.08] hover:border-white/25 hover:bg-[#071f2d]/90 hover:scale-[1.01]"
+                            }`}
+                        >
+                            {/* Active Top Glow Line */}
+                            {isActive && (
+                                <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#00E6D7] to-transparent shadow-[0_0_10px_#00E6D7]" />
+                            )}
+
+                            {/* Icon Box */}
+                            <div className={`p-2.5 rounded-xl border transition-all duration-300 shrink-0 ${
+                                isActive 
+                                    ? "bg-[#00E6D7]/20 border-[#00E6D7]/60 text-[#00E6D7] shadow-[0_0_15px_rgba(0,230,215,0.3)]" 
+                                    : "bg-white/5 border-white/10 text-white/50 group-hover:text-white group-hover:border-white/20 group-hover:bg-white/10"
+                            }`}>
+                                <Icon className="h-4 w-4" />
+                            </div>
+
+                            <div className="min-w-0 flex-1">
+                                <span className={`block text-[10px] font-mono uppercase tracking-wider transition-colors ${
+                                    isActive ? "text-[#00E6D7]" : "text-white/40 group-hover:text-white/60"
+                                }`}>
+                                    {cat.badge}
+                                </span>
+                                <span className={`block text-[13px] font-bold truncate transition-colors ${
+                                    isActive ? "text-white" : "text-white/80 group-hover:text-white"
+                                }`}>
+                                    {cat.title}
+                                </span>
+                            </div>
+                        </button>
+                    );
+                })}
+            </div>
         </div>
     );
 }
