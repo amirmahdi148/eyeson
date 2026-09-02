@@ -13,7 +13,6 @@ export default function TestimonialsSection() {
 
   useEffect(() => {
     const prefersReduced = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    // Limit decorative stars to 12 (performance) and disable twinkle when reduced-motion
     const count = prefersReduced ? 0 : 12;
     const newStars = [...Array(count)].map(() => ({
       top: `${Math.random() * 100}%`,
@@ -30,9 +29,7 @@ export default function TestimonialsSection() {
       name: "Crypto Elites",
       role: "Crypto Education Brand",
       avatar: "/customers/crypto-elites.webp",
-      text: "We needed crypto content that looked more professional without making the message\n" +
-          "harder to understand. EyesOn helped us turn the ideas into clean animations that felt easy\n" +
-          "to watch, and one of the videos passed 500K+ views.",
+      text: "We needed crypto content that looked more professional without making the message harder to understand. EyesOn helped us turn the ideas into clean animations that felt easy to watch, and one of the videos passed 500K+ views.",
       stars: 5,
     },
     {
@@ -40,9 +37,7 @@ export default function TestimonialsSection() {
       name: "Cryptosity",
       role: "Crypto Media & Education",
       avatar: "/customers/cryptosisty.webp",
-      text: "Our content already had strong ideas, but the editing needed to feel cleaner and more\n" +
-          "engaging. EyesOn improved the pacing, structure, captions, and overall look, which made\n" +
-          "the videos much easier to watch on social media.",
+      text: "Our content already had strong ideas, but the editing needed to feel cleaner and more engaging. EyesOn improved the pacing, structure, captions, and overall look, which made the videos much easier to watch on social media.",
       stars: 4,
     },
     {
@@ -50,9 +45,7 @@ export default function TestimonialsSection() {
       name: "Predictefy",
       role: "Prediction Market Platform",
       avatar: "/customers/predctfy.webp",
-      text: "For our launch video, we needed something that could explain the product quickly and\n" +
-          "still feel exciting. EyesOn understood the concept fast, shaped the story, and delivered a\n" +
-          "video that felt polished, modern, and clear.",
+      text: "For our launch video, we needed something that could explain the product quickly and still feel exciting. EyesOn understood the concept fast, shaped the story, and delivered a video that felt polished, modern, and clear.",
       stars: 5,
     },
     {
@@ -60,9 +53,7 @@ export default function TestimonialsSection() {
       name: "Kraken Team",
       role: "Crypto Exchange Team",
       avatar: "/customers/kraken.webp",
-      text: "EyesOn helped us with video editing and made the process simple from start to finish. The\n" +
-          "edits were clean, the pacing felt professional, and the final videos matched the quality we\n" +
-          "wanted for our brand.",
+      text: "EyesOn helped us with video editing and made the process simple from start to finish. The edits were clean, the pacing felt professional, and the final videos matched the quality we wanted for our brand.",
       stars: 5,
     },
     {
@@ -70,9 +61,7 @@ export default function TestimonialsSection() {
       name: "Remora",
       role: "RWA Crypto Brand",
       avatar: "/customers/remora.webp",
-      text: "We worked with EyesOn on animations for our Instagram and social media content. They\n" +
-          "helped make the visuals feel more dynamic and polished, while still keeping the content\n" +
-          "simple enough for people to understand quickly.",
+      text: "We worked with EyesOn on animations for our Instagram and social media content. They helped make the visuals feel more dynamic and polished, while still keeping the content simple enough for people to understand quickly.",
       stars: 5,
     },
     {
@@ -80,9 +69,7 @@ export default function TestimonialsSection() {
       name: "Hey Anon",
       role: "Web3 / AI Brand",
       avatar: "/customers/hey-anon.webp",
-      text: "We had ideas that were not always easy to explain visually. EyesOn helped turn them into\n" +
-          "content that felt clearer, smoother, and more engaging, especially with the editing flow and\n" +
-          "motion details.",
+      text: "We had ideas that were not always easy to explain visually. EyesOn helped turn them into content that felt clearer, smoother, and more engaging, especially with the editing flow and motion details.",
       stars: 4,
     },
     {
@@ -90,21 +77,19 @@ export default function TestimonialsSection() {
       name: "Nexo",
       role: "Digital Assets Platform",
       avatar: "/customers/nexo.png",
-      text: "The team brought a strong level of polish to our video content. The editing felt clean, the\n" +
-          "motion details were subtle but effective, and the final result looked aligned with the\n" +
-          "standard we needed.",
+      text: "The team brought a strong level of polish to our video content. The editing felt clean, the motion details were subtle but effective, and the final result looked aligned with the standard we needed.",
       stars: 5,
     },
   ];
 
   return (
-    <section className="relative py-[var(--space-2xl)] lg:py-[var(--space-3xl)] overflow-hidden">
+    <section className="relative py-16 sm:py-24 lg:py-32 overflow-hidden">
       {stars.length > 0 && (
         <div className="absolute inset-0 pointer-events-none -z-10" aria-hidden="true">
           {stars.map((star, i) => (
             <div
               key={i}
-              className="absolute rounded-full bg-[var(--primitive-teal-500)] animate-pulse"
+              className="absolute rounded-full bg-[#00E6D7] animate-pulse"
               style={{
                 top: star.top,
                 left: star.left,
@@ -118,31 +103,23 @@ export default function TestimonialsSection() {
         </div>
       )}
 
-      <div className="relative z-10 mx-auto max-w-[var(--container-max)] px-[var(--space-gutter)] sm:px-[var(--space-gutter-md)] lg:px-[var(--space-gutter-lg)]">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* ========================================== */}
-        {/* هدر بخش */}
+        {/* Section Header */}
         {/* ========================================== */}
-        <div
-          className="text-center mb-16 animate-fade-in"
-        >
-          <h2
-            className="text-h2 mb-6 leading-tight text-white"
-          >
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-white tracking-tight">
             What our{" "}
-            <span className="text-[var(--primitive-teal-400)] relative inline-block">
+            <span className="text-[#00E6D7] relative inline-block">
               clients
-              <div
-                className="absolute -bottom-2 left-0 h-1 w-full bg-gradient-to-r from-[var(--primitive-teal-500)] to-transparent rounded-full"
-              />
+              <div className="absolute -bottom-2 left-0 h-1.5 w-full bg-gradient-to-r from-[#00E6D7] to-transparent rounded-full shadow-[0_0_10px_#00E6D7]" />
             </span>{" "}
             say after
             <br />
             working with EyesOn
           </h2>
 
-          <p
-            className="text-small text-white/60 max-w-3xl mx-auto leading-relaxed"
-          >
+          <p className="mt-5 text-base sm:text-lg leading-relaxed text-white/70 max-w-3xl mx-auto font-light">
             We collaborate with ambitious teams around the world, from early stage startups and
             online brands to established global companies. Every project is built around clear
             communication, strong creative execution, and making sure our clients feel confident in
@@ -151,83 +128,69 @@ export default function TestimonialsSection() {
         </div>
 
         {/* ========================================== */}
-        {/* کانتینر اسلایدر */}
+        {/* Slider Container */}
         {/* ========================================== */}
-        <div
-          className="relative group/carousel"
-        >
-          <div className="absolute inset-0 bg-gradient-to-tr from-[var(--primitive-teal-500)]/06 to-transparent blur-3xl opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-[var(--duration-slower)] -z-20" aria-hidden="true" />
-
-          <div className="absolute inset-0 bg-[#0f172a]/55 rounded-[var(--radius-2xl)] border border-[var(--color-border)] backdrop-blur-md -z-10 shadow-[var(--elevation-1)]" />
+        <div className="relative group/carousel">
+          <div className="absolute -inset-4 bg-gradient-to-tr from-[#00E6D7]/10 to-transparent blur-3xl opacity-50 -z-20 pointer-events-none" aria-hidden="true" />
 
           <Swiper
             modules={[Navigation, Autoplay]}
-            spaceBetween={30}
+            spaceBetween={24}
             slidesPerView={1}
             navigation={{
               nextEl: ".swiper-button-next-custom",
               prevEl: ".swiper-button-prev-custom",
             }}
             autoplay={{
-              delay: 4000,
+              delay: 4500,
               disableOnInteraction: false,
             }}
             breakpoints={{
               640: { slidesPerView: 1 },
-              768: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
+              768: { slidesPerView: 2, spaceBetween: 24 },
+              1024: { slidesPerView: 3, spaceBetween: 28 },
             }}
-            className="px-8 py-12 lg:px-12"
+            className="pb-6"
           >
             {testimonials.map((item) => (
-              <SwiperSlide key={item.id} className="h-auto">
-                <div className="h-full transform-gpu transition-transform duration-[var(--duration-normal)] ease-[var(--ease-default)] hover:-translate-y-1">
+              <SwiperSlide key={item.id} className="h-auto flex">
+                <div className="w-full h-full transform-gpu transition-transform duration-300 hover:-translate-y-1">
                   <TestimonialCard item={item} />
                 </div>
               </SwiperSlide>
             ))}
           </Swiper>
 
-          {/* ========================================== */}
-          {/* دکمه‌های ناوبری */}
-          {/* ========================================== */}
+          {/* Navigation Arrows */}
           <button
             aria-label="Previous testimonials"
-            className="swiper-button-prev-custom absolute top-1/2 -left-3 lg:-left-6 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-[#0f172a] border border-[var(--color-border)] flex items-center justify-center text-white hover:text-[var(--primitive-teal-400)] hover:scale-105 active:scale-95 hover:bg-[#1e293b] hover:border-[rgba(0,169,189,0.42)] hover:shadow-[var(--elevation-glow)] transition-all duration-200 shadow-lg cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]"
+            className="swiper-button-prev-custom absolute top-1/2 -left-3 lg:-left-6 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-[#07212b] border border-white/15 flex items-center justify-center text-white hover:text-[#00E6D7] hover:scale-110 active:scale-95 hover:border-[#00E6D7] hover:shadow-[0_0_20px_rgba(0,230,215,0.4)] transition-all duration-200 shadow-2xl cursor-pointer"
           >
             <svg
               className="w-5 h-5"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              strokeWidth="2"
+              strokeWidth="2.5"
               aria-hidden="true"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15 19l-7-7 7-7"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
             </svg>
           </button>
 
           <button
             aria-label="Next testimonials"
-            className="swiper-button-next-custom absolute top-1/2 -right-3 lg:-right-6 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-[#0f172a] border border-[var(--color-border)] flex items-center justify-center text-white hover:text-[var(--primitive-teal-400)] hover:scale-105 active:scale-95 hover:bg-[#1e293b] hover:border-[rgba(0,169,189,0.42)] hover:shadow-[var(--elevation-glow)] transition-all duration-200 shadow-lg cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]"
+            className="swiper-button-next-custom absolute top-1/2 -right-3 lg:-right-6 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-[#07212b] border border-white/15 flex items-center justify-center text-white hover:text-[#00E6D7] hover:scale-110 active:scale-95 hover:border-[#00E6D7] hover:shadow-[0_0_20px_rgba(0,230,215,0.4)] transition-all duration-200 shadow-2xl cursor-pointer"
           >
             <svg
               className="w-5 h-5"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              strokeWidth="2"
+              strokeWidth="2.5"
               aria-hidden="true"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9 5l7 7-7 7"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>
           </button>
         </div>
