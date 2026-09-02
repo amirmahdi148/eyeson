@@ -32,7 +32,7 @@ const {
       {/* Image Section (با کلاس‌های انیمیشن اسکرول) */}
       {/* ========================================== */}
       <div
-        class="w-full lg:w-[55%] flex justify-center lg:justify-start order-1 lg:order-1 mx-auto reveal-on-scroll fade-right"
+        class="w-full lg:w-[55%] flex justify-center lg:justify-start order-1 lg:order-1 mx-auto "
       >
         <div class="relative w-full group">
           <div
@@ -54,7 +54,7 @@ const {
       {/* Text Section (با کلاس‌های انیمیشن اسکرول) */}
       {/* ========================================== */}
       <div
-        class="w-full lg:w-[42%] flex flex-col items-center text-center lg:items-start lg:text-left order-2 lg:order-2 reveal-on-scroll fade-up"
+        class="w-full lg:w-[42%] flex flex-col items-center text-center lg:items-start lg:text-left order-2 lg:order-2 "
       >
         <h2
           class="text-h2 mb-4 sm:mb-6"
@@ -94,33 +94,14 @@ const {
 {/* استایل‌های اختصاصی برای انیمیشن‌های اسکرول */}
 <style>
   /* حالت اولیه: محو شده و جابه‌جا شده */
-  .reveal-on-scroll {
-    opacity: 0;
-    will-change: opacity, transform, filter;
-  }
+  
 
-  .fade-up {
-    transform: translateY(32px);
-    transition:
-      opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
-  }
+  
 
-  .fade-right {
-    transform: translateX(-28px);
-    filter: blur(6px);
-    transition:
-      opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
-      filter 0.65s cubic-bezier(0.16, 1, 0.3, 1);
-  }
+  
 
   /* حالتی که توسط جاوااسکریپت اضافه میشه (وقتی وارد کادر میشه) */
-  .reveal-on-scroll.is-visible {
-    opacity: 1;
-    transform: translate(0);
-    filter: blur(0);
-  }
+  
 </style>
 
 {/* اسکریپت سبک Intersection Observer برای هندل کردن اسکرول */}

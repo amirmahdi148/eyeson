@@ -42,7 +42,7 @@ const {
       <div class="lg:col-span-6 flex flex-col items-center lg:items-start order-1">
         {/* Eyebrow — glass hairline per Modern Dark */}
         <div
-          class="why-reveal fade-up delay-100 mb-6 inline-flex items-center gap-3 rounded-full border border-[var(--color-border)] bg-white/[0.04] px-4 py-2.5 sm:py-2 shadow-[var(--elevation-1)] backdrop-blur-md group"
+          class=" mb-6 inline-flex items-center gap-3 rounded-full border border-[var(--color-border)] bg-white/[0.04] px-4 py-2.5 sm:py-2 shadow-[var(--elevation-1)] backdrop-blur-md group"
           style="background: linear-gradient(135deg, rgba(17,86,95,0.32) 0%, rgba(11,31,42,0.36) 100%);"
         >
           <span class="relative flex h-2.5 w-2.5 sm:h-3 sm:w-3">
@@ -52,7 +52,7 @@ const {
           <span class="text-caption text-white/80 normal-case tracking-normal">{eyebrow}</span>
         </div>
 
-        <h2 class="why-reveal fade-up delay-200 max-w-xl text-h2 leading-[1.12] text-white">
+        <h2 class=" max-w-xl text-h2 leading-[1.12] text-white">
           {title}
           {highlight && (
             <span class="block mt-1 bg-gradient-to-r from-[var(--primitive-teal-400)] to-[var(--primitive-teal-600)] bg-clip-text text-transparent">
@@ -62,7 +62,7 @@ const {
         </h2>
       </div>
 
-      <div class="lg:col-span-6 lg:row-span-2 w-full mt-4 lg:mt-0 why-reveal fade-left delay-300 order-2 lg:order-0">
+      <div class="lg:col-span-6 lg:row-span-2 w-full mt-4 lg:mt-0  order-2 lg:order-0">
         <div class="relative mx-auto w-full max-w-112.5 lg:max-w-155 motion-safe:animate-[softFloat_7s_ease-in-out_infinite] group will-change-transform">
           <div class="relative transform-gpu transition-all duration-[var(--duration-slower)] ease-[var(--ease-default)] group-hover:scale-[1.02] group-hover:-translate-y-1">
             <SmartImage
@@ -77,11 +77,11 @@ const {
 
       {/* 3. توضیحات و دکمه‌ها (در موبایل میوفته زیر عکس - order-3، در دسکتاپ زیر عنوان) */}
       <div class="lg:col-span-6 flex flex-col items-center lg:items-start mt-2 lg:mt-0 order-3">
-        <p class="why-reveal fade-up delay-300 max-w-xl text-small leading-relaxed text-white/65 mx-auto lg:mx-0 font-light">
+        <p class=" max-w-xl text-small leading-relaxed text-white/65 mx-auto lg:mx-0 font-light">
           {description}
         </p>
 
-        <div class="why-reveal fade-up delay-400 mt-[var(--space-lg)] flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center w-full sm:w-auto">
+        <div class=" mt-[var(--space-lg)] flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center w-full sm:w-auto">
           <div class="relative group/btn transform-gpu transition-transform duration-[var(--duration-normal)] ease-[var(--ease-default)] hover:scale-[1.02] active:scale-[0.98] w-full sm:w-auto">
             <div class="absolute -inset-1 rounded-full bg-gradient-to-r from-[var(--primitive-teal-400)] to-[var(--primitive-teal-600)] opacity-0 blur-lg transition-opacity duration-[var(--duration-slow)] group-hover/btn:opacity-30" aria-hidden="true"></div>
             <div class="relative flex justify-center w-full">
@@ -115,26 +115,16 @@ const {
     50% { opacity: 0.22; transform: scale(1.55); }
   }
 
-  .why-reveal {
+  . {
     opacity: 0;
     will-change: opacity, transform;
   }
 
-  .fade-up {
-    transform: translateY(24px);
-    transition:
-      opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  }
+  
 
-  .fade-left {
-    transform: translateX(28px);
-    transition:
-      opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  }
+  
 
-  .why-reveal.is-visible {
+  ..is-visible {
     opacity: 1;
     transform: translate(0);
   }
@@ -145,7 +135,7 @@ const {
   .delay-400 { transition-delay: 0.4s; }
 
   @media (prefers-reduced-motion: reduce) {
-    .why-reveal {
+    . {
       opacity: 1;
       transform: none;
       transition: none;
@@ -162,7 +152,7 @@ const {
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
-    const elements = document.querySelectorAll(".why-reveal");
+    const elements = document.querySelectorAll(".");
 
     if (prefersReducedMotion) {
       elements.forEach((el) => el.classList.add("is-visible"));

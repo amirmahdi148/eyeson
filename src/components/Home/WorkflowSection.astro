@@ -53,7 +53,7 @@ const {
   <div class="relative mx-auto max-w-[var(--container-max)] px-[var(--space-gutter)] sm:px-[var(--space-gutter-md)] lg:px-[var(--space-gutter-lg)]">
     <div class="mx-auto max-w-4xl text-center">
       
-      <h2 class="workflow-reveal fade-up delay-100 text-h2">
+      <h2 class=" text-h2">
         <span class="block bg-gradient-to-r from-[var(--primitive-teal-400)] via-[#60d6c6] to-[var(--primitive-teal-400)] bg-[length:200%_auto] animate-gradient bg-clip-text text-transparent pb-1">
           {headingTop}
         </span>
@@ -62,13 +62,13 @@ const {
         </span>
       </h2>
 
-      <p class="workflow-reveal fade-up delay-200 mt-[var(--space-sm)] text-small text-white/60 max-w-2xl mx-auto">
+      <p class=" mt-[var(--space-sm)] text-small text-white/60 max-w-2xl mx-auto">
         {description}
       </p>
     </div>
 
     <!-- Swiper Container -->
-    <div class="mt-[var(--space-xl)] workflow-reveal fade-up delay-300">
+    <div class="mt-[var(--space-xl)] ">
       <swiper-container init="false" class="mySwiper !pb-16">
         {cards.map((card) => (
           <swiper-slide class="h-auto">
@@ -128,17 +128,14 @@ const {
   }
 
   /* ================= Scroll Reveal Animations ================= */
-  .workflow-reveal {
+  . {
     opacity: 0;
     will-change: opacity, transform;
   }
 
-  .fade-up {
-    transform: translateY(40px);
-    transition: opacity var(--duration-emphasis) var(--ease-default), transform var(--duration-emphasis) var(--ease-default);
-  }
+  
 
-  .workflow-reveal.is-visible {
+  ..is-visible {
     opacity: 1;
     transform: translate(0);
   }
@@ -149,7 +146,7 @@ const {
   .delay-300 { transition-delay: 0.3s; }
 
   @media (prefers-reduced-motion: reduce) {
-    .workflow-reveal {
+    . {
       opacity: 1;
       transform: none;
       transition: none;
@@ -184,7 +181,7 @@ const {
   // Initialize Scroll Animations
   function initWorkflowAnimations() {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const elements = document.querySelectorAll('.workflow-reveal');
+    const elements = document.querySelectorAll('.');
     
     if (prefersReducedMotion) {
       elements.forEach(el => el.classList.add('is-visible'));

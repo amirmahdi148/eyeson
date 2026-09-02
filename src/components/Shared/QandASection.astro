@@ -169,7 +169,7 @@ const questions: QAItem[] = questionOverrides.map((override) => {
     
     {/* ===== بخش هدر و تصویر سمت چپ ===== */}
     <div class="space-y-6 sm:space-y-8 flex flex-col items-center text-center lg:items-start lg:text-left">
-      <div class="w-full qa-reveal fade-up">
+      <div class="w-full ">
         <h2 class="text-3xl font-extrabold leading-tight sm:text-4xl md:text-5xl">
           <span class="block">{title1}</span>
           <span class="block text-[#39d0c3] drop-shadow-[0_0_15px_rgba(57,208,195,0.4)]">{title2}</span>
@@ -180,7 +180,7 @@ const questions: QAItem[] = questionOverrides.map((override) => {
       </div>
 
       {/* تصویر سمت چپ */}
-      <div class="qa-reveal fade-up delay-100 w-full max-w-[600px] sm:max-w-[700px]">
+      <div class=" w-full max-w-[600px] sm:max-w-[700px]">
         <SmartImage
             src={imageSrc}
             alt={imageAlt}
@@ -196,7 +196,7 @@ const questions: QAItem[] = questionOverrides.map((override) => {
       <div class="space-y-3 sm:space-y-4">
         {questions.map((item, index) => (
             <div
-                class={`qa-item qa-reveal fade-left group relative overflow-hidden rounded-xl sm:rounded-2xl border border-white/5 bg-linear-to-br from-[#082A33] to-[#052128] shadow-lg shadow-black/25 hover:border-cyan-400/25`}
+                class={`qa-item  group relative overflow-hidden rounded-xl sm:rounded-2xl border border-white/5 bg-linear-to-br from-[#082A33] to-[#052128] shadow-lg shadow-black/25 hover:border-cyan-400/25`}
                 style={`transition-delay: ${index * 100}ms;`}
                 data-qa-index={index}
             >
@@ -246,22 +246,16 @@ const questions: QAItem[] = questionOverrides.map((override) => {
 
 <style>
   /* ================= انیمیشن‌های اسکرول ================= */
-  .qa-reveal {
+  . {
     opacity: 0;
     will-change: opacity, transform;
   }
 
-  .fade-up {
-    transform: translateY(30px);
-    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-  }
+  
 
-  .fade-left {
-    transform: translateX(30px);
-    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-  }
+  
 
-  .qa-reveal.is-visible {
+  ..is-visible {
     opacity: 1;
     transform: translate(0);
   }
@@ -413,7 +407,7 @@ const questions: QAItem[] = questionOverrides.map((override) => {
   function initQA() {
     // 1. منطق انیمیشن اسکرول
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const revealElements = document.querySelectorAll('.qa-reveal');
+    const revealElements = document.querySelectorAll('.');
     
     if (prefersReducedMotion) {
       revealElements.forEach(el => el.classList.add('is-visible'));

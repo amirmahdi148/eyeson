@@ -68,12 +68,12 @@ const orbits: OrbitConfig[] = [
   <HomeBackground/>
   <HeroHome client:load />
   <CreativeDirections  />
-  <OrbitSystem orbits={orbits} content={content} width="1000px" height="1000px" animations={true} client:visible/>
+  <OrbitSystem orbits={orbits} content={content} width="1000px" height="1000px" animations={true} client:visible={{ rootMargin: "400px" }}/>
   <LogoCaro tagline=""/>
-  <HomeServicesSection client:visible />
-  <VideoWorkShowcaseSection client:visible />
+  <HomeServicesSection client:visible={{ rootMargin: "400px" }} />
+  <VideoWorkShowcaseSection client:visible={{ rootMargin: "400px" }} />
   <WhyChooseUs />
-  <TestimonialsSection client:visible />
+  <TestimonialsSection client:visible={{ rootMargin: "400px" }} />
   <WorkflowSection
       cards={[
         {
@@ -103,11 +103,11 @@ const orbits: OrbitConfig[] = [
         },
       ]}
   />
-  <ProcessScrollSection client:visible />
+  <ProcessScrollSection client:visible={{ rootMargin: "400px" }} />
 
 
-  <CaseStudiesSection client:visible />
+  <CaseStudiesSection client:visible={{ rootMargin: "400px" }} />
   <QandASection  />
   <CostVideo  />
-  <ContactUs client:visible />
+  <ContactUs client:visible={{ rootMargin: "400px" }} />
 </div>

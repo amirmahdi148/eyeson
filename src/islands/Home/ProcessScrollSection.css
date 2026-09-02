@@ -1,12 +1,12 @@
 .process-step {
-  opacity: 0;
-  transform: translateY(36px);
+  opacity: 1;
+  transform: none;
   will-change: transform, opacity;
 }
 
 .process-step.in-view {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
   transition: transform 0.8s ease-out, opacity 0.8s ease-out;
 }
 
@@ -21,13 +21,13 @@
 
 @keyframes floatBadge {
   0% {
-    transform: translateY(0);
+    transform: none;
   }
   50% {
-    transform: translateY(-10px);
+    transform: none;
   }
   100% {
-    transform: translateY(0);
+    transform: none;
   }
 }
 .bg-card {
