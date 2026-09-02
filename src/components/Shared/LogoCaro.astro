@@ -1,5 +1,5 @@
 ---
-import { SmartImage } from '@/utils/SmartImage';
+import { SmartImage } from "@/utils/SmartImage";
 
 type Logo = { src: string; alt: string };
 
@@ -26,15 +26,15 @@ const {
   ],
 } = Astro.props as Props;
 
-// دو برابر کردن لوگوها برای لوپ بی‌نهایت
-const loopLogos = [...logos, ...logos];
+// Quadruple logos for ultra-smooth, continuous tight loop
+const loopLogos = [...logos, ...logos, ...logos, ...logos];
 ---
 
-<section class="relative flex flex-col items-center gap-8 overflow-hidden pt-8">
-  <p class="text-center text-sm tracking-wide text-white/80">{tagline}</p>
+<section class="relative flex flex-col items-center gap-6 overflow-hidden pt-6 pb-2">
+  <p class="text-center text-xs sm:text-sm font-medium tracking-wide text-white/70">{tagline}</p>
 
-  <!-- ================= UNIFIED MARQUEE ================= -->
-  <div class="logo-mask w-full px-4 opacity-80" aria-label="Brand logos">
+  <!-- ================= UNIFIED TIGHT MARQUEE ================= -->
+  <div class="logo-mask w-full opacity-90" aria-label="Brand logos">
     <div class="logo-scroll flex w-max items-center">
       {
         loopLogos.map((logo, _index) => (
@@ -43,11 +43,11 @@ const loopLogos = [...logos, ...logos];
               <SmartImage
                 src={logo.src}
                 alt={logo.alt}
-                width={220}
-                height={88}
+                width={160}
+                height={64}
                 loading="lazy"
                 decoding="async"
-                className="logo-img h-14 md:h-20 w-full object-contain"
+                className="logo-img h-10 sm:h-12 md:h-14 w-auto object-contain"
               />
             </div>
           </div>
@@ -58,70 +58,80 @@ const loopLogos = [...logos, ...logos];
 </section>
 
 <style>
-  /* ================= ONLY FIX: prevent layout shift ================= */
   .logo-item {
-    aspect-ratio: 220 / 88;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0 0.5rem;
   }
 
-  /* ================= IMAGE FIX ================= */
   .logo-img {
-    opacity: 0;
-    transition:
-      opacity 0.35s ease,
-      transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-      filter 0.3s ease;
+    opacity: 0.65;
+    transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
     filter: grayscale(100%);
     will-change: opacity, transform, filter;
   }
 
-  /* reveal after load */
-  .logo-img.is-loaded {
-    opacity: 0.5;
+  .logo-item:hover .logo-img {
+    opacity: 1;
+    filter: grayscale(0%);
+    transform: scale(1.08);
   }
 
   /* ================= MARQUEE & MASK ================= */
   .logo-mask {
-    --logo-visible-count: 3; /* موبایل: 3 لوگو */
-    --logo-gap: 0.75rem;
+    --logo-gap: 0.5rem;
     overflow: hidden;
 
-    /* جادوی ماسک برای هاله‌های محوشونده در دو طرف */
     -webkit-mask-image: linear-gradient(
       to right,
       transparent 0%,
-      black 15%,
-      black 85%,
+      black 10%,
+      black 90%,
       transparent 100%
     );
     mask-image: linear-gradient(
       to right,
       transparent 0%,
-      black 15%,
-      black 85%,
+      black 10%,
+      black 90%,
       transparent 100%
     );
   }
 
   .logo-scroll {
-    /* انیمیشن به سمت راست (مدت زمان رو میتونی کم و زیاد کنی) */
-    animation: logo-scroll-right 30s linear infinite;
+    animation: logo-scroll-right 35s linear infinite;
     will-change: transform;
+    gap: 0.75rem;
   }
 
-  /* با هاور کردن روی اسلایدر، سرعتش نصف میشه که کاربر بتونه راحت‌تر ببینه */
   .logo-scroll:hover {
-    animation-play-state: paused; /* یا میتونی paused بذاری که کامل وایسته */
+    animation-play-state: paused;
   }
 
   .logo-slot {
-    flex: 0 0 calc(100vw / var(--logo-visible-count));
-    padding-inline: calc(var(--logo-gap) / 2);
+    flex: 0 0 auto;
+    width: 130px;
   }
 
-  /* کلید حرکت به راست: شروع از -50% و پایان در 0 */
+  @media (min-width: 640px) {
+    .logo-slot {
+      width: 160px;
+    }
+    .logo-scroll {
+      gap: 1.25rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .logo-slot {
+      width: 180px;
+    }
+    .logo-scroll {
+      gap: 1.5rem;
+    }
+  }
+
   @keyframes logo-scroll-right {
     0% {
       transform: translateX(-50%);
@@ -130,57 +140,4 @@ const loopLogos = [...logos, ...logos];
       transform: translateX(0);
     }
   }
-
-  /* ================= RESPONSIVE ================= */
-  @media (min-width: 640px) {
-    .logo-mask {
-      --logo-visible-count: 4; /* تبلت: 4 لوگو */
-      --logo-gap: 1rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .logo-mask {
-      --logo-visible-count: 5; /* دسکتاپ: 5 لوگو */
-      --logo-gap: 1.5rem;
-      /* ماسک رو تو دسکتاپ ملایم‌تر می‌کنیم */
-      -webkit-mask-image: linear-gradient(
-        to right,
-        transparent 0%,
-        black 10%,
-        black 90%,
-        transparent 100%
-      );
-      mask-image: linear-gradient(
-        to right,
-        transparent 0%,
-        black 10%,
-        black 90%,
-        transparent 100%
-      );
-    }
-  }
-
-  /* ================= ACCESSIBILITY ================= */
-  @media (prefers-reduced-motion: reduce) {
-    .logo-scroll {
-      animation: none;
-      transform: translateX(0);
-    }
-  }
 </style>
-
-<script is:inline>
-  // فقط برای جلوگیری از alt flash
-  const imgs = document.querySelectorAll(".logo-img");
-
-  imgs.forEach((img) => {
-    const reveal = () => img.classList.add("is-loaded");
-
-    if (img.complete) {
-      reveal();
-    } else {
-      img.addEventListener("load", reveal);
-    }
-  });
-</script>
