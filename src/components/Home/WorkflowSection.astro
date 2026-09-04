@@ -63,10 +63,14 @@ const {
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch">
       {cards.map((card, idx) => (
         <article
-          class="group relative flex flex-col overflow-hidden rounded-[28px] border border-white/10 bg-gradient-to-b from-[#061e27]/90 to-[#020d13]/95 p-5 sm:p-6 shadow-2xl backdrop-blur-xl transition-all duration-300 hover:border-[#00E6D7]/40 hover:-translate-y-1.5 hover:shadow-[0_20px_50px_rgba(0,169,189,0.18)]"
+          class="workflow-card group relative flex flex-col overflow-hidden rounded-[28px] border border-white/10 bg-gradient-to-b from-[#061e27]/90 to-[#020d13]/95 p-5 sm:p-6 shadow-2xl backdrop-blur-xl transition-all duration-300 hover:border-[#00E6D7]/40 hover:-translate-y-1.5 hover:shadow-[0_20px_50px_rgba(0,169,189,0.18)] reveal-on-scroll"
+          style={`transition-delay: ${idx * 120}ms;`}
         >
           {/* Subtle Top Glow */}
           <div class="pointer-events-none absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-[#00E6D7]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+          {/* Cursor Spotlight — هاله نور دنبال‌کننده موس */}
+          <div class="card-spotlight pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100" aria-hidden="true"></div>
 
           {/* Illustration Container — Natural Contain without Stretching */}
           <div class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-[#03131b] border border-white/[0.06] p-2 flex items-center justify-center mb-6">
@@ -118,4 +122,77 @@ const {
   .animate-gradient {
     animation: gradient 8s ease infinite;
   }
+
+  /* ================= اسکرول ریویل کارت‌ها ================= */
+  .workflow-card.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 300ms ease,
+      box-shadow 300ms ease,
+      translate 300ms ease;
+    will-change: opacity, transform;
+  }
+
+  .workflow-card.reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .workflow-card.reveal-on-scroll {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /* ================= اسپات‌لایت موس ================= */
+  .card-spotlight {
+    background: radial-gradient(
+      340px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(0, 230, 215, 0.10),
+      transparent 65%
+    );
+    z-index: 1;
+  }
 </style>
+
+<script>
+  function initWorkflowMicroInteractions() {
+    const cards = document.querySelectorAll<HTMLElement>(".workflow-card");
+
+    // اسکرول ریویل با استگر
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) {
+      cards.forEach((c) => c.classList.add("is-visible"));
+    } else {
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              obs.unobserve(entry.target);
+            }
+          });
+        },
+        { rootMargin: "0px 0px -80px 0px", threshold: 0.1 },
+      );
+      cards.forEach((c) => observer.observe(c));
+    }
+
+    // اسپات‌لایت دنبال‌کننده موس
+    const moveSpotlight = (e: Event) => {
+      const card = (e.currentTarget as HTMLElement);
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty("--mx", `${e.clientX - rect.left}px`);
+      card.style.setProperty("--my", `${e.clientY - rect.top}px`);
+    };
+    cards.forEach((c) => c.addEventListener("pointermove", moveSpotlight));
+  }
+
+  document.addEventListener("DOMContentLoaded", initWorkflowMicroInteractions);
+  document.addEventListener("astro:page-load", initWorkflowMicroInteractions);
+</script>

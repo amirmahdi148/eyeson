@@ -113,9 +113,10 @@ const storyItems = [
     <!-- 💻 DESKTOP / TABLET (همه آیتم‌ها) -->
     <div class="hidden sm:contents">
       {
-        storyItems.map((item) => (
+        storyItems.map((item, idx) => (
           <article
-            class={`group relative overflow-hidden rounded-2xl border border-white/10 bg-[#071A28] ${item.className}`}
+            class={`reveal-on-scroll spotlight-card group relative overflow-hidden rounded-2xl border border-white/10 bg-[#071A28] ${item.className}`}
+            data-reveal-delay={(idx % 4) * 100}
           >
             <SmartImage
               src={item.src}

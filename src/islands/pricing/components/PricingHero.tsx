@@ -48,13 +48,13 @@ export const PricingHero = () => {
 
   return (
     <>
-      <div className="w-full min-h-dvh flex items-center justify-center flex-col gap-10 sm:gap-20 overflow-x-hidden pt-20 sm:pt-0 pb-16 mt-20">
+      <div className="w-full min-h-dvh flex items-center justify-center flex-col gap-10 sm:gap-20 overflow-x-hidden  pb-20 pt-20 ">
 
         {/* پس‌زمینه محو */}
         <div className="absolute bg-[#003641] w-[372px] h-[262px] top-[97px] -left-[147px] blur-[300px] pointer-events-none z-[-1]" />
 
         {/* عنوان */}
-        <div className="px-4 text-center mt-12 sm:mt-0">
+        <div className="px-4 text-center ">
           <h2 className="leading-tight flex flex-col items-center justify-center gap-2">
             <span className="text-3xl sm:text-[40px] font-bold text-white">
               Flexible {' '}

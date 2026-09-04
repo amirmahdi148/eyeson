@@ -55,9 +55,9 @@ export function SmartImage({
         width={!fill ? width : undefined}
         height={!fill ? height : undefined}
         className={`
-          ${fill ? "absolute inset-0 w-full h-full" : "w-full h-auto"}
+          ${fill ? "absolute inset-0 w-full h-full" : ""}
           object-${objectFit}
-          ${className}
+          ${className || "w-full h-auto"}
         `}
         style={{ display: "block" }}
       />

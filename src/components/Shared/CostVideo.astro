@@ -65,8 +65,13 @@ import SecondaryButton from "./SecondaryButton";
       </div>
 
       <!-- === ستون راست: SVG Calculator === -->
-      <div onclick="window.location.href = '/pricing'" class="relative flex items-center justify-center pt-12 lg:justify-end lg:pt-0 cursor-pointer hover:scale-102 transition-transform">
-        <SmartImage src="/Shared/cal/calu2.webp" alt="Calculator" className="w-full max-w-2xl sm:max-w-4xl h-auto scale-125 relative top-3" />
+      <div
+        onclick="window.location.href = '/pricing'"
+        class="cv-cal-wrap relative flex items-center justify-center pt-12 lg:justify-end lg:pt-0 cursor-pointer"
+      >
+        <div class="cv-cal-tilt transition-transform duration-300 ease-out will-change-transform">
+          <SmartImage src="/Shared/cal/calu2.webp" alt="Calculator" className="w-full max-w-2xl sm:max-w-4xl h-auto scale-125 relative top-3 drop-shadow-[0_24px_50px_rgba(0,169,189,0.25)]" />
+        </div>
       </div>
     </div>
   </div>
@@ -95,6 +100,27 @@ import SecondaryButton from "./SecondaryButton";
       opacity: 1;
     }
   }
+
+  /* ================= تیلت سه‌بعدی ماشین‌حساب ================= */
+  .cv-cal-wrap {
+    perspective: 900px;
+  }
+
+  .cv-cal-tilt {
+    transform: rotateX(0deg) rotateY(0deg);
+    transition: transform 0.35s ease-out;
+  }
+
+  .cv-cal-wrap:hover .cv-cal-tilt {
+    transform: rotateX(4deg) rotateY(-6deg) translateY(-6px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cv-cal-tilt {
+      transition: none;
+    }
+    .cv-cal-wrap:hover .cv-cal-tilt {
+      transform: none;
+    }
+  }
 </style>
-
-

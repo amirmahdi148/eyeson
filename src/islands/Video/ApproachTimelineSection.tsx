@@ -1,8 +1,25 @@
-import { SmartImage } from "@/utils/SmartImage.tsx";
+type ApproachTimelineSectionProps = {
+  eyebrow?: string;
+  title?: string;
+  description?: string;
+  steps?: number[];
+  desktopSrc?: (step: number) => string;
+  mobileSrc?: (step: number) => string;
+};
 
-const steps = [1, 2, 3, 4, 5, 6];
+const DEFAULT_STEPS = [1, 2, 3, 4, 5, 6];
 
-export default function ApproachTimelineSection() {
+const DEFAULT_DESCRIPTION =
+  "We don’t just design visuals and hope they work. Every ad creative is built through a clear process focused on hooks, message clarity, platform behavior, visual impact, and conversion.";
+
+export default function ApproachTimelineSection({
+  eyebrow = "OUR PROCESS",
+  title = "Our Approach to High Performing Ad Creatives",
+  description = DEFAULT_DESCRIPTION,
+  steps = DEFAULT_STEPS,
+  desktopSrc = (step) => `/adcreatives/svg/multi-layer/${step}.svg`,
+  mobileSrc = (step) => `/adcreatives/approach/R2W (${step}).webp`,
+}: ApproachTimelineSectionProps) {
   return (
     <section
       className="relative overflow-hidden px-6 pb-16 pt-10 lg:px-20 flex justify-center items-center"
@@ -10,16 +27,13 @@ export default function ApproachTimelineSection() {
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto max-w-3xl text-center animate-fade-in">
           <p className="mb-3 text-xs tracking-[0.2em] text-[#c2d3dc]">
-            OUR PROCESS
+            {eyebrow}
           </p>
           <h2 className="text-3xl font-bold leading-tight text-white md:text-5xl">
-            Our Approach to
-            High Performing Ad Creatives
+            {title}
           </h2>
           <p className="mt-4 text-sm leading-7 text-[#c3d4de] md:text-base">
-            We don’t just design visuals and hope they work. Every ad creative is built through a clear
-            process focused on hooks, message clarity, platform behavior, visual impact, and
-            conversion.
+            {description}
           </p>
         </div>
 
@@ -50,13 +64,13 @@ export default function ApproachTimelineSection() {
                   className="min-w-0 flex-1 overflow-hidden rounded-2xl opacity-95 hover:opacity-100 transition-opacity"
                 >
                   <img
-                    src={`/adcreatives/svg/multi-layer/${step}.svg`}
+                    src={desktopSrc(step)}
                     alt={`Step ${step}'s svg`}
                     className="hidden h-auto w-full md:block"
                     loading="lazy"
                   />
                   <img
-                    src={`/adcreatives/approach/R2W (${step}).webp`}
+                    src={mobileSrc(step)}
                     alt={`Step ${step}`}
                     className="h-auto w-full md:hidden"
                     loading="lazy"

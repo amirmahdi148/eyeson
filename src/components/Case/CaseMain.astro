@@ -5,6 +5,7 @@ import VisualProofSection from "../../islands/Case/VisualProofSection";
 import CaseStudiesSection from "../../islands/CaseStudiesSection";
 import ContactUs from "../../islands/ContactUs";
 import CaseBackground from "../../islands/Case/CaseBackground";
+import HomeBackground from "../Home/HomeBackground.astro";
 
 const { slug } = Astro.props;
 ---
@@ -16,6 +17,7 @@ const { slug } = Astro.props;
     <div class="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.15),rgba(0,0,0,0.4))]" />
     <div class="absolute inset-0 opacity-35 bg-[radial-gradient(rgba(255,255,255,0.45)_1px,transparent_1px)] bg-size-[115px_115px]" />
   </div>
+  <HomeBackground />
   <div class="relative flex flex-col gap-3">
     <CaseStudyHero client:load slug={slug} />
     <VisualProofSection client:visible slug={slug} />

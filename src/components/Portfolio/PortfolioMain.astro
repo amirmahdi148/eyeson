@@ -7,10 +7,12 @@ import DesignSubscriptionSection from "./DesignSubscriptionSection.astro";
 import { DesignPortfolioShowcase } from "../../islands/Portfolio/DesignPortfolioShowcase.tsx";
 import CustomerStoriesShowcase from "./CustomerStoriesShowcase.astro";
 import PortfolioBackground from "./PortfolioBackground.astro";
+import HomeBackground from "../Home/HomeBackground.astro";
 ---
 
 
-<div class="flex flex-col gap-3 justify-center items-between">
+<div class="relative flex flex-col gap-3 justify-center items-between">
+    <HomeBackground />
     <PortfolioBackground />
     <PortfolioHero />
     <LogoCaro />

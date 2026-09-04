@@ -1,5 +1,6 @@
 ---
 import AnimationBackground from "./AnimationBackground.astro";
+import SaasBackground from "./Saas/SaasBackground.astro";
 import StarBackground from "../islands/StarBackground";
 import {AnimationsHero , MediaFrameHero} from "../islands/animations/AnimationsHero";
 import AnimationProcessSection from "../islands/animations/AnimationProcessSection";
@@ -18,6 +19,8 @@ import AnimationNeedsBlock from "../islands/animations/AnimationNeedsBlock";
 
 <div class="animations-page-mobile relative w-full overflow-x-hidden">
   <!-- Defer non-critical JS to keep the Hero entry animation smooth on first paint -->
+
+  <SaasBackground />
 
   <AnimationBackground />
 

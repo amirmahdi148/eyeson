@@ -14,7 +14,7 @@ import CTA from "../Shared/CTA.astro";
 import HomeBackground from "@/components/Home/HomeBackground.astro";
 ---
 
-<div>
+<div class="relative">
   <HomeBackground />
   <HeroBasic
     client:load
@@ -28,9 +28,9 @@ into clear, engaging visual stories built for modern digital platforms."
     primaryBtnUrl="/contact"
     secondaryBtnUrl="/pricing"
     secondaryBtnText="Get Pricing"
-    imageDivClassName="relative lg:!max-w-none lg:w-[140%] lg:-ml-40 lg:mt-0 mt-10 z-0"
-    imageWrapperClassName="absolute w-170 h-230 -right-10 top-50"
-    imageClassName="w-230 h-230 object-contain drop-shadow-[0_0_50px_rgba(50,210,199,0.15)] scale-[1.3] relative  lg:right-55"
+    imageDivClassName="relative lg:!max-w-none lg:w-[140%] lg:-ml-40 lg:mt-0 mt-10 z-0 hidden lg:block"
+    imageWrapperClassName="absolute w-200 h-230 -right-10 top-50"
+    imageClassName="w-170 h-140 object-contain drop-shadow-[0_0_50px_rgba(50,210,199,0.15) xl:scale-[1.5] lg:scale-[1.2] md:hidden relative  lg:right-55 "
     textContainerClassName="relative z-10 "
     headingClassName="!text-white text-[24px] md:text-[27px] lg:text-[32px] font-bold tracking-tight leading-[1.1]"
     highlightClassName="!text-[#2fd0c8] !bg-none font-bold"

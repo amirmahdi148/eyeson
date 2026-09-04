@@ -11,6 +11,51 @@ const items = [
   { src: "/home/Hero/clients/4.webp" },
 ];
 
+// شمارش تدریجی عدد وقتی وارد دید میشه
+function useCountUp(target: number, duration = 1600) {
+  const [value, setValue] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const started = useRef(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setValue(target);
+      return;
+    }
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries[0].isIntersecting || started.current) return;
+      started.current = true;
+      observer.disconnect();
+      const start = performance.now();
+      const tick = (now: number) => {
+        const t = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - t, 3);
+        setValue(Math.round(target * eased));
+        if (t < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }, { threshold: 0.4 });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [target, duration]);
+
+  return { ref, value };
+}
+
+function CountUpStat({ target, suffix, label }: { target: number; suffix: string; label: string }) {
+  const { ref, value } = useCountUp(target);
+  return (
+    <div className="flex items-baseline gap-2">
+      <span ref={ref} className="text-xl sm:text-2xl font-extrabold text-[#00E6D7] tabular-nums">
+        {value}{suffix}
+      </span>
+      <span className="text-sm sm:text-base text-white/70 font-medium">{label}</span>
+    </div>
+  );
+}
+
 export default function HeroHome() {
   const [activeTab, setActiveTab] = useState("video-editing");
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -93,17 +138,11 @@ export default function HeroHome() {
 
           <div className="hidden sm:block h-8 w-px bg-white/10" />
 
-          <div className="flex items-baseline gap-2">
-            <span className="text-xl sm:text-2xl font-extrabold text-[#00E6D7]">1200+</span>
-            <span className="text-sm sm:text-base text-white/70 font-medium">Projects Delivered</span>
-          </div>
+          <CountUpStat target={1200} suffix="+" label="Projects Delivered" />
 
           <div className="hidden sm:block h-8 w-px bg-white/10" />
 
-          <div className="flex items-baseline gap-2">
-            <span className="text-xl sm:text-2xl font-extrabold text-[#00E6D7]">25+</span>
-            <span className="text-sm sm:text-base text-white/70 font-medium">Countries Served</span>
-          </div>
+          <CountUpStat target={25} suffix="+" label="Countries Served" />
         </div>
 
         <div className="h-px w-full max-w-3xl bg-gradient-to-r from-transparent via-[var(--color-border-teal)] to-transparent opacity-60" />

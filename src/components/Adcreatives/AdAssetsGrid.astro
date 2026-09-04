@@ -65,8 +65,8 @@ const cards = [
     {/* گرید کارت‌ها */}
     <div class="ad-cards-grid">
       {
-        cards.map((card) => (
-          <div class="ad-card">
+        cards.map((card, idx) => (
+          <div class="ad-card reveal-on-scroll spotlight-card" data-reveal-delay={(idx % 4) * 100}>
             <div class="ad-card-content">
               <h3 class="ad-card-title">{card.title}</h3>
               <p class="ad-card-subtitle">{card.subtitle}</p>

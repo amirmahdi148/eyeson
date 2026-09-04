@@ -34,68 +34,16 @@ const images = [
     </header>
 
     <div class="bento-grid">
-      <div class="bento-item item-1">
-        <img
-          src={images[0].src}
-          alt={images[0].alt}
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-
-      <div class="bento-item item-2">
-        <img
-          src={images[1].src}
-          alt={images[1].alt}
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-
-      <div class="bento-item item-3">
-        <img
-          src={images[2].src}
-          alt={images[2].alt}
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-
-      <div class="bento-item item-4">
-        <img
-          src={images[3].src}
-          alt={images[3].alt}
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-
-      <div class="bento-item item-5">
-        <img
-          src={images[4].src}
-          alt={images[4].alt}
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-
-      <div class="bento-item item-6">
-        <img
-          src={images[5].src}
-          alt={images[5].alt}
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-
-      <div class="bento-item item-7">
-        <img
-          src={images[6].src}
-          alt={images[6].alt}
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
+      {images.map((image, idx) => (
+        <div class={`reveal-on-scroll bento-item item-${idx + 1}`} data-reveal-delay={(idx % 4) * 90}>
+          <img
+            src={image.src}
+            alt={image.alt}
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      ))}
     </div>
   </div>
 </section>
@@ -285,6 +233,18 @@ const images = [
   }
   .bento-item:hover img {
     transform: scale(1.05);
+  }
+
+  /* reveal-on-scroll: بعد از ظاهر شدن، ترنسفورم هوور رو نگه می‌داریم */
+  .bento-item.reveal-on-scroll {
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 0.35s ease,
+      box-shadow 0.35s ease;
+  }
+  .bento-item.reveal-on-scroll.is-visible:hover {
+    transform: translateY(-4px);
   }
 
   /* ──────────── Responsive: Tablet (768px) ──────────── */

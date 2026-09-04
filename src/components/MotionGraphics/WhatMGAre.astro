@@ -8,7 +8,7 @@ import { SmartImage } from "@/utils/SmartImage";
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
     <div class="grid grid-cols-1 items-center gap-x-16 gap-y-12 lg:grid-cols-2">
       <!-- Left Column: Image — top on mobile -->
-      <div class="relative order-1 lg:order-1">
+      <div class="reveal-on-scroll relative order-1 lg:order-1">
         <div class="relative group">
           <SmartImage
             src="/motion-graphics/boh.webp"
@@ -23,7 +23,7 @@ import { SmartImage } from "@/utils/SmartImage";
       </div>
 
       <!-- Right Column: Text — bottom on mobile -->
-      <div class="order-2 lg:order-2 text-center lg:text-left">
+      <div class="reveal-on-scroll order-2 lg:order-2 text-center lg:text-left" data-reveal-delay="150">
         <h2
           class="text-lg md:text-2xl lg:text-[28px] font-bold tracking-tight text-white leading-[1.1]"
         >

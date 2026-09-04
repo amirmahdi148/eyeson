@@ -15,6 +15,8 @@ export interface Props {
   datePublished?: string;
   dateModified?: string;
   articleSection?: string;
+  /** Landing-page font identity: "sora" | "grotesk" | "outfit" */
+  fontTheme?: "sora" | "grotesk" | "outfit";
 }
 
 const {
@@ -29,17 +31,18 @@ const {
   datePublished,
   dateModified,
   articleSection,
+  fontTheme,
 } = Astro.props as Props;
 
 const defaultTitle = () => {
   const path = Astro.url.pathname.replace(/^\//, "").replace(/\/$/, "");
-  if (!path) return "EyesOn Agency — Creative Digital Agency";
+  if (!path) return "EyesOn Studio — Motion Design & Creative Agency";
   const parts = path.split("/").map((p) => p.charAt(0).toUpperCase() + p.slice(1));
-  return `${parts.join(" ")} — EyesOn Agency`;
+  return `${parts.join(" ")} — EyesOn Studio`;
 };
 
 const computedTitle = title ?? defaultTitle();
-const computedDescription = description ?? "EyesOn Studio: Premium Animations & Video Editing services.";
+const computedDescription = description ?? "EyesOn Studio — Motion Design & Creative Agency";
 
 
 const finalTitle = title ?? computedTitle;
@@ -51,7 +54,7 @@ const absoluteOgImage = ogImage?.startsWith("http") ? ogImage : new URL(ogImage,
 const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
 ---
 
-<html lang={lang}>
+<html lang={lang} data-font-theme={fontTheme}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -66,7 +69,7 @@ const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..800&family=Sora:wght@300..800&family=Space+Grotesk:wght@300..700&family=Outfit:wght@300..800&display=swap"
       rel="stylesheet"
     />
 
@@ -97,13 +100,13 @@ const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
     <script is:inline type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Organization",
-      "name": "EyesOn Agency",
+      "name": "EyesOn Studio",
       "url": "https://eyeson.com",
       "logo": "https://eyeson.com/og/image.jpg",
-      "description": "Premium Animations & Video Editing services.",
+      "description": "Motion Design & Creative Agency",
       "sameAs": [
-        "https://twitter.com/eyesonagency",
-        "https://www.linkedin.com/company/eyesonagency"
+        "https://twitter.com/eyesonstudio",
+        "https://www.linkedin.com/company/eyesonstudio"
       ]
     })} />
   </head>
@@ -116,6 +119,10 @@ const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
     </main>
 
     <Footer />
+
+    <script>
+      import "../utils/microInteractions.ts";
+    </script>
 
     <script>
       import type Lenis from "lenis";

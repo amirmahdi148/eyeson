@@ -78,9 +78,10 @@ const showcaseItems = [
     class="mt-8 hidden sm:grid auto-rows-[220px] grid-cols-2 gap-4 md:grid-cols-3"
   >
     {
-      showcaseItems.map((item) => (
+      showcaseItems.map((item, idx) => (
         <article
-          class={`group relative overflow-hidden rounded-2xl border border-white/10 bg-[#071A28] ${item.className}`}
+          class={`reveal-on-scroll spotlight-card group relative overflow-hidden rounded-2xl border border-white/10 bg-[#071A28] ${item.className}`}
+          data-reveal-delay={(idx % 3) * 120}
         >
           <SmartImage
             src={item.src}

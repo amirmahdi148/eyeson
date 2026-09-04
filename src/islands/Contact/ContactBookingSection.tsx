@@ -120,7 +120,7 @@ export const ContactBookingSection = () => {
 
         <div className="mt-8 grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
           {/* Left Form Card */}
-          <div className="rounded-[32px] border border-white/10 bg-[#05151d]/80 p-6 sm:p-10 shadow-2xl">
+          <div className="reveal-on-scroll spotlight-card relative rounded-[32px] border border-white/10 bg-[#05151d]/80 p-6 sm:p-10 shadow-2xl">
             <div className="grid gap-6 sm:grid-cols-2">
               <div className="space-y-2">
                 <label className="text-sm font-medium text-white/90">First Name</label>
@@ -298,11 +298,11 @@ understand your project."
           </div>
         </div>
 
-        <div className="mt-12 flex justify-center">
+        <div className="reveal-on-scroll mt-12 flex justify-center" data-reveal-delay="150">
           <button
               onClick={handleConfirmBooking}
               disabled={isSubmitting}
-              className="h-14 w-full max-w-xl flex items-center justify-center rounded-2xl bg-gradient-to-r from-[#4BCDBB] to-[#1DAFD3] text-base font-bold text-white shadow-xl transition-all hover:brightness-110 active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
+              className="h-14 w-full max-w-xl flex items-center justify-center rounded-2xl bg-gradient-to-r from-[#4BCDBB] to-[#1DAFD3] text-base font-bold text-white shadow-xl transition-all hover:brightness-110 hover:scale-[1.02] active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
           >
             {isSubmitting ? (
                <>

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SmartImage } from "../../utils/SmartImage.tsx";
 
 const tools = [
@@ -23,6 +23,30 @@ const tools = [
 ];
 
 export const ToolsComponent = () => {
+  // ظاهر شدن تدریجی بج‌ها وقتی وارد دید میشن
+  const gridRef = useRef<HTMLDivElement>(null);
+  const [shown, setShown] = useState(false);
+
+  useEffect(() => {
+    const el = gridRef.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setShown(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setShown(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section className="relative w-full overflow-hidden py-16 md:py-24 lg:py-32">
       {/* هاله نوری ملایم در بک‌گراند */}
@@ -49,12 +73,18 @@ export const ToolsComponent = () => {
         {/* کپسول‌های ابزار (Badges) */}
         {/* ========================================== */}
         <div
+          ref={gridRef}
           className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 md:gap-4 w-full"
         >
-          {tools.map((tool) => (
+          {tools.map((tool, idx) => (
             <div
               key={tool.name}
-              className="group relative cursor-default overflow-hidden rounded-full border border-white/10 bg-[#0A1A2A]/40 backdrop-blur-md px-4 py-2 sm:px-5 sm:py-2.5 md:px-6 md:py-3 shadow-sm transition-all duration-200 ease-out hover:scale-105 hover:-translate-y-0.5 active:scale-95 hover:border-[#00A9BD]/50 hover:bg-[#00A9BD]/10 hover:shadow-[0_0_20px_rgba(0,169,189,0.2)]"
+              style={{
+                transitionDelay: shown ? `${(idx % 8) * 60}ms` : "0ms",
+              }}
+              className={`group relative cursor-default overflow-hidden rounded-full border border-white/10 bg-[#0A1A2A]/40 backdrop-blur-md px-4 py-2 sm:px-5 sm:py-2.5 md:px-6 md:py-3 shadow-sm transition-all duration-500 ease-out hover:scale-105 hover:-translate-y-0.5 active:scale-95 hover:border-[#00A9BD]/50 hover:bg-[#00A9BD]/10 hover:shadow-[0_0_20px_rgba(0,169,189,0.2)] ${
+                shown ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              }`}
             >
               <div className="relative z-10 flex items-center gap-2">
                 <SmartImage

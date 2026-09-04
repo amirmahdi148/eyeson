@@ -1,5 +1,6 @@
 ---
 import StarBackground from "../../islands/StarBackground.tsx";
+import HomeBackground from "../Home/HomeBackground.astro";
 import {PricingHero} from "../../islands/pricing/components/PricingHero.tsx";
 import {ConversionScroll} from "../../islands/pricing/components/ConversionScroll.tsx";
 
@@ -15,7 +16,8 @@ import EndCard from "./components/EndCard.astro";
 
 
 
-<div class="relative overflow-x-clip ">
+<div class="relative overflow-x-clip  ">
+    <HomeBackground />
     <StarBackground client:load/>
     <PricingHero client:load/>
     <MoneyCards client:idle/>

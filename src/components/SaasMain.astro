@@ -9,10 +9,11 @@ import {SaasNeedsBlock} from "../islands/saas/SaasNeedsBlock.tsx";
 import SaasServicesVideoStyle from "../islands/saas/SaasServicesVideoStyle";
 import VideoWorkShowcaseSection from "../islands/Shared/VideoWorkShowcaseSection";
 import CaseStudiesSection from "../islands/CaseStudiesSection";
-import SaasApproachTimelineSection from "../islands/saas/SaasApproachTimelineSection";
+import ApproachTimelineSection from "../islands/Video/ApproachTimelineSection";
 import SaasPackagesSection from "../islands/saas/SaasPackagesSection";
 import SaasWhatsIncludedSection from "../islands/saas/SaasWhatsIncludedSection";
 import SaasBackground from "./Saas/SaasBackground.astro";
+import HomeBackground from "./Home/HomeBackground.astro";
 import { VideoHeader } from "../islands/Shared/VideoHeader";
 ---
 
@@ -20,6 +21,7 @@ import { VideoHeader } from "../islands/Shared/VideoHeader";
 <main class="relative w-full min-h-screen overflow-hidden">
 
 
+        <HomeBackground />
         <SaasBackground/>
 
 
@@ -86,7 +88,7 @@ and engaging content that performs better across all channels."/>
     <SaasNeedsBlock client:visible />
     <SaasServicesVideoStyle client:visible/>
     <SaasWhatsIncludedSection client:visible/>
-    <SaasApproachTimelineSection client:visible />
+    <ApproachTimelineSection client:visible title="Our Approach to High-Impact SaaS Creative" description="We don’t just design visuals and hope they work. Every creative asset is built through a clear process focused on product understanding, message clarity, platform behavior, visual impact, and user conversion." />
     <VideoWorkShowcaseSection client:visible title="Creative That Makes Users" highlight="Care About Features." description="Explore product demos, launch videos, explainers, social content, and animations crafted to capture attention fast, communicate value, and turn your product into something people actually want to use." />
     <SaasPackagesSection client:visible/>
     <CaseStudiesSection client:visible />

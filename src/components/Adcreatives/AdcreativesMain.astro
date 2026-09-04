@@ -12,9 +12,11 @@ import LogoCaro from "../Shared/LogoCaro.astro";
 import HighPerformingAds from "../../islands/Adcreatives/HighPerformingAds.tsx";
 import AdCreativesHero from "../../islands/Adcreatives/AdCreativesHero.tsx";
 import AdcreativesBackground from "../../islands/Adcreatives/AdcreativesBackground.tsx";
+import HomeBackground from "../Home/HomeBackground.astro";
 ---
 
-<div class="flex flex-col gap-3 justify-center items-between">
+<div class="relative flex flex-col gap-3 justify-center items-between">
+  <HomeBackground />
   <AdcreativesBackground client:load/>
   <AdCreativesHero client:load/>
   <AdCreativesSection />
@@ -76,5 +78,4 @@ attention into measurable results."
   <CaseStudiesSection client:visible />
   <ContactUs client:visible />
   <CTA />
-  <LogoCaro />
 </div>

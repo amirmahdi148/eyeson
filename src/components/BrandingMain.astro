@@ -3,6 +3,7 @@ import { BrandingHeroWrapper } from "../islands/branding/BrandingHeroWrapper";
 import ContactUs from "../islands/ContactUs";
 import FeaturesSection from "./Shared/FeaturesSection.astro";
 import StarBackground from "../islands/StarBackground";
+import HomeBackground from "./Home/HomeBackground.astro";
 import QandASection from "./Shared/QandASection.astro";
 import LogoCaro from "./Shared/LogoCaro.astro";
 import { WhatIsBranding } from "../islands/branding/WhatIsBranding.tsx";
@@ -104,6 +105,7 @@ const features = [
 ---
 
 <div class="relative overflow-x-clip">
+  <HomeBackground />
   <StarBackground client:load />
   <BrandingHeroWrapper client:load />
   <LogoCaro />
