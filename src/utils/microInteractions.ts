@@ -33,15 +33,24 @@ function initMicroInteractions() {
   }
 
   // ---- Cursor spotlight ----
+  if (window.matchMedia("(pointer: coarse)").matches) return;
   document
     .querySelectorAll<HTMLElement>(".spotlight-card:not(.mi-bound)")
     .forEach((card) => {
       card.classList.add("mi-bound");
+      let raf = 0;
+      let pending: { x: number; y: number } | null = null;
       card.addEventListener("pointermove", (e) => {
-        const rect = card.getBoundingClientRect();
-        card.style.setProperty("--mx", `${e.clientX - rect.left}px`);
-        card.style.setProperty("--my", `${e.clientY - rect.top}px`);
-      });
+        pending = { x: e.clientX, y: e.clientY };
+        if (raf) return;
+        raf = requestAnimationFrame(() => {
+          raf = 0;
+          if (!pending) return;
+          const rect = card.getBoundingClientRect();
+          card.style.setProperty("--mx", `${pending.x - rect.left}px`);
+          card.style.setProperty("--my", `${pending.y - rect.top}px`);
+        });
+      }, { passive: true });
     });
 }
 

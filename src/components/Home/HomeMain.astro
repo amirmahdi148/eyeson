@@ -66,14 +66,14 @@ const orbits: OrbitConfig[] = [
 
 <div class="relative flex flex-col gap-3 items-stretch">
   <HomeBackground/>
-  <HeroHome client:load />
+  <HeroHome client:visible />
   <CreativeDirections  />
-  <OrbitSystem orbits={orbits} content={content} width="1000px" height="1000px" animations={true} client:visible={{ rootMargin: "400px" }}/>
+  <OrbitSystem orbits={orbits} content={content} width="1000px" height="1000px" animations={true} client:visible/>
   <LogoCaro tagline=""/>
-  <HomeServicesSection client:visible={{ rootMargin: "400px" }} />
-  <VideoWorkShowcaseSection client:visible={{ rootMargin: "400px" }} />
+  <HomeServicesSection client:visible />
+  <VideoWorkShowcaseSection client:visible />
   <WhyChooseUs />
-  <TestimonialsSection client:visible={{ rootMargin: "400px" }} />
+  <TestimonialsSection client:visible />
   <WorkflowSection
       cards={[
         {
@@ -99,11 +99,11 @@ const orbits: OrbitConfig[] = [
         },
       ]}
   />
-  <ProcessScrollSection client:visible={{ rootMargin: "400px" }} />
+  <ProcessScrollSection client:visible />
 
 
-  <CaseStudiesSection client:visible={{ rootMargin: "400px" }} />
+  <CaseStudiesSection client:visible />
   <QandASection  />
   <CostVideo  />
-  <ContactUs client:visible={{ rootMargin: "400px" }} />
+  <ContactUs client:visible />
 </div>

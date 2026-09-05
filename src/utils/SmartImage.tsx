@@ -14,54 +14,38 @@ type SmartImageProps = {
   fill?: boolean;
 };
 
-function buildSrcSet(src: string) {
-  const widths = [320, 640, 768, 1024, 1280, 1600];
-
-  return widths.map((w) => `${src}?w=${w}&format=webp ${w}w`).join(", ");
-}
-
-function buildFallbackSrcSet(src: string) {
-  const widths = [320, 640, 768, 1024, 1280, 1600];
-
-  return widths.map((w) => `${src}?w=${w} ${w}w`).join(", ");
-}
-
 export function SmartImage({
   src,
   alt = "",
   width,
   height,
   className = "",
-  sizes = "100vw",
+  sizes,
   priority = false,
   loading,
   decoding,
   objectFit = "cover",
   fill = false,
 }: SmartImageProps) {
+  // ponytail: no fake ?w= srcSet until image CDN/sharp enabled — plain <img> avoids 6× duplicate fetches
   const img = (
-    <picture>
-      {/* WebP */}
-      <source srcSet={buildSrcSet(src)} sizes={sizes} type="image/webp" />
-
-      {/* Fallback */}
-      <img
-        src={src}
-        srcSet={buildFallbackSrcSet(src)}
-        sizes={sizes}
-        alt={alt}
-        loading={loading ?? (priority ? "eager" : "lazy")}
-        decoding={decoding ?? "async"}
-        width={!fill ? width : undefined}
-        height={!fill ? height : undefined}
-        className={`
-          ${fill ? "absolute inset-0 w-full h-full" : ""}
-          object-${objectFit}
-          ${className || "w-full h-auto"}
-        `}
-        style={{ display: "block" }}
-      />
-    </picture>
+    <img
+      src={src}
+      alt={alt}
+      loading={loading ?? (priority ? "eager" : "lazy")}
+      // @ts-expect-error fetchPriority not in React 19 types yet
+      fetchPriority={priority ? "high" : "auto"}
+      decoding={decoding ?? "async"}
+      sizes={sizes}
+      width={!fill ? width : undefined}
+      height={!fill ? height : undefined}
+      className={`
+        ${fill ? "absolute inset-0 w-full h-full" : ""}
+        object-${objectFit}
+        ${className || "w-full h-auto"}
+      `}
+      style={{ display: "block" }}
+    />
   );
 
   if (fill) {

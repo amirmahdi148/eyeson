@@ -1,5 +1,8 @@
 import React, {
     type RefObject,
+    useEffect,
+    useRef,
+    useState,
 } from "react";
 import {
     Home,
@@ -72,6 +75,18 @@ export default function RightSectionHero({
 }: RightSectionHeroProps) {
     const activeVideo = CATEGORIES.find((c) => c.id === activeTab)?.videoUrl || CATEGORIES[0].videoUrl;
     const resolvedPoster = activeVideo ? VIDEO_POSTERS[activeVideo] : undefined;
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [canLoadVideo, setCanLoadVideo] = useState(false);
+    useEffect(() => {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        const el = containerRef.current;
+        if (!el) return;
+        const io = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) { setCanLoadVideo(true); io.disconnect(); }
+        }, { rootMargin: "200px", threshold: 0 });
+        io.observe(el);
+        return () => io.disconnect();
+    }, []);
 
     return (
         <div className="relative w-full max-w-[850px] xl:max-w-[950px] mx-auto animate-fade-in flex flex-col items-center">
@@ -80,23 +95,29 @@ export default function RightSectionHero({
                 <img
                     src="/home/RightElements/el/20.svg"
                     alt=""
+                    loading="lazy"
+                    decoding="async"
                     className="h-full w-full object-contain scale-[1.2] opacity-70"
                 />
             </div>
             <img
                 src="/home/RightElements/el/1.svg"
                 alt=""
+                loading="lazy"
+                decoding="async"
                 className="absolute -top-12 -left-10 z-0 h-40 w-40 object-contain pointer-events-none hidden lg:block opacity-80"
             />
             <img
                 src="/home/RightElements/el/2.svg"
                 alt=""
+                loading="lazy"
+                decoding="async"
                 className="absolute -top-10 -right-8 z-0 h-36 w-36 object-contain pointer-events-none hidden lg:block opacity-80"
             />
 
             {/* Giant Mockup Player Container */}
-            <div className="relative aspect-16/10 w-full rounded-[24px] sm:rounded-[32px] md:rounded-[36px] flex justify-center items-end border border-white/10 shadow-[0_30px_80px_-20px_rgba(0,169,189,0.35)] overflow-hidden bg-[#02070f]">
-                <SmartImage src="/home/VideoElements/20/mother.webp" alt="" fill priority={false} className="rounded-[inherit] object-cover" />
+            <div ref={containerRef} className="relative aspect-16/10 w-full rounded-[24px] sm:rounded-[32px] md:rounded-[36px] flex justify-center items-end border border-white/10 shadow-[0_30px_80px_-20px_rgba(0,169,189,0.35)] overflow-hidden bg-[#02070f]">
+                <SmartImage src="/home/VideoElements/20/mother.webp" alt="" fill priority className="rounded-[inherit] object-cover" />
 
                 {/* Top header bar inside Mockup */}
                 <div className="absolute top-0 left-0 z-10 flex items-center justify-between w-full px-3 py-2 sm:px-5 sm:py-3 md:px-6 md:py-3.5 text-white/70">
@@ -130,10 +151,10 @@ export default function RightSectionHero({
                     <video
                         key={activeTab}
                         ref={videoRef}
-                        src={activeVideo}
+                        src={canLoadVideo ? activeVideo : undefined}
                         poster={resolvedPoster}
-                        preload="metadata"
-                        autoPlay
+                        preload="none"
+                        autoPlay={canLoadVideo}
                         muted
                         loop
                         playsInline

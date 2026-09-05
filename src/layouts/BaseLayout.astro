@@ -65,16 +65,17 @@ const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/webp" href="/logo.webp" />
 
-    <!-- Google Fonts: Plus Jakarta Sans & Inter (Official, Modern Corporate / Studio Fonts) -->
+    <!-- Fonts: only Plus Jakarta + Inter variable (Sora/Grotesk/Outfit load per-page when needed) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..800&family=Sora:wght@300..800&family=Space+Grotesk:wght@300..700&family=Outfit:wght@300..800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400..800&family=Inter:wght@400..700&display=swap"
       rel="stylesheet"
     />
 
     <link rel="canonical" href={resolvedCanonical} />
     {robots && <meta name="robots" content={robots} />}
+    {Astro.url.pathname === "/" && <link rel="preload" as="image" href="/home/VideoElements/20/mother.webp" fetchpriority="high" />}
 
     <meta property="og:type" content={ogType} />
     <meta property="og:title" content={finalTitle} />
@@ -86,8 +87,8 @@ const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
     <meta name="twitter:title" content={finalTitle} />
     <meta name="twitter:description" content={finalDescription} />
     <meta name="twitter:image" content={absoluteOgImage} />
-    <meta name="twitter:site" content="@eyesonagency" />
-    <meta name="twitter:creator" content="@eyesonagency" />
+    <meta name="twitter:site" content="@eyesonstudio" />
+    <meta name="twitter:creator" content="@eyesonstudio" />
 
     {keywords && <meta name="keywords" content={keywords} />}
     {ogType === "article" && <meta name="author" content="EyesOn Studio" />}
@@ -129,9 +130,10 @@ const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
 
       const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 1024px)').matches;
       const isFirefox = navigator.userAgent.toLowerCase().includes('firefox');
+      const prefersReduced = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       // Only run Lenis on desktop non-Firefox to ensure 120fps native GPU scrolling on mobile
-      if (!isFirefox && !isMobile) {
+      if (!isFirefox && !isMobile && !prefersReduced) {
         let lenis: Lenis;
         let rafId = 0;
 
@@ -158,62 +160,34 @@ const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
           rafId = requestAnimationFrame(raf);
         }
 
+        const deferIdle = (cb: IdleRequestCallback) => (window.requestIdleCallback ? window.requestIdleCallback(cb, { timeout: 2000 }) : setTimeout(cb, 600));
         if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', () => initSmoothScrolling(), { once: true });
+          document.addEventListener('DOMContentLoaded', () => deferIdle(initSmoothScrolling), { once: true });
         } else {
-          initSmoothScrolling();
+          deferIdle(initSmoothScrolling);
         }
 
-        document.addEventListener('astro:page-load', () => initSmoothScrolling());
+        document.addEventListener('astro:page-load', () => deferIdle(initSmoothScrolling));
       }
     </script>
 
     <script is:inline>
-      console.log('[Analytics] script loaded', window.location.pathname);
-
-      const endpoint = '/api/analytics/receive/v1';
-      console.log('[Analytics] endpoint:', endpoint);
-
-      const payload = {
-        event: 'pageview',
-        path: window.location.pathname,
-        userAgent: navigator.userAgent,
-      };
-      const body = JSON.stringify(payload);
-      console.log('[Analytics] sending:', body);
-
-      const sent = navigator.sendBeacon(endpoint, new Blob([body], {type: 'application/json'}));
-      console.log('[Analytics] sendBeacon result:', sent);
-
-      if (!sent) {
-        fetch(endpoint, { method: 'POST', body: body, headers: { 'Content-Type': 'application/json' }, keepalive: true })
-          .then(function(r) { console.log('[Analytics] fetch fallback status:', r.status); })
-          .catch(function(e) { console.log('[Analytics] fetch fallback error:', e.message); });
-      }
-
-      fetch('/api/client-ip')
-        .then(function(r) { return r.json(); })
-        .then(function(data) {
-          const ip = data.ip || '';
-          const raw = ip + '|' + navigator.userAgent;
-          let hash = 0;
-          for (let i = 0; i < raw.length; i++) {
-            const c = raw.charCodeAt(i);
-            hash = ((hash << 5) - hash) + c;
-            hash |= 0;
-          }
-          const enriched = {
-            event: 'pageview',
-            hash: Math.abs(hash).toString(36),
-            path: window.location.pathname,
-            userAgent: navigator.userAgent,
-          };
-          navigator.sendBeacon(endpoint, new Blob([JSON.stringify(enriched)], { type: 'application/json' }));
-          console.log('[Analytics] enriched sent');
-        })
-        .catch(function(err) {
-          console.log('[Analytics] ip fetch skipped:', err.message);
-        });
+      (function(){
+        var run=function(){
+          var endpoint='/api/analytics/receive/v1';
+          try{
+            var body=JSON.stringify({event:'pageview',path:location.pathname,userAgent:navigator.userAgent});
+            var sent=navigator.sendBeacon(endpoint,new Blob([body],{type:'application/json'}));
+            if(!sent) fetch(endpoint,{method:'POST',body:body,headers:{'Content-Type':'application/json'},keepalive:true}).catch(function(){});
+          }catch(e){}
+          fetch('/api/client-ip').then(function(r){return r.json();}).then(function(data){
+            var ip=data.ip||'';var raw=ip+'|'+navigator.userAgent;var h=0;
+            for(var i=0;i<raw.length;i++){var c=raw.charCodeAt(i);h=((h<<5)-h)+c;h|=0;}
+            try{navigator.sendBeacon(endpoint,new Blob([JSON.stringify({event:'pageview',hash:Math.abs(h).toString(36),path:location.pathname,userAgent:navigator.userAgent})],{type:'application/json'}));}catch(e){}
+          }).catch(function(){});
+        };
+        if('requestIdleCallback' in window) requestIdleCallback(run,{timeout:4000}); else setTimeout(run,1400);
+      })();
     </script>
 
 
