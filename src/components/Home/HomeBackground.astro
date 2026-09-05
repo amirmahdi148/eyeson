@@ -88,7 +88,12 @@
     from { opacity: 0.7; }
     to { opacity: 0.95; }
   }
-  .hb { will-change: transform, opacity; }
+  .hb {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    contain: strict;
+  }
   .hb-1 { animation: hb-drift-a 11s ease-in-out -2s infinite alternate, hb-fade-a 8s ease-in-out -1s infinite alternate; }
   .hb-2 { animation: hb-drift-b 13s ease-in-out -5s infinite alternate, hb-fade-b 10s ease-in-out -4s infinite alternate; }
   .hb-3 { animation: hb-drift-c 15s ease-in-out -7s infinite alternate, hb-fade-c 9s ease-in-out -3s infinite alternate; }

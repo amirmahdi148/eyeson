@@ -95,7 +95,7 @@ export default function RightSectionHero({
                 <img
                     src="/home/RightElements/el/20.svg"
                     alt=""
-                    loading="lazy"
+                    loading="eager"
                     decoding="async"
                     className="h-full w-full object-contain scale-[1.2] opacity-70"
                 />
@@ -103,14 +103,14 @@ export default function RightSectionHero({
             <img
                 src="/home/RightElements/el/1.svg"
                 alt=""
-                loading="lazy"
+                loading="eager"
                 decoding="async"
                 className="absolute -top-12 -left-10 z-0 h-40 w-40 object-contain pointer-events-none hidden lg:block opacity-80"
             />
             <img
                 src="/home/RightElements/el/2.svg"
                 alt=""
-                loading="lazy"
+                loading="eager"
                 decoding="async"
                 className="absolute -top-10 -right-8 z-0 h-36 w-36 object-contain pointer-events-none hidden lg:block opacity-80"
             />

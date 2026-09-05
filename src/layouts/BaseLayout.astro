@@ -69,13 +69,26 @@ const resolvedCanonical = canonicalUrl ?? `${origin}${Astro.url.pathname}`;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400..800&family=Inter:wght@400..700&display=swap"
+    />
+    <link
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400..800&family=Inter:wght@400..700&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400..800&family=Inter:wght@400..700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
 
     <link rel="canonical" href={resolvedCanonical} />
     {robots && <meta name="robots" content={robots} />}
-    {Astro.url.pathname === "/" && <link rel="preload" as="image" href="/home/VideoElements/20/mother.webp" fetchpriority="high" />}
+    {Astro.url.pathname === "/" && <link rel="preload" as="image" type="image/webp" href="/home/VideoElements/20/mother.webp" fetchpriority="high" />}
 
     <meta property="og:type" content={ogType} />
     <meta property="og:title" content={finalTitle} />
