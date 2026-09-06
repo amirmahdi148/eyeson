@@ -67,10 +67,7 @@ export default function HeroHome() {
   return (
     <section className="relative w-full overflow-hidden pt-24 pb-16 sm:pt-28 sm:pb-20 lg:pt-36 lg:pb-28 bg-[radial-gradient(ellipse_1000px_600px_at_50%_-10%,rgba(0,169,189,0.12),transparent_70%),radial-gradient(ellipse_700px_350px_at_90%_25%,rgba(46,182,160,0.08),transparent_60%)]">
       {/* Ambient blobs */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-32 left-[10%] h-[350px] w-[350px] sm:h-[500px] sm:w-[500px] rounded-full bg-[var(--primitive-teal-500)] opacity-[0.08] blur-[90px] will-change-transform motion-safe:animate-[blobFloat_18s_ease-in-out_infinite]" />
-        <div className="absolute top-[20%] right-[5%] h-[300px] w-[300px] sm:h-[420px] sm:w-[420px] rounded-full bg-[var(--primitive-emerald-500)] opacity-[0.06] blur-[80px] will-change-transform motion-safe:animate-[blobFloat_22s_ease-in-out_infinite_reverse]" />
-      </div>
+
 
       <div className="relative mx-auto max-w-[1550px] px-4 sm:px-6 lg:px-8 xl:px-12 flex flex-col items-center gap-10 lg:gap-8 xl:gap-14 lg:flex-row lg:items-center lg:justify-between">
         

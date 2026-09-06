@@ -82,6 +82,40 @@ html[data-font-theme="outfit"] h5, html[data-font-theme="outfit"] h6 {
   }
 }
 
+/* GPU-off fallback: when GPU accel disabled, backdrop-blur/will-change/filter:blur all run on CPU and cause jank.
+   Strip them to solid colors + kill will-change/animations. Class is set by BaseLayout probe (WebGL/swiftshader). */
+html.gpu-off .will-change-transform,
+html.gpu-off [class*="will-change"] {
+  will-change: auto !important;
+}
+html.gpu-off [class*="backdrop-blur"] {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+html.gpu-off .backdrop-blur-md,
+html.gpu-off .backdrop-blur-xl,
+html.gpu-off .backdrop-blur-sm,
+html.gpu-off .backdrop-blur-3xl {
+  background-color: rgba(2, 22, 23, 0.92) !important;
+}
+html.gpu-off [style*="blur("],
+html.gpu-off [class*="blur-["] {
+  filter: none !important;
+}
+html.gpu-off .animate-fade-in,
+html.gpu-off .animate-slide-up,
+html.gpu-off .animate-scale-up,
+html.gpu-off .animate-float-slow,
+html.gpu-off [class*="animate-"] {
+  animation: none !important;
+}
+html.gpu-off .reveal-on-scroll,
+html.gpu-off .fade-on-scroll {
+  will-change: auto !important;
+  transform: none !important;
+  opacity: 1 !important;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @keyframes shimmer {

@@ -186,24 +186,22 @@ export const OrbitSystem = memo(function OrbitSystem({
   const orbitIconRadius = orbitIconSize / 2;
   const defaultInnerIconSize = orbitIconSize * 0.8;
 
-  // Multiply 2x but keep duplicates clustered on the visible top arc at peak.
-  // Previously offset 0.5 pushed half the logos to the bottom (off-view/faded). Use a small
-  // forward offset (~18% of circle ≈ 65°) so both original and copy are near top at start.
+  // Multiply each orbit's icons 2x around the circle for denser look
+  // Reverse placement: duplicates are offset backwards (-0.5) so at peak scroll (top 85%) they sit on the visible top arc instead of the faded bottom
   const displayOrbits = orbits.map((orbit) => {
     const n = orbit.icons.length;
     if (n === 0) return orbit;
     const expanded: IconConfig[] = [];
     const copies = 2;
-    const clusterOffset = 0.18;
     for (let c = 0; c < copies; c++) {
-      const offset = c * clusterOffset;
+      const offset = c / copies; // 0, 0.5
       for (const ic of orbit.icons) {
         const suffix = c === 0 ? "" : `-c${c}`;
         expanded.push({
           ...ic,
           name: `${ic.name}${suffix}`,
-          start: ic.start + offset,
-          end: ic.end + offset,
+          start: ic.start - offset,
+          end: ic.end - offset,
         });
       }
     }
@@ -222,14 +220,14 @@ export const OrbitSystem = memo(function OrbitSystem({
       >
         <div className="relative w-full h-full">
           <svg
-            viewBox="0 0 1000 1350"
+            viewBox="0 0 1000 1000"
             preserveAspectRatio="xMidYMid meet"
             className="absolute inset-0 w-full h-full mx-auto will-change-transform overflow-visible"
             style={{
               maskImage:
-                "linear-gradient(to bottom, black 78%, transparent 100%)",
+                "linear-gradient(to bottom, black 65%, transparent 100%)",
               WebkitMaskImage:
-                "linear-gradient(to bottom, black 78%, transparent 100%)",
+                "linear-gradient(to bottom, black 65%, transparent 100%)",
               contain: "layout style paint",
               willChange: "transform",
               overflow: "visible",
