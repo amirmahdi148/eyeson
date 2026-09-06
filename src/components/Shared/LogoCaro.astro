@@ -11,18 +11,13 @@ type Props = {
 const {
   tagline = "Trusted by creators, startups, SaaS teams, and modern brands across 25+ countries.",
   logos = [
-    { src: "/Shared/OrbitIcons/icon1.webp", alt: "Client 1" },
-    { src: "/Shared/OrbitIcons/icon2.webp", alt: "Client 2" },
-    { src: "/Shared/OrbitIcons/icon3.webp", alt: "Client 3" },
-    { src: "/Shared/OrbitIcons/icon4.webp", alt: "Client 4" },
-    { src: "/Shared/OrbitIcons/icon5.webp", alt: "Client 5" },
-    { src: "/Shared/OrbitIcons/icon6.webp", alt: "Client 6" },
-    { src: "/Shared/OrbitIcons/icon7.webp", alt: "Client 7" },
-    { src: "/Shared/OrbitIcons/icon8.webp", alt: "Client 8" },
-    { src: "/Shared/OrbitIcons/icon9.webp", alt: "Client 9" },
-    { src: "/Shared/OrbitIcons/icon10.webp", alt: "Client 10" },
-    { src: "/Shared/OrbitIcons/icon11.webp", alt: "Client 11" },
-    { src: "/Shared/OrbitIcons/icon12.webp", alt: "Client 12" },
+    { src: "/customers/crypto-elites.webp", alt: "Crypto Elites" },
+    { src: "/customers/cryptosisty.webp", alt: "Cryptosity" },
+    { src: "/customers/predctfy.webp", alt: "Predictefy" },
+    { src: "/customers/kraken.webp", alt: "Kraken Team" },
+    { src: "/customers/remora.webp", alt: "Remora" },
+    { src: "/customers/hey-anon.webp", alt: "Hey Anon" },
+    { src: "/customers/nexo.png", alt: "Nexo" },
   ],
 } = Astro.props as Props;
 
@@ -43,11 +38,11 @@ const loopLogos = [...logos, ...logos, ...logos, ...logos];
               <SmartImage
                 src={logo.src}
                 alt={logo.alt}
-                width={160}
+                width={64}
                 height={64}
                 loading="lazy"
                 decoding="async"
-                className="logo-img h-12 sm:h-12 md:h-14 w-auto max-w-none object-contain"
+                className="logo-img h-12 w-12 sm:h-14 sm:w-14 md:h-[56px] md:w-[56px] rounded-full object-cover ring-1 ring-white/15"
               />
             </div>
           </div>
@@ -66,15 +61,13 @@ const loopLogos = [...logos, ...logos, ...logos, ...logos];
   }
 
   .logo-img {
-    opacity: 0.65;
-    transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
-    filter: grayscale(100%);
-    will-change: opacity, transform, filter;
+    opacity: 0.9;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    will-change: opacity, transform;
   }
 
   .logo-item:hover .logo-img {
     opacity: 1;
-    filter: grayscale(0%);
     transform: scale(1.08);
   }
 
@@ -105,9 +98,7 @@ const loopLogos = [...logos, ...logos, ...logos, ...logos];
     gap: 0.75rem;
   }
 
-  .logo-scroll:hover {
-    animation-play-state: paused;
-  }
+  /* keep running on hover — do not pause */
 
   .logo-slot {
     flex: 0 0 auto;

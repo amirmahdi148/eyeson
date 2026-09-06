@@ -5,17 +5,15 @@ import React, {
     useState,
 } from "react";
 import {
-    Home,
-    ArrowRight,
-    Folder,
-    Plus,
-    Pen,
+    ChevronLeft,
+    ChevronRight,
     Sparkles,
     Film,
     Layers,
     Box,
 } from "lucide-react";
 import { SmartImage } from "@/utils/SmartImage";
+import ShowreelChooser from "./ShowreelChooser";
 
 const CATEGORIES = [
     {
@@ -52,12 +50,36 @@ const CATEGORIES = [
     },
 ];
 
-const VIDEO_POSTERS: Record<string, string> = {
-    "/home/Videos/output-first.mp4": "/home/Videos/output-first-poster.jpg",
-    "/home/Videos/output-second.mp4": "/home/Videos/output-second-poster.jpg",
-    "/home/Videos/output-third.mp4": "/home/Videos/output-third-poster.jpg",
-    "/home/Videos/output-fourth.mp4": "/home/Videos/output-fourth-poster.jpg",
-};
+function captureFifthFrame(videoUrl: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+        const v = document.createElement("video");
+        v.crossOrigin = "anonymous";
+        v.muted = true;
+        v.preload = "auto";
+        v.src = videoUrl;
+        const cleanup = () => { v.remove(); };
+        v.addEventListener("loadeddata", () => {
+            // 5th frame ≈ 5/30 = 0.166s; clamp to duration
+            const t = Math.min(0.17, v.duration - 0.05 || 0.17);
+            v.currentTime = t;
+        });
+        v.addEventListener("seeked", () => {
+            try {
+                const c = document.createElement("canvas");
+                c.width = v.videoWidth || 640;
+                c.height = v.videoHeight || 360;
+                const ctx = c.getContext("2d")!;
+                ctx.drawImage(v, 0, 0, c.width, c.height);
+                const url = c.toDataURL("image/jpeg", 0.8);
+                cleanup();
+                resolve(url);
+            } catch (e) { cleanup(); reject(e); }
+        });
+        v.addEventListener("error", (e) => { cleanup(); reject(e); });
+        // timeout fallback
+        setTimeout(() => { cleanup(); reject(new Error("timeout")); }, 5000);
+    });
+}
 
 interface RightSectionHeroProps {
     activeTab: string;
@@ -74,9 +96,40 @@ export default function RightSectionHero({
     onCategoryChange,
 }: RightSectionHeroProps) {
     const activeVideo = CATEGORIES.find((c) => c.id === activeTab)?.videoUrl || CATEGORIES[0].videoUrl;
-    const resolvedPoster = activeVideo ? VIDEO_POSTERS[activeVideo] : undefined;
     const containerRef = useRef<HTMLDivElement>(null);
     const [canLoadVideo, setCanLoadVideo] = useState(false);
+    const [fifthFramePosters, setFifthFramePosters] = useState<Record<string, string>>({});
+    useEffect(() => {
+        let cancelled = false;
+        CATEGORIES.forEach(async (c) => {
+            try {
+                const url = await captureFifthFrame(c.videoUrl);
+                if (!cancelled) setFifthFramePosters((p) => ({ ...p, [c.videoUrl]: url }));
+            } catch {}
+        });
+        return () => { cancelled = true; };
+    }, []);
+    const resolvedPoster = fifthFramePosters[activeVideo];
+
+    const goPrev = () => {
+        const idx = CATEGORIES.findIndex((c) => c.id === activeTab);
+        const prev = (idx - 1 + CATEGORIES.length) % CATEGORIES.length;
+        onCategoryChange(CATEGORIES[prev].id);
+    };
+    const goNext = () => {
+        const idx = CATEGORIES.findIndex((c) => c.id === activeTab);
+        const next = (idx + 1) % CATEGORIES.length;
+        onCategoryChange(CATEGORIES[next].id);
+    };
+
+    const [isShowreelOpen, setIsShowreelOpen] = useState(false);
+    const chooserItems = CATEGORIES.map((c) => ({
+        id: c.id,
+        title: c.title,
+        thumbnail: fifthFramePosters[c.videoUrl] || c.image,
+        src: c.image,
+    }));
+    const openShowreel = () => setIsShowreelOpen(true);
     useEffect(() => {
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
         const el = containerRef.current;
@@ -100,19 +153,13 @@ export default function RightSectionHero({
                     className="h-full w-full object-contain scale-[1.2] opacity-70"
                 />
             </div>
-            <img
-                src="/home/RightElements/el/1.svg"
-                alt=""
-                loading="lazy"
-                decoding="async"
-                className="absolute -top-12 -left-10 z-0 h-40 w-40 object-contain pointer-events-none hidden lg:block opacity-80"
-            />
+
             <img
                 src="/home/RightElements/el/2.svg"
                 alt=""
                 loading="lazy"
                 decoding="async"
-                className="absolute -top-10 -right-8 z-0 h-36 w-36 object-contain pointer-events-none hidden lg:block opacity-80"
+                className="absolute -top-60 -right-10 scale-[1.3] z-10 h-300 w-300 object-contain pointer-events-none hidden lg:block "
             />
 
             {/* Giant Mockup Player Container */}
@@ -121,21 +168,12 @@ export default function RightSectionHero({
 
                 {/* Top header bar inside Mockup */}
                 <div className="absolute top-0 left-0 z-10 flex items-center justify-between w-full px-3 py-2 sm:px-5 sm:py-3 md:px-6 md:py-3.5 text-white/70">
-                    <div className="flex items-center gap-2.5 sm:gap-4">
-                        <button aria-label="Home" className="cursor-pointer transition-colors hover:text-[#00E6D7] rounded-sm">
-                            <Home className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                    <div className="flex items-center gap-2">
+                        <button aria-label="Previous" onClick={goPrev} className="p-1 cursor-pointer text-white/60 hover:text-white transition-colors">
+                            <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5" />
                         </button>
-                        <button aria-label="Next" className="cursor-pointer transition-colors hover:text-[#00E6D7] rounded-sm">
-                            <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                        </button>
-                        <button aria-label="Folder" className="cursor-pointer text-[#00E6D7] rounded-sm">
-                            <Folder className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                        </button>
-                        <button aria-label="Add" className="cursor-pointer transition-colors hover:text-[#00E6D7] rounded-sm">
-                            <Plus className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                        </button>
-                        <button aria-label="Edit" className="cursor-pointer transition-colors hover:text-[#00E6D7] rounded-sm">
-                            <Pen className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                        <button aria-label="Next" onClick={goNext} className="p-1 cursor-pointer text-white/60 hover:text-white transition-colors">
+                            <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
                         </button>
                     </div>
 
@@ -164,6 +202,22 @@ export default function RightSectionHero({
                     <div className="absolute inset-0 bg-[#051118]/10 mix-blend-overlay pointer-events-none rounded-[inherit]" aria-hidden="true" />
                 </div>
             </div>
+
+            {/* Showreel button — mobile only, hidden on desktop (category bar replaces it) */}
+            <button
+                onClick={openShowreel}
+                className="mt-4 inline-flex lg:hidden items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-bold text-[#071B2A] shadow-[0_8px_24px_rgba(0,0,0,0.25)] hover:bg-white/90 transition-colors cursor-pointer"
+            >
+                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9V3z" /></svg>
+                Showreel
+            </button>
+
+            <ShowreelChooser
+                isOpen={isShowreelOpen}
+                onClose={() => setIsShowreelOpen(false)}
+                items={chooserItems}
+                onSelect={(it) => onCategoryChange(String(it.id))}
+            />
 
             {/* Premium Category Bar — Desktop Only (Clean Glass Cards with Neon Accents) */}
             <div className="hidden lg:grid grid-cols-4 gap-3.5 mt-5 w-full relative z-30">

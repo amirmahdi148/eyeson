@@ -96,6 +96,8 @@ export const OrbitSystem = memo(function OrbitSystem({
 
   const isMobileView = useMediaQuery({ maxWidth: 700 });
   const [isInView, setIsInView] = useState(false);
+  // Unique id for clipPaths/gradients when multiple instances mount
+  const instanceId = useRef(Math.random().toString(36).slice(2, 7));
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -127,13 +129,25 @@ export const OrbitSystem = memo(function OrbitSystem({
     iconTweensRef.current = [];
 
     const ctx = gsap.context(() => {
-      orbits.forEach((orbit, orbitIndex) => {
+      displayOrbits.forEach((orbit, orbitIndex) => {
         const pathEl = orbitPathsRef.current[orbitIndex];
         if (!pathEl) return;
 
         orbit.icons.forEach((icon) => {
-          const iconEl = iconRefs.current[icon.name];
+          const key = `${orbitIndex}-${icon.name}`;
+          const iconEl = iconRefs.current[key];
           if (!iconEl) return;
+
+          // Place at start before ScrollTrigger takes over — fixes flash at (0,0) and misalignment on first paint
+          gsap.set(iconEl, {
+            motionPath: {
+              path: pathEl,
+              align: pathEl,
+              alignOrigin: [0.5, 0.5],
+              start: icon.start,
+              end: icon.start,
+            },
+          });
 
           iconTweensRef.current.push(
             gsap.to(iconEl, {
@@ -149,14 +163,8 @@ export const OrbitSystem = memo(function OrbitSystem({
                 trigger: sceneRef.current!,
                 start: "top 85%",
                 end: "bottom 15%",
-                scrub: 0.5, // Add slight delay instead of 0 for smoother feel
+                scrub: 0.5,
                 fastScrollEnd: true,
-                onUpdate: (_self) => {
-                  // Force GPU acceleration
-                  if (iconEl.style.willChange !== "transform") {
-                    iconEl.style.willChange = "transform";
-                  }
-                },
               },
             }),
           );
@@ -178,44 +186,85 @@ export const OrbitSystem = memo(function OrbitSystem({
   const orbitIconRadius = orbitIconSize / 2;
   const defaultInnerIconSize = orbitIconSize * 0.8;
 
+  // Multiply 2x but keep duplicates clustered on the visible top arc at peak.
+  // Previously offset 0.5 pushed half the logos to the bottom (off-view/faded). Use a small
+  // forward offset (~18% of circle ≈ 65°) so both original and copy are near top at start.
+  const displayOrbits = orbits.map((orbit) => {
+    const n = orbit.icons.length;
+    if (n === 0) return orbit;
+    const expanded: IconConfig[] = [];
+    const copies = 2;
+    const clusterOffset = 0.18;
+    for (let c = 0; c < copies; c++) {
+      const offset = c * clusterOffset;
+      for (const ic of orbit.icons) {
+        const suffix = c === 0 ? "" : `-c${c}`;
+        expanded.push({
+          ...ic,
+          name: `${ic.name}${suffix}`,
+          start: ic.start + offset,
+          end: ic.end + offset,
+        });
+      }
+    }
+    return { ...orbit, icons: expanded };
+  });
+
   return (
     <div
       ref={containerRef}
-      className="w-full min-h-[60vh] md:min-h-screen overflow-hidden relative flex items-center justify-center py-12 md:py-0"
+      className="w-full min-h-[65vh] md:min-h-screen overflow-visible relative flex items-center justify-center py-12 md:py-0"
     >
       <div className="pointer-events-none absolute inset-0" />
       <div
         ref={sceneRef}
-        className="absolute inset-0 pointer-events-none overflow-hidden will-change-transform"
+        className="absolute inset-0 pointer-events-none overflow-visible will-change-transform"
       >
         <div className="relative w-full h-full">
           <svg
-            viewBox={isMobileView ? "0 -15 1000 500" : "0 -15 1000 1000"}
+            viewBox="0 0 1000 1350"
             preserveAspectRatio="xMidYMid meet"
-            className="absolute inset-0 w-full h-full mx-auto scale-125 sm:scale-110 md:scale-100 will-change-transform"
+            className="absolute inset-0 w-full h-full mx-auto will-change-transform overflow-visible"
             style={{
               maskImage:
-                "linear-gradient(to bottom, black 0%, transparent 100%)",
+                "linear-gradient(to bottom, black 78%, transparent 100%)",
               WebkitMaskImage:
-                "linear-gradient(to bottom, black 0%, transparent 100%)",
+                "linear-gradient(to bottom, black 78%, transparent 100%)",
               contain: "layout style paint",
               willChange: "transform",
+              overflow: "visible",
             }}
           >
             <defs>
-              <linearGradient id="orbit-fade" x1="0" y1="0" x2="0" y2="1">
+              <linearGradient id={`orbit-fade-${instanceId.current}`} x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor="#1AD9E0" stopOpacity="0.95" />
                 <stop offset="58%" stopColor="#13C7D0" stopOpacity="0.88" />
                 <stop offset="82%" stopColor="#0A8FA1" stopOpacity="0.34" />
                 <stop offset="100%" stopColor="#086374" stopOpacity="0.05" />
               </linearGradient>
+              {/* Centralised clipPaths — avoids duplicate <defs> inside <g> and id collisions */}
+              {displayOrbits.flatMap((orbit, oi) =>
+                orbit.icons
+                  .filter((ic) => {
+                    const v = typeof ic.iconSrc === "string" ? ic.iconSrc : (ic.iconSrc as AssetWithSrc | undefined)?.src;
+                    return typeof v === "string" && v.includes("/customers/");
+                  })
+                  .map((ic) => {
+                    const w = ic.iconSize ?? orbitIconSize - 8;
+                    return (
+                      <clipPath key={`clip-${oi}-${ic.name}`} id={`avatar-clip-${instanceId.current}-${oi}-${ic.name}`}>
+                        <circle r={w / 2} cx={0} cy={0} />
+                      </clipPath>
+                    );
+                  }),
+              )}
             </defs>
 
-            {orbits.map((orbit, orbitIndex) => {
+            {displayOrbits.map((orbit, orbitIndex) => {
               return (
                 <g
                   key={orbitIndex}
-                  className={`orbit-${orbitIndex + 1} ${orbitIndex > 2 ? "hidden lg:block" : ""}`}
+                  className={`orbit-${orbitIndex + 1}`}
                 >
                   <path
                     ref={(el) => {
@@ -223,7 +272,7 @@ export const OrbitSystem = memo(function OrbitSystem({
                     }}
                     d={orbit.pathD}
                     fill="none"
-                    stroke="url(#orbit-fade)"
+                    stroke={`url(#orbit-fade-${instanceId.current})`}
                     strokeWidth="1.5"
                     vectorEffect="non-scaling-stroke"
                   />
@@ -234,41 +283,64 @@ export const OrbitSystem = memo(function OrbitSystem({
                         ? icon.iconSrc
                         : icon.iconSrc.src
                       : undefined;
-                    const iconWidth = icon.iconSize ?? defaultInnerIconSize;
+                    const isCustomerAvatar = typeof iconSrcValue === "string" && iconSrcValue.includes("/customers/");
+                    const iconWidth = icon.iconSize ?? (isCustomerAvatar ? orbitIconSize - 8 : defaultInnerIconSize);
                     const iconRadius = iconWidth / 2;
 
+                    const gKey = `${orbitIndex}-${icon.name}`;
+                    const clipId = `avatar-clip-${instanceId.current}-${orbitIndex}-${icon.name}`;
                     return (
                       <g
-                        key={icon.name}
+                        key={gKey}
                         ref={(el) => {
                           if (el) {
-                            iconRefs.current[icon.name] = el;
+                            iconRefs.current[gKey] = el;
                           } else {
-                            delete iconRefs.current[icon.name];
+                            delete iconRefs.current[gKey];
                           }
                         }}
                         className={`icon ${icon.name}`}
+                        style={{ transformOrigin: "50% 50%" }}
                       >
-                        <image
-                          href={OrbitCircles.src}
-                          width={orbitIconSize}
-                          height={orbitIconSize}
-                          x={-orbitIconRadius}
-                          y={-orbitIconRadius}
-                          preserveAspectRatio="xMidYMid meet"
-                          className="pointer-events-none will-change-transform"
-                        />
-                        {iconSrcValue && (
-                          <image
-                            href={iconSrcValue}
-                            width={iconWidth}
-                            height={iconWidth}
-                            x={-iconRadius}
-                            y={-iconRadius}
-                            preserveAspectRatio="xMidYMid meet"
-                            aria-label={icon.iconAlt ?? icon.name}
-                            className={`pointer-events-none ${icon.iconClassName ?? ""}`.trim()}
-                          />
+                        {isCustomerAvatar && iconSrcValue ? (
+                          <>
+                            <circle r={orbitIconRadius} cx={0} cy={0} fill="#0a1a24" stroke="rgba(255,255,255,0.18)" strokeWidth={1} />
+                            <image
+                              href={iconSrcValue}
+                              width={iconWidth}
+                              height={iconWidth}
+                              x={-iconRadius}
+                              y={-iconRadius}
+                              preserveAspectRatio="xMidYMid slice"
+                              clipPath={`url(#${clipId})`}
+                              aria-label={icon.iconAlt ?? icon.name}
+                              className="pointer-events-none"
+                            />
+                          </>
+                        ) : (
+                          <>
+                            <image
+                              href={OrbitCircles.src}
+                              width={orbitIconSize}
+                              height={orbitIconSize}
+                              x={-orbitIconRadius}
+                              y={-orbitIconRadius}
+                              preserveAspectRatio="xMidYMid meet"
+                              className="pointer-events-none"
+                            />
+                            {iconSrcValue && (
+                              <image
+                                href={iconSrcValue}
+                                width={iconWidth}
+                                height={iconWidth}
+                                x={-iconRadius}
+                                y={-iconRadius}
+                                preserveAspectRatio="xMidYMid meet"
+                                aria-label={icon.iconAlt ?? icon.name}
+                                className={`pointer-events-none ${icon.iconClassName ?? ""}`.trim()}
+                              />
+                            )}
+                          </>
                         )}
                       </g>
                     );

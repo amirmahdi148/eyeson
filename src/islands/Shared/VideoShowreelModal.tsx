@@ -23,9 +23,11 @@ type Props = {
   onClose: () => void;
   videoList?: any[];
   initialVideo?: any;
+  hideControls?: boolean;
+  defaultOpenPlaylist?: boolean;
 };
 
-export const VideoShowreelModal = ({ isOpen, onClose, videoList = [], initialVideo }: Props) => {
+export const VideoShowreelModal = ({ isOpen, onClose, videoList = [], initialVideo, hideControls: hideControlsProp = false, defaultOpenPlaylist = false }: Props) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const hideControlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -43,8 +45,12 @@ export const VideoShowreelModal = ({ isOpen, onClose, videoList = [], initialVid
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isMuted, setIsMuted] = useState(false);
-  const [showPlaylist, setShowPlaylist] = useState(false);
+  const [showPlaylist, setShowPlaylist] = useState(defaultOpenPlaylist);
   const [controlsVisible, setControlsVisible] = useState(true);
+
+  useEffect(() => {
+    if (isOpen && defaultOpenPlaylist) setShowPlaylist(true);
+  }, [isOpen, defaultOpenPlaylist]);
 
   // قفل اسکرول صفحه
   useEffect(() => {
@@ -214,8 +220,8 @@ export const VideoShowreelModal = ({ isOpen, onClose, videoList = [], initialVid
           </div>
         )}
 
-        {/* Custom Controls Bar */}
-        {controlsVisible && (
+        {/* Custom Controls Bar — hidden when hideControls */}
+        {controlsVisible && !hideControlsProp && (
           <div
             className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black via-black/80 to-transparent px-3 py-3 sm:px-6 sm:py-6 z-30 flex flex-col gap-3 sm:gap-4 transition-opacity duration-200"
           >
