@@ -108,6 +108,8 @@ html.gpu-off .animate-scale-up,
 html.gpu-off .animate-float-slow,
 html.gpu-off [class*="animate-"] {
   animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
 }
 html.gpu-off .reveal-on-scroll,
 html.gpu-off .fade-on-scroll {

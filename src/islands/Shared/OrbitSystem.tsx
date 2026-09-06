@@ -1,5 +1,6 @@
 import React, {
   memo,
+  useId,
   useLayoutEffect,
   useRef,
   useState,
@@ -96,8 +97,9 @@ export const OrbitSystem = memo(function OrbitSystem({
 
   const isMobileView = useMediaQuery({ maxWidth: 700 });
   const [isInView, setIsInView] = useState(false);
-  // Unique id for clipPaths/gradients when multiple instances mount
-  const instanceId = useRef(Math.random().toString(36).slice(2, 7));
+  // Hydration-safe unique id (useId is deterministic server↔client)
+  const rawId = useId();
+  const instanceId = rawId.replace(/:/g, "") || "orbit";
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -234,7 +236,7 @@ export const OrbitSystem = memo(function OrbitSystem({
             }}
           >
             <defs>
-              <linearGradient id={`orbit-fade-${instanceId.current}`} x1="0" y1="0" x2="0" y2="1">
+              <linearGradient id={`orbit-fade-${instanceId}`} x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor="#1AD9E0" stopOpacity="0.95" />
                 <stop offset="58%" stopColor="#13C7D0" stopOpacity="0.88" />
                 <stop offset="82%" stopColor="#0A8FA1" stopOpacity="0.34" />
@@ -250,7 +252,7 @@ export const OrbitSystem = memo(function OrbitSystem({
                   .map((ic) => {
                     const w = ic.iconSize ?? orbitIconSize - 8;
                     return (
-                      <clipPath key={`clip-${oi}-${ic.name}`} id={`avatar-clip-${instanceId.current}-${oi}-${ic.name}`}>
+                      <clipPath key={`clip-${oi}-${ic.name}`} id={`avatar-clip-${instanceId}-${oi}-${ic.name}`}>
                         <circle r={w / 2} cx={0} cy={0} />
                       </clipPath>
                     );
@@ -270,7 +272,7 @@ export const OrbitSystem = memo(function OrbitSystem({
                     }}
                     d={orbit.pathD}
                     fill="none"
-                    stroke={`url(#orbit-fade-${instanceId.current})`}
+                    stroke={`url(#orbit-fade-${instanceId})`}
                     strokeWidth="1.5"
                     vectorEffect="non-scaling-stroke"
                   />
@@ -286,7 +288,7 @@ export const OrbitSystem = memo(function OrbitSystem({
                     const iconRadius = iconWidth / 2;
 
                     const gKey = `${orbitIndex}-${icon.name}`;
-                    const clipId = `avatar-clip-${instanceId.current}-${orbitIndex}-${icon.name}`;
+                    const clipId = `avatar-clip-${instanceId}-${orbitIndex}-${icon.name}`;
                     return (
                       <g
                         key={gKey}
