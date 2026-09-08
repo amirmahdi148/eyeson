@@ -22,7 +22,7 @@ const SERVICE_GROUPS = [
         items: [
             { title: "Video Editing for Social Media", description: "Short form editing for TikTok, Reels, Shorts, and social campaigns.", image: "/Header/ContentServices/vd.webp", accent: "#8eefff", href: "/video" },
             { title: "Motion Graphics", description: "Animated graphics for marketing, education, and brand content.", image: "/Header/C&MServices/mg.webp", accent: "#5ee8ff", href: "/motiongraphics" },
-            { title: "Full Content Production Retainer", description: "Ongoing content creation, editing, and publishing support.", image: "/Header/C&MServices/md.webp", accent: "#5ee8ff", href: "/video" },
+            { title: "Full Content Production Retainer", description: "Ongoing content creation, editing, and publishing support.", image: "/Header/C&MServices/md.webp", accent: "#5ee8ff", href: "/retainers" },
         ],
         href: "/animation",
     },
@@ -30,7 +30,7 @@ const SERVICE_GROUPS = [
         title: "Design & Motion",
         description: "Brand and digital systems built for clarity.",
         items: [
-            { title: "2D / 3D Animation", description: "Custom animation for products, brands, and visual storytelling.", image: "/Header/C&MServices/23a.webp", accent: "#ffd56a", href: "/animations" },
+            { title: "2D / 3D Animation", description: "Custom animation for products, brands, and visual storytelling.", image: "/Header/C&MServices/23a.webp", accent: "#ffd56a", href: "/animation" },
             { title: "Brand Identity & Logo Design", description: "Logos, visual systems, and brand guidelines.", image: "/Header/DesignServices/uixd.webp", accent: "#ffee99", href: "/branding" },
             { title: "UI/UX Design", description: "Websites, landing pages, and SaaS product interfaces.", image: "/Header/DesignServices/uixd.webp", accent: "#ffee99", href: "/uiux" },
         ],

@@ -20,6 +20,8 @@ export const AnimationsHero = () => {
 launch campaigns, and modern brands that want stronger visual identity, clearer
 storytelling, and a more memorable online presence."
         imageUrl="/animation-section/Edited.webp"
+        imageWidth={529}
+        imageHeight={696}
         animationType="slide"
         SmallLabel="2D ANIMATION · 3D ANIMATION · MOTION DESIGN · VISUAL STORYTELLING"
         enableImageHover={true}

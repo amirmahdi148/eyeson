@@ -23,6 +23,7 @@ const CATEGORIES = [
         icon: Film,
         image: "/home/20/2.webp",
         videoUrl: "/home/Videos/output-first.mp4",
+        poster: "/home/Videos/output-first-poster.jpg",
     },
     {
         id: "motion-design",
@@ -31,6 +32,7 @@ const CATEGORIES = [
         icon: Sparkles,
         image: "/home/20/1.webp",
         videoUrl: "/home/Videos/output-second.mp4",
+        poster: "/home/Videos/output-second-poster.jpg",
     },
     {
         id: "3d-uiux",
@@ -39,6 +41,7 @@ const CATEGORIES = [
         icon: Box,
         image: "/home/20/3.webp",
         videoUrl: "/home/Videos/output-third.mp4",
+        poster: "/home/Videos/output-third-poster.jpg",
     },
     {
         id: "brand-identity",
@@ -47,39 +50,9 @@ const CATEGORIES = [
         icon: Layers,
         image: "/home/20/4.webp",
         videoUrl: "/home/Videos/output-fourth.mp4",
+        poster: "/home/Videos/output-fourth-poster.jpg",
     },
 ];
-
-function captureFifthFrame(videoUrl: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-        const v = document.createElement("video");
-        v.crossOrigin = "anonymous";
-        v.muted = true;
-        v.preload = "auto";
-        v.src = videoUrl;
-        const cleanup = () => { v.remove(); };
-        v.addEventListener("loadeddata", () => {
-            // 5th frame ≈ 5/30 = 0.166s; clamp to duration
-            const t = Math.min(0.17, v.duration - 0.05 || 0.17);
-            v.currentTime = t;
-        });
-        v.addEventListener("seeked", () => {
-            try {
-                const c = document.createElement("canvas");
-                c.width = v.videoWidth || 640;
-                c.height = v.videoHeight || 360;
-                const ctx = c.getContext("2d")!;
-                ctx.drawImage(v, 0, 0, c.width, c.height);
-                const url = c.toDataURL("image/jpeg", 0.8);
-                cleanup();
-                resolve(url);
-            } catch (e) { cleanup(); reject(e); }
-        });
-        v.addEventListener("error", (e) => { cleanup(); reject(e); });
-        // timeout fallback
-        setTimeout(() => { cleanup(); reject(new Error("timeout")); }, 5000);
-    });
-}
 
 interface RightSectionHeroProps {
     activeTab: string;
@@ -95,21 +68,34 @@ export default function RightSectionHero({
     handleTimeUpdate,
     onCategoryChange,
 }: RightSectionHeroProps) {
-    const activeVideo = CATEGORIES.find((c) => c.id === activeTab)?.videoUrl || CATEGORIES[0].videoUrl;
+    const activeCategory = CATEGORIES.find((c) => c.id === activeTab) || CATEGORIES[0];
+    const activeVideo = activeCategory.videoUrl;
     const containerRef = useRef<HTMLDivElement>(null);
     const [canLoadVideo, setCanLoadVideo] = useState(false);
-    const [fifthFramePosters, setFifthFramePosters] = useState<Record<string, string>>({});
+
+    // React does not reliably set the `muted` *property* from JSX, so browsers
+    // treat the video as unmuted and block autoplay. Force it via ref and
+    // explicitly call .play() whenever the source becomes available or changes.
     useEffect(() => {
-        let cancelled = false;
-        CATEGORIES.forEach(async (c) => {
-            try {
-                const url = await captureFifthFrame(c.videoUrl);
-                if (!cancelled) setFifthFramePosters((p) => ({ ...p, [c.videoUrl]: url }));
-            } catch {}
-        });
-        return () => { cancelled = true; };
-    }, []);
-    const resolvedPoster = fifthFramePosters[activeVideo];
+        if (!canLoadVideo) return;
+        const video = videoRef.current;
+        if (!video) return;
+        video.muted = true;
+        video.defaultMuted = true;
+        const tryPlay = () => {
+            video.muted = true;
+            video.play().catch(() => {
+                // Autoplay blocked (e.g. data-saver) — user can tap to start.
+            });
+        };
+        // If metadata already loaded, play immediately; otherwise wait for canplay.
+        if (video.readyState >= 2) {
+            tryPlay();
+        } else {
+            video.addEventListener("canplay", tryPlay, { once: true });
+            return () => video.removeEventListener("canplay", tryPlay);
+        }
+    }, [activeVideo, canLoadVideo, videoRef]);
 
     const goPrev = () => {
         const idx = CATEGORIES.findIndex((c) => c.id === activeTab);
@@ -126,14 +112,21 @@ export default function RightSectionHero({
     const chooserItems = CATEGORIES.map((c) => ({
         id: c.id,
         title: c.title,
-        thumbnail: fifthFramePosters[c.videoUrl] || c.image,
+        thumbnail: c.poster,
         src: c.image,
     }));
     const openShowreel = () => setIsShowreelOpen(true);
     useEffect(() => {
-        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        // Lazy-load the video once it nears the viewport. If the observer or
+        // matchMedia APIs are unavailable, load immediately so the video
+        // never stays blank. Reduced-motion still loads the poster frame —
+        // it just doesn't autoplay (handled by the play effect above via
+        // the autoplay policy; poster remains visible).
         const el = containerRef.current;
-        if (!el) return;
+        if (!el || typeof IntersectionObserver === "undefined") {
+            setCanLoadVideo(true);
+            return;
+        }
         const io = new IntersectionObserver((entries) => {
             if (entries[0].isIntersecting) { setCanLoadVideo(true); io.disconnect(); }
         }, { rootMargin: "200px", threshold: 0 });
@@ -190,13 +183,21 @@ export default function RightSectionHero({
                         key={activeTab}
                         ref={videoRef}
                         src={canLoadVideo ? activeVideo : undefined}
-                        poster={resolvedPoster}
-                        preload="none"
-                        autoPlay={canLoadVideo}
+                        poster={activeCategory.poster}
+                        preload="metadata"
+                        autoPlay
                         muted
                         loop
                         playsInline
+                        disablePictureInPicture={false}
                         onTimeUpdate={handleTimeUpdate}
+                        onCanPlay={() => {
+                            const video = videoRef.current;
+                            if (video) {
+                                video.muted = true;
+                                video.play().catch(() => {});
+                            }
+                        }}
                         className="absolute inset-0 h-full w-full object-cover rounded-[inherit] transition-opacity duration-300"
                     />
                     <div className="absolute inset-0 bg-[#051118]/10 mix-blend-overlay pointer-events-none rounded-[inherit]" aria-hidden="true" />

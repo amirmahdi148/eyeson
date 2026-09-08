@@ -9,6 +9,8 @@ type Props = {
   Description?: string;
 
   imageUrl?: string;
+  imageWidth?: number;
+  imageHeight?: number;
   imageClassName?: string;
   imageDivClassName?: string;
   imageWrapperClassName?: string;
@@ -56,6 +58,11 @@ export const HeroBasic = ({
   Description = "High-impact animated visuals...",
 
   imageUrl = "/animation-section/Edited.webp",
+  // NOTE: must match the file's real pixel dimensions — the browser reserves
+  // the aspect-ratio box from these before the image arrives. Wrong values
+  // cause a layout shift when the true aspect replaces them (see /animation).
+  imageWidth = 800,
+  imageHeight = 640,
   imageClassName = "",
   imageDivClassName = "",
   imageWrapperClassName = "",
@@ -187,8 +194,8 @@ export const HeroBasic = ({
                 <SmartImage
                   src={imageUrl}
                   alt="Hero image"
-                  width={800}
-                  height={640}
+                  width={imageWidth}
+                  height={imageHeight}
                   className={imageClassName}
                 />
               </div>

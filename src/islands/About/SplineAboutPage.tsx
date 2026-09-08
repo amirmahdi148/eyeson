@@ -12,6 +12,8 @@ export function SplineScene({ scene, className }: SplineSceneProps) {
 
     useEffect(() => {
         if (!canvasRef.current) return;
+        // Skip heavy Spline runtime on CPU fallback — static fallback saves WebGL/CPU
+        if (typeof window !== "undefined" && (document.documentElement.classList.contains("gpu-off") || (window as any).__GPU_OFF__)) return;
 
         let spline: any;
 
@@ -28,6 +30,11 @@ export function SplineScene({ scene, className }: SplineSceneProps) {
             if (spline) spline.dispose();
         };
     }, [scene]);
+
+    // ponytail: show poster/fallback when Spline is gated; upgrade when fallback asset ready
+    if (typeof window !== "undefined" && (document.documentElement.classList.contains("gpu-off") || (window as any).__GPU_OFF__)) {
+        return <div className={className} style={{ width: "100%", height: "100%", background: "radial-gradient(ellipse at center, rgba(0,230,215,0.12), transparent 70%)" }} aria-hidden />;
+    }
 
     return (
         <canvas

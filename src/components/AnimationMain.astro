@@ -1,7 +1,4 @@
 ---
-import AnimationBackground from "./AnimationBackground.astro";
-import SaasBackground from "./Saas/SaasBackground.astro";
-import StarBackground from "../islands/StarBackground";
 import {AnimationsHero , MediaFrameHero} from "../islands/animations/AnimationsHero";
 import AnimationProcessSection from "../islands/animations/AnimationProcessSection";
 import AnimationStyleComparisonSection from "../islands/animations/AnimationStyleComparisonSection";
@@ -15,16 +12,12 @@ import VideoWorkShowcaseSection from "../islands/Shared/VideoWorkShowcaseSection
 import FeaturesSection from "./Shared/FeaturesSection.astro";
 import LogoCaro from "./Shared/LogoCaro.astro";
 import AnimationNeedsBlock from "../islands/animations/AnimationNeedsBlock";
+import HomeBackground from "@/islands/Case/CaseBackground";
 ---
 
 <div class="animations-page-mobile relative w-full overflow-x-hidden">
-  <!-- Defer non-critical JS to keep the Hero entry animation smooth on first paint -->
 
-  <SaasBackground />
-
-  <AnimationBackground />
-
-  <AnimationsHero client:load />
+  <AnimationsHero client:visible />
   <LogoCaro />
   <MediaFrameHero client:idle />
   <FeaturesSection
@@ -78,14 +71,12 @@ import AnimationNeedsBlock from "../islands/animations/AnimationNeedsBlock";
     description="Years of refining our animation workflow allow us to deliver smooth, predictable, and stress-free projects. We make collaboration easy, timelines clear, and results consistently high-quality."
   />
 
-  <!-- Simple preloader: show Hero/above-the-fold first, then reveal the rest after ~2s -->
-  <div id="animation-page-preloader" class="animation-preloader" aria-hidden="true">
-    <div class="animation-preloader__dot" />
-    <div class="animation-preloader__dot" />
-    <div class="animation-preloader__dot" />
-  </div>
-
-  <section id="animation-page-deferred" class="animation-deferred" aria-busy="true">
+  <!-- NOTE: below-the-fold sections render normally. They hydrate lazily via
+       client:visible, so no JS-timed reveal is needed. (A previous
+       content-visibility:hidden + 2s-timer wrapper reserved only 2400px for
+       ~10k px of content, causing a massive layout shift + chunked repaint
+       and scroll jumps on reveal — do not reintroduce it.) -->
+  <div class="contents">
     <AnimationNeedsBlock client:visible />
     <IndustriesServeSection client:visible />
     <AnimationProcessSection client:visible />
@@ -179,84 +170,5 @@ import AnimationNeedsBlock from "../islands/animations/AnimationNeedsBlock";
       ]}
     />
     <ContactUs client:visible />
-  </section>
+  </div>
 </div>
-
-<style>
-  /* Only affects this page component */
-  .animation-deferred {
-    /* Skip layout/paint for subtree until we reveal it (reduces work during Hero animation) */
-    content-visibility: hidden;
-    contain-intrinsic-size: 1px 2400px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 260ms ease;
-  }
-
-  .animation-deferred.is-ready {
-    content-visibility: visible;
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .animation-preloader {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 28px 0;
-  }
-
-  .animation-preloader.is-hidden {
-    display: none;
-  }
-
-  .animation-preloader__dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 9999px;
-    background: rgba(255, 255, 255, 0.7);
-    animation: animation-preloader-bounce 800ms ease-in-out infinite;
-    will-change: transform;
-  }
-
-  .animation-preloader__dot:nth-child(2) {
-    animation-delay: 120ms;
-  }
-
-  .animation-preloader__dot:nth-child(3) {
-    animation-delay: 240ms;
-  }
-
-  @keyframes animation-preloader-bounce {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-8px);
-    }
-  }
-</style>
-
-<script is:inline>
-  (() => {
-    const deferred = document.getElementById("animation-page-deferred");
-    const preloader = document.getElementById("animation-page-preloader");
-    if (!deferred || !preloader) return;
-
-    // Let first paint happen, then keep the rest deferred for ~2s.
-    const reveal = () => {
-      deferred.classList.add("is-ready");
-      deferred.setAttribute("aria-busy", "false");
-      preloader.classList.add("is-hidden");
-      window.dispatchEvent(new Event("animationPage:ready"));
-    };
-
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        window.setTimeout(reveal, 2000);
-      });
-    });
-  })();
-</script>

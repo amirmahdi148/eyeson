@@ -141,6 +141,10 @@ export default function AnimationWorkflowSection() {
             <img
               src="/preview.webp" // همون عکس 3D که توی دیزاینت هست رو اینجا لود کن
               alt="Workflow 3D visual"
+              width={609}
+              height={410}
+              loading="lazy"
+              decoding="async"
               className="w-full h-auto object-contain"
             />
           </div>

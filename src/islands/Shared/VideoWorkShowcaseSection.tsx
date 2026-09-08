@@ -238,6 +238,11 @@ export default function VideoWorkShowcaseSection({
         @media (prefers-reduced-motion: reduce) {
           .track-left, .track-right { animation: none; }
         }
+        html.gpu-off .track-left,
+        html.gpu-off .track-right {
+          animation: none !important;
+          transform: none !important;
+        }
       `}</style>
 
       {/* ── Rows ── */}

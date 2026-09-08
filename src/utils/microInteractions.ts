@@ -6,10 +6,11 @@
 
 function initMicroInteractions() {
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const gpuOff = document.documentElement.classList.contains("gpu-off") || (window as any).__GPU_OFF__;
 
   // ---- Scroll reveal ----
   const revealEls = document.querySelectorAll<HTMLElement>(".reveal-on-scroll:not(.mi-bound)");
-  if (reduced) {
+  if (reduced || gpuOff) {
     revealEls.forEach((el) => el.classList.add("is-visible"));
   } else {
     const observer = new IntersectionObserver(
@@ -33,7 +34,7 @@ function initMicroInteractions() {
   }
 
   // ---- Cursor spotlight ----
-  if (window.matchMedia("(pointer: coarse)").matches) return;
+  if (window.matchMedia("(pointer: coarse)").matches || gpuOff || reduced) return;
   document
     .querySelectorAll<HTMLElement>(".spotlight-card:not(.mi-bound)")
     .forEach((card) => {

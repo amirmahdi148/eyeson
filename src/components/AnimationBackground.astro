@@ -166,30 +166,16 @@
 
 <style>
   /*
-    These large SVG Gaussian blurs are expensive to rasterize and can stutter
-    the Hero entry animation. Defer their paint until the page signals ready.
+    NOTE: this component is not currently rendered on any page. The old
+    `animationPage:ready` gating was removed with the deferred reveal in
+    AnimationMain — if you re-use this background, it renders visibly
+    immediately (no JS event required).
   */
   .animation-page-bg {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 500ms ease;
-  }
-
-  .animation-page-bg.is-ready {
     opacity: 1;
     visibility: visible;
   }
 </style>
-
-<script is:inline>
-  (() => {
-    const bg = document.getElementById("animation-page-bg");
-    if (!bg) return;
-    window.addEventListener("animationPage:ready", () => bg.classList.add("is-ready"), {
-      once: true,
-    });
-  })();
-</script>
 
 
 <script is:inline>

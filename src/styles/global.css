@@ -95,12 +95,18 @@ html.gpu-off [class*="backdrop-blur"] {
 html.gpu-off .backdrop-blur-md,
 html.gpu-off .backdrop-blur-xl,
 html.gpu-off .backdrop-blur-sm,
-html.gpu-off .backdrop-blur-3xl {
+html.gpu-off .backdrop-blur-3xl,
+html.gpu-off .backdrop-blur-2xl {
   background-color: rgba(2, 22, 23, 0.92) !important;
 }
 html.gpu-off [style*="blur("],
 html.gpu-off [class*="blur-["] {
   filter: none !important;
+}
+/* decorative large blur orbs are purely aesthetic — hide on CPU to avoid huge offscreen paints */
+html.gpu-off .pointer-events-none[class*="blur-["],
+html.gpu-off div[class*="blur-["].pointer-events-none {
+  display: none !important;
 }
 html.gpu-off .animate-fade-in,
 html.gpu-off .animate-slide-up,
@@ -116,6 +122,21 @@ html.gpu-off .fade-on-scroll {
   will-change: auto !important;
   transform: none !important;
   opacity: 1 !important;
+}
+/* extra heavy compositing helpers */
+html.gpu-off .transform-gpu {
+  transform: none !important;
+}
+html.gpu-off [style*="will-change"] {
+  will-change: auto !important;
+}
+html.gpu-off .mix-blend-overlay {
+  display: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.gpu-off * {
+    scroll-behavior: auto !important;
+  }
 }
 
 @custom-variant dark (&:is(.dark *));

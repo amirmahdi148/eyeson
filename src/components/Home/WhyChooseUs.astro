@@ -33,13 +33,12 @@ const {
 <section class="relative py-[var(--space-2xl)] sm:py-[var(--space-3xl)] lg:py-[var(--space-3xl)] overflow-hidden">
   <div class="relative mx-auto flex w-full max-w-[var(--container-max)] flex-col lg:flex-row lg:items-center lg:justify-between px-[var(--space-gutter)] sm:px-[var(--space-gutter-md)] lg:px-[var(--space-gutter-lg)]">
     
-    {/* ===== سمت چپ: محتوای متنی و سمت راست: تصویر ===== */}
-    {/* با استفاده از Grid و Order جایگاه عناصر رو تو موبایل و دسکتاپ مدیریت کردیم */}
+
     
-    <div class="grid grid-cols-1 lg:grid-cols-12 w-full gap-y-8 lg:gap-8 items-center text-center lg:text-left">
-      
-      {/* 1. نشانک و عنوان (در موبایل اولین عنصر، در دسکتاپ داخل ستون چپ) */}
-      <div class="lg:col-span-6 flex flex-col items-center lg:items-start order-1">
+    <div class="grid grid-cols-1 lg:grid-cols-2 w-full gap-8 lg:gap-12 items-center text-center lg:text-left">
+
+
+      <div class="flex flex-col items-center lg:items-start order-1">
         {/* Eyebrow — glass hairline per Modern Dark */}
         <div
           class=" mb-6 inline-flex items-center gap-3 rounded-full border border-[var(--color-border)] bg-white/[0.04] px-4 py-2.5 sm:py-2 shadow-[var(--elevation-1)] backdrop-blur-md group"
@@ -60,28 +59,12 @@ const {
             </span>
           )}
         </h2>
-      </div>
 
-      <div class="lg:col-span-6 lg:row-span-2 w-full mt-4 lg:mt-0  order-2 lg:order-0">
-        <div class="relative mx-auto w-full max-w-112.5 lg:max-w-155 motion-safe:animate-[softFloat_7s_ease-in-out_infinite] group will-change-transform">
-          <div class="relative transform-gpu transition-all duration-[var(--duration-slower)] ease-[var(--ease-default)] group-hover:scale-[1.02] group-hover:-translate-y-1">
-            <SmartImage
-              src="/home/new-svgs/multiple-icon.svg"
-              alt="Why choose us visual"
-              loading="lazy"
-              className="drop-shadow-[0_20px_40px_rgba(0,0,0,0.4)] group-hover:drop-shadow-[0_24px_48px_rgba(20,150,150,0.22)] transition-all duration-[var(--duration-slower)] ease-[var(--ease-default)]"
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* 3. توضیحات و دکمه‌ها (در موبایل میوفته زیر عکس - order-3، در دسکتاپ زیر عنوان) */}
-      <div class="lg:col-span-6 flex flex-col items-center lg:items-start mt-2 lg:mt-0 order-3">
-        <p class=" max-w-xl text-small leading-relaxed text-white/65 mx-auto lg:mx-0 font-light">
+        <p class="mt-4 lg:mt-5 max-w-xl text-small leading-relaxed text-white/65 mx-auto lg:mx-0 font-light">
           {description}
         </p>
 
-        <div class=" mt-[var(--space-lg)] flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center w-full sm:w-auto">
+        <div class="mt-6 lg:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start items-center w-full sm:w-auto">
           <div class="relative group/btn transform-gpu transition-transform duration-[var(--duration-normal)] ease-[var(--ease-default)] hover:scale-[1.02] active:scale-[0.98] w-full sm:w-auto">
             <div class="absolute -inset-1 rounded-full bg-gradient-to-r from-[var(--primitive-teal-400)] to-[var(--primitive-teal-600)] opacity-0 blur-lg transition-opacity duration-[var(--duration-slow)] group-hover/btn:opacity-30" aria-hidden="true"></div>
             <div class="relative flex justify-center w-full">
@@ -97,6 +80,20 @@ const {
                 <SecondaryButton text={secondaryText} href={secondaryHref} width="100%" height="50px" />
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 2. ستون تصویر */}
+      <div class="w-full order-2">
+        <div class="relative mx-auto w-full max-w-md lg:max-w-xl motion-safe:animate-[softFloat_7s_ease-in-out_infinite] group will-change-transform">
+          <div class="relative transform-gpu transition-all duration-[var(--duration-slower)] ease-[var(--ease-default)] group-hover:scale-[1.02] group-hover:-translate-y-1">
+            <SmartImage
+              src="/home/new-svgs/multiple-icon.svg"
+              alt="Why choose us visual"
+              loading="lazy"
+              className="drop-shadow-[0_20px_40px_rgba(0,0,0,0.4)] group-hover:drop-shadow-[0_24px_48px_rgba(20,150,150,0.22)] transition-all duration-[var(--duration-slower)] ease-[var(--ease-default)]"
+            />
           </div>
         </div>
       </div>
